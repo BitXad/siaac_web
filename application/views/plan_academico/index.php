@@ -1,23 +1,24 @@
+<div class="box-header">
+                <h3 class="box-title">Plan Academico</h3>
+            	<div class="box-tools">
+                    <a href="<?php echo site_url('plan_academico/add'); ?>" class="btn btn-success btn-sm">Nuevo Plan Academico</a>
+                </div>
+            </div>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Plan Academico Listing</h3>
-            	<div class="box-tools">
-                    <a href="<?php echo site_url('plan_academico/add'); ?>" class="btn btn-success btn-sm">Add</a> 
-                </div>
-            </div>
+            
             <div class="box-body">
                 <table class="table table-striped">
                     <tr>
-						<th>Plan Academico Id</th>
-						<th>Estado Id</th>
+						<th>#</th>
+						<th>Nombre</th>
 						<th>Carrera Id</th>
-						<th>Plan Academico Nombre</th>
-						<th>Plan Academico Feccreacion</th>
+						<th>Fecha Creación</th>
 						<th>Plan Academico Codigo</th>
 						<th>Plan Academico Titmodalidad</th>
 						<th>Plan Academico Cantgestion</th>
+						<th>Estado Id</th>
 						<th>Actions</th>
                     </tr>
                     <?php foreach($plan_academico as $p){ ?>

@@ -16,6 +16,10 @@ class Institucion extends CI_Controller{
      */
     function index()
     {
+        $rescount = $this->Institucion_model->get_all_institucion_count();
+        if($rescount >0){
+            $data['newinst'] = 1;
+        }else{ $data['newinst'] = 0; }
         $data['institucion'] = $this->Institucion_model->get_all_institucion();
         
         $data['_view'] = 'institucion/index';
@@ -29,16 +33,68 @@ class Institucion extends CI_Controller{
     {   
         $this->load->library('form_validation');
 
-		$this->form_validation->set_rules('institucion_nombre','Institucion Nombre','required');
-		
-		if($this->form_validation->run())     
-        {   
+        $this->form_validation->set_rules('institucion_nombre','Institucion Nombre','required', array('required' => 'Este Campo no debe ser vacio'));
+
+        if($this->form_validation->run())     
+        {
+            /* *********************INICIO imagen***************************** */
+                $foto="";
+                if (!empty($_FILES['institucion_logo']['name'])){
+                        $this->load->library('image_lib');
+                        $config['upload_path'] = './resources/images/institucion/';
+                        $img_full_path = $config['upload_path'];
+
+                        $config['allowed_types'] = 'gif|jpeg|jpg|png';
+                        $config['max_size'] = 200000;
+                        $config['max_width'] = 2900;
+                        $config['max_height'] = 2900;
+                        
+                        $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
+                        $config['file_name'] = $new_name; //.$extencion;
+                        $config['file_ext_tolower'] = TRUE;
+
+                        $this->load->library('upload', $config);
+                        $this->upload->do_upload('institucion_logo');
+
+                        $img_data = $this->upload->data();
+                        $extension = $img_data['file_ext'];
+                        /* ********************INICIO para resize***************************** */
+                        if ($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
+                            $conf['image_library'] = 'gd2';
+                            $conf['source_image'] = $img_data['full_path'];
+                            $conf['new_image'] = './resources/images/institucion/';
+                            $conf['maintain_ratio'] = TRUE;
+                            $conf['create_thumb'] = FALSE;
+                            $conf['width'] = 800;
+                            $conf['height'] = 600;
+                            $this->image_lib->clear();
+                            $this->image_lib->initialize($conf);
+                            if(!$this->image_lib->resize()){
+                                echo $this->image_lib->display_errors('','');
+                            }
+                        }
+                        /* ********************F I N  para resize***************************** */
+                        $confi['image_library'] = 'gd2';
+                        $confi['source_image'] = './resources/images/institucion/'.$new_name.$extension;
+                        $confi['new_image'] = './resources/images/institucion/'."thumb_".$new_name.$extension;
+                        $confi['create_thumb'] = FALSE;
+                        $confi['maintain_ratio'] = TRUE;
+                        $confi['width'] = 50;
+                        $confi['height'] = 50;
+
+                        $this->image_lib->clear();
+                        $this->image_lib->initialize($confi);
+                        $this->image_lib->resize();
+
+                        $foto = $new_name.$extension;
+                    }
+            /* *********************FIN imagen***************************** */
             $params = array(
 				'institucion_nombre' => $this->input->post('institucion_nombre'),
 				'institucion_direccion' => $this->input->post('institucion_direccion'),
 				'institucion_telefono' => $this->input->post('institucion_telefono'),
 				'institucion_fechacreacion' => $this->input->post('institucion_fechacreacion'),
-				'institucion_logo' => $this->input->post('institucion_logo'),
+				'institucion_logo' => $foto,
 				'institucion_ubicacion' => $this->input->post('institucion_ubicacion'),
 				'institucion_distrito' => $this->input->post('institucion_distrito'),
 				'institucion_zona' => $this->input->post('institucion_zona'),
