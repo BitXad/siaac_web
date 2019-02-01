@@ -1,3 +1,6 @@
+<!------------------ ESTILO DE LAS TABLAS ----------------->
+<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
+<!-------------------------------------------------------->
 <style type="text/css">
     #contieneimg{
         width: 45px;
@@ -42,7 +45,7 @@
         <div class="box">
             
             <div class="box-body">
-                <table class="table table-striped">
+                <table class="table table-striped" id="mitabla">
                     <tr>
                         <th>#</th>
                         <th>Nombre</th>
@@ -88,8 +91,7 @@
                         <td><?php echo $in['institucion_zona']; ?></td>
                         <td><?php echo $in['institucion_slogan']; ?></td>
                         <td><?php echo $in['institucion_departamento']; ?></td>
-                        <td><?php echo $in['institucion_codigo']; ?></td>
-                        <td>
+                        <td><?php echo $in['institucion_codigo']; ?>
                             <!--<a href="<?php //echo site_url('institucion/edit/'.$in['institucion_id']); ?>" class="btn btn-info btn-xs" title="Editar"><span class="fa fa-pencil"></span></a>-->
                             <!--<a href="<?php //echo site_url('institucion/remove/'.$in['institucion_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>-->
                             <!------------------------ INICIO modal para MOSTRAR imagen REAL ------------------->

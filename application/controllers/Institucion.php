@@ -33,7 +33,7 @@ class Institucion extends CI_Controller{
     {   
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('institucion_nombre','Institucion Nombre','required', array('required' => 'Este Campo no debe ser vacio'));
+        $this->form_validation->set_rules('institucion_nombre','Institucion Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 
         if($this->form_validation->run())     
         {
@@ -125,7 +125,7 @@ class Institucion extends CI_Controller{
         {
             $this->load->library('form_validation');
 
-            $this->form_validation->set_rules('institucion_nombre','Institucion Nombre','required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('institucion_nombre','Institucion Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 
             if($this->form_validation->run())     
             {

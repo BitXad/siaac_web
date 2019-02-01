@@ -1,53 +1,57 @@
+<!------------------ ESTILO DE LAS TABLAS ----------------->
+<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
+<!-------------------------------------------------------->
+<div class="box-header">
+                <h3 class="box-title">Carrera</h3>
+            	<div class="box-tools">
+                    <a href="<?php echo site_url('carrera/add'); ?>" class="btn btn-success btn-sm">+ Añadir</a> 
+                </div>
+            </div>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Carrera Listing</h3>
-            	<div class="box-tools">
-                    <a href="<?php echo site_url('carrera/add'); ?>" class="btn btn-success btn-sm">Add</a> 
-                </div>
-            </div>
+            
             <div class="box-body">
-                <table class="table table-striped">
+                <table class="table table-striped" id="mitabla">
                     <tr>
-						<th>Carrera Id</th>
-						<th>Inscripcion Id</th>
-						<th>Areacarrera Id</th>
-						<th>Carrera Nombre</th>
-						<th>Carrera Nombreinterno</th>
-						<th>Carrera Codigo</th>
-						<th>Carrera Nivel</th>
-						<th>Carrera Modalidad</th>
-						<th>Carrera Plan</th>
-						<th>Carrera Fechacreacion</th>
-						<th>Carrera Codaprod</th>
-						<th>Carrera Matricula</th>
-						<th>Carrera Mensualidad</th>
-						<th>Carrera Nummeses</th>
-						<th>Actions</th>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Nombre Interno</th>
+                        <th>Código</th>
+                        <th>Area</th>
+                        <th>Nivel</th>
+                        <th>Modalidad</th>
+                        <th>Plan</th>
+                        <th>Fecha Creación</th>
+                        <th>Codaprod</th>
+                        <th>Matrícula</th>
+                        <th>Mensualidad</th>
+                        <th>Num. Meses</th>
+                        <th></th>
                     </tr>
-                    <?php foreach($carrera as $c){ ?>
+                    <?php
+                    $i = 0;
+                    foreach($carrera as $c){ ?>
                     <tr>
-						<td><?php echo $c['carrera_id']; ?></td>
-						<td><?php echo $c['inscripcion_id']; ?></td>
-						<td><?php echo $c['areacarrera_id']; ?></td>
-						<td><?php echo $c['carrera_nombre']; ?></td>
-						<td><?php echo $c['carrera_nombreinterno']; ?></td>
-						<td><?php echo $c['carrera_codigo']; ?></td>
-						<td><?php echo $c['carrera_nivel']; ?></td>
-						<td><?php echo $c['carrera_modalidad']; ?></td>
-						<td><?php echo $c['carrera_plan']; ?></td>
-						<td><?php echo $c['carrera_fechacreacion']; ?></td>
-						<td><?php echo $c['carrera_codaprod']; ?></td>
-						<td><?php echo $c['carrera_matricula']; ?></td>
-						<td><?php echo $c['carrera_mensualidad']; ?></td>
-						<td><?php echo $c['carrera_nummeses']; ?></td>
-						<td>
+                        <td><?php echo $i+1; ?></td>
+                        <td><?php echo $c['areacarrera_id']; ?></td>
+                        <td><?php echo $c['carrera_nombre']; ?></td>
+                        <td><?php echo $c['carrera_nombreinterno']; ?></td>
+                        <td><?php echo $c['carrera_codigo']; ?></td>
+                        <td><?php echo $c['carrera_nivel']; ?></td>
+                        <td><?php echo $c['carrera_modalidad']; ?></td>
+                        <td><?php echo $c['carrera_plan']; ?></td>
+                        <td><?php echo $c['carrera_fechacreacion']; ?></td>
+                        <td><?php echo $c['carrera_codaprod']; ?></td>
+                        <td><?php echo $c['carrera_matricula']; ?></td>
+                        <td><?php echo $c['carrera_mensualidad']; ?></td>
+                        <td><?php echo $c['carrera_nummeses']; ?></td>
+                        <td>
                             <a href="<?php echo site_url('carrera/edit/'.$c['carrera_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
                             <a href="<?php echo site_url('carrera/remove/'.$c['carrera_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
                         </td>
                     </tr>
-                    <?php } ?>
+                    <?php $i++; } ?>
                 </table>
                                 
             </div>

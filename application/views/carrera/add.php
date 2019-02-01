@@ -8,22 +8,6 @@
           	<div class="box-body">
           		<div class="row clearfix">
 					<div class="col-md-6">
-						<label for="inscripcion_id" class="control-label">Inscripcion</label>
-						<div class="form-group">
-							<select name="inscripcion_id" class="form-control">
-								<option value="">select inscripcion</option>
-								<?php 
-								foreach($all_inscripcion as $inscripcion)
-								{
-									$selected = ($inscripcion['inscripcion_id'] == $this->input->post('inscripcion_id')) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$inscripcion['inscripcion_id'].'" '.$selected.'>'.$inscripcion['inscripcion_id'].'</option>';
-								} 
-								?>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-6">
 						<label for="areacarrera_id" class="control-label">Carrera</label>
 						<div class="form-group">
 							<select name="areacarrera_id" class="form-control">
