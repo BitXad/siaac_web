@@ -47,7 +47,6 @@
                         <th>#</th>
                         <th>Nombre</th>
                         <th>Dirección</th>
-                        <th>Teléfono</th>
                         <th>Fecha creación</th>
                         <th>Ubicación</th>
                         <th>Distrito</th>
@@ -55,65 +54,66 @@
                         <th>Slogan</th>
                         <th>Departamento</th>
                         <th>Código</th>
-                        <th></th>
                     </tr>
                     <?php
                         $i = 0;
                         foreach($institucion as $in){ ?>
                     <tr>
                         <td><?php echo $i+1; ?></td>
-                        <td><div id="horizontal">
+                        <td>
+                            <div id="horizontal">
                                 <div id="contieneimg">
                                     <?php
                                     $mimagen = "thumb_".$in['institucion_logo'];
                                     //echo '<img src="'.site_url('/resources/images/clientes/'.$mimagen).'" />';
-                                    if($c['cliente_foto']){
                                     ?>
-                                    <a class="btn  btn-xs" data-toggle="modal" data-target="#mostrarimagen<?php echo $cont; ?>" style="padding: 0px;">
+                                    <a class="btn  btn-xs" data-toggle="modal" data-target="#mostrarimagen<?php echo $i; ?>" style="padding: 0px;">
                                         <?php
-                                        echo '<img src="'.site_url('/resources/images/clientes/'.$mimagen).'" />';
+                                        echo '<img src="'.site_url('/resources/images/institucion/'.$mimagen).'" />';
                                         ?>
                                     </a>
-                                    <?php }
-                                    else{
-                                       echo '<img style src="'.site_url('/resources/images/usuarios/thumb_default.jpg').'" />'; 
-                                    }
+                                </div>
+                                <div style="padding-left: 4px">
+                                    <?php echo "<b id='masg'>".$in['institucion_nombre']."</b><br>";
+                                          echo "<b>Teléfono: </b>".$in['institucion_telefono']."<br>";
                                     ?>
-                                    </div>
-                                        <div style="padding-left: 4px">
-                                        <?php echo "<b id='masg'>".$c['cliente_nombre']."</b><br>";
-                                              echo "<b>Codigo: </b>".$c['cliente_codigo']."<br>";
-                                              echo "<b>C.I.: </b>".$c['cliente_ci']."<br>";
-                                              $linea = "";
-                                              if($c['cliente_telefono'] >0 && $c['cliente_celular']>0){
-                                                  $linea = "-";
-                                              }
-                                              echo "<b>Tel.: </b>".$c['cliente_telefono'].$linea.$c['cliente_celular'];
-                                        ?>
-                                    </div>
-                                 </div>
+                                </div>
+                             </div>
                             
-                            
-                            
-                            
-                            <?php echo $i['institucion_logo'];
-                                  echo $i['institucion_nombre']; ?></td>
-                        <td><?php echo $i['institucion_direccion']; ?></td>
-                        <td><?php echo $i['institucion_telefono']; ?></td>
-                        <td><?php echo $i['institucion_fechacreacion']; ?></td>
-                        <td><?php  ?></td>
-                        <td><?php echo $i['institucion_ubicacion']; ?></td>
-                        <td><?php echo $i['institucion_distrito']; ?></td>
-                        <td><?php echo $i['institucion_zona']; ?></td>
-                        <td><?php echo $i['institucion_slogan']; ?></td>
-                        <td><?php echo $i['institucion_departamento']; ?></td>
-                        <td><?php echo $i['institucion_codigo']; ?></td>
+                        </td>
+                        <td><?php echo $in['institucion_direccion']; ?></td>
+                        <td><?php echo date("d/m/Y", strtotime($in['institucion_fechacreacion'])); ?></td>
+                        <td><?php echo $in['institucion_ubicacion']; ?></td>
+                        <td><?php echo $in['institucion_distrito']; ?></td>
+                        <td><?php echo $in['institucion_zona']; ?></td>
+                        <td><?php echo $in['institucion_slogan']; ?></td>
+                        <td><?php echo $in['institucion_departamento']; ?></td>
+                        <td><?php echo $in['institucion_codigo']; ?></td>
                         <td>
-                            <a href="<?php echo site_url('institucion/edit/'.$i['institucion_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-                            <a href="<?php echo site_url('institucion/remove/'.$i['institucion_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                            <!--<a href="<?php //echo site_url('institucion/edit/'.$in['institucion_id']); ?>" class="btn btn-info btn-xs" title="Editar"><span class="fa fa-pencil"></span></a>-->
+                            <!--<a href="<?php //echo site_url('institucion/remove/'.$in['institucion_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>-->
+                            <!------------------------ INICIO modal para MOSTRAR imagen REAL ------------------->
+                                    <div class="modal fade" id="mostrarimagen<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="mostrarimagenlabel<?php echo $i; ?>">
+                                      <div class="modal-dialog" role="document">
+                                            <br><br>
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                                            <font size="3"><b><?php echo $in['institucion_nombre']; ?></b></font>
+                                          </div>
+                                            <div class="modal-body">
+                                           <!------------------------------------------------------------------->
+                                           <?php echo '<img style="max-height: 100%; max-width: 100%" src="'.site_url('/resources/images/institucion/'.$in['institucion_logo']).'" />'; ?>
+                                           <!------------------------------------------------------------------->
+                                          </div>
+                                          
+                                        </div>
+                                      </div>
+                                    </div>
+                            <!------------------------ FIN modal para MOSTRAR imagen REAL ------------------->
                         </td>
                     </tr>
-                    <?php } ?>
+                    <?php $i++; } ?>
                 </table>
                                 
             </div>
