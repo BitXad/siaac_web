@@ -1,19 +1,21 @@
+<!------------------ ESTILO DE LAS TABLAS ----------------->
+<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
+<!-------------------------------------------------------->
 <div class="row">
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Docente Listing</h3>
+                <h3 class="box-title">Docente</h3>
             	<div class="box-tools">
-                    <a href="<?php echo site_url('docente/add'); ?>" class="btn btn-success btn-sm">Add</a> 
+                    <a href="<?php echo site_url('docente/add'); ?>" class="btn btn-success btn-sm">Registrar Docente</a> 
                 </div>
             </div>
             <div class="box-body">
-                <table class="table table-striped">
+                <table class="table table-striped" id="mitabla">
                     <tr>
-						<th>Docente Id</th>
+						<th>#</th>
 						<th>Estado Id</th>
 						<th>Genero Id</th>
-						<th>Est Estado Id</th>
 						<th>Docente Nombre</th>
 						<th>Docente Apellidos</th>
 						<th>Docente Fechanac</th>
@@ -30,12 +32,13 @@
 						<th>Docente Email</th>
 						<th>Actions</th>
                     </tr>
-                    <?php foreach($docente as $d){ ?>
+                    <?php $cont = 0;
+                    foreach($docente as $d){ 
+                        $cont = $cont+1; ?>
                     <tr>
-						<td><?php echo $d['docente_id']; ?></td>
+						<td><?php echo $cont; ?></td>
 						<td><?php echo $d['estado_id']; ?></td>
-						<td><?php echo $d['genero_id']; ?></td>
-						<td><?php echo $d['est_estado_id']; ?></td>
+						<td><?php echo $d['genero_id']; ?></td>					
 						<td><?php echo $d['docente_nombre']; ?></td>
 						<td><?php echo $d['docente_apellidos']; ?></td>
 						<td><?php echo $d['docente_fechanac']; ?></td>

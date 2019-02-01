@@ -9,6 +9,8 @@ class Aula extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Aula_model');
+        $this->load->model('Tipo_aula_model');
+           
     } 
 
     /*
@@ -44,7 +46,8 @@ class Aula extends CI_Controller{
             redirect('aula/index');
         }
         else
-        {            
+        {   
+            $data['all_tipo_aula'] = $this->Tipo_aula_model->get_all_tipo_aula();        
             $data['_view'] = 'aula/add';
             $this->load->view('layouts/main',$data);
         }
@@ -78,6 +81,7 @@ class Aula extends CI_Controller{
             }
             else
             {
+                $data['all_tipo_aula'] = $this->Tipo_aula_model->get_all_tipo_aula();
                 $data['_view'] = 'aula/edit';
                 $this->load->view('layouts/main',$data);
             }
