@@ -39,10 +39,10 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="est_estado_id" class="control-label">Est Estado Id</label>
 						<div class="form-group">
-							<input type="text" name="est_estado_id" value="<?php echo $this->input->post('est_estado_id'); ?>" class="form-control" id="est_estado_id" />
+							<input type="hidden" name="est_estado_id" value="1" class="form-control" id="est_estado_id" />
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -58,9 +58,9 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="docente_fechanac" class="control-label">Docente Fechanac</label>
+						<label for="docente_fechanac" class="control-label">Fecha Nacimiento</label>
 						<div class="form-group">
-							<input type="text" name="docente_fechanac" value="<?php echo $this->input->post('docente_fechanac'); ?>" class="has-datepicker form-control" id="docente_fechanac" />
+							<input type="date" name="docente_fechanac" value="<?php echo $this->input->post('docente_fechanac'); ?>" class=" form-control" id="docente_fechanac" />
 						</div>
 					</div>
 					<div class="col-md-6">
