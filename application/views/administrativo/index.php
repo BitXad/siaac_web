@@ -14,23 +14,20 @@
                 <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>#</th>
-						<th>Estado</th>
+						<th>Nombre</th>
 						<th>Estado Civil</th>
 						<th>Institucion</th>
-						<th>Genero Id</th>
-						<th>Nombre</th>
-						<th>Apellidos</th>
-						<th>Fechanac</th>
-						<th>Edad</th>
+						<th>Genero</th>
+						<th>Fechanac <br>
+						Edad</th>
 						<th>Ci</th>
-						<th>Extci</th>
 						<th>Codigo</th>
 						<th>Direccion</th>
-						<th>Telefono</th>
-						<th>Celular</th>
+						<th>Telefono<br>
+						Celular</th>
 						<th>Cargo</th>
 						<th>Foto</th>
-						<th>Fechareg</th>
+						<th>Estado</th>
 						<th></th>
                     </tr>
                     <?php $cont = 0;
@@ -38,23 +35,23 @@
                         $cont = $cont+1; ?>
                     <tr>
 						<td><?php echo $cont; ?></td>
-						<td><?php echo $a['estado_descripcion']; ?></td>
+						<td><?php echo $a['administrativo_nombre']; ?>
+						<?php echo $a['administrativo_apellidos']; ?></td>
 						<td><?php echo $a['estadocivil_descripcion']; ?></td>
 						<td><?php echo $a['institucion_nombre']; ?></td>
-						<td><?php echo $a['genero_nombre']; ?></td>
-						<td><?php echo $a['administrativo_nombre']; ?></td>
-						<td><?php echo $a['administrativo_apellidos']; ?></td>
-						<td><?php echo $a['administrativo_fechanac']; ?></td>
-						<td><?php echo $a['administrativo_edad']; ?></td>
-						<td><?php echo $a['administrativo_ci']; ?></td>
-						<td><?php echo $a['administrativo_extci']; ?></td>
+						<td><?php echo $a['genero_nombre']; ?></td>					
+						<td><?php echo $a['administrativo_fechanac']; ?><br>
+						<?php echo $a['administrativo_edad']; ?></td>
+						<td><?php echo $a['administrativo_ci']; ?>
+						<?php echo $a['administrativo_extci']; ?></td>
 						<td><?php echo $a['administrativo_codigo']; ?></td>
 						<td><?php echo $a['administrativo_direccion']; ?></td>
-						<td><?php echo $a['administrativo_telefono']; ?></td>
-						<td><?php echo $a['administrativo_celular']; ?></td>
+						<td><?php echo $a['administrativo_telefono']; ?><br>
+						<?php echo $a['administrativo_celular']; ?></td>
 						<td><?php echo $a['administrativo_cargo']; ?></td>
 						<td><?php echo $a['administrativo_foto']; ?></td>
-						<td><?php echo $a['administrativo_fechareg']; ?></td>
+						<td><?php echo $a['estado_descripcion']; ?></td>
+						<!--<td><?php echo $a['administrativo_fechareg']; ?></td>-->
 						<td>
                             <a href="<?php echo site_url('administrativo/edit/'.$a['administrativo_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
                             <a href="<?php echo site_url('administrativo/remove/'.$a['administrativo_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>

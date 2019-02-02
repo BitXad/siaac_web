@@ -57,13 +57,15 @@ class Estudiante_model extends CI_Model
         
         $estudiante = $this->db->query("
             SELECT
-                *
+                es.*, e.*, ec.*, g.*
 
             FROM
-                `estudiante`
+                estudiante es, estado e, estado_civil ec, genero g
 
             WHERE
-                1 = 1
+                es.estado_id=e.estado_id
+                and es.genero_id=g.genero_id
+                and es.estadocivil_id=ec.estadocivil_id
 
             ORDER BY `estudiante_id` DESC
 

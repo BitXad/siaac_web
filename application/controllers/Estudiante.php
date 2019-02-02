@@ -43,7 +43,7 @@ class Estudiante extends CI_Controller{
 		if($this->form_validation->run())     
         {   
             $params = array(
-				'estado_id' => $this->input->post('estado_id'),
+				'estado_id' => 1,
 				'genero_id' => $this->input->post('genero_id'),
 				'estadocivil_id' => $this->input->post('estadocivil_id'),
 				'estudiante_nombre' => $this->input->post('estudiante_nombre'),
