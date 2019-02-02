@@ -1,12 +1,43 @@
+<script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
+<script type="text/javascript">
+
+      $(document).ready(function () {
+          $('#administrativo_nombre').keyup(function () {
+             var value = $(this).val();
+            var cad1 = value.substring(0,3);
+             var fecha = new Date();
+        var pararand = fecha.getFullYear()+fecha.getMonth()+fecha.getDay();
+        var cad3 = Math.floor((Math.random(1001,9999) * pararand));
+            var cad = cad1+cad3;
+              $('#administrativo_codigo').val(cad);
+          });
+      });
+
+
+</script>
 <div class="row">
     <div class="col-md-12">
       	<div class="box box-info">
             <div class="box-header with-border">
-              	<h3 class="box-title">Administrativo Edit</h3>
+              	<h3 class="box-title">Editar Administrativo</h3>
             </div>
 			<?php echo form_open('administrativo/edit/'.$administrativo['administrativo_id']); ?>
 			<div class="box-body">
 				<div class="row clearfix">
+					<div class="col-md-6">
+						<label for="administrativo_nombre" class="control-label"><span class="text-danger">*</span>Administrativo Nombre</label>
+						<div class="form-group">
+							<input type="text" name="administrativo_nombre" value="<?php echo ($this->input->post('administrativo_nombre') ? $this->input->post('administrativo_nombre') : $administrativo['administrativo_nombre']); ?>" class="form-control" id="administrativo_nombre" />
+							<span class="text-danger"><?php echo form_error('administrativo_nombre');?></span>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="administrativo_apellidos" class="control-label"><span class="text-danger">*</span>Administrativo Apellidos</label>
+						<div class="form-group">
+							<input type="text" name="administrativo_apellidos" value="<?php echo ($this->input->post('administrativo_apellidos') ? $this->input->post('administrativo_apellidos') : $administrativo['administrativo_apellidos']); ?>" class="form-control" id="administrativo_apellidos" />
+							<span class="text-danger"><?php echo form_error('administrativo_apellidos');?></span>
+						</div>
+					</div>
 					<div class="col-md-6">
 						<label for="estado_id" class="control-label">Estado</label>
 						<div class="form-group">
@@ -72,31 +103,17 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="administrativo_nombre" class="control-label"><span class="text-danger">*</span>Administrativo Nombre</label>
-						<div class="form-group">
-							<input type="text" name="administrativo_nombre" value="<?php echo ($this->input->post('administrativo_nombre') ? $this->input->post('administrativo_nombre') : $administrativo['administrativo_nombre']); ?>" class="form-control" id="administrativo_nombre" />
-							<span class="text-danger"><?php echo form_error('administrativo_nombre');?></span>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="administrativo_apellidos" class="control-label"><span class="text-danger">*</span>Administrativo Apellidos</label>
-						<div class="form-group">
-							<input type="text" name="administrativo_apellidos" value="<?php echo ($this->input->post('administrativo_apellidos') ? $this->input->post('administrativo_apellidos') : $administrativo['administrativo_apellidos']); ?>" class="form-control" id="administrativo_apellidos" />
-							<span class="text-danger"><?php echo form_error('administrativo_apellidos');?></span>
-						</div>
-					</div>
-					<div class="col-md-6">
 						<label for="administrativo_fechanac" class="control-label">Administrativo Fechanac</label>
 						<div class="form-group">
-							<input type="text" name="administrativo_fechanac" value="<?php echo ($this->input->post('administrativo_fechanac') ? $this->input->post('administrativo_fechanac') : $administrativo['administrativo_fechanac']); ?>" class="has-datepicker form-control" id="administrativo_fechanac" />
+							<input type="date" name="administrativo_fechanac" value="<?php echo ($this->input->post('administrativo_fechanac') ? $this->input->post('administrativo_fechanac') : $administrativo['administrativo_fechanac']); ?>" class="form-control" id="administrativo_fechanac" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<!--<div class="col-md-6">
 						<label for="administrativo_edad" class="control-label">Administrativo Edad</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_edad" value="<?php echo ($this->input->post('administrativo_edad') ? $this->input->post('administrativo_edad') : $administrativo['administrativo_edad']); ?>" class="form-control" id="administrativo_edad" />
 						</div>
-					</div>
+					</div>-->
 					<div class="col-md-6">
 						<label for="administrativo_ci" class="control-label">Administrativo Ci</label>
 						<div class="form-group">
@@ -106,13 +123,25 @@
 					<div class="col-md-6">
 						<label for="administrativo_extci" class="control-label">Administrativo Extci</label>
 						<div class="form-group">
-							<input type="text" name="administrativo_extci" value="<?php echo ($this->input->post('administrativo_extci') ? $this->input->post('administrativo_extci') : $administrativo['administrativo_extci']); ?>" class="form-control" id="administrativo_extci" />
+							<select name="administrativo_extci" class="form-control"  value="<?php echo $this->input->post('administrativo_extci'); ?>" id="administrativo_extci" required>
+								<option value="">- EXTENSION -</option>
+							  <option value="CBBA" <?php if($administrativo['administrativo_extci']=='CBBA'){ ?> selected <?php } ?>>CBBA</option>
+							  <option value="LPZ" <?php if($administrativo['administrativo_extci']=='LPZ'){ ?> selected <?php } ?>>LPZ</option>
+							  <option value="POT" <?php if($administrativo['administrativo_extci']=='POT'){ ?> selected <?php } ?>>POT</option>
+							  <option value="ORU" <?php if($administrativo['administrativo_extci']=='ORU'){ ?> selected <?php } ?>>ORU</option>
+							  <option value="STCZ" <?php if($administrativo['administrativo_extci']=='STCZ'){ ?> selected <?php } ?>>STCZ</option>
+							  <option value="BEN" <?php if($administrativo['administrativo_extci']=='BEN'){ ?> selected <?php } ?>>BEN</option>
+							  <option value="PAN" <?php if($administrativo['administrativo_extci']=='PAN'){ ?> selected <?php } ?>>PAN</option>
+							  <option value="CHQ" <?php if($administrativo['administrativo_extci']=='CHQ'){ ?> selected <?php } ?>>CHQ</option>
+							  <option value="TRJ" <?php if($administrativo['administrativo_extci']=='TRJ'){ ?> selected <?php } ?>>TRJ</option>
+							</select> 
+
 						</div>
 					</div>
 					<div class="col-md-6">
 						<label for="administrativo_codigo" class="control-label">Administrativo Codigo</label>
 						<div class="form-group">
-							<input type="text" name="administrativo_codigo" value="<?php echo ($this->input->post('administrativo_codigo') ? $this->input->post('administrativo_codigo') : $administrativo['administrativo_codigo']); ?>" class="form-control" id="administrativo_codigo" />
+							<input type="text" name="administrativo_codigo" value="<?php echo ($this->input->post('administrativo_codigo') ? $this->input->post('administrativo_codigo') : $administrativo['administrativo_codigo']); ?>" class="form-control" id="administrativo_codigo" readonly/>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -124,13 +153,13 @@
 					<div class="col-md-6">
 						<label for="administrativo_telefono" class="control-label">Administrativo Telefono</label>
 						<div class="form-group">
-							<input type="text" name="administrativo_telefono" value="<?php echo ($this->input->post('administrativo_telefono') ? $this->input->post('administrativo_telefono') : $administrativo['administrativo_telefono']); ?>" class="form-control" id="administrativo_telefono" />
+							<input type="number" name="administrativo_telefono" value="<?php echo ($this->input->post('administrativo_telefono') ? $this->input->post('administrativo_telefono') : $administrativo['administrativo_telefono']); ?>" class="form-control" id="administrativo_telefono" />
 						</div>
 					</div>
 					<div class="col-md-6">
 						<label for="administrativo_celular" class="control-label">Administrativo Celular</label>
 						<div class="form-group">
-							<input type="text" name="administrativo_celular" value="<?php echo ($this->input->post('administrativo_celular') ? $this->input->post('administrativo_celular') : $administrativo['administrativo_celular']); ?>" class="form-control" id="administrativo_celular" />
+							<input type="number" name="administrativo_celular" value="<?php echo ($this->input->post('administrativo_celular') ? $this->input->post('administrativo_celular') : $administrativo['administrativo_celular']); ?>" class="form-control" id="administrativo_celular" />
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -142,21 +171,23 @@
 					<div class="col-md-6">
 						<label for="administrativo_foto" class="control-label">Administrativo Foto</label>
 						<div class="form-group">
-							<input type="text" name="administrativo_foto" value="<?php echo ($this->input->post('administrativo_foto') ? $this->input->post('administrativo_foto') : $administrativo['administrativo_foto']); ?>" class="form-control" id="administrativo_foto" />
+							<input type="file" name="administrativo_foto" value="<?php echo ($this->input->post('administrativo_foto') ? $this->input->post('administrativo_foto') : $administrativo['administrativo_foto']); ?>" class="form-control" id="administrativo_foto" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="administrativo_fechareg" class="control-label">Administrativo Fechareg</label>
 						<div class="form-group">
-							<input type="text" name="administrativo_fechareg" value="<?php echo ($this->input->post('administrativo_fechareg') ? $this->input->post('administrativo_fechareg') : $administrativo['administrativo_fechareg']); ?>" class="form-control" id="administrativo_fechareg" />
+							<input type="text" name="administrativo_fechareg" value="<?php echo ($this->input->post('administrativo_fechareg') ? $this->input->post('administrativo_fechareg') : $administrativo['administrativo_fechareg']); ?>" class="form-control" id="administrativo_fechareg" readonly/>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="box-footer">
             	<button type="submit" class="btn btn-success">
-					<i class="fa fa-check"></i> Save
+					<i class="fa fa-check"></i> Guardar
 				</button>
+				<a href="<?php echo site_url('administrativo/index'); ?>" class="btn btn-danger">
+                                <i class="fa fa-times"></i> Cancelar</a>
 	        </div>				
 			<?php echo form_close(); ?>
 		</div>

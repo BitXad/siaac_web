@@ -29,7 +29,7 @@
 						<td><?php echo $a['aula_nombre']; ?></td>
 						<td><?php echo $a['aula_descripcion']; ?></td>
 						<td><?php echo $a['aula_capacidad']; ?></td>
-						<td><?php echo $a['aula_tipo']; ?></td>
+						<td><?php echo $a['tipoaula_descripcion']; ?></td>
 						<td>
                             <a href="<?php echo site_url('aula/edit/'.$a['aula_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
                             <a href="<?php echo site_url('aula/remove/'.$a['aula_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>

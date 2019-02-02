@@ -29,7 +29,7 @@ class Area_carrera extends CI_Controller{
     {   
         $this->load->library('form_validation');
 
-		$this->form_validation->set_rules('areacarrera_nombre','Areacarrera Nombre','required');
+		$this->form_validation->set_rules('areacarrera_nombre','Areacarrera Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 		
 		if($this->form_validation->run())     
         {   
@@ -59,7 +59,7 @@ class Area_carrera extends CI_Controller{
         {
             $this->load->library('form_validation');
 
-			$this->form_validation->set_rules('areacarrera_nombre','Areacarrera Nombre','required');
+			$this->form_validation->set_rules('areacarrera_nombre','Areacarrera Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 		
 			if($this->form_validation->run())     
             {   

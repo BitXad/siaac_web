@@ -37,13 +37,16 @@ class Administrativo_model extends CI_Model
     {
         $administrativo = $this->db->query("
             SELECT
-                *
+                a.*, e.*, ec.*, g.*, i.*
 
             FROM
-                `administrativo`
+                administrativo a, estado e, estado_civil ec, genero g, institucion i
 
             WHERE
-                1 = 1
+                a.estado_id=e.estado_id
+                and a.genero_id=g.genero_id
+                and a.estadocivil_id=ec.estadocivil_id
+                and a.institucion_id=i.institucion_id
 
             ORDER BY `administrativo_id` DESC
         ")->result_array();

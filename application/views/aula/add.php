@@ -29,8 +29,8 @@
 					<div class="col-md-6">
 						<label for="aula_tipo" class="control-label">Aula Tipo</label>
 						<div class="form-group">
-								<select name="aula_tipo" class="form-control">
-								<option value="">select tipoaula</option>
+								<select name="aula_tipo" class="form-control" required>
+								<option value="">- TIPO AULA -</option>
 								<?php 
 								foreach($all_tipo_aula as $tipoaula)
 								{

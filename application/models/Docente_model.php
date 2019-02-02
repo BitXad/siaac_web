@@ -57,13 +57,14 @@ class Docente_model extends CI_Model
         
         $docente = $this->db->query("
             SELECT
-                *
+                d.*, e.*, g.*
 
             FROM
-                `docente`
+                docente d, estado e, genero g
 
             WHERE
-                1 = 1
+                d.estado_id=e.estado_id
+                and d.genero_id=g.genero_id
 
             ORDER BY `docente_id` DESC
 

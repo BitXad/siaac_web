@@ -35,7 +35,7 @@ class Administrativo extends CI_Controller{
 		if($this->form_validation->run())     
         {   
             $params = array(
-				'estado_id' => $this->input->post('estado_id'),
+				'estado_id' => 1,
 				'estadocivil_id' => $this->input->post('estadocivil_id'),
 				'institucion_id' => $this->input->post('institucion_id'),
 				'genero_id' => $this->input->post('genero_id'),

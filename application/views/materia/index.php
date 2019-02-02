@@ -1,23 +1,26 @@
+<!------------------ ESTILO DE LAS TABLAS ----------------->
+<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
+<!-------------------------------------------------------->
 <div class="row">
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Materia Listing</h3>
+                <h3 class="box-title">Materia</h3>
             	<div class="box-tools">
-                    <a href="<?php echo site_url('materia/add'); ?>" class="btn btn-success btn-sm">Add</a> 
+                    <a href="<?php echo site_url('materia/add'); ?>" class="btn btn-success btn-sm">Registrar Materia</a> 
                 </div>
             </div>
             <div class="box-body">
-                <table class="table table-striped">
+                <table class="table table-striped" id="mitabla">
                     <tr>
-						<th>Materia Id</th>
-						<th>Area Id</th>
-						<th>Nivel Id</th>
+						<th>#</th>
+						<th>Area</th>
+						<th>Nivel</th>
 						<th>Mat Materia Id</th>
-						<th>Estado Id</th>
-						<th>Materia Nombre</th>
-						<th>Materia Alias</th>
-						<th>Materia Codigo</th>
+						<th>Estado</th>
+						<th>Nombre</th>
+						<th>Alias</th>
+						<th>Codigo</th>
 						<th>Materia Hp</th>
 						<th>Materia Ht</th>
 						<th>Materia Th</th>
@@ -49,9 +52,11 @@
 						<th>Materia Ponderado7</th>
 						<th>Actions</th>
                     </tr>
-                    <?php foreach($materia as $m){ ?>
+                    <?php $cont = 0;
+                    foreach($materia as $m){ 
+                        $cont = $cont+1; ?>
                     <tr>
-						<td><?php echo $m['materia_id']; ?></td>
+						<td><?php echo $cont; ?></td>
 						<td><?php echo $m['area_id']; ?></td>
 						<td><?php echo $m['nivel_id']; ?></td>
 						<td><?php echo $m['mat_materia_id']; ?></td>

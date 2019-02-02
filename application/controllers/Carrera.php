@@ -34,7 +34,6 @@ class Carrera extends CI_Controller{
 		if($this->form_validation->run())     
         {   
             $params = array(
-				'inscripcion_id' => $this->input->post('inscripcion_id'),
 				'areacarrera_id' => $this->input->post('areacarrera_id'),
 				'carrera_nombre' => $this->input->post('carrera_nombre'),
 				'carrera_nombreinterno' => $this->input->post('carrera_nombreinterno'),
@@ -80,7 +79,6 @@ class Carrera extends CI_Controller{
 			if($this->form_validation->run())     
             {   
                 $params = array(
-					'inscripcion_id' => $this->input->post('inscripcion_id'),
 					'areacarrera_id' => $this->input->post('areacarrera_id'),
 					'carrera_nombre' => $this->input->post('carrera_nombre'),
 					'carrera_nombreinterno' => $this->input->post('carrera_nombreinterno'),

@@ -37,13 +37,13 @@ class Aula_model extends CI_Model
     {
         $aula = $this->db->query("
             SELECT
-                *
+                au.*, ta.*
 
             FROM
-                `aula`
+                aula au, tipo_aula ta
 
             WHERE
-                1 = 1
+                au.aula_tipo = ta.tipoaula_id
 
             ORDER BY `aula_id` DESC
         ")->result_array();

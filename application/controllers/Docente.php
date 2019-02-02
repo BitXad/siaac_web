@@ -38,13 +38,12 @@ class Docente extends CI_Controller{
         if(isset($_POST) && count($_POST) > 0)     
         {   
             $params = array(
-				'estado_id' => $this->input->post('estado_id'),
+				'estado_id' => 1,
 				'genero_id' => $this->input->post('genero_id'),
-				'est_estado_id' => $this->input->post('est_estado_id'),
 				'docente_nombre' => $this->input->post('docente_nombre'),
 				'docente_apellidos' => $this->input->post('docente_apellidos'),
 				'docente_fechanac' => $this->input->post('docente_fechanac'),
-				'docente_edad' => $this->input->post('docente_edad'),
+				//'docente_edad' => $this->input->post('docente_edad'),
 				'docente_ci' => $this->input->post('docente_ci'),
 				'docente_extci' => $this->input->post('docente_extci'),
 				'docente_codigo' => $this->input->post('docente_codigo'),
@@ -88,11 +87,10 @@ class Docente extends CI_Controller{
                 $params = array(
 					'estado_id' => $this->input->post('estado_id'),
 					'genero_id' => $this->input->post('genero_id'),
-					'est_estado_id' => $this->input->post('est_estado_id'),
 					'docente_nombre' => $this->input->post('docente_nombre'),
 					'docente_apellidos' => $this->input->post('docente_apellidos'),
 					'docente_fechanac' => $this->input->post('docente_fechanac'),
-					'docente_edad' => $this->input->post('docente_edad'),
+					//'docente_edad' => $this->input->post('docente_edad'),
 					'docente_ci' => $this->input->post('docente_ci'),
 					'docente_extci' => $this->input->post('docente_extci'),
 					'docente_codigo' => $this->input->post('docente_codigo'),
