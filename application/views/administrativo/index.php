@@ -1,42 +1,47 @@
+<!------------------ ESTILO DE LAS TABLAS ----------------->
+<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
+<!-------------------------------------------------------->
 <div class="row">
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Administrativo Listing</h3>
+                <h3 class="box-title">Administrativo</h3>
             	<div class="box-tools">
-                    <a href="<?php echo site_url('administrativo/add'); ?>" class="btn btn-success btn-sm">Add</a> 
+                    <a href="<?php echo site_url('administrativo/add'); ?>" class="btn btn-success btn-sm">Registrar Administrativo</a> 
                 </div>
             </div>
             <div class="box-body">
-                <table class="table table-striped">
+                <table class="table table-striped" id="mitabla">
                     <tr>
-						<th>Administrativo Id</th>
-						<th>Estado Id</th>
-						<th>Estadocivil Id</th>
-						<th>Institucion Id</th>
+						<th>#</th>
+						<th>Estado</th>
+						<th>Estado Civil</th>
+						<th>Institucion</th>
 						<th>Genero Id</th>
-						<th>Administrativo Nombre</th>
-						<th>Administrativo Apellidos</th>
-						<th>Administrativo Fechanac</th>
-						<th>Administrativo Edad</th>
-						<th>Administrativo Ci</th>
-						<th>Administrativo Extci</th>
-						<th>Administrativo Codigo</th>
-						<th>Administrativo Direccion</th>
-						<th>Administrativo Telefono</th>
-						<th>Administrativo Celular</th>
-						<th>Administrativo Cargo</th>
-						<th>Administrativo Foto</th>
-						<th>Administrativo Fechareg</th>
-						<th>Actions</th>
+						<th>Nombre</th>
+						<th>Apellidos</th>
+						<th>Fechanac</th>
+						<th>Edad</th>
+						<th>Ci</th>
+						<th>Extci</th>
+						<th>Codigo</th>
+						<th>Direccion</th>
+						<th>Telefono</th>
+						<th>Celular</th>
+						<th>Cargo</th>
+						<th>Foto</th>
+						<th>Fechareg</th>
+						<th></th>
                     </tr>
-                    <?php foreach($administrativo as $a){ ?>
+                    <?php $cont = 0;
+                    foreach($administrativo as $a){ 
+                        $cont = $cont+1; ?>
                     <tr>
-						<td><?php echo $a['administrativo_id']; ?></td>
-						<td><?php echo $a['estado_id']; ?></td>
-						<td><?php echo $a['estadocivil_id']; ?></td>
-						<td><?php echo $a['institucion_id']; ?></td>
-						<td><?php echo $a['genero_id']; ?></td>
+						<td><?php echo $cont; ?></td>
+						<td><?php echo $a['estado_descripcion']; ?></td>
+						<td><?php echo $a['estadocivil_descripcion']; ?></td>
+						<td><?php echo $a['institucion_nombre']; ?></td>
+						<td><?php echo $a['genero_nombre']; ?></td>
 						<td><?php echo $a['administrativo_nombre']; ?></td>
 						<td><?php echo $a['administrativo_apellidos']; ?></td>
 						<td><?php echo $a['administrativo_fechanac']; ?></td>
@@ -51,8 +56,8 @@
 						<td><?php echo $a['administrativo_foto']; ?></td>
 						<td><?php echo $a['administrativo_fechareg']; ?></td>
 						<td>
-                            <a href="<?php echo site_url('administrativo/edit/'.$a['administrativo_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-                            <a href="<?php echo site_url('administrativo/remove/'.$a['administrativo_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                            <a href="<?php echo site_url('administrativo/edit/'.$a['administrativo_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
+                            <a href="<?php echo site_url('administrativo/remove/'.$a['administrativo_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
                         </td>
                     </tr>
                     <?php } ?>

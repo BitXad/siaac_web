@@ -16,11 +16,11 @@
                     </tr>
                     <?php foreach($tipo_aula as $t){ ?>
                     <tr>
-						<td><?php echo $t['tipoaula _id']; ?></td>
+						<td><?php echo $t['tipoaula_id']; ?></td>
 						<td><?php echo $t['tipoaula_descripcion']; ?></td>
 						<td>
-                            <a href="<?php echo site_url('tipo_aula/edit/'.$t['tipoaula _id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-                            <a href="<?php echo site_url('tipo_aula/remove/'.$t['tipoaula _id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                            <a href="<?php echo site_url('tipo_aula/edit/'.$t['tipoaula_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
+                            <a href="<?php echo site_url('tipo_aula/remove/'.$t['tipoaula_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
                         </td>
                     </tr>
                     <?php } ?>
