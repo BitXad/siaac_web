@@ -37,13 +37,13 @@ class Carrera_model extends CI_Model
     {
         $carrera = $this->db->query("
             SELECT
-                *
+                c.*, ac.areacarrera_nombre
 
             FROM
-                `carrera`
+                carrera c, area_carrera ac
 
             WHERE
-                1 = 1
+                c.areacarrera_id = ac.areacarrera_id
 
             ORDER BY `carrera_id` DESC
         ")->result_array();

@@ -24,7 +24,7 @@ class Plan_academico_model extends CI_Model
                 `plan_academico`
 
             WHERE
-                `plan_academico_id` = ?
+                `planacad_id` = ?
         ",array($plan_academico_id))->row_array();
 
         return $plan_academico;
@@ -45,7 +45,7 @@ class Plan_academico_model extends CI_Model
             WHERE
                 1 = 1
 
-            ORDER BY `plan_academico_id` DESC
+            ORDER BY `planacad_id` DESC
         ")->result_array();
 
         return $plan_academico;
@@ -65,7 +65,7 @@ class Plan_academico_model extends CI_Model
      */
     function update_plan_academico($plan_academico_id,$params)
     {
-        $this->db->where('plan_academico_id',$plan_academico_id);
+        $this->db->where('planacad_id',$plan_academico_id);
         return $this->db->update('plan_academico',$params);
     }
     
@@ -74,6 +74,6 @@ class Plan_academico_model extends CI_Model
      */
     function delete_plan_academico($plan_academico_id)
     {
-        return $this->db->delete('plan_academico',array('plan_academico_id'=>$plan_academico_id));
+        return $this->db->delete('plan_academico',array('planacad_id'=>$plan_academico_id));
     }
 }

@@ -2,28 +2,31 @@
     <div class="col-md-12">
       	<div class="box box-info">
             <div class="box-header with-border">
-              	<h3 class="box-title">Plan Academico Add</h3>
+              	<h3 class="box-title">Añadir Plan Académico</h3>
             </div>
             <?php echo form_open('plan_academico/add'); ?>
           	<div class="box-body">
           		<div class="row clearfix">
 					<div class="col-md-6">
-						<label for="estado_id" class="control-label">Estado</label>
+						<label for="planacad_nombre" class="control-label"><span class="text-danger">*</span>Nombre</label>
 						<div class="form-group">
-							<select name="estado_id" class="form-control">
-								<option value="">select estado</option>
-								<?php 
-								foreach($all_estado as $estado)
-								{
-									$selected = ($estado['estado_id'] == $this->input->post('estado_id')) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$estado['estado_id'].'" '.$selected.'>'.$estado['estado_descripcion'].'</option>';
-								} 
-								?>
-							</select>
+							<input type="text" name="planacad_nombre" value="<?php echo $this->input->post('planacad_nombre'); ?>" class="form-control" id="planacad_nombre" />
+							<span class="text-danger"><?php echo form_error('planacad_nombre');?></span>
 						</div>
 					</div>
+					<!--<div class="col-md-6">
+						<label for="planacad_feccreacion" class="control-label">Plan Academico Feccreacion</label>
+						<div class="form-group">
+							<input type="text" name="planacad_feccreacion" value="<?php //echo $this->input->post('planacad_feccreacion'); ?>" class="has-datepicker form-control" id="planacad_feccreacion" />
+						</div>
+					</div>-->
 					<div class="col-md-6">
+						<label for="planacad_codigo" class="control-label">Código</label>
+						<div class="form-group">
+							<input type="text" name="planacad_codigo" value="<?php echo $this->input->post('planacad_codigo'); ?>" class="form-control" id="planacad_codigo" />
+						</div>
+					</div>
+                                        <div class="col-md-6">
 						<label for="carrera_id" class="control-label">Carrera</label>
 						<div class="form-group">
 							<select name="carrera_id" class="form-control">
@@ -40,42 +43,25 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="plan_academico_nombre" class="control-label"><span class="text-danger">*</span>Plan Academico Nombre</label>
+						<label for="planacad_titmodalidad" class="control-label">Tit. Modalidad</label>
 						<div class="form-group">
-							<input type="text" name="plan_academico_nombre" value="<?php echo $this->input->post('plan_academico_nombre'); ?>" class="form-control" id="plan_academico_nombre" />
-							<span class="text-danger"><?php echo form_error('plan_academico_nombre');?></span>
+							<input type="text" name="planacad_titmodalidad" value="<?php echo $this->input->post('planacad_titmodalidad'); ?>" class="form-control" id="planacad_titmodalidad" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="plan_academico_feccreacion" class="control-label">Plan Academico Feccreacion</label>
+						<label for="planacad_cantgestion" class="control-label">Cant. Gestion</label>
 						<div class="form-group">
-							<input type="text" name="plan_academico_feccreacion" value="<?php echo $this->input->post('plan_academico_feccreacion'); ?>" class="has-datepicker form-control" id="plan_academico_feccreacion" />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="plan_academico_codigo" class="control-label">Plan Academico Codigo</label>
-						<div class="form-group">
-							<input type="text" name="plan_academico_codigo" value="<?php echo $this->input->post('plan_academico_codigo'); ?>" class="form-control" id="plan_academico_codigo" />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="plan_academico_titmodalidad" class="control-label">Plan Academico Titmodalidad</label>
-						<div class="form-group">
-							<input type="text" name="plan_academico_titmodalidad" value="<?php echo $this->input->post('plan_academico_titmodalidad'); ?>" class="form-control" id="plan_academico_titmodalidad" />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="plan_academico_cantgestion" class="control-label">Plan Academico Cantgestion</label>
-						<div class="form-group">
-							<input type="text" name="plan_academico_cantgestion" value="<?php echo $this->input->post('plan_academico_cantgestion'); ?>" class="form-control" id="plan_academico_cantgestion" />
+							<input type="text" name="planacad_cantgestion" value="<?php echo $this->input->post('planacad_cantgestion'); ?>" class="form-control" id="planacad_cantgestion" />
 						</div>
 					</div>
 				</div>
 			</div>
           	<div class="box-footer">
             	<button type="submit" class="btn btn-success">
-            		<i class="fa fa-check"></i> Save
+                    <i class="fa fa-check"></i>Guardar
             	</button>
+                <a href="<?php echo site_url('plan_academico'); ?>" class="btn btn-danger">
+                    <i class="fa fa-times"></i> Cancelar</a>
           	</div>
             <?php echo form_close(); ?>
       	</div>

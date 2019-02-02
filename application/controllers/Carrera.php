@@ -29,9 +29,10 @@ class Carrera extends CI_Controller{
     {   
         $this->load->library('form_validation');
 
-		$this->form_validation->set_rules('carrera_nombre','Carrera Nombre','required');
-		
-		if($this->form_validation->run())     
+        $this->form_validation->set_rules('carrera_nombre','Carrera Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+        $this->form_validation->set_rules('carrera_codigo','Carrera Código','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+
+        if($this->form_validation->run())     
         {   
             $params = array(
 				'areacarrera_id' => $this->input->post('areacarrera_id'),
@@ -53,9 +54,10 @@ class Carrera extends CI_Controller{
         }
         else
         {
-			$this->load->model('Inscripcion_model');
-			$data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
-			$data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+            $this->load->model('Inscripcion_model');
+            $data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
+            $this->load->model('Area_carrera_model');
+            $data['all_areacarrera'] = $this->Area_carrera_model->get_all_area_carrera();
             
             $data['_view'] = 'carrera/add';
             $this->load->view('layouts/main',$data);
@@ -66,7 +68,7 @@ class Carrera extends CI_Controller{
      * Editing a carrera
      */
     function edit($carrera_id)
-    {   
+    {
         // check if the carrera exists before trying to edit it
         $data['carrera'] = $this->Carrera_model->get_carrera($carrera_id);
         
@@ -74,9 +76,10 @@ class Carrera extends CI_Controller{
         {
             $this->load->library('form_validation');
 
-			$this->form_validation->set_rules('carrera_nombre','Carrera Nombre','required');
-		
-			if($this->form_validation->run())     
+            $this->form_validation->set_rules('carrera_nombre','Carrera Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('carrera_codigo','Carrera Código','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+
+            if($this->form_validation->run())
             {   
                 $params = array(
 					'areacarrera_id' => $this->input->post('areacarrera_id'),
@@ -98,9 +101,10 @@ class Carrera extends CI_Controller{
             }
             else
             {
-				$this->load->model('Inscripcion_model');
-				$data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
-				$data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+                $this->load->model('Inscripcion_model');
+                $data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
+                $this->load->model('Area_carrera_model');
+                $data['all_areacarrera'] = $this->Area_carrera_model->get_all_area_carrera();
 
                 $data['_view'] = 'carrera/edit';
                 $this->load->view('layouts/main',$data);
