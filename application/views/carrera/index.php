@@ -1,22 +1,12 @@
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
-<<<<<<< HEAD
-<div class="row">
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Carrera</h3>
-            	<div class="box-tools">
-                    <a href="<?php echo site_url('carrera/add'); ?>" class="btn btn-success btn-sm">Registrar Carrera</a> 
-=======
 <div class="box-header">
-                <h3 class="box-title">Carrera</h3>
-            	<div class="box-tools">
-                    <a href="<?php echo site_url('carrera/add'); ?>" class="btn btn-success btn-sm">+ Añadir</a> 
->>>>>>> master
-                </div>
-            </div>
+    <h3 class="box-title">Carrera</h3>
+    <div class="box-tools">
+        <a href="<?php echo site_url('carrera/add'); ?>" class="btn btn-success btn-sm">+ Añadir</a> 
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -57,8 +47,8 @@
                         <td><?php echo number_format($c['carrera_mensualidad'],2); ?></td>
                         <td><?php echo $c['carrera_nummeses']; ?></td>
                         <td>
-                            <a href="<?php echo site_url('carrera/edit/'.$c['carrera_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-                            <a href="<?php echo site_url('carrera/remove/'.$c['carrera_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                            <a href="<?php echo site_url('carrera/edit/'.$c['carrera_id']); ?>" class="btn btn-info btn-xs" title="Editar"><span class="fa fa-pencil"></span></a> 
+                            <!--<a href="<?php //echo site_url('carrera/remove/'.$c['carrera_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->
                         </td>
                     </tr>
                     <?php $i++; } ?>
