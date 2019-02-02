@@ -18,8 +18,8 @@
                         <th>Nombre</th>
                         <th>Nombre Interno</th>
                         <th>Código</th>
-                        <th>Area</th>
                         <th>Nivel</th>
+                        <th>Area</th>
                         <th>Modalidad</th>
                         <th>Plan</th>
                         <th>Fecha Creación</th>
@@ -34,21 +34,21 @@
                     foreach($carrera as $c){ ?>
                     <tr>
                         <td><?php echo $i+1; ?></td>
-                        <td><?php echo $c['areacarrera_id']; ?></td>
                         <td><?php echo $c['carrera_nombre']; ?></td>
                         <td><?php echo $c['carrera_nombreinterno']; ?></td>
                         <td><?php echo $c['carrera_codigo']; ?></td>
                         <td><?php echo $c['carrera_nivel']; ?></td>
+                        <td><?php echo $c['areacarrera_nombre']; ?></td>
                         <td><?php echo $c['carrera_modalidad']; ?></td>
                         <td><?php echo $c['carrera_plan']; ?></td>
                         <td><?php echo $c['carrera_fechacreacion']; ?></td>
                         <td><?php echo $c['carrera_codaprod']; ?></td>
-                        <td><?php echo $c['carrera_matricula']; ?></td>
-                        <td><?php echo $c['carrera_mensualidad']; ?></td>
+                        <td><?php echo number_format($c['carrera_matricula'],2); ?></td>
+                        <td><?php echo number_format($c['carrera_mensualidad'],2); ?></td>
                         <td><?php echo $c['carrera_nummeses']; ?></td>
                         <td>
-                            <a href="<?php echo site_url('carrera/edit/'.$c['carrera_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-                            <a href="<?php echo site_url('carrera/remove/'.$c['carrera_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                            <a href="<?php echo site_url('carrera/edit/'.$c['carrera_id']); ?>" class="btn btn-info btn-xs" title="Editar"><span class="fa fa-pencil"></span></a> 
+                            <!--<a href="<?php //echo site_url('carrera/remove/'.$c['carrera_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->
                         </td>
                     </tr>
                     <?php $i++; } ?>
