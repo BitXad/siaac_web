@@ -24,43 +24,6 @@
             <div class="box-body">
                 <table class="table table-striped" id="mitabla">
                     <tr>
-<<<<<<< HEAD
-						<th>#</th>
-						<th>Inscripcion Id</th>
-						<th>Areacarrera Id</th>
-						<th>Carrera Nombre</th>
-						<th>Carrera Nombreinterno</th>
-						<th>Carrera Codigo</th>
-						<th>Carrera Nivel</th>
-						<th>Carrera Modalidad</th>
-						<th>Carrera Plan</th>
-						<th>Carrera Fechacreacion</th>
-						<th>Carrera Codaprod</th>
-						<th>Carrera Matricula</th>
-						<th>Carrera Mensualidad</th>
-						<th>Carrera Nummeses</th>
-						<th>Actions</th>
-                    </tr>
-                    <?php $cont = 0;
-                    foreach($carrera as $c){ 
-                        $cont = $cont+1; ?>
-                    <tr>
-						<td><?php echo $cont; ?></td>
-						<td><?php echo $c['inscripcion_id']; ?></td>
-						<td><?php echo $c['areacarrera_id']; ?></td>
-						<td><?php echo $c['carrera_nombre']; ?></td>
-						<td><?php echo $c['carrera_nombreinterno']; ?></td>
-						<td><?php echo $c['carrera_codigo']; ?></td>
-						<td><?php echo $c['carrera_nivel']; ?></td>
-						<td><?php echo $c['carrera_modalidad']; ?></td>
-						<td><?php echo $c['carrera_plan']; ?></td>
-						<td><?php echo $c['carrera_fechacreacion']; ?></td>
-						<td><?php echo $c['carrera_codaprod']; ?></td>
-						<td><?php echo $c['carrera_matricula']; ?></td>
-						<td><?php echo $c['carrera_mensualidad']; ?></td>
-						<td><?php echo $c['carrera_nummeses']; ?></td>
-						<td>
-=======
                         <th>#</th>
                         <th>Nombre</th>
                         <th>Nombre Interno</th>
