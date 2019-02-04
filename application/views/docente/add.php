@@ -70,6 +70,22 @@
 						</div>
 					</div>
 					<div class="col-md-6">
+						<label for="estadocivil_id" class="control-label">Estado Civil</label>
+						<div class="form-group">
+							<select name="estadocivil_id" class="form-control">
+								<option value="">-ESTADO CIVIL-</option>
+								<?php 
+								foreach($all_estado_civil as $estado_civil)
+								{
+									$selected = ($estado_civil['estadocivil_id'] == $this->input->post('estadocivil_id')) ? ' selected="selected"' : "";
+
+									echo '<option value="'.$estado_civil['estadocivil_id'].'" '.$selected.'>'.$estado_civil['estadocivil_descripcion'].'</option>';
+								} 
+								?>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
 						<label for="docente_fechanac" class="control-label">Fecha de Nacimiento</label>
 						<div class="form-group">
 							<input type="date" name="docente_fechanac" value="<?php echo $this->input->post('docente_fechanac'); ?>" class=" form-control" id="docente_fechanac" required/>

@@ -1,6 +1,6 @@
 
 <!------------------ ESTILO DE LAS TABLAS ----------------->
-<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
+<link href="<?php echo base_url('resources/css/alejo.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
 <div class="row">
     <div class="col-md-12">
@@ -55,7 +55,8 @@
                              </div>
                             
                         </td>	
-						<td><?php echo $d['genero_nombre']; ?><br>
+						<td><?php echo $d['estadocivil_descripcion']; ?><br>
+                            <?php echo $d['genero_nombre']; ?><br>
                         <?php echo "<b>C.I.:</b> ".$d['docente_ci']; ?>
                         <?php echo $d['docente_extci']; ?></td>                  
 						

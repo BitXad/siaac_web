@@ -92,6 +92,7 @@ class Docente extends CI_Controller{
             $params = array(
 				'estado_id' => 1,
 				'genero_id' => $this->input->post('genero_id'),
+                'estadocivil_id' => $this->input->post('estadocivil_id'),
 				'docente_nombre' => $this->input->post('docente_nombre'),
 				'docente_apellidos' => $this->input->post('docente_apellidos'),
 				'docente_fechanac' => $this->input->post('docente_fechanac'),
@@ -115,6 +116,9 @@ class Docente extends CI_Controller{
         {
 			$this->load->model('Estado_model');
 			$data['all_estado'] = $this->Estado_model->get_all_estado();
+
+            $this->load->model('Estado_civil_model');
+                $data['all_estado_civil'] = $this->Estado_civil_model->get_all_estado_civil();
 
 			$this->load->model('Genero_model');
 			$data['all_genero'] = $this->Genero_model->get_all_genero();
@@ -202,6 +206,7 @@ class Docente extends CI_Controller{
                 $params = array(
 					'estado_id' => $this->input->post('estado_id'),
 					'genero_id' => $this->input->post('genero_id'),
+                    'estadocivil_id' => $this->input->post('estadocivil_id'),
 					'docente_nombre' => $this->input->post('docente_nombre'),
 					'docente_apellidos' => $this->input->post('docente_apellidos'),
 					'docente_fechanac' => $this->input->post('docente_fechanac'),
@@ -225,6 +230,9 @@ class Docente extends CI_Controller{
             {
 				$this->load->model('Estado_model');
 				$data['all_estado'] = $this->Estado_model->get_all_estado();
+
+                $this->load->model('Estado_civil_model');
+                $data['all_estado_civil'] = $this->Estado_civil_model->get_all_estado_civil();
 
 				$this->load->model('Genero_model');
 				$data['all_genero'] = $this->Genero_model->get_all_genero();

@@ -157,6 +157,12 @@
 							<input type="file" name="administrativo_foto" value="<?php echo $this->input->post('administrativo_foto'); ?>" class="form-control" id="administrativo_foto" />
 						</div>
 					</div>
+					<div class="col-md-6">
+						<label for="administrativo_email" class="control-label">Email</label>
+						<div class="form-group">
+							<input type="email" name="administrativo_email" value="<?php echo $this->input->post('administrativo_email'); ?>" class="form-control" id="administrativo_email" />
+						</div>
+					</div>
 					<div class="col-md-6" hidden>
 						<label for="administrativo_fechareg" class="control-label">Administrativo Fechareg</label>
 						<div class="form-group">

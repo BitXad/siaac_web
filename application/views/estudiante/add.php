@@ -137,6 +137,12 @@
 						</div>
 					</div>
 					<div class="col-md-6">
+						<label for="estudiante_email" class="control-label">Email</label>
+						<div class="form-group">
+							<input type="email" name="estudiante_email" value="<?php echo $this->input->post('estudiante_email'); ?>" class="form-control" id="estudiante_email" />
+						</div>
+					</div>
+					<div class="col-md-6">
 						<label for="estudiante_lugarnac" class="control-label">Lugar de Nacimiento</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_lugarnac" value="<?php echo $this->input->post('estudiante_lugarnac'); ?>" class="form-control" id="estudiante_lugarnac" />

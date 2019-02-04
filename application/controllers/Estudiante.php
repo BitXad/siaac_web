@@ -175,6 +175,7 @@ class Estudiante extends CI_Controller{
 				'estudiante_apotelefono' => $this->input->post('estudiante_apotelefono'),
 				'estudiante_nit' => $this->input->post('estudiante_nit'),
 				'estudiante_razon' => $this->input->post('estudiante_razon'),
+                'estudiante_email' => $this->input->post('estudiante_email'),
             );
             
             $estudiante_id = $this->Estudiante_model->add_estudiante($params);
@@ -366,6 +367,7 @@ class Estudiante extends CI_Controller{
 					'estudiante_apotelefono' => $this->input->post('estudiante_apotelefono'),
 					'estudiante_nit' => $this->input->post('estudiante_nit'),
 					'estudiante_razon' => $this->input->post('estudiante_razon'),
+                    'estudiante_email' => $this->input->post('estudiante_email'),
                 );
 
                 $this->Estudiante_model->update_estudiante($estudiante_id,$params);            

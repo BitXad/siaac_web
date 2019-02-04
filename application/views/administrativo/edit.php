@@ -175,6 +175,12 @@
 							<input type="hidden" name="administrativo_foto1" value="<?php echo ($this->input->post('administrativo_foto') ? $this->input->post('administrativo_foto') : $administrativo['administrativo_foto']); ?>" class="form-control" id="administrativo_foto1" />
 						</div>
 					</div>
+					<div class="col-md-6">
+						<label for="administrativo_email" class="control-label">Email</label>
+						<div class="form-group">
+							<input type="email" name="administrativo_email" value="<?php echo ($this->input->post('administrativo_email') ? $this->input->post('administrativo_email') : $administrativo['administrativo_email']); ?>" class="form-control" id="administrativo_email" />
+						</div>
+					</div>
 					<div class="col-md-6" hidden>
 						<label for="administrativo_fechareg" class="control-label">Fechareg</label>
 						<div class="form-group">
