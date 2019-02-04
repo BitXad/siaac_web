@@ -37,13 +37,14 @@ class Plan_academico_model extends CI_Model
     {
         $plan_academico = $this->db->query("
             SELECT
-                *
+                pa.*, e.estado_color, e.estado_descripcion, c.carrera_nombre
 
             FROM
-                `plan_academico`
+                plan_academico pa, estado e, carrera c
 
             WHERE
-                1 = 1
+                pa.estado_id = e.estado_id
+                and pa.carrera_id = c.carrera_id
 
             ORDER BY `planacad_id` DESC
         ")->result_array();

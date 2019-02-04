@@ -37,13 +37,13 @@ class Nivel_model extends CI_Model
     {
         $nivel = $this->db->query("
             SELECT
-                *
+                n.*, pa.planacad_nombre
 
             FROM
-                `nivel`
+                nivel n, plan_academico pa
 
             WHERE
-                1 = 1
+                n.planacad_id = pa.planacad_id
 
             ORDER BY `nivel_id` DESC
         ")->result_array();
