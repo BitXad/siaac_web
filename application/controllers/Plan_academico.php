@@ -29,7 +29,7 @@ class Plan_academico extends CI_Controller{
     {   
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('planacad_nombre','Plan Academico Nombre','required');
+        $this->form_validation->set_rules('planacad_nombre','Plan Academico Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 
         if($this->form_validation->run())     
         {   
@@ -41,7 +41,7 @@ class Plan_academico extends CI_Controller{
                     //'planacad_feccreacion' => $this->input->post('plan_academico_feccreacion'),
                     'planacad_codigo' => $this->input->post('planacad_codigo'),
                     'planacad_titmodalidad' => $this->input->post('planacad_titmodalidad'),
-                    'planacad_cantgestion' => $this->input->post('planacad_cantgestion'),
+                   // 'planacad_cantgestion' => $this->input->post('planacad_cantgestion'),
             );
             
             $plan_academico_id = $this->Plan_academico_model->add_plan_academico($params);
@@ -63,13 +63,13 @@ class Plan_academico extends CI_Controller{
     function edit($plan_academico_id)
     {   
         // check if the plan_academico exists before trying to edit it
-        $data['plan_academico'] = $this->Plan_academico_model->get_plan_academico($plan_academico_id);
+        $data['planacad'] = $this->Plan_academico_model->get_plan_academico($plan_academico_id);
         
-        if(isset($data['plan_academico']['planacad_id']))
+        if(isset($data['planacad']['planacad_id']))
         {
             $this->load->library('form_validation');
 
-            $this->form_validation->set_rules('planacad_nombre','Plan Academico Nombre','required');
+            $this->form_validation->set_rules('planacad_nombre','Plan Academico Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 
             if($this->form_validation->run())     
             {   
@@ -80,7 +80,7 @@ class Plan_academico extends CI_Controller{
                         //'planacad_feccreacion' => $this->input->post('plan_academico_feccreacion'),
                         'planacad_codigo' => $this->input->post('planacad_codigo'),
                         'planacad_titmodalidad' => $this->input->post('planacad_titmodalidad'),
-                        'planacad_cantgestion' => $this->input->post('planacad_cantgestion'),
+                        //'planacad_cantgestion' => $this->input->post('planacad_cantgestion'),
                 );
 
                 $this->Plan_academico_model->update_plan_academico($plan_academico_id,$params);            
@@ -88,11 +88,11 @@ class Plan_academico extends CI_Controller{
             }
             else
             {
-				$this->load->model('Estado_model');
-				$data['all_estado'] = $this->Estado_model->get_all_estado();
+                $this->load->model('Estado_model');
+                $data['all_estado'] = $this->Estado_model->get_all_estado();
 
-				$this->load->model('Carrera_model');
-				$data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+                $this->load->model('Carrera_model');
+                $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
 
                 $data['_view'] = 'plan_academico/edit';
                 $this->load->view('layouts/main',$data);

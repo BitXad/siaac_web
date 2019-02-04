@@ -26,12 +26,16 @@ class Nivel extends CI_Controller{
      * Adding a new nivel
      */
     function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
+    {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('nivel_descripcion','Nivel Descripcion','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+
+        if($this->form_validation->run())     
         {   
             $params = array(
-				'plan_academico_id' => $this->input->post('plan_academico_id'),
-				'nivel_descripcion' => $this->input->post('nivel_descripcion'),
+                    'planacad_id' => $this->input->post('planacad_id'),
+                    'nivel_descripcion' => $this->input->post('nivel_descripcion'),
             );
             
             $nivel_id = $this->Nivel_model->add_nivel($params);
@@ -39,8 +43,8 @@ class Nivel extends CI_Controller{
         }
         else
         {
-			$this->load->model('Plan_academico_model');
-			$data['all_plan_academico'] = $this->Plan_academico_model->get_all_plan_academico();
+            $this->load->model('Plan_academico_model');
+            $data['all_plan_academico'] = $this->Plan_academico_model->get_all_plan_academico();
             
             $data['_view'] = 'nivel/add';
             $this->load->view('layouts/main',$data);
@@ -57,11 +61,15 @@ class Nivel extends CI_Controller{
         
         if(isset($data['nivel']['nivel_id']))
         {
-            if(isset($_POST) && count($_POST) > 0)     
+            $this->load->library('form_validation');
+
+            $this->form_validation->set_rules('nivel_descripcion','Nivel Descripcion','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+
+            if($this->form_validation->run())     
             {   
                 $params = array(
-					'plan_academico_id' => $this->input->post('plan_academico_id'),
-					'nivel_descripcion' => $this->input->post('nivel_descripcion'),
+                        'planacad_id' => $this->input->post('planacad_id'),
+                        'nivel_descripcion' => $this->input->post('nivel_descripcion'),
                 );
 
                 $this->Nivel_model->update_nivel($nivel_id,$params);            
@@ -69,8 +77,8 @@ class Nivel extends CI_Controller{
             }
             else
             {
-				$this->load->model('Plan_academico_model');
-				$data['all_plan_academico'] = $this->Plan_academico_model->get_all_plan_academico();
+                $this->load->model('Plan_academico_model');
+                $data['all_plan_academico'] = $this->Plan_academico_model->get_all_plan_academico();
 
                 $data['_view'] = 'nivel/edit';
                 $this->load->view('layouts/main',$data);
