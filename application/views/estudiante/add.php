@@ -1,10 +1,26 @@
+<script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
+<script type="text/javascript">
+
+      $(document).ready(function () {
+          $('#estudiante_nombre').keyup(function () {
+             var value = $(this).val();
+            var cad1 = value.substring(0,3);
+             var fecha = new Date();
+        var pararand = fecha.getFullYear()+fecha.getMonth()+fecha.getDay();
+        var cad3 = Math.floor((Math.random(1001,9999) * pararand));
+            var cad = cad1+cad3;
+              $('#estudiante_codigo').val(cad);
+          });
+      });
+
+</script>
 <div class="row">
     <div class="col-md-12">
       	<div class="box box-info">
             <div class="box-header with-border">
               	<h3 class="box-title">Registrar Estudiante</h3>
             </div>
-            <?php echo form_open('estudiante/add'); ?>
+            <?php echo form_open_multipart('estudiante/add'); ?>
           	<div class="box-body">
           		<div class="row clearfix">
           			<div class="col-md-6">
@@ -61,12 +77,12 @@
 							<input type="date" name="estudiante_fechanac" value="<?php echo $this->input->post('estudiante_fechanac'); ?>" class="form-control" id="estudiante_fechanac" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<!--<div class="col-md-6">
 						<label for="estudiante_edad" class="control-label">Estudiante Edad</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_edad" value="<?php echo $this->input->post('estudiante_edad'); ?>" class="form-control" id="estudiante_edad" />
 						</div>
-					</div>
+					</div>-->
 					<div class="col-md-6">
 						<label for="estudiante_ci" class="control-label">C.I.</label>
 						<div class="form-group">
@@ -88,6 +104,12 @@
 							  <option value="CHQ">CHQ</option>
 							  <option value=TRJ>TRJ</option>
 							</select> 
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="estudiante_codigo" class="control-label">Codigo</label>
+						<div class="form-group">
+							<input type="text" name="estudiante_codigo" value="<?php echo $this->input->post('estudiante_codigo'); ?>" class="form-control" id="estudiante_codigo" />
 						</div>
 					</div>
 					<div class="col-md-6">

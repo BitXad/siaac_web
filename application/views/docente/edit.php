@@ -21,7 +21,7 @@
             <div class="box-header with-border">
               	<h3 class="box-title">Editar Docente</h3>
             </div>
-			<?php echo form_open('docente/edit/'.$docente['docente_id']); ?>
+			<?php echo form_open_multipart('docente/edit/'.$docente['docente_id']); ?>
 			<div class="box-body">
 				<div class="row clearfix">
 					
@@ -107,7 +107,7 @@
 					<div class="col-md-6">
 						<label for="docente_codigo" class="control-label">Codigo</label>
 						<div class="form-group">
-							<input type="text" name="docente_codigo" value="<?php echo ($this->input->post('docente_codigo') ? $this->input->post('docente_codigo') : $docente['docente_codigo']); ?>" class="form-control" id="docente_codigo" readonly/>
+							<input type="text" name="docente_codigo" value="<?php echo ($this->input->post('docente_codigo') ? $this->input->post('docente_codigo') : $docente['docente_codigo']); ?>" class="form-control" id="docente_codigo"/>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -143,7 +143,8 @@
 					<div class="col-md-6">
 						<label for="docente_foto" class="control-label">Foto</label>
 						<div class="form-group">
-							<input type="file" name="docente_foto" value="<?php echo ($this->input->post('docente_foto') ? $this->input->post('docente_foto') : $docente['docente_foto']); ?>" class="form-control" id="docente_foto" />
+							<input type="file" name="docente_foto" value="<?php echo ($this->input->post('docente_foto') ? $this->input->post('docente_foto') : $docente['docente_foto']); ?>" class="form-control" id="docente_foto" accept="image/png, image/jpeg, jpg, image/gif" />
+							<input type="hidden" name="docente_foto1" value="<?php echo ($this->input->post('docente_foto') ? $this->input->post('docente_foto') : $docente['docente_foto']); ?>" class="form-control" id="docente_foto1" />
 						</div>
 					</div>
 					<div class="col-md-6">
