@@ -15,10 +15,10 @@
                 <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>#</th>
-						<th>Aula Nombre</th>
-						<th>Aula Descripcion</th>
-						<th>Aula Capacidad</th>
-						<th>Aula Tipo</th>
+						<th>Nombre</th>
+						<th>Descripcion</th>
+						<th>Capacidad</th>
+						<th>Tipo</th>
 						<th></th>
                     </tr>
                     <?php $cont = 0;
@@ -28,7 +28,7 @@
 						<td><?php echo $cont;  ?></td>
 						<td><?php echo $a['aula_nombre']; ?></td>
 						<td><?php echo $a['aula_descripcion']; ?></td>
-						<td><?php echo $a['aula_capacidad']; ?></td>
+						<td><?php echo $a['aula_capacidad']; ?> Personas</td>
 						<td><?php echo $a['tipoaula_descripcion']; ?></td>
 						<td>
                             <a href="<?php echo site_url('aula/edit/'.$a['aula_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 

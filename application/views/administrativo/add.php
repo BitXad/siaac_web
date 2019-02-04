@@ -24,14 +24,14 @@
           	<div class="box-body">
           		<div class="row clearfix">
 					<div class="col-md-6">
-						<label for="administrativo_nombre" class="control-label"><span class="text-danger">*</span>Administrativo Nombre</label>
+						<label for="administrativo_nombre" class="control-label"><span class="text-danger">*</span>Nombre</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_nombre" value="<?php echo $this->input->post('administrativo_nombre'); ?>" class="form-control" id="administrativo_nombre" required/>
 							<span class="text-danger"><?php echo form_error('administrativo_nombre');?></span>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="administrativo_apellidos" class="control-label"><span class="text-danger">*</span>Administrativo Apellidos</label>
+						<label for="administrativo_apellidos" class="control-label"><span class="text-danger">*</span>Apellidos</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_apellidos" value="<?php echo $this->input->post('administrativo_apellidos'); ?>" class="form-control" id="administrativo_apellidos" required/>
 							<span class="text-danger"><?php echo form_error('administrativo_apellidos');?></span>
@@ -41,7 +41,7 @@
 						<label for="estadocivil_id" class="control-label">Estado Civil</label>
 						<div class="form-group">
 							<select name="estadocivil_id" class="form-control">
-								<option value="">select estado_civil</option>
+								<option value="">-ESTADO CIVIL-</option>
 								<?php 
 								foreach($all_estado_civil as $estado_civil)
 								{
@@ -57,7 +57,7 @@
 						<label for="institucion_id" class="control-label">Institucion</label>
 						<div class="form-group">
 							<select name="institucion_id" class="form-control">
-								<option value="">select institucion</option>
+								<option value="">- INSTITUCION -</option>
 								<?php 
 								foreach($all_institucion as $institucion)
 								{
@@ -73,7 +73,7 @@
 						<label for="genero_id" class="control-label">Genero</label>
 						<div class="form-group">
 							<select name="genero_id" class="form-control">
-								<option value="">select genero</option>
+								<option value="">- GENERO -</option>
 								<?php 
 								foreach($all_genero as $genero)
 								{
@@ -87,7 +87,7 @@
 					</div>
 				
 					<div class="col-md-6">
-						<label for="administrativo_fechanac" class="control-label">Administrativo Fechanac</label>
+						<label for="administrativo_fechanac" class="control-label">Fecha de Nacimiento</label>
 						<div class="form-group">
 							<input type="date" name="administrativo_fechanac" value="<?php echo $this->input->post('administrativo_fechanac'); ?>" class="form-control" id="administrativo_fechanac" />
 						</div>
@@ -99,13 +99,13 @@
 						</div>
 					</div>-->
 					<div class="col-md-6">
-						<label for="administrativo_ci" class="control-label">Administrativo Ci</label>
+						<label for="administrativo_ci" class="control-label">C.I.</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_ci" value="<?php echo $this->input->post('administrativo_ci'); ?>" class="form-control" id="administrativo_ci" required/>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="administrativo_extci" class="control-label">Administrativo Extci</label>
+						<label for="administrativo_extci" class="control-label">Extension</label>
 						<div class="form-group">
 								<select name="administrativo_extci" class="form-control"  value="<?php echo $this->input->post('administrativo_extci'); ?>" id="administrativo_extci" required>
 							  <option value="">- EXTENSION -</option>
@@ -122,37 +122,37 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="administrativo_codigo" class="control-label">Administrativo Codigo</label>
+						<label for="administrativo_codigo" class="control-label">Codigo</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_codigo" value="<?php echo $this->input->post('administrativo_codigo'); ?>" class="form-control" id="administrativo_codigo" readonly/>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="administrativo_direccion" class="control-label">Administrativo Direccion</label>
+						<label for="administrativo_direccion" class="control-label">Direccion</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_direccion" value="<?php echo $this->input->post('administrativo_direccion'); ?>" class="form-control" id="administrativo_direccion" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="administrativo_telefono" class="control-label">Administrativo Telefono</label>
+						<label for="administrativo_telefono" class="control-label">Telefono</label>
 						<div class="form-group">
 							<input type="number" name="administrativo_telefono" value="<?php echo $this->input->post('administrativo_telefono'); ?>" class="form-control" id="administrativo_telefono" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="administrativo_celular" class="control-label">Administrativo Celular</label>
+						<label for="administrativo_celular" class="control-label">Celular</label>
 						<div class="form-group">
 							<input type="number" name="administrativo_celular" value="<?php echo $this->input->post('administrativo_celular'); ?>" class="form-control" id="administrativo_celular" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="administrativo_cargo" class="control-label">Administrativo Cargo</label>
+						<label for="administrativo_cargo" class="control-label">Cargo</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_cargo" value="<?php echo $this->input->post('administrativo_cargo'); ?>" class="form-control" id="administrativo_cargo" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="administrativo_foto" class="control-label">Administrativo Foto</label>
+						<label for="administrativo_foto" class="control-label">Foto</label>
 						<div class="form-group">
 							<input type="file" name="administrativo_foto" value="<?php echo $this->input->post('administrativo_foto'); ?>" class="form-control" id="administrativo_foto" />
 						</div>

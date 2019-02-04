@@ -8,26 +8,26 @@
 			<div class="box-body">
 				<div class="row clearfix">
 					<div class="col-md-6">
-						<label for="aula_nombre" class="control-label"><span class="text-danger">*</span>Aula Nombre</label>
+						<label for="aula_nombre" class="control-label"><span class="text-danger">*</span>Nombre Aula</label>
 						<div class="form-group">
 							<input type="text" name="aula_nombre" value="<?php echo ($this->input->post('aula_nombre') ? $this->input->post('aula_nombre') : $aula['aula_nombre']); ?>" class="form-control" id="aula_nombre" required/>
 							<span class="text-danger"><?php echo form_error('aula_nombre');?></span>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="aula_descripcion" class="control-label">Aula Descripcion</label>
+						<label for="aula_descripcion" class="control-label">Descripcion Aula</label>
 						<div class="form-group">
 							<input type="text" name="aula_descripcion" value="<?php echo ($this->input->post('aula_descripcion') ? $this->input->post('aula_descripcion') : $aula['aula_descripcion']); ?>" class="form-control" id="aula_descripcion" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="aula_capacidad" class="control-label">Aula Capacidad</label>
+						<label for="aula_capacidad" class="control-label">Capacidad (No. limite)</label>
 						<div class="form-group">
 							<input type="number" name="aula_capacidad" value="<?php echo ($this->input->post('aula_capacidad') ? $this->input->post('aula_capacidad') : $aula['aula_capacidad']); ?>" class="form-control" id="aula_capacidad" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="aula_tipo" class="control-label">Aula Tipo</label>
+						<label for="aula_tipo" class="control-label">Tipo</label>
 						<div class="form-group">
 							<select name="aula_tipo" class="form-control" required>
 								<option value="">- TIPO AULA -</option>
