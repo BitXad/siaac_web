@@ -16,43 +16,60 @@ class Rol_model extends CI_Model
      */
     function get_rol($rol_id)
     {
-        $rol = $this->db->query("
-            SELECT
-                *
-
-            FROM
-                `rol`
-
-            WHERE
-                `rol_id` = ?
-        ",array($rol_id))->row_array();
-
-        return $rol;
+        return $this->db->get_where('rol',array('rol_id'=>$rol_id))->row_array();
+    }
+    
+    /*
+     * Get all rol count
+     */
+    function get_all_rol_count()
+    {
+        $this->db->from('rol');
+        return $this->db->count_all_results();
     }
         
     /*
      * Get all rol
      */
-    function get_all_rol()
+    function get_all_rol($params = array())
+      
     {
-        $rol = $this->db->query("
+$limit_condition = "";
+        if(isset($params) && !empty($params))
+            $limit_condition = " LIMIT " . $params['offset'] . "," . $params['limit'];
+        {
+          $rol = $this->db->query("
             SELECT
-                *
+                r.*, e.*, y.rol_descripcion AS Rol_superior
 
             FROM
-                `rol`
+                rol r, estado e, rol y
 
             WHERE
-                1 = 1
+                r.estado_id = e.estado_id and 
+                y.rol_id = r.rol_idfk 
 
-            ORDER BY `rol_id` DESC
+            UNION 
+
+            SELECT
+                  q.*, w.*, 'Superior' AS Rol_superior
+            FROM
+                rol q, estado w
+
+            WHERE
+                q.estado_id = w.estado_id   and
+                q.rol_idfk = 0         
+
+               
+
+             ORDER BY `rol_id` ASC
+
+            " . $limit_condition . "
         ")->result_array();
 
         return $rol;
     }
-        
-    /*
-     * function to add new rol
+   }  /* function to add new rol
      */
     function add_rol($params)
     {
@@ -76,4 +93,38 @@ class Rol_model extends CI_Model
     {
         return $this->db->delete('rol',array('rol_id'=>$rol_id));
     }
+
+    public function get_grupos($iddes)
+    {
+        $this->db->select('idgrupo,nombres,appat,apmat,ci,email,cargo,nombre_agru,costo_cu,iddes,usuarios.idusu');
+        $this->db->from('grupos');
+        $this->db->join('agrupaciones', 'agrupaciones.idagru = grupos.idagru');
+        $this->db->join('usuarios', 'usuarios.idusu = grupos.idusu');
+        $this->db->where('grupos.iddes', $iddes);
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    /*add by adolf*/
+
+    public function get_permisos($tipousuario_id)
+    {
+        $this->db->select('*');
+        $this->db->from('rol_usuario');
+        $this->db->join('tipo_usuario', 'tipo_usuario.tipousuario_id = rol_usuario.tipousuario_id');
+        $this->db->join('rol', 'rol.rol_id = rol_usuario.rol_id');
+        $this->db->where('rol_usuario.tipousuario_id', $tipousuario_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_tipousuarios()
+    {
+        $this->db->select('*');
+        $this->db->from('tipo_usuario');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
