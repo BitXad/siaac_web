@@ -56,7 +56,7 @@
                         </td>	
                         <td><?php echo $a['genero_nombre']; ?></br>
 						<?php echo $a['estadocivil_descripcion']; ?></br>
-                        <?php echo "C.I.: ".$a['administrativo_ci']; ?>
+                        <?php echo "<b>C.I.:</b> ".$a['administrativo_ci']; ?>
                         <?php echo $a['administrativo_extci']; ?></td>
 						<td><?php echo $a['institucion_nombre']; ?></td>
 											
@@ -64,8 +64,8 @@
                         <!--<td><?php echo $d['docente_edad']; ?></td>-- CALCULAR A PARTIR DE LA FECHA DE NAC.-->
                         <?php $cumpleanos = new DateTime($a['administrativo_fechanac']); $hoy = new DateTime(); $annos = $hoy->diff($cumpleanos); echo "(", $annos->y, ")";  } ?></td>
 						
-						<td><?php echo $a['administrativo_direccion']; ?></br>
-						<?php echo $a['administrativo_telefono']; ?><br>
+						<td><?php echo "<b>Dir.:</b> ".$a['administrativo_direccion']; ?></br>
+						<?php echo "<b>Telf.:</b> ".$a['administrativo_telefono']; ?><br>
 						<?php echo $a['administrativo_celular']; ?></td>
 						<td><?php echo $a['administrativo_cargo']; ?></td>
 						<td><?php echo $a['estado_descripcion']; ?>

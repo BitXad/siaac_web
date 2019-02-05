@@ -72,9 +72,9 @@
                                     </div>
                             <!------------------------ FIN modal para MOSTRAR imagen REAL ------------------->
                         </td>	
-						<td><?php echo "Genero: ".$e['genero_nombre']; ?></br>
-						<?php echo "Estado Civil: ".$e['estadocivil_descripcion']; ?></br>
-            <?php echo "C. I.: ".$e['estudiante_ci']; ?>
+						<td><?php echo $e['genero_nombre']; ?></br>
+						<?php echo $e['estadocivil_descripcion']; ?></br>
+            <?php echo "<b>C. I.: </b>".$e['estudiante_ci']; ?>
             <?php echo $e['estudiante_extci']; ?></td>
 						<td><?php if($e['estudiante_fechanac']!='0000-00-00'){ echo date("d/m/Y", strtotime($e['estudiante_fechanac'])); ?></>
                         <!--<td><?php echo $d['docente_edad']; ?></td>-- CALCULAR A PARTIR DE LA FECHA DE NAC.-->
@@ -82,8 +82,8 @@
                         <?php echo $e['estudiante_lugarnac']; ?></br>
             <?php echo "(".$e['estudiante_nacionalidad'].")"; ?></td> 
 						
-						<td><?php echo "Dir.: ".$e['estudiante_direccion']; ?></br>
-						<?php echo "Telf.: ".$e['estudiante_telefono']; ?></br>
+						<td><?php echo "<b>Dir.:</b> ".$e['estudiante_direccion']; ?></br>
+						<?php echo "<b>Telf.:</b> ".$e['estudiante_telefono']; ?></br>
 						<?php echo $e['estudiante_celular']; ?></td>
 						<td><?php echo $e['estudiante_establecimiento']; ?></td>
 						<td><?php echo $e['estudiante_distrito']; ?></td>
@@ -102,8 +102,8 @@
                                 </div>
                                 <div style="padding-left: 4px">
                                     <?php echo "<b>".$e['estudiante_apoderado']."</b>(".$e['estudiante_apoparentesco'].")<br>";
-                                          echo "<b>Dir.: ".$e['estudiante_apodireccion']."</b><br>";
-                                          echo "<b>Telf.: ".$e['estudiante_apotelefono']."</b><br>";
+                                          echo "<b>Dir.:</b> ".$e['estudiante_apodireccion']."<br>";
+                                          echo "<b>Telf.:</b> ".$e['estudiante_apotelefono']."<br>";
                                     ?>
                                 </div>
                              </div>
