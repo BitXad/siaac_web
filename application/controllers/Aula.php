@@ -61,11 +61,11 @@ class Aula extends CI_Controller{
         $this->excel->getActiveSheet()->setTitle('Llamadas');
         //Contador de filas
         $contador = 1;
-        //Le aplicamos ancho las columnas.
+        //Le aplicamos ancho las columnas(OPCIONAL).
         $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
         $this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
         $this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(30);
-        //Le aplicamos negrita a los títulos de la cabecera.
+        //Le aplicamos negrita a los títulos de la cabecera(OPCIONAL).
         $this->excel->getActiveSheet()->getStyle("A{$contador}")->getFont()->setBold(true);
         $this->excel->getActiveSheet()->getStyle("B{$contador}")->getFont()->setBold(true);
         $this->excel->getActiveSheet()->getStyle("C{$contador}")->getFont()->setBold(true);
@@ -86,7 +86,7 @@ class Aula extends CI_Controller{
            $this->excel->getActiveSheet()->setCellValue("D{$contador}", $l['tipoaula_descripcion']);
         }
         //Le ponemos un nombre al archivo que se va a generar.
-        $hoy = date('d/m/Y');
+        $hoy = date('d/m/Y H:i:s');
         $archivo = "Aula".$hoy.".xls";
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="'.$archivo.'"');

@@ -16,7 +16,7 @@
 						<th>#</th>
 						
 						<th>Nombre</th>
-                        <th>Estado Id</th>
+                        <th>Estado</th>
 						<th></th>
                     </tr>
                     <?php foreach($turno as $t){ ?>

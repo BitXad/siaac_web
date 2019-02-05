@@ -15,7 +15,7 @@
                     <tr>
 						<th>#</th>
 						<th>Genero Nombre</th>
-						<th>Actions</th>
+						<th></th>
                     </tr>
                     <?php $i=0;
                     foreach($genero as $g){ 
