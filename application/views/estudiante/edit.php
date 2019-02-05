@@ -1,10 +1,26 @@
+<script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
+<script type="text/javascript">
+
+      $(document).ready(function () {
+          $('#estudiante_nombre').keyup(function () {
+             var value = $(this).val();
+            var cad1 = value.substring(0,3);
+             var fecha = new Date();
+        var pararand = fecha.getFullYear()+fecha.getMonth()+fecha.getDay();
+        var cad3 = Math.floor((Math.random(1001,9999) * pararand));
+            var cad = cad1+cad3;
+              $('#estudiante_codigo').val(cad);
+          });
+      });
+
+</script>
 <div class="row">
     <div class="col-md-12">
       	<div class="box box-info">
             <div class="box-header with-border">
               	<h3 class="box-title">Editar Estudiante</h3>
             </div>
-			<?php echo form_open('estudiante/edit/'.$estudiante['estudiante_id']); ?>
+			<?php echo form_open_multipart('estudiante/edit/'.$estudiante['estudiante_id']); ?>
 			<div class="box-body">
 				<div class="row clearfix">
 					<div class="col-md-6">
@@ -76,12 +92,12 @@
 							<input type="date" name="estudiante_fechanac" value="<?php echo ($this->input->post('estudiante_fechanac') ? $this->input->post('estudiante_fechanac') : $estudiante['estudiante_fechanac']); ?>" class="form-control" id="estudiante_fechanac" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<!--<div class="col-md-6">
 						<label for="estudiante_edad" class="control-label">Edad</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_edad" value="<?php echo ($this->input->post('estudiante_edad') ? $this->input->post('estudiante_edad') : $estudiante['estudiante_edad']); ?>" class="form-control" id="estudiante_edad" />
 						</div>
-					</div>
+					</div>-->
 					<div class="col-md-6">
 						<label for="estudiante_ci" class="control-label">C.I.</label>
 						<div class="form-group">
@@ -106,6 +122,12 @@
 						</div>
 					</div>
 					<div class="col-md-6">
+						<label for="estudiante_codigo" class="control-label">Codigo</label>
+						<div class="form-group">
+							<input type="text" name="estudiante_codigo" value="<?php echo ($this->input->post('estudiante_codigo') ? $this->input->post('estudiante_codigo') : $estudiante['estudiante_codigo']); ?>" class="form-control" id="estudiante_codigo" />
+						</div>
+					</div>
+					<div class="col-md-6">
 						<label for="estudiante_direccion" class="control-label">Direccion</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_direccion" value="<?php echo ($this->input->post('estudiante_direccion') ? $this->input->post('estudiante_direccion') : $estudiante['estudiante_direccion']); ?>" class="form-control" id="estudiante_direccion" />
@@ -126,7 +148,14 @@
 					<div class="col-md-6">
 						<label for="estudiante_foto" class="control-label">Foto</label>
 						<div class="form-group">
-							<input type="file" name="estudiante_foto" value="<?php echo ($this->input->post('estudiante_foto') ? $this->input->post('estudiante_foto') : $estudiante['estudiante_foto']); ?>" class="form-control" id="estudiante_foto" />
+							<input type="file" name="estudiante_foto" value="<?php echo ($this->input->post('estudiante_foto') ? $this->input->post('estudiante_foto') : $estudiante['estudiante_foto']); ?>" class="form-control" id="estudiante_foto" accept="image/png, image/jpeg, jpg, image/gif" />
+							<input type="hidden" name="estudiante_foto1" value="<?php echo ($this->input->post('estudiante_foto') ? $this->input->post('estudiante_foto') : $estudiante['estudiante_foto']); ?>" class="form-control" id="estudiante_foto1" />
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="estudiante_email" class="control-label">Email</label>
+						<div class="form-group">
+							<input type="email" name="estudiante_email" value="<?php echo ($this->input->post('estudiante_email') ? $this->input->post('estudiante_email') : $estudiante['estudiante_email']); ?>" class="form-control" id="estudiante_email" />
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -162,7 +191,8 @@
 					<div class="col-md-6">
 						<label for="apoderado_foto" class="control-label">Foto de Apoderado</label>
 						<div class="form-group">
-							<input type="file" name="apoderado_foto" value="<?php echo ($this->input->post('apoderado_foto') ? $this->input->post('apoderado_foto') : $estudiante['apoderado_foto']); ?>" class="form-control" id="apoderado_foto" />
+							<input type="file" name="apoderado_foto" value="<?php echo ($this->input->post('apoderado_foto') ? $this->input->post('apoderado_foto') : $estudiante['apoderado_foto']); ?>" class="form-control" id="apoderado_foto" accept="image/png, image/jpeg, jpg, image/gif" />
+							<input type="hidden" name="apoderado_foto1" value="<?php echo ($this->input->post('apoderado_foto') ? $this->input->post('apoderado_foto') : $estudiante['apoderado_foto']); ?>" class="form-control" id="apoderado_foto1" />
 						</div>
 					</div>
 					<div class="col-md-6">

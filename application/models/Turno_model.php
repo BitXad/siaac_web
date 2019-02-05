@@ -37,13 +37,13 @@ class Turno_model extends CI_Model
     {
         $turno = $this->db->query("
             SELECT
-                *
+                t.*, e.*
 
             FROM
-                `turno`
+                turno t, estado e
 
             WHERE
-                1 = 1
+                t.estado_id=e.estado_id
 
             ORDER BY `turno_id` DESC
         ")->result_array();

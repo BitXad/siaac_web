@@ -21,7 +21,7 @@
             <div class="box-header with-border">
               	<h3 class="box-title">Editar Administrativo</h3>
             </div>
-			<?php echo form_open('administrativo/edit/'.$administrativo['administrativo_id']); ?>
+			<?php echo form_open_multipart('administrativo/edit/'.$administrativo['administrativo_id']); ?>
 			<div class="box-body">
 				<div class="row clearfix">
 					<div class="col-md-6">
@@ -141,7 +141,7 @@
 					<div class="col-md-6">
 						<label for="administrativo_codigo" class="control-label">Codigo</label>
 						<div class="form-group">
-							<input type="text" name="administrativo_codigo" value="<?php echo ($this->input->post('administrativo_codigo') ? $this->input->post('administrativo_codigo') : $administrativo['administrativo_codigo']); ?>" class="form-control" id="administrativo_codigo" readonly/>
+							<input type="text" name="administrativo_codigo" value="<?php echo ($this->input->post('administrativo_codigo') ? $this->input->post('administrativo_codigo') : $administrativo['administrativo_codigo']); ?>" class="form-control" id="administrativo_codigo" />
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -171,7 +171,14 @@
 					<div class="col-md-6">
 						<label for="administrativo_foto" class="control-label">Foto</label>
 						<div class="form-group">
-							<input type="file" name="administrativo_foto" value="<?php echo ($this->input->post('administrativo_foto') ? $this->input->post('administrativo_foto') : $administrativo['administrativo_foto']); ?>" class="form-control" id="administrativo_foto" />
+							<input type="file" name="administrativo_foto" value="<?php echo ($this->input->post('administrativo_foto') ? $this->input->post('administrativo_foto') : $administrativo['administrativo_foto']); ?>" class="form-control" id="administrativo_foto" accept="image/png, image/jpeg, jpg, image/gif"/>
+							<input type="hidden" name="administrativo_foto1" value="<?php echo ($this->input->post('administrativo_foto') ? $this->input->post('administrativo_foto') : $administrativo['administrativo_foto']); ?>" class="form-control" id="administrativo_foto1" />
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="administrativo_email" class="control-label">Email</label>
+						<div class="form-group">
+							<input type="email" name="administrativo_email" value="<?php echo ($this->input->post('administrativo_email') ? $this->input->post('administrativo_email') : $administrativo['administrativo_email']); ?>" class="form-control" id="administrativo_email" />
 						</div>
 					</div>
 					<div class="col-md-6" hidden>

@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <?php
+            $session_data = $this->session->userdata('logged_in');
+        ?>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>siaac_web</title>
+        <title>SIAAC<?php if(isset($page_title)){ echo $page_title; }?> </title>
+
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -27,9 +31,9 @@
                 <!-- Logo -->
                 <a href="" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini">siaac_web</span>
+                    <span class="logo-mini">SIAAC</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg">siaac_web</span>
+                    <span class="logo-lg">SIAAC</span>
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top">
@@ -46,26 +50,26 @@
                         <!-- User Account: style can be found in dropdown.less -->
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo site_url('resources/img/user2-160x160.jpg');?>" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Alexander Pierce</span>
+                                    <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['thumb']);?>" class="user-image" alt="User Image">
+                                    <span class="hidden-xs"><?php echo $session_data['usuario_nombre']?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
-                                        <img src="<?php echo site_url('resources/img/user2-160x160.jpg');?>" class="img-circle" alt="User Image">
+                                        <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['usuario_imagen']);?>" class="img-circle" alt="User Image">
 
                                     <p>
-                                        Alexander Pierce - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        <?php echo $session_data['usuario_nombre']?> - <?php echo $session_data['rol']?>
+                                        <small><?php echo $session_data['usuario_email']?></small>
                                     </p>
                                     </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                            <a href="<?php echo site_url() ?>admin/dashb/cuenta" class="btn btn-default btn-flat">Mi Cuenta</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="<?php echo site_url() ?>admin/dashb/logout" class="btn btn-default btn-flat">Salir</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -81,16 +85,16 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo site_url('resources/img/user2-160x160.jpg');?>" class="img-circle" alt="User Image">
+                            <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['thumb']);?>" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Alexander Pierce</p>
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <p><?php echo $session_data['usuario_nombre']?></p>
+                            <a href="#"><i class="fa fa-circle text-success"></i> <?php echo $session_data['rol']?></a>
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="header">MAIN NAVIGATION</li>
+                        <li class="header">Navegacion</li>
                         <li>
                             <a href="<?php echo site_url();?>">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>

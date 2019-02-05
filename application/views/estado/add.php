@@ -10,7 +10,7 @@
 					<div class="col-md-6">
 						<label for="estado_descripcion" class="control-label">Estado Descripcion</label>
 						<div class="form-group">
-							<input type="text" name="estado_descripcion" value="<?php echo $this->input->post('estado_descripcion'); ?>" class="form-control" id="estado_descripcion" />
+							<input type="text" name="estado_descripcion" value="<?php echo $this->input->post('estado_descripcion'); ?>" class="form-control" id="estado_descripcion" required/>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -29,8 +29,10 @@
 			</div>
           	<div class="box-footer">
             	<button type="submit" class="btn btn-success">
-            		<i class="fa fa-check"></i> Save
+            		<i class="fa fa-check"></i> Guardar
             	</button>
+            	<a href="<?php echo site_url('estado/index'); ?>" class="btn btn-danger">
+                                <i class="fa fa-times"></i> Cancelar</a>
           	</div>
             <?php echo form_close(); ?>
       	</div>

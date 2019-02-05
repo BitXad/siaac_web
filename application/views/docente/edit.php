@@ -21,7 +21,7 @@
             <div class="box-header with-border">
               	<h3 class="box-title">Editar Docente</h3>
             </div>
-			<?php echo form_open('docente/edit/'.$docente['docente_id']); ?>
+			<?php echo form_open_multipart('docente/edit/'.$docente['docente_id']); ?>
 			<div class="box-body">
 				<div class="row clearfix">
 					
@@ -70,6 +70,22 @@
 						</div>
 					</div>
 					<div class="col-md-6">
+						<label for="estadocivil_id" class="control-label">Estado Civil</label>
+						<div class="form-group">
+							<select name="estadocivil_id" class="form-control">
+								<option value="">- ESTADO CIVIL -</option>
+								<?php 
+								foreach($all_estado_civil as $estado_civil)
+								{
+									$selected = ($estado_civil['estadocivil_id'] == $administrativo['estadocivil_id']) ? ' selected="selected"' : "";
+
+									echo '<option value="'.$estado_civil['estadocivil_id'].'" '.$selected.'>'.$estado_civil['estadocivil_descripcion'].'</option>';
+								} 
+								?>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
 						<label for="docente_fechanac" class="control-label">Fecha de Nacimiento</label>
 						<div class="form-group">
 							<input type="date" name="docente_fechanac" value="<?php echo ($this->input->post('docente_fechanac') ? $this->input->post('docente_fechanac') : $docente['docente_fechanac']); ?>" class="form-control" id="docente_fechanac" required/>
@@ -107,7 +123,7 @@
 					<div class="col-md-6">
 						<label for="docente_codigo" class="control-label">Codigo</label>
 						<div class="form-group">
-							<input type="text" name="docente_codigo" value="<?php echo ($this->input->post('docente_codigo') ? $this->input->post('docente_codigo') : $docente['docente_codigo']); ?>" class="form-control" id="docente_codigo" readonly/>
+							<input type="text" name="docente_codigo" value="<?php echo ($this->input->post('docente_codigo') ? $this->input->post('docente_codigo') : $docente['docente_codigo']); ?>" class="form-control" id="docente_codigo"/>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -143,7 +159,8 @@
 					<div class="col-md-6">
 						<label for="docente_foto" class="control-label">Foto</label>
 						<div class="form-group">
-							<input type="file" name="docente_foto" value="<?php echo ($this->input->post('docente_foto') ? $this->input->post('docente_foto') : $docente['docente_foto']); ?>" class="form-control" id="docente_foto" />
+							<input type="file" name="docente_foto" value="<?php echo ($this->input->post('docente_foto') ? $this->input->post('docente_foto') : $docente['docente_foto']); ?>" class="form-control" id="docente_foto" accept="image/png, image/jpeg, jpg, image/gif" />
+							<input type="hidden" name="docente_foto1" value="<?php echo ($this->input->post('docente_foto') ? $this->input->post('docente_foto') : $docente['docente_foto']); ?>" class="form-control" id="docente_foto1" />
 						</div>
 					</div>
 					<div class="col-md-6">

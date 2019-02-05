@@ -33,7 +33,7 @@ class Materia extends CI_Controller{
 				'area_id' => $this->input->post('area_id'),
 				'nivel_id' => $this->input->post('nivel_id'),
 				'mat_materia_id' => $this->input->post('mat_materia_id'),
-				'estado_id' => $this->input->post('estado_id'),
+				'estado_id' => 1,
 				'materia_nombre' => $this->input->post('materia_nombre'),
 				'materia_alias' => $this->input->post('materia_alias'),
 				'materia_codigo' => $this->input->post('materia_codigo'),

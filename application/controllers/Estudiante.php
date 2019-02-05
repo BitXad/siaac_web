@@ -42,6 +42,113 @@ class Estudiante extends CI_Controller{
 		
 		if($this->form_validation->run())     
         {   
+                        /* *********************INICIO imagen***************************** */
+                $foto="";
+                if (!empty($_FILES['estudiante_foto']['name'])){
+                        $this->load->library('image_lib');
+                        
+                        $config['upload_path'] = './resources/images/estudiantes/';
+                        $img_full_path = $config['upload_path'];
+
+                        $config['allowed_types'] = 'gif|jpeg|jpg|png';
+                        $config['max_size'] = 200000;
+                        $config['max_width'] = 2900;
+                        $config['max_height'] = 2900;
+                        
+                        $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
+                        $config['file_name'] = $new_name; //.$extencion;
+                        $config['file_ext_tolower'] = TRUE;
+
+                        $this->load->library('upload', $config);
+                        $this->upload->do_upload('estudiante_foto');
+
+                        $img_data = $this->upload->data();
+                        $extension = $img_data['file_ext'];
+                        /* ********************INICIO para resize***************************** */
+                        if ($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
+                            $conf['image_library'] = 'gd2';
+                            $conf['source_image'] = $img_data['full_path'];
+                            $conf['new_image'] = './resources/images/estudiantes/';
+                            $conf['maintain_ratio'] = TRUE;
+                            $conf['create_thumb'] = FALSE;
+                            $conf['width'] = 800;
+                            $conf['height'] = 600;
+                            $this->image_lib->clear();
+                            $this->image_lib->initialize($conf);
+                            if(!$this->image_lib->resize()){
+                                echo $this->image_lib->display_errors('','');
+                            }
+                        }
+                        /* ********************F I N  para resize***************************** */
+                        $confi['image_library'] = 'gd2';
+                        $confi['source_image'] = './resources/images/estudiantes/'.$new_name.$extension;
+                        $confi['new_image'] = './resources/images/estudiantes/'."thumb_".$new_name.$extension;
+                        $confi['create_thumb'] = FALSE;
+                        $confi['maintain_ratio'] = TRUE;
+                        $confi['width'] = 50;
+                        $confi['height'] = 50;
+
+                        $this->image_lib->clear();
+                        $this->image_lib->initialize($confi);
+                        $this->image_lib->resize();
+
+                        $foto = $new_name.$extension;
+                    }
+            /* *********************FIN imagen***************************** */
+             /* *********************INICIO imagen***************************** */
+                $fotoapo="";
+                if (!empty($_FILES['apoderado_foto']['name'])){
+                        $this->load->library('image_lib');    
+                        $config1['upload_path'] = './resources/images/apoderados/';
+                        $img_full_path1 = $config1['upload_path'];
+
+                        $config1['allowed_types'] = 'gif|jpeg|jpg|png';
+                        $config1['max_size'] = 200000;
+                        $config1['max_width'] = 2900;
+                        $config1['max_height'] = 2900;
+                        
+                        $new_name1 = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
+                        $config1['file_name'] = $new_name1; //.$extencion;
+                        $config1['file_ext_tolower'] = TRUE;
+
+
+                        $this->load->library('upload', $config1);
+                        $this->upload->initialize($config1);
+                        $this->upload->do_upload('apoderado_foto');
+
+                        $img_data1 = $this->upload->data();
+                        $extension1 = $img_data1['file_ext'];
+                        /* ********************INICIO para resize***************************** */
+                        if ($img_data1['file_ext'] == ".jpg" || $img_data1['file_ext'] == ".png" || $img_data1['file_ext'] == ".jpeg" || $img_data1['file_ext'] == ".gif") {
+                            $conf1['image_library'] = 'gd2';
+                            $conf1['source_image'] = $img_data1['full_path'];
+                            $conf1['new_image'] = './resources/images/apoderados/';
+                            $conf1['maintain_ratio'] = TRUE;
+                            $conf1['create_thumb'] = FALSE;
+                            $conf1['width'] = 800;
+                            $conf1['height'] = 600;
+                            $this->image_lib->clear();
+                            $this->image_lib->initialize($conf1);
+                            if(!$this->image_lib->resize()){
+                                echo $this->image_lib->display_errors('','');
+                            }
+                        }
+                        /* ********************F I N  para resize***************************** */
+                        $confi1['image_library'] = 'gd2';
+                        $confi1['source_image'] = './resources/images/apoderados/'.$new_name1.$extension1;
+                        $confi1['new_image'] = './resources/images/apoderados/'."thumb_".$new_name1.$extension1;
+                        $confi1['create_thumb'] = FALSE;
+                        $confi1['maintain_ratio'] = TRUE;
+                        $confi1['width'] = 50;
+                        $confi1['height'] = 50;
+
+                        $this->image_lib->clear();
+                        $this->image_lib->initialize($confi1);
+                        $this->image_lib->resize();
+
+                        $fotoapo = $new_name1.$extension1;
+                    }
+            /* *********************FIN imagen***************************** */
             $params = array(
 				'estado_id' => 1,
 				'genero_id' => $this->input->post('genero_id'),
@@ -51,22 +158,24 @@ class Estudiante extends CI_Controller{
 				'estudiante_fechanac' => $this->input->post('estudiante_fechanac'),
 				'estudiante_edad' => $this->input->post('estudiante_edad'),
 				'estudiante_ci' => $this->input->post('estudiante_ci'),
-				'estudiante_extci' => $this->input->post('estudiante_extci'),
+                'estudiante_extci' => $this->input->post('estudiante_extci'),
+				'estudiante_codigo' => $this->input->post('estudiante_codigo'),
 				'estudiante_direccion' => $this->input->post('estudiante_direccion'),
 				'estudiante_telefono' => $this->input->post('estudiante_telefono'),
 				'estudiante_celular' => $this->input->post('estudiante_celular'),
-				'estudiante_foto' => $this->input->post('estudiante_foto'),
+				'estudiante_foto' => $foto,
 				'estudiante_lugarnac' => $this->input->post('estudiante_lugarnac'),
 				'estudiante_nacionalidad' => $this->input->post('estudiante_nacionalidad'),
 				'estudiante_establecimiento' => $this->input->post('estudiante_establecimiento'),
 				'estudiante_distrito' => $this->input->post('estudiante_distrito'),
 				'estudiante_apoderado' => $this->input->post('estudiante_apoderado'),
-				'apoderado_foto' => $this->input->post('apoderado_foto'),
+				'apoderado_foto' => $fotoapo,
 				'estudiante_apodireccion' => $this->input->post('estudiante_apodireccion'),
 				'estudiante_apoparentesco' => $this->input->post('estudiante_apoparentesco'),
 				'estudiante_apotelefono' => $this->input->post('estudiante_apotelefono'),
 				'estudiante_nit' => $this->input->post('estudiante_nit'),
 				'estudiante_razon' => $this->input->post('estudiante_razon'),
+                'estudiante_email' => $this->input->post('estudiante_email'),
             );
             
             $estudiante_id = $this->Estudiante_model->add_estudiante($params);
@@ -105,6 +214,133 @@ class Estudiante extends CI_Controller{
 		
 			if($this->form_validation->run())     
             {   
+                /* *********************INICIO imagen***************************** */
+                $foto="";
+                $foto1= $this->input->post('estudiante_foto1');
+                if (!empty($_FILES['estudiante_foto']['name']))
+                {
+                    $this->load->library('image_lib');
+                    $config['upload_path'] = './resources/images/estudiantes/';
+                    $config['allowed_types'] = 'gif|jpeg|jpg|png';
+                    $config['max_size'] = 200000;
+                    $config['max_width'] = 2900;
+                    $config['max_height'] = 2900;
+
+                    $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
+                    $config['file_name'] = $new_name; //.$extencion;
+                    $config['file_ext_tolower'] = TRUE;
+
+                    $this->load->library('upload', $config);
+                    $this->upload->do_upload('estudiante_foto');
+
+                    $img_data = $this->upload->data();
+                    $extension = $img_data['file_ext'];
+                    /* ********************INICIO para resize***************************** */
+                    if($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
+                        $conf['image_library'] = 'gd2';
+                        $conf['source_image'] = $img_data['full_path'];
+                        $conf['new_image'] = './resources/images/estudiantes/';
+                        $conf['maintain_ratio'] = TRUE;
+                        $conf['create_thumb'] = FALSE;
+                        $conf['width'] = 800;
+                        $conf['height'] = 600;
+                        $this->image_lib->clear();
+                        $this->image_lib->initialize($conf);
+                        if(!$this->image_lib->resize()){
+                            echo $this->image_lib->display_errors('','');
+                        }
+                    }
+                    /* ********************F I N  para resize***************************** */
+                    //$directorio = base_url().'resources/imagenes/';
+                    $directorio = $_SERVER['DOCUMENT_ROOT'].'/siaac_web/resources/images/estudiantes/';
+                    if(isset($foto1) && !empty($foto1)){
+                      if(file_exists($directorio.$foto1)){
+                          unlink($directorio.$foto1);
+                          $mimagenthumb = str_replace(".", "_thumb.", $foto1);
+                          unlink($directorio.$mimagenthumb);
+                      }
+                  }
+                    $confi['image_library'] = 'gd2';
+                    $confi['source_image'] = './resources/images/estudiantes/'.$new_name.$extension;
+                    $confi['new_image'] = './resources/images/estudiantes/'."thumb_".$new_name.$extension;
+                    $confi['create_thumb'] = FALSE;
+                    $confi['maintain_ratio'] = TRUE;
+                    $confi['width'] = 50;
+                    $confi['height'] = 50;
+
+                    $this->image_lib->clear();
+                    $this->image_lib->initialize($confi);
+                    $this->image_lib->resize();
+
+                    $foto = $new_name.$extension;
+                }else{
+                    $foto = $foto1;
+                }
+            /* *********************FIN imagen***************************** */
+            /* *********************INICIO imagen APODERADO***************************** */
+                $fotoapo="";
+                $fotoapo1= $this->input->post('apoderado_foto1');
+                if (!empty($_FILES['apoderado_foto']['name']))
+                {
+                    $this->load->library('image_lib');
+                    $config1['upload_path'] = './resources/images/apoderados/';
+                    $config1['allowed_types'] = 'gif|jpeg|jpg|png';
+                    $config1['max_size'] = 200000;
+                    $config1['max_width'] = 2900;
+                    $config1['max_height'] = 2900;
+
+                    $new_name1 = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
+                    $config1['file_name'] = $new_name1; //.$extencion;
+                    $config1['file_ext_tolower'] = TRUE;
+
+                    $this->load->library('upload', $config1);
+                     $this->upload->initialize($config1);
+                    $this->upload->do_upload('apoderado_foto');
+
+                    $img_data1 = $this->upload->data();
+                    $extension1 = $img_data1['file_ext'];
+                    /* ********************INICIO para resize***************************** */
+                    if($img_data1['file_ext'] == ".jpg" || $img_data1['file_ext'] == ".png" || $img_data1['file_ext'] == ".jpeg" || $img_data1['file_ext'] == ".gif") {
+                        $conf1['image_library'] = 'gd2';
+                        $conf1['source_image'] = $img_data1['full_path'];
+                        $conf1['new_image'] = './resources/images/apoderados/';
+                        $conf1['maintain_ratio'] = TRUE;
+                        $conf1['create_thumb'] = FALSE;
+                        $conf1['width'] = 800;
+                        $conf1['height'] = 600;
+                        $this->image_lib->clear();
+                        $this->image_lib->initialize($conf1);
+                        if(!$this->image_lib->resize()){
+                            echo $this->image_lib->display_errors('','');
+                        }
+                    }
+                    /* ********************F I N  para resize***************************** */
+                    //$directorio = base_url().'resources/imagenes/';
+                    $directorio1 = $_SERVER['DOCUMENT_ROOT'].'/siaac_web/resources/images/apoderados/';
+                    if(isset($fotoapo1) && !empty($fotoapo1)){
+                      if(file_exists($directorio1.$fotoapo1)){
+                          unlink($directorio1.$fotoapo1);
+                          $mimagenthumb1 = str_replace(".", "_thumb.", $fotoapo1);
+                          unlink($directorio1.$mimagenthumb1);
+                      }
+                  }
+                    $confi1['image_library'] = 'gd2';
+                    $confi1['source_image'] = './resources/images/apoderados/'.$new_name1.$extension1;
+                    $confi1['new_image'] = './resources/images/apoderados/'."thumb_".$new_name1.$extension1;
+                    $confi1['create_thumb'] = FALSE;
+                    $confi1['maintain_ratio'] = TRUE;
+                    $confi1['width'] = 50;
+                    $confi1['height'] = 50;
+
+                    $this->image_lib->clear();
+                    $this->image_lib->initialize($confi1);
+                    $this->image_lib->resize();
+
+                    $fotoapo = $new_name1.$extension1;
+                }else{
+                    $fotoapo = $fotoapo1;
+                }
+            /* *********************FIN imagen***************************** */
                 $params = array(
 					'estado_id' => $this->input->post('estado_id'),
 					'genero_id' => $this->input->post('genero_id'),
@@ -114,22 +350,24 @@ class Estudiante extends CI_Controller{
 					'estudiante_fechanac' => $this->input->post('estudiante_fechanac'),
 					'estudiante_edad' => $this->input->post('estudiante_edad'),
 					'estudiante_ci' => $this->input->post('estudiante_ci'),
-					'estudiante_extci' => $this->input->post('estudiante_extci'),
+                    'estudiante_extci' => $this->input->post('estudiante_extci'),
+					'estudiante_codigo' => $this->input->post('estudiante_codigo'),
 					'estudiante_direccion' => $this->input->post('estudiante_direccion'),
 					'estudiante_telefono' => $this->input->post('estudiante_telefono'),
 					'estudiante_celular' => $this->input->post('estudiante_celular'),
-					'estudiante_foto' => $this->input->post('estudiante_foto'),
+					'estudiante_foto' => $foto,
 					'estudiante_lugarnac' => $this->input->post('estudiante_lugarnac'),
 					'estudiante_nacionalidad' => $this->input->post('estudiante_nacionalidad'),
 					'estudiante_establecimiento' => $this->input->post('estudiante_establecimiento'),
 					'estudiante_distrito' => $this->input->post('estudiante_distrito'),
 					'estudiante_apoderado' => $this->input->post('estudiante_apoderado'),
-					'apoderado_foto' => $this->input->post('apoderado_foto'),
+					'apoderado_foto' => $fotoapo,
 					'estudiante_apodireccion' => $this->input->post('estudiante_apodireccion'),
 					'estudiante_apoparentesco' => $this->input->post('estudiante_apoparentesco'),
 					'estudiante_apotelefono' => $this->input->post('estudiante_apotelefono'),
 					'estudiante_nit' => $this->input->post('estudiante_nit'),
 					'estudiante_razon' => $this->input->post('estudiante_razon'),
+                    'estudiante_email' => $this->input->post('estudiante_email'),
                 );
 
                 $this->Estudiante_model->update_estudiante($estudiante_id,$params);            

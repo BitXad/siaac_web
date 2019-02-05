@@ -1,5 +1,5 @@
 <!------------------ ESTILO DE LAS TABLAS ----------------->
-<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
+<link href="<?php echo base_url('resources/css/alejo.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
 
 <div class="row">
@@ -9,6 +9,7 @@
                 <h3 class="box-title">Aula</h3>
             	<div class="box-tools">
                     <a href="<?php echo site_url('aula/add'); ?>" class="btn btn-success btn-sm">Registrar Aula</a> 
+                    <a href="<?php echo site_url('aula/generar_excel'); ?>" target="_blank"> Generar excel </a>
                 </div>
             </div>
             <div class="box-body">
@@ -32,7 +33,7 @@
 						<td><?php echo $a['tipoaula_descripcion']; ?></td>
 						<td>
                             <a href="<?php echo site_url('aula/edit/'.$a['aula_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
-                            <a href="<?php echo site_url('aula/remove/'.$a['aula_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
+                           <!-- <a href="<?php echo site_url('aula/remove/'.$a['aula_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->
                         </td>
                     </tr>
                     <?php } ?>
