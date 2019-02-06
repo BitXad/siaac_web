@@ -14,7 +14,7 @@
                 <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>#</th>
-						<th>Genero Nombre</th>
+						<th>Nombre</th>
 						<th></th>
                     </tr>
                     <?php $i=0;

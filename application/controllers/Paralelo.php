@@ -34,7 +34,7 @@ class Paralelo extends CI_Controller{
 		if($this->form_validation->run())     
         {   
             $params = array(
-				'estado_id' => $this->input->post('estado_id'),
+				'estado_id' => 1,
 				'paralelo_descripcion' => $this->input->post('paralelo_descripcion'),
             );
             

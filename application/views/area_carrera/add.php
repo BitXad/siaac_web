@@ -2,7 +2,7 @@
     <div class="col-md-12">
       	<div class="box box-info">
             <div class="box-header with-border">
-              	<h3 class="box-title">Añadir Area</h3>
+              	<h3 class="box-title">Añadir Area-Carrera</h3>
             </div>
             <?php echo form_open('area_carrera/add'); ?>
           	<div class="box-body">

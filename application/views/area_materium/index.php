@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Area Materia</h3>
+                <h3 class="box-title">Area - Materia</h3>
             	<div class="box-tools">
                     <a href="<?php echo site_url('area_materium/add'); ?>" class="btn btn-success btn-sm">+ Añadir</a> 
                 </div>
@@ -14,7 +14,7 @@
                 <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>#</th>
-						<th>Area Nombre</th>
+						<th>Nombre</th>
 						<th>Fecha Registro</th>
 						<th></th>
                     </tr>

@@ -50,6 +50,46 @@ class Factura_model extends CI_Model
 
         return $factura;
     }
+
+    function get_factura_ventas($inicio, $fin)
+    {
+        $factura = $this->db->query("
+            SELECT
+                *
+
+            FROM
+                `factura`
+
+            WHERE
+                factura_fecha >= '".$inicio."'
+                and factura_fecha <= '".$fin."'
+                and venta_id <> 0 
+
+            ORDER BY `factura_id` DESC
+        ")->result_array();
+
+        return $factura;
+    }
+
+    function get_factura_compras($inicio, $fin)
+    {
+        $factura = $this->db->query("
+            SELECT
+                *
+
+            FROM
+                `factura`
+
+            WHERE
+                factura_fecha >= '".$inicio."'
+                and factura_fecha <= '".$fin."' 
+                
+
+            ORDER BY `factura_id` DESC
+        ")->result_array();
+
+        return $factura;
+    }
         
     /*
      * function to add new factura
