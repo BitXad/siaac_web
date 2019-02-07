@@ -22,6 +22,22 @@ class Mensualidad extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
 
+    function mensualidad($kardexeco_id)
+    {
+        $data['mensualidad'] = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
+        
+        $data['_view'] = 'mensualidad/mensualidades';
+        $this->load->view('layouts/main',$data);
+    }
+
+    function planmensualidad($kardexeco_id)
+    {
+        $data['mensualidad'] = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
+        
+        $data['_view'] = 'mensualidad/planmensualidad';
+        $this->load->view('layouts/main',$data);
+    }
+
     /*
      * Adding a new mensualidad
      */
@@ -38,7 +54,9 @@ class Mensualidad extends CI_Controller{
 				'mensualidad_descuento' => $this->input->post('mensualidad_descuento'),
 				'mensualidad_montototal' => $this->input->post('mensualidad_montototal'),
 				'mensualidad_fechalimite' => $this->input->post('mensualidad_fechalimite'),
-				'mensualidad_mora' => $this->input->post('mensualidad_mora'),
+                'mensualidad_mora' => $this->input->post('mensualidad_mora'),
+                'mensualidad_montocancelado' => $this->input->post('mensualidad_montocancelado'),
+				'mensualidad_saldo' => $this->input->post('mensualidad_saldo'),
 				'mensualidad_fechapago' => $this->input->post('mensualidad_fechapago'),
 				'mensualidad_horapago' => $this->input->post('mensualidad_horapago'),
 				'mensualidad_nombre' => $this->input->post('mensualidad_nombre'),
@@ -87,6 +105,8 @@ class Mensualidad extends CI_Controller{
 					'mensualidad_montototal' => $this->input->post('mensualidad_montototal'),
 					'mensualidad_fechalimite' => $this->input->post('mensualidad_fechalimite'),
 					'mensualidad_mora' => $this->input->post('mensualidad_mora'),
+                    'mensualidad_montocancelado' => $this->input->post('mensualidad_montocancelado'),
+                    'mensualidad_saldo' => $this->input->post('mensualidad_saldo'),
 					'mensualidad_fechapago' => $this->input->post('mensualidad_fechapago'),
 					'mensualidad_horapago' => $this->input->post('mensualidad_horapago'),
 					'mensualidad_nombre' => $this->input->post('mensualidad_nombre'),
@@ -116,10 +136,60 @@ class Mensualidad extends CI_Controller{
             show_error('The mensualidad you are trying to edit does not exist.');
     } 
 
+     function pagar($mensualidad_id)
+    {
+        $usuario_id =1;
+        $mensualidad_id = $this->input->post('mensualidad_id');
+        $kardexeco_id = $this->input->post('kardexeco_id');
+        $mensualidad_saldo = $this->input->post('mensualidad_saldo');
+        $dias_mora = 0;
+        $descuento = 0;
+        $cancelado = 0;
+        $fechalimite  = $this->input->post('mensualidad_fechalimite');
+        $mensualidad_fechalimite = "'".$fechalimite."'";
+        $mensualidad_montoparcial = $this->input->post('mensualidad_saldo');
+        $mensualidad_numero = $this->input->post('mensualidad_numero');
+       
+         
+                 $params = array(
+                    
+                    'usuario_id' => 1,
+                    'estado_id' => 4,
+                    'mensualidad_mora' => $this->input->post('mensualidad_mora'),
+                    'mensualidad_montocancelado' => $this->input->post('mensualidad_montocancelado'),
+                    'mensualidad_fechapago' => $this->input->post('mensualidad_fecha'),
+                    'mensualidad_horapago' => $this->input->post('mensualidad_hora'),
+                    'mensualidad_nombre' => $this->input->post('mensualidad_nombre'),
+                    'mensualidad_ci' => $this->input->post('mensualidad_ci'),
+                    'mensualidad_glosa' => $this->input->post('mensualidad_glosa'),
+                    'mensualidad_saldo' => $this->input->post('mensualidad_saldo'),
+                );
+
+                $this->Mensualidad_model->update_mensualidad($mensualidad_id,$params);
+
+        if($mensualidad_saldo>0){ 
+
+                $this->Mensualidad_model->parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id); 
+            }
+
+    
+                 redirect('mensualidad/mensualidad/'.$kardexeco_id);  
+            }
+
+function pendiente($mensualidad_id,$kardexeco_id)
+    {       
+            
+            $sql = "UPDATE mensualidad SET estado_id=3,mensualidad_montocancelado=0,mensualidad_fechapago='0000-00-00',mensualidad_nombre='',mensualidad_ci='',mensualidad_horapago=NULL WHERE mensualidad.mensualidad_id=".$mensualidad_id." and mensualidad.kardexeco_id=".$kardexeco_id." ";
+            $this->db->query($sql);
+             
+
+            redirect('mensualidad/mensualidad/'.$kardexeco_id);
+    }
+
     /*
      * Deleting mensualidad
      */
-    function remove($mensualidad_id)
+    function remove($mensualidad_id,$kardexeco_id)
     {
         $mensualidad = $this->Mensualidad_model->get_mensualidad($mensualidad_id);
 
@@ -127,7 +197,8 @@ class Mensualidad extends CI_Controller{
         if(isset($mensualidad['mensualidad_id']))
         {
             $this->Mensualidad_model->delete_mensualidad($mensualidad_id);
-            redirect('mensualidad/index');
+            
+                 redirect('mensualidad/mensualidad/'.$kardexeco_id); 
         }
         else
             show_error('The mensualidad you are trying to delete does not exist.');

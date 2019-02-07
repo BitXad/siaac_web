@@ -50,6 +50,31 @@ class Mensualidad_model extends CI_Model
 
         return $mensualidad;
     }
+
+    function kardex_mensualidad($kardex_id)
+    {
+        $mensualidad = $this->db->query("
+            SELECT
+                m.*, e.*
+
+            FROM
+                mensualidad m, estado e
+
+            WHERE
+                m.estado_id=e.estado_id
+                and m.kardexeco_id = ".$kardex_id."
+
+            ORDER BY `mensualidad_id` ASC
+        ")->result_array();
+
+        return $mensualidad;
+    }
+
+    function parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id)
+    {
+        $mensualidad ="INSERT INTO mensualidad (kardexeco_id,usuario_id,estado_id,mensualidad_numero,mensualidad_mora,mensualidad_descuento,mensualidad_montocancelado,mensualidad_montoparcial,mensualidad_montototal,mensualidad_fechalimite) VALUES (".$kardexeco_id.",".$usuario_id.",3,".$mensualidad_numero.",".$dias_mora.",".$descuento.",".$cancelado.",".$mensualidad_montoparcial.",".$mensualidad_montoparcial.",".$mensualidad_fechalimite.")";
+                $this->db->query($mensualidad);
+    }
         
     /*
      * function to add new mensualidad
