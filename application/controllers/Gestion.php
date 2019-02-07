@@ -38,11 +38,11 @@ class Gestion extends CI_Controller{
         if(isset($_POST) && count($_POST) > 0)     
         {   
             $params = array(
-				'estado_id' => $this->input->post('estado_id'),
+				'estado_id' => 1,
 				'gestion_semestre' => $this->input->post('gestion_semestre'),
 				'gestion_inicio' => $this->input->post('gestion_inicio'),
 				'gestion_fin' => $this->input->post('gestion_fin'),
-				'gestion_estado' => $this->input->post('gestion_estado'),
+				'gestion_estado' => 0,
 				'gestion_descripcion' => $this->input->post('gestion_descripcion'),
             );
             
@@ -76,7 +76,7 @@ class Gestion extends CI_Controller{
 					'gestion_semestre' => $this->input->post('gestion_semestre'),
 					'gestion_inicio' => $this->input->post('gestion_inicio'),
 					'gestion_fin' => $this->input->post('gestion_fin'),
-					'gestion_estado' => $this->input->post('gestion_estado'),
+					'gestion_estado' => 0,
 					'gestion_descripcion' => $this->input->post('gestion_descripcion'),
                 );
 
