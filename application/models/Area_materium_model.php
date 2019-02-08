@@ -76,4 +76,20 @@ class Area_materium_model extends CI_Model
     {
         return $this->db->delete('area_materia',array('area_id'=>$area_id));
     }
+    /* ******* Get all area_materia ACTIVO ****** */
+    function get_all_area_mat()
+    {
+        $area_materia = $this->db->query("
+            SELECT
+                a.area_id, a.area_nombre
+            FROM
+                area_materia a
+            WHERE
+                1 = 1
+
+            ORDER BY a.area_id DESC
+        ")->result_array();
+
+        return $area_materia;
+    }
 }

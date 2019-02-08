@@ -118,5 +118,196 @@ class Plan_academico extends CI_Controller{
         else
             show_error('The plan_academico you are trying to delete does not exist.');
     }
+    /*
+     * Creacion de Plan Academico
+     */
+    function planacad()
+    {
+        $this->load->model('Institucion_model');
+        $data['all_institucion'] = $this->Institucion_model->get_all_institucion();
+        
+        $this->load->model('Carrera_model');
+        $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+        
+        $this->load->model('Materia_model');
+        $data['all_materias'] = $this->Materia_model->get_all_materias_activo();
+        
+        $this->load->model('Area_materium_model');
+        $data['all_areas'] = $this->Area_materium_model->get_all_area_mat();
+        
+        $data['_view'] = 'plan_academico/planacad';
+        $this->load->view('layouts/main',$data);
+    }
+    /****obtener plan academico de una carrera****/
+    function get_plan_acadcarrera()
+    {
+        if ($this->input->is_ajax_request()){
+            
+            $carrera_id = $this->input->post('carrera_id');
+            if ($carrera_id!=""){
+                $datos = $this->Plan_academico_model->get_plan_acad_carr($carrera_id);
+                echo json_encode($datos);
+            }
+            else echo json_encode(null);
+        }
+        else
+        {                 
+            show_404();
+        }
+        
+    }
+    /****REGISTRAR NUEVO plan academico de una carrera****/
+    function new_plan_acadcarrera()
+    {
+        if ($this->input->is_ajax_request()){
+            
+            $carrera_id = $this->input->post('carrera_id');
+            $planacad_nombre = $this->input->post('planacad_nombre');
+            $planacad_codigo = $this->input->post('planacad_codigo');
+            $planacad_titmodalidad = $this->input->post('planacad_titmodalidad');
+            
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('planacad_nombre','Plan Academico Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+
+            if($this->form_validation->run())     
+            {
+                $estado_id = 1;
+                $params = array(
+                    'estado_id' => $estado_id,
+                    'carrera_id' => $this->input->post('carrera_id'),
+                    'planacad_nombre' => $this->input->post('planacad_nombre'),
+                    //'planacad_feccreacion' => $this->input->post('plan_academico_feccreacion'),
+                    'planacad_codigo' => $this->input->post('planacad_codigo'),
+                    'planacad_titmodalidad' => $this->input->post('planacad_titmodalidad'),
+                   // 'planacad_cantgestion' => $this->input->post('planacad_cantgestion'),
+                );
+            
+                $plan_academico_id = $this->Plan_academico_model->add_plan_academico($params);
+                $datos = $this->Plan_academico_model->get_this_plan_academico($plan_academico_id);
+                echo json_encode($datos);
+            }else echo json_encode(null);
+        }
+        else
+        {                 
+            show_404();
+        }
+        
+    }
+    /****REGISTRAR NUEVO NIVEL****/
+    function new_nivel()
+    {
+        if ($this->input->is_ajax_request()){
+            
+            $nivel_descripcion = $this->input->post('nivel_descripcion');
+            $planacad_id = $this->input->post('planacad_id');
+            
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('nivel_descripcion','Nivel Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+
+            if($this->form_validation->run())     
+            {
+                $params = array(
+                    'planacad_id' => $planacad_id,
+                    'nivel_descripcion' => $nivel_descripcion,
+                );
+                $this->load->model('Nivel_model');
+                $nivel_id = $this->Nivel_model->add_nivel($params);
+                
+                echo json_encode("ok");
+            }else echo json_encode(null);
+        }
+        else
+        {                 
+            show_404();
+        }
+        
+    }
+    /***OBTIENE TODOS LOS  plan academico de una carrera****/
+    function get_nivel_planacad()
+    {
+        if ($this->input->is_ajax_request()){
+            $planacad_id = $this->input->post('planacad_id');
+
+            $this->load->model('Nivel_model');
+            $datos = $this->Nivel_model->get_all_nivel_forplan($planacad_id);
+            echo json_encode($datos);
+        }
+        else
+        {                 
+            show_404();
+        }
+    }
+    /***OBTIENE MATERIAS  de un nivel****/
+    function get_materiasnivel()
+    {
+        if ($this->input->is_ajax_request()){
+            $nivel_id = $this->input->post('nivel_id');
+
+            $this->load->model('Materia_model');
+            $datos = $this->Materia_model->get_all_materia_nivel($nivel_id);
+            echo json_encode($datos);
+        }
+        else
+        {                 
+            show_404();
+        }
+    }
+    /***OBTIENE MATERIAS  Activas para pre-requisito****/
+    function new_materia()
+    {
+        if ($this->input->is_ajax_request()){
+            $prerequisito = $this->input->post('prerequisito');
+            $materia_nombre = $this->input->post('materia_nombre');
+            $materia_alias = $this->input->post('materia_alias');
+            $mat_materia_id = $this->input->post('mat_materia_id');
+            $area_id = $this->input->post('area_id');
+            $materia_codigo = $this->input->post('materia_codigo');
+            $nivel_id = $this->input->post('nivel_id');
+            if($prerequisito){
+                $params = array(
+				'estado_id' => 1,
+				'area_id' => $area_id,
+				'nivel_id' => $nivel_id,
+				'materia_nombre' => $materia_nombre,
+				'materia_alias' => $materia_alias,
+				'materia_codigo' => $materia_codigo,
+                );
+            }else{
+                $params = array(
+				'estado_id' => 1,
+				'area_id' => $area_id,
+				'nivel_id' => $nivel_id,
+				'mat_materia_id' => $mat_materia_id,
+				'materia_nombre' => $materia_nombre,
+				'materia_alias' => $materia_alias,
+				'materia_codigo' => $materia_codigo,
+                );
+            }
+            $this->load->model('Materia_model');
+            $materia_id = $this->Materia_model->add_materia($params);
+            //$datos = $this->Materia_model->get_all_materias_activo($nivel_id);
+            echo json_encode("ok");
+        }
+        else
+        {                 
+            show_404();
+        }
+    }
+    /***OBTIENE MATERIAS activas  de un nivel****/
+    function get_materias_activas()
+    {
+        if ($this->input->is_ajax_request()){
+            $nivel_id = $this->input->post('nivel_id');
+
+            $this->load->model('Materia_model');
+            $datos = $this->Materia_model->get_all_materias_activo($nivel_id);
+            echo json_encode($datos);
+        }
+        else
+        {                 
+            show_404();
+        }
+    }
     
 }
+
