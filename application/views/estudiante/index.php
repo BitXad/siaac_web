@@ -34,6 +34,7 @@
 						<td><?php echo $cont; ?></td>
 						<td>
                             <div id="horizontal">
+                              <?php if ($e['estudiante_foto']!=NULL && $e['estudiante_foto']!="") { ?>
                                 <div id="contieneimg">
                                     <?php
                                     $mimagen = "thumb_".$e['estudiante_foto'];
@@ -45,6 +46,11 @@
                                         ?>
                                     </a>
                                 </div>
+                                <?php } else { ?>
+                                    <div id="contieneimg">
+                                        <img src="<?php echo site_url('/resources/images/usuarios/thumb_default.jpg');  ?>" />
+                                    </div>
+                                    <?php }  ?>
                                 <div style="padding-left: 4px">
                                     <?php echo "<b>".$e['estudiante_nombre']."</b><br>";
                                           echo "<b>".$e['estudiante_apellidos']."</b><br>";
@@ -89,6 +95,7 @@
 						<td><?php echo $e['estudiante_distrito']; ?></td>
 						<td>
 							 <div id="horizontal">
+                <?php if ($e['apoderado_foto']!=NULL && $e['apoderado_foto']!="") { ?>
                                 <div id="contieneimg">
                                     <?php
                                     $mimagen = "thumb_".$e['apoderado_foto'];
@@ -100,6 +107,11 @@
                                         ?>
                                     </a>
                                 </div>
+                                <?php } else { ?>
+                                    <div id="contieneimg">
+                                        <img src="<?php echo site_url('/resources/images/usuarios/thumb_default.jpg');  ?>" />
+                                    </div>
+                                    <?php }  ?>
                                 <div style="padding-left: 4px">
                                     <?php echo "<b>".$e['estudiante_apoderado']."</b>(".$e['estudiante_apoparentesco'].")<br>";
                                           echo "<b>Dir.:</b> ".$e['estudiante_apodireccion']."<br>";

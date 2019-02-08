@@ -34,6 +34,7 @@
 						<td><?php echo $cont; $i+1;  ?></td>
 							<td>
                             <div id="horizontal">
+                                <?php if ($a['administrativo_foto']!=NULL && $a['administrativo_foto']!="") { ?>
                                 <div id="contieneimg">
                                     <?php
                                     $mimagen = "thumb_".$a['administrativo_foto'];
@@ -45,6 +46,11 @@
                                         ?>
                                     </a>
                                 </div>
+                                <?php } else { ?>
+                                    <div id="contieneimg">
+                                        <img src="<?php echo site_url('/resources/images/usuarios/thumb_default.jpg');  ?>" />
+                                    </div>
+                                    <?php }  ?>
                                 <div style="padding-left: 4px">
                                     <?php echo "<b>".$a['administrativo_nombre']."</b><br>";
                                           echo "<b>".$a['administrativo_apellidos']."</b><br>";

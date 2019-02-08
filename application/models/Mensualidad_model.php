@@ -70,9 +70,9 @@ class Mensualidad_model extends CI_Model
         return $mensualidad;
     }
 
-    function parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id)
+    function parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id,$mes)
     {
-        $mensualidad ="INSERT INTO mensualidad (kardexeco_id,usuario_id,estado_id,mensualidad_numero,mensualidad_mora,mensualidad_descuento,mensualidad_montocancelado,mensualidad_montoparcial,mensualidad_montototal,mensualidad_fechalimite) VALUES (".$kardexeco_id.",".$usuario_id.",3,".$mensualidad_numero.",".$dias_mora.",".$descuento.",".$cancelado.",".$mensualidad_montoparcial.",".$mensualidad_montoparcial.",".$mensualidad_fechalimite.")";
+        $mensualidad ="INSERT INTO mensualidad (kardexeco_id,usuario_id,estado_id,mensualidad_numero,mensualidad_mora,mensualidad_descuento,mensualidad_montocancelado,mensualidad_montoparcial,mensualidad_montototal,mensualidad_fechalimite,mensualidad_mes) VALUES (".$kardexeco_id.",".$usuario_id.",3,".$mensualidad_numero.",".$dias_mora.",".$descuento.",".$cancelado.",".$mensualidad_montoparcial.",".$mensualidad_montoparcial.",".$mensualidad_fechalimite.",'".$mes."')";
                 $this->db->query($mensualidad);
     }
         
