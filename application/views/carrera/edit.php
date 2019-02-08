@@ -63,7 +63,7 @@
 					<div class="col-md-6">
 						<label for="carrera_fechacreacion" class="control-label">Fecha Creación</label>
 						<div class="form-group">
-							<input type="text" name="carrera_fechacreacion" value="<?php echo ($this->input->post('carrera_fechacreacion') ? $this->input->post('carrera_fechacreacion') : $carrera['carrera_fechacreacion']); ?>" class="has-datepicker form-control" id="carrera_fechacreacion" />
+							<input type="date" name="carrera_fechacreacion" value="<?php echo ($this->input->post('carrera_fechacreacion') ? $this->input->post('carrera_fechacreacion') : $carrera['carrera_fechacreacion']); ?>" class="form-control" id="carrera_fechacreacion" />
 						</div>
 					</div>
 					<div class="col-md-6">

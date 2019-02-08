@@ -76,4 +76,25 @@ class Nivel_model extends CI_Model
     {
         return $this->db->delete('nivel',array('nivel_id'=>$nivel_id));
     }
+    
+    /*
+     * Get all nivel
+     */
+    function get_all_nivel_forplan($planacad_id)
+    {
+        $nivel = $this->db->query("
+            SELECT
+                n.*
+
+            FROM
+                nivel n
+
+            WHERE
+                n.planacad_id = $planacad_id
+
+            ORDER BY `nivel_id` ASC
+        ")->result_array();
+
+        return $nivel;
+    }
 }

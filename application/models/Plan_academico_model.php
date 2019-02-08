@@ -77,4 +77,38 @@ class Plan_academico_model extends CI_Model
     {
         return $this->db->delete('plan_academico',array('planacad_id'=>$plan_academico_id));
     }
+    /*
+     * Get plan_academico by carrera_id
+     */
+    function get_plan_acad_carr($carrera_id)
+    {
+        $plan_academico = $this->db->query("
+            SELECT
+                pa.planacad_nombre, pa.planacad_id, pa.planacad_codigo
+            FROM
+                plan_academico pa
+            WHERE
+                `carrera_id` = ?
+        ",array($carrera_id))->result_array();
+
+        return $plan_academico;
+    }
+    /*
+     * Get all plan_academico
+     */
+    function get_this_plan_academico($plan_academico_id)
+    {
+        $plan_academico = $this->db->query("
+            SELECT
+                pa.*
+
+            FROM
+                plan_academico pa
+
+            WHERE
+                pa.planacad_id = $plan_academico_id
+        ")->result_array();
+
+        return $plan_academico;
+    }
 }

@@ -76,4 +76,42 @@ class Materia_model extends CI_Model
     {
         return $this->db->delete('materia',array('materia_id'=>$materia_id));
     }
+    /*
+     * Get all materia de un NIVEL
+     */
+    function get_all_materia_nivel($nivel_id)
+    {
+        $materia = $this->db->query("
+            SELECT
+                m.materia_id, m.materia_nombre, m.materia_codigo
+
+            FROM
+                materia m
+
+            WHERE
+                m.nivel_id = $nivel_id
+
+            ORDER BY `materia_id` ASC
+        ")->result_array();
+
+        return $materia;
+    }
+    /* ****** Get all materias activos***** */
+    function get_all_materias_activo()
+    {
+        $materia = $this->db->query("
+            SELECT
+                m.materia_id, m.materia_nombre, m.materia_codigo
+
+            FROM
+                materia m
+
+            WHERE
+                m.estado_id = 1
+
+            ORDER BY `materia_id` ASC
+        ")->result_array();
+
+        return $materia;
+    }
 }
