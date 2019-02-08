@@ -43,12 +43,13 @@ class Mensualidad extends CI_Controller{
      */
     function add()
     {   
+        $usuario_id = 1;
         if(isset($_POST) && count($_POST) > 0)     
         {   
             $params = array(
 				'estado_id' => $this->input->post('estado_id'),
 				'kardexeco_id' => $this->input->post('kardexeco_id'),
-				'usuario_id' => $this->input->post('usuario_id'),
+				'usuario_id' => $usuario_id,
 				'mensualidad_numero' => $this->input->post('mensualidad_numero'),
 				'mensualidad_montoparcial' => $this->input->post('mensualidad_montoparcial'),
 				'mensualidad_descuento' => $this->input->post('mensualidad_descuento'),
@@ -83,6 +84,44 @@ class Mensualidad extends CI_Controller{
         }
     }  
 
+
+    function nueva($kardexeco_id)
+    {   
+        $usuario_id = 1;
+        if(isset($_POST) && count($_POST) > 0)     
+        {   
+            $params = array(
+                'estado_id' => 3,
+                'kardexeco_id' => $kardexeco_id,
+                'usuario_id' => $usuario_id,
+                'mensualidad_numero' => $this->input->post('mensualidad_numero'),
+                'mensualidad_montoparcial' => $this->input->post('mensualidad_montoparcial'),
+                'mensualidad_descuento' => 0,
+                'mensualidad_montototal' => $this->input->post('mensualidad_montoparcial'),
+                'mensualidad_fechalimite' => $this->input->post('mensualidad_fechalimite'),
+                'mensualidad_mes' => $this->input->post('mensualidad_mes'),
+                'mensualidad_mora' => 0,
+                
+            );
+            
+            $mensualidad_id = $this->Mensualidad_model->add_mensualidad($params);
+            redirect('mensualidad/mensualidad/'.$kardexeco_id);
+        }
+        else
+        {
+            $this->load->model('Estado_model');
+            $data['all_estado'] = $this->Estado_model->get_all_estado();
+
+            $this->load->model('Kardex_economico_model');
+            $data['all_kardex_economico'] = $this->Kardex_economico_model->get_all_kardex_economico();
+
+            $this->load->model('Usuario_model');
+            $data['all_usuario'] = $this->Usuario_model->get_all_usuario();
+            
+            $data['_view'] = 'mensualidad/add';
+            $this->load->view('layouts/main',$data);
+        }
+    }  
     /*
      * Editing a mensualidad
      */
@@ -145,17 +184,20 @@ class Mensualidad extends CI_Controller{
         $dias_mora = 0;
         $descuento = 0;
         $cancelado = 0;
+        $mes = $this->input->post('mensualidad_mes');
         $fechalimite  = $this->input->post('mensualidad_fechalimite');
         $mensualidad_fechalimite = "'".$fechalimite."'";
         $mensualidad_montoparcial = $this->input->post('mensualidad_saldo');
         $mensualidad_numero = $this->input->post('mensualidad_numero');
-       
-         
+        $total = $this->input->post('mensualidad_montototal');
+        $descontar = $this->input->post('mensualidad_descuento');
                  $params = array(
                     
                     'usuario_id' => 1,
                     'estado_id' => 4,
                     'mensualidad_mora' => $this->input->post('mensualidad_mora'),
+                    'mensualidad_descuento' => $this->input->post('mensualidad_descuento'),
+                    'mensualidad_montototal' => $total-$descontar,
                     'mensualidad_montocancelado' => $this->input->post('mensualidad_montocancelado'),
                     'mensualidad_fechapago' => $this->input->post('mensualidad_fecha'),
                     'mensualidad_horapago' => $this->input->post('mensualidad_hora'),
@@ -169,17 +211,17 @@ class Mensualidad extends CI_Controller{
 
         if($mensualidad_saldo>0){ 
 
-                $this->Mensualidad_model->parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id); 
+                $this->Mensualidad_model->parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id,$mes); 
             }
 
     
                  redirect('mensualidad/mensualidad/'.$kardexeco_id);  
             }
 
-function pendiente($mensualidad_id,$kardexeco_id)
+function pendiente($mensualidad_id,$kardexeco_id,$descuento)
     {       
             
-            $sql = "UPDATE mensualidad SET estado_id=3,mensualidad_montocancelado=0,mensualidad_fechapago='0000-00-00',mensualidad_nombre='',mensualidad_ci='',mensualidad_horapago=NULL WHERE mensualidad.mensualidad_id=".$mensualidad_id." and mensualidad.kardexeco_id=".$kardexeco_id." ";
+            $sql = "UPDATE mensualidad SET estado_id=3,mensualidad_montocancelado=0,mensualidad_montototal=mensualidad_montototal+".$descuento.", mensualidad_fechapago=NULL,mensualidad_saldo=0,mensualidad_descuento=0, mensualidad_nombre='',mensualidad_ci='',mensualidad_horapago=NULL WHERE mensualidad.mensualidad_id=".$mensualidad_id." and mensualidad.kardexeco_id=".$kardexeco_id." ";
             $this->db->query($sql);
              
 

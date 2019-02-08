@@ -10,16 +10,80 @@
                 <h3 class="box-title">K.E.:<?php echo $mensualidad[0]['kardexeco_id']; ?></h3>
                 <h3 class="box-title"></h3>
             	<div class="box-tools">
-                    
+                    <a class="btn btn-success btn-xs" data-toggle="modal" data-target="#nuevamensu"><span class="fa fa-edit">Nueva Mensualidad</span></a>
+                    <!------------------------- modal  nueva mesualidad------------------->
+                     <div class="modal fade" id="nuevamensu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" align="center">
+                <form action="<?php echo base_url('mensualidad/nueva/'.$mensualidad[0]['kardexeco_id']); ?>"  method="POST" class="form" id="saldar">
+
+             <h3><b><span class="btn-info" style="border-radius: 8px;">Nueva Mensualidad </span></b></h3>  
+          </div>
+          <div class="col-md-12">
+                    <div class="col-md-3">
+                        <label for="mensualidad_numero" class="control-label">Numero</label>
+                        <div class="form-group">
+                          <input type="text" name="mensualidad_numero" value="<?php echo $this->input->post('mensualidad_numero'); ?>" class="form-control" id="mensualidad_numero" />
+                        </div>
+                      </div>
+                    <div class="col-md-3">
+                        <label for="mensualidad_montoparcial" class="control-label">Monto</label>
+                        <div class="form-group">
+                         <input type="text" name="mensualidad_montoparcial" value="<?php echo $this->input->post('mensualidad_montoparcial'); ?>" class="form-control" id="mensualidad_montoparcial" />
+                        </div>
+                      </div>
+                    <div class="col-md-3">
+                        <label for="mensualidad_mes" class="control-label">Mes</label>
+                        <div class="form-group">
+                          <input type="text" name="mensualidad_mes" value="<?php echo $this->input->post('mensualidad_mes'); ?>" class="form-control" id="mensualidad_mes" />
+                        </div>
+                      </div>
+                  
+                     <div class="col-md-3">
+                        <label for="mensualidad_fechalimite" class="control-label">Fecha Limite</label>
+                        <div class="form-group">
+                          <input type="date" name="mensualidad_fechalimite" value="<?php echo $this->input->post('mensualidad_fechalimite'); ?>" class="form-control" id="mensualidad_fechalimite" />
+                        </div>
+                      </div>
+                      
+                    </div>
+              <div class="modal-footer" align="right">
+
+            <button class="btn btn-sm btn-success"  type="submit">
+              
+                <span class="fa fa-money"></span>   Insertar  
+         
+            </button> 
+            </form>
+            <button class="btn btn-sm btn-danger" data-dismiss="modal">
+            
+                <span class="fa fa-close"></span>   Cancelar  
+         
+            </button>
+                         
+        </div>
+
+            </div>
+          </div>
+        </div>
+        <!-------------------------fin modal------------------->
                 </div>
             </div>
             <div class="box-body">
                 <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>#</th>
+            <th>No. <br>Mens.</th>
+            <th>Mes</th>
 						<th>Estado</th>
 						<th>Usuario</th>
-						<th>No. Mensualidaad</th>
 						<th>Montoparcial</th>
 						<th>Descuento</th>
 						<th>Montototal</th>
@@ -30,6 +94,7 @@
 						<th>Fecha de Pago</th>
 						<th>Nombre</br>
 						Ci</th>
+            <th>Recibo</th>
 						<th>Glosa</th>
 						<th></th>
                     </tr>
@@ -42,19 +107,30 @@ $(document).ready(function(){
   
   function restar(){
     
-    var uno, dos, tres, operacion;
   
       uno = $("#mensualidad_montototal<?php echo $m['mensualidad_id']; ?>");
       dos = $("#mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>");
       tres = $("#mensualidad_saldo<?php echo $m['mensualidad_id']; ?>");
       cuatro = $("#mensualidad_mora<?php echo $m['mensualidad_id']; ?>");
-      
+      cinco =  $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>");
+
+      descuento = parseFloat(cinco.val());
       multa = parseFloat(cuatro.val());
       multar = parseFloat(uno.val())  + multa;
-      operacion  = multar - parseFloat(dos.val()); 
+      operacion  = multar - parseFloat(dos.val()) - descuento; 
       tres.val(operacion);
     
   }
+$("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
+      
+      
+      var descuento = $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>");
+      var total = $("#mensualidad_montototal<?php echo $m['mensualidad_id']; ?>");
+      var nuevo = parseFloat(total.val() - descuento.val());
+      $("#mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>").val(nuevo);
+      
+  });
+
   $("#mensualidad_mora<?php echo $m['mensualidad_id']; ?>").keyup(function(){
       
       var cuatro;
@@ -89,9 +165,10 @@ $(document).ready(function(){
 })
 </script>
 						<td><?php echo $i; ?></td>
+            <td><?php echo $m['mensualidad_numero']; ?></td>
+            <td><?php echo $m['mensualidad_mes']; ?></td>
 						<td><?php echo $m['estado_descripcion']; ?></td>
 						<td><?php echo $m['usuario_id']; ?></td>
-						<td><?php echo $m['mensualidad_numero']; ?></td>
 						<td><?php echo $m['mensualidad_montoparcial']; ?></td>
 						<td><?php echo $m['mensualidad_descuento']; ?></td>
 						<td><?php echo $m['mensualidad_montototal']; ?></td>
@@ -103,12 +180,13 @@ $(document).ready(function(){
 						<?php echo $m['mensualidad_horapago']; ?></td>
 						<td><?php echo $m['mensualidad_nombre']; ?></br>
 						<?php echo $m['mensualidad_ci']; ?></td>
+            <td><?php echo $m['mensualidad_numrec']; ?></td>
 						<td><?php echo $m['mensualidad_glosa']; ?></td>
 						<td> <?php if ($m['estado_id']==3) { ?>
                       
-                            <a href="<?php echo site_url('mensualidad/edit/'.$m['mensualidad_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
-                             <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal<?php echo $i; ?>"  title="Eliminar"><span class="fa fa-trash"></span></a>
-                            <a href="#" data-toggle="modal" data-target="#pagar<?php echo $i; ?>" class="btn btn-success btn-xs"><span class="fa fa-dollar"></span></a>
+                           
+                             <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal<?php echo $i; ?>"  title="Eliminar"><span class="fa fa-trash" title="ELIMINAR"></span></a>
+                            <a href="#" data-toggle="modal" data-target="#pagar<?php echo $i; ?>" class="btn btn-success btn-xs"><span class="fa fa-dollar" title="COBRAR"></span></a>
 
                             <!------------------------ INICIO modal para confirmar eliminación ------------------->
                                     <div class="modal fade" id="myModal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel<?php echo $i; ?>">
@@ -135,7 +213,7 @@ $(document).ready(function(){
                         <!------------------------ FIN modal para confirmar eliminación ------------------->
 
                           <?php }else { ?>
-                             <a href="<?php echo site_url("mensualidad/pendiente/".$m['mensualidad_id']."/".$m['kardexeco_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-undo"></span></a>
+                             <a href="<?php echo site_url("mensualidad/pendiente/".$m['mensualidad_id']."/".$m['kardexeco_id']."/".$m['mensualidad_descuento']); ?>" title="REESTABLECER" class="btn btn-info btn-xs"><span class="fa fa-undo"></span></a>
                              <a href="<?php echo site_url('mensualidad/recibodeudas/'.$m['mensualidad_id']); ?>" target="_blank" class="btn btn-success btn-xs"><span class="fa fa-print"></span></a>
                              <a href="<?php echo site_url("mensualidad/comprobantedeudas/".$m['mensualidad_id']."/".$m['kardexeco_id']); ?>" target="_blank" class="btn btn-facebook btn-xs"><span class="fa fa-print">2</span></a>
 
@@ -164,10 +242,16 @@ $(document).ready(function(){
           <div class="col-md-12">
             <input type="hidden" name="mensualidad_id" value="<?php echo $m['mensualidad_id']; ?>" class="form-control" id="mensualidad_id" />
             <input type="hidden" name="estado_id" value="9" class="form-control" id="estado_id" />
-            <div class="col-md-4">
+            <div class="col-md-4" hidden>
                         <label for="mensualidad_mora" class="control-label">Mora</label>
                         <div class="form-group">
                             <input type="text" name="mensualidad_mora" value="0" class="form-control" id="mensualidad_mora<?php echo $m['mensualidad_id']; ?>" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="mensualidad_descuento" class="control-label">Descuento</label>
+                        <div class="form-group">
+                            <input type="text" name="mensualidad_descuento" value="0" class="form-control" id="mensualidad_descuento<?php echo $m['mensualidad_id']; ?>" />
                         </div>
                     </div>
           <div class="col-md-4">
@@ -196,6 +280,7 @@ $(document).ready(function(){
                         <label for="mensualidad_nombre" class="control-label">Nombre</label>
                         <div class="form-group">
                             <input type="text" name="mensualidad_nombre" value="" class="form-control" id="mensualidad_nombre" />
+                            <input type="hidden"  name="mensualidad_mes" value="<?php echo $m['mensualidad_mes']; ?>" class="form-control" id="mensualidad_mes<?php echo $m['mensualidad_id']; ?>" />
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -215,7 +300,7 @@ $(document).ready(function(){
 
             <button class="btn btn-lg btn-success"  type="submit">
                 <h4>
-                <span class="fa fa-money"></span>   Pagar  
+                <span class="fa fa-money"></span>   Cobrar  
                 </h4>
             </button> 
             </form>

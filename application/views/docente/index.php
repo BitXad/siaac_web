@@ -33,8 +33,9 @@
                         $cont = $cont+1; $i+1; ?>
                     <tr>
 						<td><?php echo $cont; ?></td>
-						<td>
+						<td>  
                             <div id="horizontal">
+                                <?php if ($d['docente_foto']!=NULL && $d['docente_foto']!="") { ?>
                                 <div id="contieneimg">
                                     <?php
                                     $mimagen = "thumb_".$d['docente_foto'];
@@ -46,6 +47,11 @@
                                         ?>
                                     </a>
                                 </div>
+                                <?php } else { ?>
+                                    <div id="contieneimg">
+                                        <img src="<?php echo site_url('/resources/images/usuarios/thumb_default.jpg');  ?>" />
+                                    </div>
+                                    <?php }  ?>
                                 <div style="padding-left: 4px">
                                     <?php echo "<b>".$d['docente_nombre']."</b><br>";
                                           echo "<b>".$d['docente_apellidos']."</b><br>";
@@ -53,7 +59,7 @@
                                     ?>
                                 </div>
                              </div>
-                            
+
                         </td>	
 						<td><?php echo $d['estadocivil_descripcion']; ?><br>
                             <?php echo $d['genero_nombre']; ?><br>
