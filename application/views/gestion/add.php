@@ -2,63 +2,45 @@
     <div class="col-md-12">
       	<div class="box box-info">
             <div class="box-header with-border">
-              	<h3 class="box-title">Gestion Add</h3>
+              	<h3 class="box-title">Añadir Gestion</h3>
             </div>
             <?php echo form_open('gestion/add'); ?>
           	<div class="box-body">
           		<div class="row clearfix">
+					
 					<div class="col-md-6">
-						<label for="estado_id" class="control-label">Estado</label>
-						<div class="form-group">
-							<select name="estado_id" class="form-control">
-								<option value="">select estado</option>
-								<?php 
-								foreach($all_estado as $estado)
-								{
-									$selected = ($estado['estado_id'] == $this->input->post('estado_id')) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$estado['estado_id'].'" '.$selected.'>'.$estado['estado_descripcion'].'</option>';
-								} 
-								?>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="gestion_semestre" class="control-label">Gestion Semestre</label>
+						<label for="gestion_semestre" class="control-label">Semestre</label>
 						<div class="form-group">
 							<input type="text" name="gestion_semestre" value="<?php echo $this->input->post('gestion_semestre'); ?>" class="form-control" id="gestion_semestre" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="gestion_inicio" class="control-label">Gestion Inicio</label>
+						<label for="gestion_inicio" class="control-label">Inicio</label>
 						<div class="form-group">
-							<input type="text" name="gestion_inicio" value="<?php echo $this->input->post('gestion_inicio'); ?>" class="has-datepicker form-control" id="gestion_inicio" />
+							<input type="date" name="gestion_inicio" value="<?php echo $this->input->post('gestion_inicio'); ?>" class="form-control" id="gestion_inicio" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="gestion_fin" class="control-label">Gestion Fin</label>
+						<label for="gestion_fin" class="control-label">Fin</label>
 						<div class="form-group">
-							<input type="text" name="gestion_fin" value="<?php echo $this->input->post('gestion_fin'); ?>" class="has-datepicker form-control" id="gestion_fin" />
+							<input type="text" name="gestion_fin" value="<?php echo $this->input->post('gestion_fin'); ?>" class="form-control" id="gestion_fin" />
 						</div>
 					</div>
+					
 					<div class="col-md-6">
-						<label for="gestion_estado" class="control-label">Gestion Estado</label>
+						<label for="gestion_descripcion" class="control-label">Descripcion</label>
 						<div class="form-group">
-							<input type="text" name="gestion_estado" value="<?php echo $this->input->post('gestion_estado'); ?>" class="form-control" id="gestion_estado" />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="gestion_descripcion" class="control-label">Gestion Descripcion</label>
-						<div class="form-group">
-							<input type="text" name="gestion_descripcion" value="<?php echo $this->input->post('gestion_descripcion'); ?>" class="form-control" id="gestion_descripcion" />
+							<input type="date" name="gestion_descripcion" value="<?php echo $this->input->post('gestion_descripcion'); ?>" class="form-control" id="gestion_descripcion" />
 						</div>
 					</div>
 				</div>
 			</div>
           	<div class="box-footer">
             	<button type="submit" class="btn btn-success">
-            		<i class="fa fa-check"></i> Save
+            		<i class="fa fa-check"></i> Guardar
             	</button>
+              <a href="<?php echo site_url('gestion/index'); ?>" class="btn btn-danger">
+                    <i class="fa fa-times"></i> Cancelar</a>
           	</div>
             <?php echo form_close(); ?>
       	</div>

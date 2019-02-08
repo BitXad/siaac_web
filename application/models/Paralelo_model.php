@@ -37,13 +37,13 @@ class Paralelo_model extends CI_Model
     {
         $paralelo = $this->db->query("
             SELECT
-                *
+                p.*, e.*
 
             FROM
-                `paralelo`
+                paralelo p, estado e
 
             WHERE
-                1 = 1
+                p.estado_id=e.estado_id
 
             ORDER BY `paralelo_id` DESC
         ")->result_array();

@@ -477,6 +477,19 @@
                                 </li>
 							</ul>
                         </li>
+                            <li>
+                            <a href="#">
+                                <i class="fa fa-home"></i> <span>Tipo Aula</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="<?php echo site_url('tipo_aula/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('tipo_aula/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
+                                </li>
+                            </ul>
+                        </li>
 						<li>
                             <a href="#">
                                 <i class="fa fa-adjust"></i> <span>Turno</span>

@@ -57,13 +57,13 @@ class Gestion_model extends CI_Model
         
         $gestion = $this->db->query("
             SELECT
-                *
+                g.*, e.*
 
             FROM
-                `gestion`
+                gestion g, estado e
 
             WHERE
-                1 = 1
+                g.estado_id=e.estado_id
 
             ORDER BY `gestion_id` DESC
 

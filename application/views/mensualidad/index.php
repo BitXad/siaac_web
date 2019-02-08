@@ -1,3 +1,6 @@
+<!------------------ ESTILO DE LAS TABLAS ----------------->
+<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
+<!-------------------------------------------------------->
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -8,7 +11,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <table class="table table-striped">
+                <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>Mensualidad Id</th>
 						<th>Estado Id</th>
@@ -25,7 +28,7 @@
 						<th>Mensualidad Nombre</th>
 						<th>Mensualidad Ci</th>
 						<th>Mensualidad Glosa</th>
-						<th>Actions</th>
+						<th></th>
                     </tr>
                     <?php foreach($mensualidad as $m){ ?>
                     <tr>
@@ -45,8 +48,8 @@
 						<td><?php echo $m['mensualidad_ci']; ?></td>
 						<td><?php echo $m['mensualidad_glosa']; ?></td>
 						<td>
-                            <a href="<?php echo site_url('mensualidad/edit/'.$m['mensualidad_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-                            <a href="<?php echo site_url('mensualidad/remove/'.$m['mensualidad_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                            <a href="<?php echo site_url('mensualidad/edit/'.$m['mensualidad_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
+                            <a href="<?php echo site_url('mensualidad/remove/'.$m['mensualidad_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
                         </td>
                     </tr>
                     <?php } ?>

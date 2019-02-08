@@ -2,7 +2,7 @@
     <div class="col-md-12">
       	<div class="box box-info">
             <div class="box-header with-border">
-              	<h3 class="box-title">Añadir Area Materia</h3>
+              	<h3 class="box-title">Añadir Area-Materia</h3>
             </div>
             <?php echo form_open('area_materium/add'); ?>
           	<div class="box-body">
@@ -16,7 +16,7 @@
 					<div class="col-md-6">
 						<label for="area_fechareg" class="control-label">Fecha Registro</label>
 						<div class="form-group">
-							<input type="date" name="area_fechareg" value="<?php echo $this->input->post('area_fechareg'); ?>" class="form-control" id="area_fechareg" />
+							<input type="date" name="area_fechareg" value="<?php echo date('Y-m-d') ?>" class="form-control" id="area_fechareg" />
 						</div>
 					</div>
 				</div>

@@ -34,7 +34,7 @@ class Turno extends CI_Controller{
 		if($this->form_validation->run())     
         {   
             $params = array(
-				'estado_id' => $this->input->post('estado_id'),
+				'estado_id' => 1,
 				'turno_nombre' => $this->input->post('turno_nombre'),
             );
             

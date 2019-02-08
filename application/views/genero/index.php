@@ -14,8 +14,8 @@
                 <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>#</th>
-						<th>Genero Nombre</th>
-						<th>Actions</th>
+						<th>Nombre</th>
+						<th></th>
                     </tr>
                     <?php $i=0;
                     foreach($genero as $g){ 
