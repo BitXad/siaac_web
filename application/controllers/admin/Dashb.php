@@ -2,13 +2,13 @@
 
 class Dashb extends CI_Controller
 {
+    var $session_data;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->helper(array('form', 'url'));
         $this->load->library(array('form_validation'));
-        $this->load->database();
         $this->load->model('user_model');
         $this->load->model('rol_model');
         $this->session_data = $this->session->userdata('logged_in');
