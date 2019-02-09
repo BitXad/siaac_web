@@ -2,13 +2,13 @@
 
 class Dashb extends CI_Controller
 {
+    var $session_data;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->helper(array('form', 'url'));
         $this->load->library(array('form_validation'));
-        $this->load->database();
         $this->load->model('user_model');
         $this->load->model('rol_model');
         $this->session_data = $this->session->userdata('logged_in');
@@ -146,6 +146,10 @@ class Dashb extends CI_Controller
                     $path_parts = pathinfo('./resources/images/usuarios/' . $usuario->usuario_imagen);
                     $thumb =  $path_parts['filename'] .'_thumb.'. $path_parts['extension'];
 
+                    $this->load->model('Gestion_model');
+                    $gestion_id = $this->session_data['gestion_id'];
+                    $gestion = $this->Gestion_model->get_gestion2($gestion_id);
+
                     $sess_array = array(
                         'usuario_login' => $usuario->usuario_login,
                         'usuario_id' => $usuario->usuario_id,
@@ -156,8 +160,10 @@ class Dashb extends CI_Controller
                         'usuario_email' => $usuario->usuario_email,
                         'usuario_clave' => $usuario->usuario_clave,
                         'thumb' => $thumb,
-                        'rol' => $this->getRol($usuario->tipousuario_id),
-
+                        'rol' => $this->getTipo_usuario($usuario->tipousuario_id),
+                        'semestre' => $gestion->gestion_semestre,
+                        'gestion' => $gestion->gestion_descripcion,
+                        'gestion_id' => $gestion->gestion_id
                     );
 
                     $this->session->set_userdata('logged_in', $sess_array);
@@ -251,6 +257,21 @@ class Dashb extends CI_Controller
             }
         } else {
             redirect('', 'refresh');
+        }
+    }
+
+    public function getTipo_usuario($tipousuario_id)
+    {
+        $tipo_usuarios = $this->rol_model->get_tipousuarios();
+
+        foreach ($tipo_usuarios as $row) {
+            if ($tipousuario_id == $row->tipousuario_id) {
+                return $row->tipousuario_descripcion;
+            }
+        }
+
+        if (count($tipo_usuarios) == 0) {
+            return '----';
         }
     }
 

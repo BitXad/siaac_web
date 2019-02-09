@@ -43,9 +43,9 @@ class Estado_model extends CI_Model
                 `estado`
 
             WHERE
-                1 = 1
+                estado_descripcion != 'borrado'
 
-            ORDER BY `estado_id` DESC
+            ORDER BY `estado_id` ASC
         ")->result_array();
 
         return $estado;

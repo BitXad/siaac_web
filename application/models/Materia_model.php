@@ -97,17 +97,19 @@ class Materia_model extends CI_Model
         return $materia;
     }
     /* ****** Get all materias activos***** */
-    function get_all_materias_activo()
+    function get_all_materias_activo_plan($planacad_id)
     {
         $materia = $this->db->query("
             SELECT
                 m.materia_id, m.materia_nombre, m.materia_codigo
 
             FROM
-                materia m
+                materia m, nivel n
 
             WHERE
                 m.estado_id = 1
+                and  m.nivel_id = n.nivel_id
+                and n.planacad_id = $planacad_id
 
             ORDER BY `materia_id` ASC
         ")->result_array();

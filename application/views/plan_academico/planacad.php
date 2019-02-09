@@ -4,7 +4,7 @@
 <link href="<?php echo base_url('resources/css/plan_academico.css'); ?>" rel="stylesheet">
 
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
-<input type="hidden" name="lasmaterias" id="lasmaterias" value='<?php echo json_encode($all_materias);  ?>' />
+<!--<input type="hidden" name="lasmaterias" id="lasmaterias" value='<?php //echo json_encode($all_materias);  ?>' />-->
 <input type="hidden" name="lasareas" id="lasareas" value='<?php echo json_encode($all_areas);  ?>' />
 <input type="hidden" name="mosprereq" id="mosprereq" value='0' />
 
@@ -87,6 +87,9 @@
         </div>
     </div>
 </div>
+<!--<p>
+    <button type="button" class="btn btn-success" id="toggleArrowBtn">Mostrar conectores</button>
+</p>-->
 <div class="row">
     <div class="col-md-12">
         <div class="box">

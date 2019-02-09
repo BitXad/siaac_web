@@ -45,7 +45,7 @@ class Periodo_model extends CI_Model
             WHERE
                 1 = 1
 
-            ORDER BY `periodo_id` DESC
+            ORDER BY `periodo_id` ASC
         ")->result_array();
 
         return $periodo;

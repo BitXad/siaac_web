@@ -128,10 +128,10 @@ class Plan_academico extends CI_Controller{
         
         $this->load->model('Carrera_model');
         $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
-        
+        /*
         $this->load->model('Materia_model');
         $data['all_materias'] = $this->Materia_model->get_all_materias_activo();
-        
+        */
         $this->load->model('Area_materium_model');
         $data['all_areas'] = $this->Area_materium_model->get_all_area_mat();
         
@@ -263,24 +263,26 @@ class Plan_academico extends CI_Controller{
             $area_id = $this->input->post('area_id');
             $materia_codigo = $this->input->post('materia_codigo');
             $nivel_id = $this->input->post('nivel_id');
-            if($prerequisito){
+            if($prerequisito == 1){
+                /*echo $prerequisito."AAA";
+                break;*/
                 $params = array(
-				'estado_id' => 1,
-				'area_id' => $area_id,
-				'nivel_id' => $nivel_id,
-				'materia_nombre' => $materia_nombre,
-				'materia_alias' => $materia_alias,
-				'materia_codigo' => $materia_codigo,
+                        'estado_id' => 1,
+                        'area_id' => $area_id,
+                        'nivel_id' => $nivel_id,
+                        'materia_nombre' => $materia_nombre,
+                        'materia_alias' => $materia_alias,
+                        'materia_codigo' => $materia_codigo,
                 );
             }else{
                 $params = array(
-				'estado_id' => 1,
-				'area_id' => $area_id,
-				'nivel_id' => $nivel_id,
-				'mat_materia_id' => $mat_materia_id,
-				'materia_nombre' => $materia_nombre,
-				'materia_alias' => $materia_alias,
-				'materia_codigo' => $materia_codigo,
+                        'estado_id' => 1,
+                        'area_id' => $area_id,
+                        'nivel_id' => $nivel_id,
+                        'mat_materia_id' => $mat_materia_id,
+                        'materia_nombre' => $materia_nombre,
+                        'materia_alias' => $materia_alias,
+                        'materia_codigo' => $materia_codigo,
                 );
             }
             $this->load->model('Materia_model');
@@ -294,13 +296,13 @@ class Plan_academico extends CI_Controller{
         }
     }
     /***OBTIENE MATERIAS activas  de un nivel****/
-    function get_materias_activas()
+    function get_materias_activas_plan()
     {
         if ($this->input->is_ajax_request()){
-            $nivel_id = $this->input->post('nivel_id');
+            $planacad_id = $this->input->post('planacad_id');
 
             $this->load->model('Materia_model');
-            $datos = $this->Materia_model->get_all_materias_activo($nivel_id);
+            $datos = $this->Materia_model->get_all_materias_activo_plan($planacad_id);
             echo json_encode($datos);
         }
         else
