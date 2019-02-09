@@ -92,14 +92,14 @@
                         </div>
                         <div class="pull-left info">
                             <p><?php echo $session_data['usuario_nombre']?></p>
-                            <a href="#"><i class="fa fa-circle text-success"></i> <?php echo $session_data['rol']?></a>
+                            <a href="<?php echo site_url();?>admin/dashb"><i class="fa fa-circle text-success"></i> <?php echo $session_data['rol']?></a>
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="header">Navegacion</li>
                         <li>
-                            <a href="<?php echo site_url();?>">
+                            <a href="<?php echo site_url();?>admin/dashb">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>

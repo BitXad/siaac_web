@@ -13,74 +13,44 @@
 </section>
 <div class="row">
     <div class="col-md-12">
-      	<div class="box box-info">
-<<<<<<< Updated upstream
-            <div class="box-header with-border">
-              	<h3 class="box-title">Editar Periodo</h3>
-            </div>
-			<?php echo form_open('periodo/edit/'.$periodo['periodo_id']); ?>
-			<div class="box-body">
-				<div class="row clearfix">
-					<div class="col-md-6">
-						<label for="periodo_nombre" class="control-label"><span class="text-danger">*</span>Nombre</label>
-						<div class="form-group">
-							<input type="text" name="periodo_nombre" value="<?php echo ($this->input->post('periodo_nombre') ? $this->input->post('periodo_nombre') : $periodo['periodo_nombre']); ?>" class="form-control" id="periodo_nombre" required/>
-=======
+        <div class="box box-info">
             <div class="box-header with-border"></div>
             <div id="user-result"></div>
             <?php $attributes = array("name" => "periodoForm", "id"=>"periodoForm");
             echo form_open("periodo/set", $attributes);?>
-			<div class="box-body">
-				<div class="row clearfix">
-					<div class="col-md-6">
-						<label for="periodo_nombre" class="control-label"><span class="text-danger">*</span>Nombre Periodo</label>
-						<div class="form-group">
-							<input type="text" name="periodo_nombre" value="<?php echo $periodo['periodo_nombre'];?>" class="form-control" id="periodo_nombre" />
->>>>>>> Stashed changes
-							<span class="text-danger"><?php echo form_error('periodo_nombre');?></span>
-						</div>
-					</div>
-					<div class="col-md-6">
-<<<<<<< Updated upstream
-						<label for="periodo_horainicio" class="control-label"><span class="text-danger">*</span>Hora Inicio</label>
-						<div class="form-group">
-							<input type="time" name="periodo_horainicio" value="<?php echo ($this->input->post('periodo_horainicio') ? $this->input->post('periodo_horainicio') : $periodo['periodo_horainicio']); ?>" class="form-control" id="periodo_horainicio" required/>
-=======
-						<label for="periodo_horainicio" class="control-label"><span class="text-danger">*</span>Hora de Inicio</label>
-						<div class="form-group">
-							<input type="time" name="periodo_horainicio" value="<?php echo substr_replace($periodo['periodo_horainicio'] ,"", -3);?>" class="form-control" id="periodo_horainicio" />
->>>>>>> Stashed changes
-							<span class="text-danger"><?php echo form_error('periodo_horainicio');?></span>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="periodo_horafin" class="control-label"><span class="text-danger">*</span>Hora Fin</label>
-						<div class="form-group">
-<<<<<<< Updated upstream
-							<input type="time" name="periodo_horafin" value="<?php echo ($this->input->post('periodo_horafin') ? $this->input->post('periodo_horafin') : $periodo['periodo_horafin']); ?>" class="form-control" id="periodo_horafin" required/>
-=======
-							<input type="time" name="periodo_horafin" value="<?php echo substr_replace($periodo['periodo_horafin'] ,"", -3);; ?>" class="form-control" id="periodo_horafin" />
->>>>>>> Stashed changes
-							<span class="text-danger"><?php echo form_error('periodo_horafin');?></span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="box-footer">
-<<<<<<< Updated upstream
-            	<button type="submit" class="btn btn-success">
-					<i class="fa fa-check"></i> Guardar
-=======
+            <div class="box-body">
+                <div class="row clearfix">
+                    <div class="col-md-6">
+                        <label for="periodo_nombre" class="control-label"><span class="text-danger">*</span>Nombre Periodo</label>
+                        <div class="form-group">
+                            <input type="text" name="periodo_nombre" value="<?php echo $periodo['periodo_nombre'];?>" class="form-control" id="periodo_nombre" />
+                            <span class="text-danger"><?php echo form_error('periodo_nombre');?></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="periodo_horainicio" class="control-label"><span class="text-danger">*</span>Hora de Inicio</label>
+                        <div class="form-group">
+                            <input type="time" name="periodo_horainicio" value="<?php echo substr_replace($periodo['periodo_horainicio'] ,"", -3);?>" class="form-control" id="periodo_horainicio" />
+                            <span class="text-danger"><?php echo form_error('periodo_horainicio');?></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="periodo_horafin" class="control-label"><span class="text-danger">*</span>Hora Fin</label>
+                        <div class="form-group">
+                            <input type="time" name="periodo_horafin" value="<?php echo substr_replace($periodo['periodo_horafin'] ,"", -3);; ?>" class="form-control" id="periodo_horafin" />
+                            <span class="text-danger"><?php echo form_error('periodo_horafin');?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
                 <input type="hidden" name="periodo_id" value="<?php echo $periodo['periodo_id']?>">
-            	<button type="submit" id="boton" class="btn btn-success">
-					<i class="fa fa-check"></i> Actualizar
->>>>>>> Stashed changes
-				</button>
-				<a href="<?php echo site_url('periodo/index'); ?>" class="btn btn-danger">
-                    <i class="fa fa-times"></i> Cancelar</a>
-	        </div>				
-			<?php echo form_close(); ?>
-		</div>
+                <button type="submit" id="boton" class="btn btn-success">
+                    <i class="fa fa-check"></i> Actualizar
+                </button>
+            </div>
+            <?php echo form_close(); ?>
+        </div>
     </div>
 </div>
 

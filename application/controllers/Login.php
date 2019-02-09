@@ -11,6 +11,11 @@ Class Login extends CI_Controller
         $data = array(
             'msg' => $this->session->flashdata('msg')
         );
+
+        $this->load->model('Gestion_model');
+
+        $data['gestiones'] = $this->Gestion_model->get_gestiones();
+
         $this->load->view('public/login',$data);
     }
 }
