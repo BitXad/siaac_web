@@ -1,4 +1,10 @@
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
+<script language="javascript" type="text/javascript"> 
+function cerrar() { 
+   window.open('','_parent',''); 
+   window.close(); 
+} 
+</script>
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
@@ -321,6 +327,7 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
                 </table>
                                 
             </div>
+            <a href="javascript:cerrar();" class="btn btn-danger">Cerrar</a>
         </div>
     </div>
 </div>

@@ -5,10 +5,8 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Mensualidad Listing</h3>
-            	<div class="box-tools">
-                    <a href="<?php echo site_url('mensualidad/add'); ?>" class="btn btn-success btn-sm">Add</a> 
-                </div>
+                <h3 class="box-title">Plan de Pagos Mensualidades</h3>
+            	
             </div>
             <div class="box-body">
                 <table class="table table-striped" id="mitabla">
@@ -17,17 +15,17 @@
 						<th>Estado Id</th>
 						<th>Kardexeco Id</th>
 						<th>Usuario Id</th>
-						<th>Mensualidad Numero</th>
-						<th>Mensualidad Montoparcial</th>
-						<th>Mensualidad Descuento</th>
-						<th>Mensualidad Montototal</th>
-						<th>Mensualidad Fechalimite</th>
-						<th>Mensualidad Mora</th>
-						<th>Mensualidad Fechapago</th>
-						<th>Mensualidad Horapago</th>
-						<th>Mensualidad Nombre</th>
-						<th>Mensualidad Ci</th>
-						<th>Mensualidad Glosa</th>
+						<th>Numero</th>
+						<th>Montoparcial</th>
+						<th>Descuento</th>
+						<th>Montototal</th>
+						<th>Fechalimite</th>
+						<th>Mora</th>
+						<th>Fechapago</th>
+						<th>Horapago</th>
+						<th>Nombre</th>
+						<th>Ci</th>
+						<th>Glosa</th>
 						<th></th>
                     </tr>
                     <?php foreach($mensualidad as $m){ ?>
