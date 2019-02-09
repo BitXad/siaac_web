@@ -196,24 +196,28 @@ class Plan_academico extends CI_Controller{
     /****REGISTRAR NUEVO NIVEL****/
     function new_nivel()
     {
-        if ($this->input->is_ajax_request()){
-            
-            $nivel_descripcion = $this->input->post('nivel_descripcion');
-            $planacad_id = $this->input->post('planacad_id');
-            
+        if ($this->input->is_ajax_request())
+        {
             $this->load->library('form_validation');
             $this->form_validation->set_rules('nivel_descripcion','Nivel Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 
             if($this->form_validation->run())     
             {
-                $params = array(
-                    'planacad_id' => $planacad_id,
-                    'nivel_descripcion' => $nivel_descripcion,
-                );
+                $nivel_descripcion = $this->input->post('nivel_descripcion');
+                $planacad_id = $this->input->post('planacad_id');
                 $this->load->model('Nivel_model');
-                $nivel_id = $this->Nivel_model->add_nivel($params);
-                
-                echo json_encode("ok");
+                $nomduplicado = $this->Nivel_model->verifivar_nombre_nivel($planacad_id, $nivel_descripcion);
+                if($nomduplicado>0){
+                    echo json_encode("dp");
+                }else{
+                    $params = array(
+                        'planacad_id' => $planacad_id,
+                        'nivel_descripcion' => $nivel_descripcion,
+                    );
+                    $nivel_id = $this->Nivel_model->add_nivel($params);
+
+                    echo json_encode("ok");
+                }
             }else echo json_encode(null);
         }
         else

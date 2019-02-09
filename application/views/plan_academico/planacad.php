@@ -87,6 +87,9 @@
         </div>
     </div>
 </div>
+<div class="row" id='loader'  style='display:none; text-align: center'>
+    <img src="<?php echo base_url("resources/images/loader.gif"); ?>"  >
+</div>
 <!--<p>
     <button type="button" class="btn btn-success" id="toggleArrowBtn">Mostrar conectores</button>
 </p>-->
@@ -95,7 +98,7 @@
         <div class="box">
             
             <div class="box-body">
-                <div id="dibujarniveles"></div>
+                <div id="dibujarniveles" class="table-responsive"></div>
                 
             </div>
         </div>
@@ -114,9 +117,9 @@
             <div class="modal-body">
                 <!------------------------------------------------------------------->
                 <div class='col-md-6'>
-                    <label for='nivel_id' class='control-label'>Descripción</label>
+                    <label for='nivel_id' class='control-label'><span class="text-danger">*</span>Nivel</label>
                     <div class='form-group'>
-                        <input type='text' name='nivel_nombre' class='form-control' id='nivel_nombre' required />
+                        <input type='text' name='nivel_descripcion' class='form-control' id='nivel_descripcion' required autocomplete="off" />
                     </div>
                 </div>
                 <input type='hidden' name='hplanacad_id' class='form-control' id='hplanacad_id'/>
