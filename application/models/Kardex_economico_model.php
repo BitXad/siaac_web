@@ -50,6 +50,44 @@ class Kardex_economico_model extends CI_Model
 
         return $kardex_economico;
     }
+
+    function get_kardex_est($dato)
+    {
+        $kardex_economico = $this->db->query("
+            SELECT
+                e.*
+
+            FROM
+                estudiante e
+
+            WHERE
+                e.estado_id=1
+                and ".$dato."
+
+            ORDER BY `estudiante_id` DESC
+        ")->result_array();
+
+        return $kardex_economico;
+    }
+
+    function get_est_kardex($dato)
+    {
+        $kardex_economico = $this->db->query("
+            SELECT
+                i.*, ke.*
+
+            FROM
+                inscripcion i, kardex_economico ke
+
+            WHERE
+                i.inscripcion_id=ke.inscripcion_id
+                and i.estudiante_id=".$dato."
+
+            ORDER BY `kardexeco_id` DESC
+        ")->result_array();
+
+        return $kardex_economico;
+    }
         
     /*
      * function to add new kardex_economico

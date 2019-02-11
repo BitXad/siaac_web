@@ -37,6 +37,17 @@
 
         <?php echo form_open('verificar'); ?>
             <div class="form-group has-feedback">
+                <label for="gestion">Gestión</label>
+                <select class="form-control input-lg" name="gestion" id="gestion">
+                    <?php
+                        foreach($gestiones as $gestion){
+                            echo '<option value="'.$gestion->gestion_id.'" >'. $gestion->gestion_semestre.'/'. $gestion->gestion_descripcion.'</option>' ;
+                        }
+                    ?>
+                </select>
+                <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
                 <input type="text" name="username" id="username" class="form-control input-lg" placeholder="usuario" autocomplete="off">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
