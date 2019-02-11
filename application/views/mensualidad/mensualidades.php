@@ -12,9 +12,18 @@ function cerrar() {
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Mensualidad</h3><br>
-                <h3 class="box-title">K.E.:<?php echo $mensualidad[0]['kardexeco_id']; ?></h3>
-                <h3 class="box-title"></h3>
+                <h3 class="box-title">Plan de Pagos Mensualidades</h3>
+                <div class="col-md-12">
+                <div class="col-md-6">
+                <h5>Estudiante: <?php echo $kardex_economico[0]['estudiante_nombre']." ". $kardex_economico[0]['estudiante_apellidos']; ?></h5>
+                <h5>Carrera: <?php echo $kardex_economico[0]['carrera_nombre']; ?></h5>
+                </div>
+                <div class="col-md-6">
+                <h5>Matricula: <?php echo number_format($kardex_economico[0]['kardexeco_matricula'], 2, ".", ","); ?></h5>
+                <h5>No. Mensualidades: <?php echo $kardex_economico[0]['kardexeco_nummens']; ?></h5>
+                </div>
+                </div>
+
             	<div class="box-tools">
                     <a class="btn btn-success btn-xs" data-toggle="modal" data-target="#nuevamensu"><span class="fa fa-edit">Nueva Mensualidad</span></a>
                     <!------------------------- modal  nueva mesualidad------------------->
@@ -90,13 +99,13 @@ function cerrar() {
             <th>Mes</th>
 						<th>Estado</th>
 						<th>Montoparcial</th>
-						<th>Descuento</th>
+						<th>Desc.</th>
 						<th>Montototal</th>
 						<th>Fechalimite</th>
 						<th>Mora</th>
 						<th>Cancelado</th>
 						<th>Saldo</th>
-						<th>Fecha de Pago</th>
+						<th>Fecha Pago</th>
 						<th>Nombre</br>
 						Ci</th>
             <th>Recibo</th>
