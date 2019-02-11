@@ -32,9 +32,9 @@ function buscarestudiante(dato){
             	var registros = JSON.parse(respuesta);
                 if (registros != null){
                 		html = "";
-                        html += "<table class='table table-striped table-condensed'";
+                        html += "<table class='table table-striped table-condensed' id='mitabla'";
                         html += "<tr>";
-                        html += "<th>Nº</th>";
+                        html += "<th>#</th>";
                         html += "<th>Nombre</th>";                            
                         html += "<th>Apellidos</th>";
                         html += "<th>C.I.</th>";
@@ -76,13 +76,13 @@ function buscarkardex(dato){
                 var registros = JSON.parse(respuesta);
                 if (registros != null){
                         html = "";
-                        html += "<table class='table table-striped table-condensed'";
+                        html += "<table class='table table-striped table-condensed' id='mitabla'";
                         html += "<tr>";
-                        html += "<th>Nº</th>";
-                        html += "<th>Nombre</th>";                            
-                        html += "<th>Apellidos</th>";
-                        html += "<th>C.I.</th>";
-                        html += "<th>Codigo</th>";
+                        html += "<th>#</th>";
+                        html += "<th>CARRERA</th>";
+                        html += "<th>MATRICULA</th>";                            
+                        html += "<th>MENSUALIDAD</th>";
+                        html += "<th>No. MENSUALIDADES</th>";
                         html += "<th></th>";
                         html += "<th></th>";
                         html += "</tr>";  
@@ -92,10 +92,10 @@ function buscarkardex(dato){
 
                         html += "<tr>";
                         html += "<td>"+cont+"</td>";
-                        html += "<td><b>"+registros[i]["kardexeco_matricula"]+"</b></td>";
-                        html += "<td><b>"+registros[i]["kardexeco_mensualidad"]+"</b></td>";
-                        html += "<td><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
-                        html += "<td><b>"+registros[i]["kardexeco_observacion"]+"</b></td>";
+                        html += "<td><b>"+registros[i]["carrera_nombre"]+"</b></td>";
+                        html += "<td align='right'><b>"+Number(registros[i]["kardexeco_matricula"]).toFixed(2)+"</b></td>";
+                        html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"]).toFixed(2)+"</b></td>";
+                        html += "<td align='center'><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
                         html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-sm' title='COBRAR'><i class='fa fa-usd'></i></a><a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-sm' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
                         html += "<td></td>";
                         html += "</tr>";  
