@@ -9,6 +9,8 @@ class Mensualidad extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Mensualidad_model');
+        $this->load->model('Institucion_model');
+        $this->load->helper('numeros');
     } 
 
     /*
@@ -38,6 +40,13 @@ class Mensualidad extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
 
+    function boucher($mensualidad_id)
+    {
+        $data['mensualidad'] = $this->Mensualidad_model->boucher_mensualidad($mensualidad_id);
+        $data['institucion'] = $this->Institucion_model->get_institucion(1);
+        $data['_view'] = 'mensualidad/boucher';
+        $this->load->view('layouts/main',$data);
+    }
     /*
      * Adding a new mensualidad
      */

@@ -12,45 +12,43 @@
                 <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>#</th>
-						<th>Estado Id</th>
-						<th>Kardexeco Id</th>
-						<th>Usuario Id</th>
-						<th>Numero</th>
-						<th>Montoparcial</th>
-						<th>Descuento</th>
-						<th>Montototal</th>
-						<th>Fechalimite</th>
-						<th>Mora</th>
-						<th>Fechapago</th>
-						<th>Horapago</th>
-						<th>Nombre</th>
-						<th>Ci</th>
-						<th>Glosa</th>
-						<th></th>
+						<th>MENS.</th>                        
+						<th>MES</th>                        
+                        <th>PARC.</th>
+                        <th>DESC.</th>
+                        <th>LIMITE</th>
+                        <th>TOTAL</th>
+                        <th>EFECT.</th>
+                        <th>FECHA<br>PAGO</th>
+						<th>PAGADO POR</th>
+						
+					
                     </tr>
-                    <?php foreach($mensualidad as $m){ ?>
+                    <?php $i=0;
+                    foreach($mensualidad as $m){ 
+                    	$i = $i+1; ?>
                     <tr>
-						<td><?php echo $m['mensualidad_id']; ?></td>
-						<td><?php echo $m['estado_id']; ?></td>
-						<td><?php echo $m['kardexeco_id']; ?></td>
-						<td><?php echo $m['usuario_id']; ?></td>
+						<td><?php echo $i; ?></td>
 						<td><?php echo $m['mensualidad_numero']; ?></td>
-						<td><?php echo $m['mensualidad_montoparcial']; ?></td>
-						<td><?php echo $m['mensualidad_descuento']; ?></td>
-						<td><?php echo $m['mensualidad_montototal']; ?></td>
-						<td><?php echo $m['mensualidad_fechalimite']; ?></td>
-						<td><?php echo $m['mensualidad_mora']; ?></td>
-						<td><?php echo $m['mensualidad_fechapago']; ?></td>
-						<td><?php echo $m['mensualidad_horapago']; ?></td>
-						<td><?php echo $m['mensualidad_nombre']; ?></td>
-						<td><?php echo $m['mensualidad_ci']; ?></td>
-						<td><?php echo $m['mensualidad_glosa']; ?></td>
+						<td ><?php echo $m['mensualidad_mes']; ?></td>
+						<td style="text-align: right;"><?php echo $m['mensualidad_montoparcial']; ?></td>
+						<td style="text-align: right;"><?php echo $m['mensualidad_descuento']; ?></td>
+						<td style="text-align: center;"><?php echo date('d/m/Y', strtotime($m['mensualidad_fechalimite'])); ?></td>
+						<td style="text-align: right;"><?php echo $m['mensualidad_montototal']; ?></td>
+						<td style="text-align: right;"><?php echo $m['mensualidad_montocancelado']; ?></td>
+						<td style="text-align: center;"><?php if ($m['mensualidad_fechapago']=='') { echo ("NO PAGADO");
+                         
+                        } else{ echo $fecha_format = date('d/m/Y', strtotime($m['mensualidad_fechapago'])); } ?> <?php echo $m['mensualidad_horapago']; ?></td>
+					
+						<td><?php echo $m['mensualidad_nombre']; ?>
+						<?php echo $m['mensualidad_ci']; ?></td>
+						
 						
                     </tr>
                     <?php } ?>
                 </table>
-                                
             </div>
         </div>
+         <a href="javascript:cerrar();" class="btn btn-danger">Cerrar</a>
     </div>
 </div>

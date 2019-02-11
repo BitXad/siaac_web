@@ -7,21 +7,21 @@
         <div class="col-md-3">
             <label for="estudiante_ci" class="control-label">C.I.</label>
             <div class="form-group">
-                <input type="text" name="estudiante_ci" class="form-control" id="estudiante_ci"   onkeypress="validar(event,1)"  />
+                <input type="text" name="estudiante_ci" class="form-control" id="estudiante_ci"   autocomplete="off" onkeypress="validar(event,1)"  />
             </div>
         </div>
         
         <div class="col-md-3">
             <label for="razon nombre" class="control-label">Nombre</label>
             <div class="form-group">
-                <input type="text" name="nombre" class="form-control" id="nombre" onkeypress="validar(event,2)"  />
+                <input type="text" name="nombre" class="form-control" id="nombre"  autocomplete="off" onkeypress="validar(event,2)"  />
             </div>
         </div>
         
         <div class="col-md-3">
             <label for="estudiante_codigo" class="control-label">Codigo</label>
             <div class="form-group">
-                <input type="estudiante_codigo" name="estudiante_codigo" class="form-control" id="estudiante_codigo"  onkeypress="validar(event,0)" />
+                <input type="estudiante_codigo" name="estudiante_codigo" class="form-control" id="estudiante_codigo" autocomplete="off" onkeypress="validar(event,0)" />
             </div>
         </div>
         </div>

@@ -89,7 +89,6 @@ function cerrar() {
             <th>No. <br>Mens.</th>
             <th>Mes</th>
 						<th>Estado</th>
-						<th>Usuario</th>
 						<th>Montoparcial</th>
 						<th>Descuento</th>
 						<th>Montototal</th>
@@ -174,7 +173,6 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
             <td><?php echo $m['mensualidad_numero']; ?></td>
             <td><?php echo $m['mensualidad_mes']; ?></td>
 						<td><?php echo $m['estado_descripcion']; ?></td>
-						<td><?php echo $m['usuario_id']; ?></td>
 						<td><?php echo $m['mensualidad_montoparcial']; ?></td>
 						<td><?php echo $m['mensualidad_descuento']; ?></td>
 						<td><?php echo $m['mensualidad_montototal']; ?></td>
@@ -182,8 +180,9 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
 						<td><?php echo $m['mensualidad_mora']; ?></td>
 						<td><?php echo $m['mensualidad_montocancelado']; ?></td>
 						<td><?php echo $m['mensualidad_saldo']; ?></td>
-						<td><?php echo date('d/m/Y',strtotime($m['mensualidad_fechapago'])); ?></br>
-						<?php echo $m['mensualidad_horapago']; ?></td>
+						<td style="text-align: center;"><?php if ($m['mensualidad_fechapago']=='') { echo ("");
+                         
+                        } else{ echo $fecha_format = date('d/m/Y', strtotime($m['mensualidad_fechapago'])); } ?> <?php echo $m['mensualidad_horapago']; ?></td>
 						<td><?php echo $m['mensualidad_nombre']; ?></br>
 						<?php echo $m['mensualidad_ci']; ?></td>
             <td><?php echo $m['mensualidad_numrec']; ?></td>
@@ -220,9 +219,7 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
 
                           <?php }else { ?>
                              <a href="<?php echo site_url("mensualidad/pendiente/".$m['mensualidad_id']."/".$m['kardexeco_id']."/".$m['mensualidad_descuento']); ?>" title="REESTABLECER" class="btn btn-info btn-xs"><span class="fa fa-undo"></span></a>
-                             <a href="<?php echo site_url('mensualidad/recibodeudas/'.$m['mensualidad_id']); ?>" target="_blank" class="btn btn-success btn-xs"><span class="fa fa-print"></span></a>
-                             <a href="<?php echo site_url("mensualidad/comprobantedeudas/".$m['mensualidad_id']."/".$m['kardexeco_id']); ?>" target="_blank" class="btn btn-facebook btn-xs"><span class="fa fa-print">2</span></a>
-
+                             <a href="<?php echo site_url('mensualidad/boucher/'.$m['mensualidad_id']); ?>" target="_blank" class="btn btn-success btn-xs"><span class="fa fa-print"></span></a>
                         </td>  
                        <?php } ?>
                     
@@ -325,9 +322,8 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
                     </tr>
                     <?php } ?>
                 </table>
-                                
             </div>
-            <a href="javascript:cerrar();" class="btn btn-danger">Cerrar</a>
         </div>
+        <a href="javascript:cerrar();" class="btn btn-danger">Cerrar</a>
     </div>
 </div>

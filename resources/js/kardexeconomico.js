@@ -96,7 +96,7 @@ function buscarkardex(dato){
                         html += "<td><b>"+registros[i]["kardexeco_mensualidad"]+"</b></td>";
                         html += "<td><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
                         html += "<td><b>"+registros[i]["kardexeco_observacion"]+"</b></td>";
-                        html += "<td><a href='"+base_url+"/mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-sm' title='COBRAR'><i class='fa fa-usd'></i></a><a href='"+base_url+"/mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-sm' title='VER'><i class='fa fa-print'></i></a></td>";
+                        html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-sm' title='COBRAR'><i class='fa fa-usd'></i></a><a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-sm' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
                         html += "<td></td>";
                         html += "</tr>";  
                         html += "</table>";

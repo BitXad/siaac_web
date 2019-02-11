@@ -69,6 +69,28 @@ class Mensualidad_model extends CI_Model
 
         return $mensualidad;
     }
+    function boucher_mensualidad($mensualidad_id)
+    {
+        $mensualidad = $this->db->query("
+            SELECT
+                m.*, ke.*, i.*, e.*, c.*
+
+            FROM
+                mensualidad m, kardex_economico ke, inscripcion i, estudiante e, carrera c
+
+            WHERE
+                m.mensualidad_id= ".$mensualidad_id."
+                and m.kardexeco_id=ke.kardexeco_id
+                and ke.inscripcion_id = i.inscripcion_id
+                and i.carrera_id = c.carrera_id
+                and i.estudiante_id = e.estudiante_id
+
+            ORDER BY `mensualidad_numero` ASC
+        ")->result_array();
+
+        return $mensualidad;
+    }
+
 
     function parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id,$mes)
     {
