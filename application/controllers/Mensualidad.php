@@ -9,6 +9,9 @@ class Mensualidad extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Mensualidad_model');
+        $this->load->model('Institucion_model');
+        $this->load->model('Kardex_economico_model');
+        $this->load->helper('numeros');
     } 
 
     /*
@@ -17,7 +20,6 @@ class Mensualidad extends CI_Controller{
     function index()
     {
         $data['mensualidad'] = $this->Mensualidad_model->get_all_mensualidad();
-        
         $data['_view'] = 'mensualidad/index';
         $this->load->view('layouts/main',$data);
     }
@@ -25,7 +27,7 @@ class Mensualidad extends CI_Controller{
     function mensualidad($kardexeco_id)
     {
         $data['mensualidad'] = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
-        
+        $data['kardex_economico'] = $this->Kardex_economico_model->get_datos_kardex($kardexeco_id);
         $data['_view'] = 'mensualidad/mensualidades';
         $this->load->view('layouts/main',$data);
     }
@@ -33,11 +35,19 @@ class Mensualidad extends CI_Controller{
     function planmensualidad($kardexeco_id)
     {
         $data['mensualidad'] = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
-        
+        $data['kardex_economico'] = $this->Kardex_economico_model->get_datos_kardex($kardexeco_id);
+        $data['institucion'] = $this->Institucion_model->get_institucion(1);
         $data['_view'] = 'mensualidad/planmensualidad';
         $this->load->view('layouts/main',$data);
     }
 
+    function boucher($mensualidad_id)
+    {
+        $data['mensualidad'] = $this->Mensualidad_model->boucher_mensualidad($mensualidad_id);
+        $data['institucion'] = $this->Institucion_model->get_institucion(1);
+        $data['_view'] = 'mensualidad/boucher';
+        $this->load->view('layouts/main',$data);
+    }
     /*
      * Adding a new mensualidad
      */

@@ -29,6 +29,22 @@ class Horario_model extends CI_Model
 
         return $horario;
     }
+
+    public function get_horario2($horario_id)
+    {
+        $this->db->select('*');
+        $this->db->from('horario');
+        $this->db->join('periodo', 'horario.periodo_id = periodo.periodo_id');
+        $this->db->where('horario_id', $horario_id);
+        $this->db->limit(1);
+        $query = $this->db->get();
+
+        if ($query->num_rows() == 1) {
+            return $query->row();
+        } else {
+            return false;
+        }
+    }
     
     /*
      * Get all horario count
@@ -56,15 +72,8 @@ class Horario_model extends CI_Model
             $limit_condition = " LIMIT " . $params['offset'] . "," . $params['limit'];
         
         $horario = $this->db->query("
-            SELECT
-                *
-
-            FROM
-                `horario`
-
-            WHERE
-                1 = 1
-
+            SELECT  * FROM  `horario`
+            WHERE  1 = 1
             ORDER BY `horario_id` DESC
 
             " . $limit_condition . "
@@ -72,6 +81,25 @@ class Horario_model extends CI_Model
 
         return $horario;
     }
+
+    public function get_all_horarios($params=array())
+    {
+        $limit_condition = "";
+
+        $this->db->select('*');
+        $this->db->from('horario');
+        $this->db->join('periodo', 'horario.periodo_id = periodo.periodo_id');
+        $this->db->order_by("horario_id", "ASC");
+
+        if(isset($params) && !empty($params)){
+            $this->db->limit($params['limit'], $params['offset']);
+        }
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
         
     /*
      * function to add new horario

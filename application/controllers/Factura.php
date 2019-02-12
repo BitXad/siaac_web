@@ -38,6 +38,7 @@ class Factura extends CI_Controller{
         $this->excel->getActiveSheet()->setTitle('Llamadas');
         //Contador de filas
         $contador = 1;
+        $cf=0.13;
         //Le aplicamos ancho las columnas(OPCIONAL).
        /* $this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
         $this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
@@ -101,9 +102,9 @@ class Factura extends CI_Controller{
            $contador++;
            //Informacion de las filas de la consulta.
          
-           $this->excel->getActiveSheet()->setCellValue("A{$contador}", $l['factura_id']);
-           $this->excel->getActiveSheet()->setCellValue("B{$contador}", $l['factura_id']);
-           $this->excel->getActiveSheet()->setCellValue("C{$contador}", $l['factura_fecha']);
+           $this->excel->getActiveSheet()->setCellValue("A{$contador}", $l['factura_ice']);
+           $this->excel->getActiveSheet()->setCellValue("B{$contador}", $contador-1);
+           $this->excel->getActiveSheet()->setCellValue("C{$contador}", date('d/m/Y', strtotime($l['factura_fecha']))); 
            $this->excel->getActiveSheet()->setCellValue("D{$contador}", $l['factura_numero']);
            $this->excel->getActiveSheet()->setCellValue("E{$contador}", $l['factura_autorizacion']);
            $this->excel->getActiveSheet()->setCellValue("F{$contador}", $l['estado_id']);
@@ -112,11 +113,11 @@ class Factura extends CI_Controller{
            $this->excel->getActiveSheet()->setCellValue("I{$contador}", $l['factura_total']);
            $this->excel->getActiveSheet()->setCellValue("J{$contador}", $l['factura_ice']);
            $this->excel->getActiveSheet()->setCellValue("K{$contador}", $l['factura_exento']);
-           $this->excel->getActiveSheet()->setCellValue("L{$contador}", $l['factura_id']);
+           $this->excel->getActiveSheet()->setCellValue("L{$contador}", $l['factura_ice']);
            $this->excel->getActiveSheet()->setCellValue("M{$contador}", $l['factura_subtotaltotal']);
            $this->excel->getActiveSheet()->setCellValue("N{$contador}", $l['factura_descuento']);
-           $this->excel->getActiveSheet()->setCellValue("O{$contador}", $l['factura_sfc']);
-           $this->excel->getActiveSheet()->setCellValue("P{$contador}", $l['factura_id']);
+           $this->excel->getActiveSheet()->setCellValue("O{$contador}", $l['factura_subtotaltotal']);
+           $this->excel->getActiveSheet()->setCellValue("P{$contador}", $cf*$l['factura_subtotaltotal']);
            $this->excel->getActiveSheet()->setCellValue("Q{$contador}", $l['factura_codigocontrol']);
            $this->excel->getActiveSheet()->setCellValue("R{$contador}", $l['venta_id']);
         }

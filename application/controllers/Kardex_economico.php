@@ -22,6 +22,54 @@ class Kardex_economico extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
 
+
+    function busqueda()
+    {
+
+        if ($this->input->is_ajax_request()) {
+            $estudiante = $this->input->post('dato');
+            if ($estudiante!="") {
+            
+           
+            $datos = $this->Kardex_economico_model->get_kardex_est($estudiante);
+            
+            echo json_encode($datos);
+       
+            }
+            else{ echo json_encode(null);
+            }
+        }
+        else
+        {                 
+                     $data['_view'] = 'kardex_economico/busqueda';
+                     $this->load->view('layouts/main',$data);
+        } 
+       
+    }
+
+     function mostrarkardex()
+    {
+
+        if ($this->input->is_ajax_request()) {
+            $estudiante = $this->input->post('dato');
+            if ($estudiante!="") {
+            
+           
+            $datos = $this->Kardex_economico_model->get_est_kardex($estudiante);
+            
+            echo json_encode($datos);
+       
+            }
+            else{ echo json_encode(null);
+            }
+        }
+        else
+        {                 
+                     $data['_view'] = 'kardex_economico/busqueda';
+                     $this->load->view('layouts/main',$data);
+        } 
+       
+    }
     /*
      * Adding a new kardex_economico
      */

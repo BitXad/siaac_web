@@ -23,6 +23,9 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="<?php echo site_url('resources/css/_all-skins.min.css');?>">
+
+        <!-- jQuery 2.2.3 -->
+        <script src="<?php echo site_url('resources/js/jquery-2.2.3.min.js');?>"></script>
     </head>
     
     <body class="hold-transition skin-blue sidebar-mini">
@@ -89,14 +92,14 @@
                         </div>
                         <div class="pull-left info">
                             <p><?php echo $session_data['usuario_nombre']?></p>
-                            <a href="#"><i class="fa fa-circle text-success"></i> <?php echo $session_data['rol']?></a>
+                            <a href="<?php echo site_url();?>admin/dashb"><i class="fa fa-circle text-success"></i> <?php echo $session_data['rol']?></a>
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="header">Navegacion</li>
                         <li>
-                            <a href="<?php echo site_url();?>">
+                            <a href="<?php echo site_url();?>admin/dashb">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
@@ -192,6 +195,20 @@
 							</ul>
                         </li>
 						<li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-arrow-left"></i> <span>Egresos</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="<?php echo site_url('egreso/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('egreso/index');?>"><i class="fa fa-arrow-left"></i> Listing</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
                             <a href="#">
                                 <i class="fa fa-etsy"></i> <span>Estado</span>
                             </a>
@@ -308,6 +325,19 @@
                                 </li>
 							</ul>
                         </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-arrow-right"></i> <span>Ingresos</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="<?php echo site_url('ingreso/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('ingreso/index');?>"><i class="fa fa-arrow-right"></i> Listing</a>
+                                </li>
+                            </ul>
+                        </li>
 						<li>
                             <a href="#">
                                 <i class="fa fa-university"></i> <span>Institucion</span>
@@ -343,7 +373,7 @@
                                     <a href="<?php echo site_url('kardex_economico/add');?>"><i class="fa fa-plus"></i> Add</a>
                                 </li>
 								<li>
-                                    <a href="<?php echo site_url('kardex_economico/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
+                                    <a href="<?php echo site_url('kardex_economico/busqueda');?>"><i class="fa fa-list-ul"></i> Listing</a>
                                 </li>
 							</ul>
                         </li>
@@ -437,6 +467,19 @@
                                     <a href="<?php echo site_url('paralelo/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
                                 </li>
 							</ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-server"></i> <span>Parametros</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="<?php echo site_url('parametro/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('parametro/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
+                                </li>
+                            </ul>
                         </li>
 						<li>
                             <a href="#">
@@ -563,8 +606,7 @@
         </div>
         <!-- ./wrapper -->
 
-        <!-- jQuery 2.2.3 -->
-        <script src="<?php echo site_url('resources/js/jquery-2.2.3.min.js');?>"></script>
+
         <!-- Bootstrap 3.3.6 -->
         <script src="<?php echo site_url('resources/js/bootstrap.min.js');?>"></script>
         <!-- FastClick -->

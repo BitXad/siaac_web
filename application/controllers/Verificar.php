@@ -11,12 +11,14 @@ class Verificar extends CI_Controller
         $this->load->library('session');
         $this->load->model('login_model');
         $this->load->model('rol_model');
+        $this->load->model('Gestion_model');
     }
 
     function index()
     {
         $username = $this->input->post('username');
         $clave = $this->input->post('password');
+        $gestion_id = $this->input->post('gestion');
 
         $result = $this->login_model->login2($username, $clave);
         print "<pre>"; print_r( $result); print "</pre>";
@@ -29,6 +31,8 @@ class Verificar extends CI_Controller
                     $thumb = $this->foto_thumb($result->usuario_imagen);
                 }
 
+                $gestion = $this->Gestion_model->get_gestion2($gestion_id);
+
                 $sess_array = array(
                     'usuario_login' => $result->usuario_login,
                     'usuario_id' => $result->usuario_id,
@@ -40,6 +44,9 @@ class Verificar extends CI_Controller
                     'usuario_clave' => $result->usuario_clave,
                     'thumb' => $thumb,
                     'rol' => $this->getTipo_usuario($result->tipousuario_id),
+                    'semestre' => $gestion->gestion_semestre,
+                    'gestion' => $gestion->gestion_descripcion,
+                    'gestion_id' => $gestion->gestion_id
                 );
 
                 $this->session->set_userdata('logged_in', $sess_array);
