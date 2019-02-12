@@ -53,21 +53,17 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-body">
-                <div class="col-md-6">
-                    <label for="carrera_id" class="control-label">Carrera</label>
+                <div class="col-md-2">
+                    <label for="carrera_id" class="control-label">&nbsp;</label>
                     <div class="form-group">
-                        <select name="carrera_id" class="form-control" id="carrera_id" onchange="buscar_plan(this.value)">
-                            <option value="">- CARRERA -</option>
-                            <?php 
-                            foreach($all_carrera as $carrera)
-                            {
-                                echo '<option value="'.$carrera['carrera_id'].'">'.$carrera['carrera_nombre'].'</option>';
-                            } 
-                            ?>
-                        </select>
+                        <a class="btn btn-success" data-toggle="modal" data-target="#modalnuevacarrera" onclick="borrardatosmodal()" title="Nueva Carrera" id="bnewcarrera">+ Nueva Carrera</a>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
+                    <label for="carrera_id" class="control-label">Carrera</label>
+                    <div class="form-group" id="sonlascarreras"></div>
+                </div>
+                <div class="col-md-5">
                     <label for=´planacad_id" class="control-label">Plan Academico</label>
                     <div class="form-group" id="elegirplanacad">
                         <select name="planacad_id" class="form-control">
@@ -77,12 +73,12 @@
                     </div>
                 </div>
                 <div id="isnuevoplan"></div>
-                <div class="col-md-6">
+                <div id="nuevonivel"></div>
+                <!--<div class="col-md-6">
                     <div class="form-group" id="nuevonivel" style="visibility: hidden;">
-                        <a class="btn btn-success" data-toggle="modal" onclick="getnombreplan()" data-target="#modalnuevonivel" title="Nuevo Nivel" disabled="true" id="bnewnivel">+ Nuevo Nivel</a>
-                        </button>
+                        <a class="btn btn-success" data-toggle="modal" onclick="getnombreplan()" data-target="#modalnuevonivel" title="Nuevo Nivel" disabled="false" id="bnewnivel">+ Nuevo Nivel</a>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
@@ -121,8 +117,14 @@
                     <div class='form-group'>
                         <input type='text' name='nivel_descripcion' class='form-control' id='nivel_descripcion' required autocomplete="off" />
                     </div>
+                    <input type='hidden' name='hplanacad_id' class='form-control' id='hplanacad_id'/>
                 </div>
-                <input type='hidden' name='hplanacad_id' class='form-control' id='hplanacad_id'/>
+                <div class="col-md-6">
+                    <label for="nivel_color" class="control-label">Color</label>
+                    <div class="form-group">
+                        <input type="color" name="nivel_color" value="#73baa8" class="form-control" id="nivel_color" />
+                    </div>
+                </div>
                 <!------------------------------------------------------------------->
             </div>
             <div class="modal-footer aligncenter">
@@ -133,3 +135,95 @@
     </div>
 </div>
 <!------------------------ FIN modal para crear nuevo nivel ------------------->
+
+<!------------------------ INICIO modal para crear nueva Carrera ------------------->
+<div class="modal fade" id="modalnuevacarrera" tabindex="-1" role="dialog" aria-labelledby="modalnuevacarreraLabel">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="estetitplan"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <!------------------------------------------------------------------->
+                <div class='col-md-6'>
+                    <label for='carrera_nombre' class='control-label'><span class="text-danger">*</span>Carrera</label>
+                    <div class='form-group'>
+                        <input type='text' name='carrera_nombre' class='form-control' id='carrera_nombre' required autocomplete="off" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="carrera_codigo" class="control-label"><span class="text-danger">*</span>Código</label>
+                    <div class="form-group">
+                        <input type="text" name="carrera_codigo" value="<?php echo $this->input->post('carrera_codigo'); ?>" class="form-control" id="carrera_codigo" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="carrera_nivel" class="control-label">Nivel</label>
+                    <div class="form-group">
+                        <input type="text" name="carrera_nivel" value="<?php echo $this->input->post('carrera_nivel'); ?>" class="form-control" id="carrera_nivel" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="areacarrera_id" class="control-label"><span class="text-danger">*</span>Area</label>
+                    <div class="form-group">
+                        <select name="areacarrera_id" class="form-control" id="areacarrera_id" required>
+                            <option value="">- AREA -</option>
+                            <?php 
+                            foreach($all_areacarrera as $areacarrera)
+                            {
+                                $selected = ($areacarrera['areacarrera_id'] == $this->input->post('areacarrera_id')) ? ' selected="selected"' : "";
+
+                                echo '<option value="'.$areacarrera['areacarrera_id'].'" '.$selected.'>'.$areacarrera['areacarrera_nombre'].'</option>';
+                            } 
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="carrera_modalidad" class="control-label">Modalidad</label>
+                    <div class="form-group">
+                        <input type="text" name="carrera_modalidad" value="<?php echo $this->input->post('carrera_modalidad'); ?>" class="form-control" id="carrera_modalidad" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="carrera_plan" class="control-label">Plan</label>
+                    <div class="form-group">
+                        <input type="text" name="carrera_plan" value="<?php echo $this->input->post('carrera_plan'); ?>" class="form-control" id="carrera_plan" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="carrera_fechacreacion" class="control-label">Fecha Creación</label>
+                    <div class="form-group">
+                        <input type="date" name="carrera_fechacreacion" value="<?php echo $this->input->post('carrera_fechacreacion'); ?>" class="form-control" id="carrera_fechacreacion" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="carrera_matricula" class="control-label">Matrícula</label>
+                    <div class="form-group">
+                        <input type="number" step="any" min="0" name="carrera_matricula" value="<?php echo $this->input->post('carrera_matricula'); ?>" class="form-control" id="carrera_matricula" placeholder="0.00" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="carrera_mensualidad" class="control-label">Mensualidad</label>
+                    <div class="form-group">
+                        <input type="number" step="any" min="0" name="carrera_mensualidad" value="<?php echo $this->input->post('carrera_mensualidad'); ?>" class="form-control" id="carrera_mensualidad" placeholder="0.00" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="carrera_nummeses" class="control-label">Num. Meses</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="carrera_nummeses" value="<?php echo $this->input->post('carrera_nummeses'); ?>" class="form-control" id="carrera_nummeses" placeholder="0" />
+                    </div>
+                </div>
+                <!------------------------------------------------------------------->
+            </div>
+            <div class="modal-footer aligncenter">
+                <a onclick="registrocarrera()" class="btn btn-success"><span class="fa fa-check"></span>Guardar</a>
+                <a href="#" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span>Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ FIN modal para crear nueva Carrera ------------------->
