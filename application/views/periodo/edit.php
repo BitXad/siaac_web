@@ -46,8 +46,10 @@
             <div class="box-footer">
                 <input type="hidden" name="periodo_id" value="<?php echo $periodo['periodo_id']?>">
                 <button type="submit" id="boton" class="btn btn-success">
-                    <i class="fa fa-check"></i> Actualizar
+                    <i class="fa fa-check"></i> Guardar
                 </button>
+                <a href="<?php echo site_url('periodo/index'); ?>" class="btn btn-danger">
+                    <i class="fa fa-times"></i> Cancelar</a>
             </div>
             <?php echo form_close(); ?>
         </div>

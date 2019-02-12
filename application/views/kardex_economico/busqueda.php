@@ -6,7 +6,8 @@
 <div class="panel-group">
 <input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
     <div class="panel-heading">
-    <div class="col-md-12">     
+        <h3 class="box-title">Kardex Economico</h3>
+    <div class="col-md-12">   
         <div class="col-md-3">
             <label for="estudiante_ci" class="control-label">C.I.</label>
             <div class="form-group">

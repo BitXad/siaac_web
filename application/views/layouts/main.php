@@ -195,6 +195,20 @@
 							</ul>
                         </li>
 						<li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-arrow-left"></i> <span>Egresos</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="<?php echo site_url('egreso/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('egreso/index');?>"><i class="fa fa-arrow-left"></i> Listing</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
                             <a href="#">
                                 <i class="fa fa-etsy"></i> <span>Estado</span>
                             </a>
@@ -310,6 +324,19 @@
                                     <a href="<?php echo site_url('inscripcion/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
                                 </li>
 							</ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-arrow-right"></i> <span>Ingresos</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="<?php echo site_url('ingreso/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('ingreso/index');?>"><i class="fa fa-arrow-right"></i> Listing</a>
+                                </li>
+                            </ul>
                         </li>
 						<li>
                             <a href="#">
@@ -440,6 +467,19 @@
                                     <a href="<?php echo site_url('paralelo/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
                                 </li>
 							</ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-server"></i> <span>Parametros</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="<?php echo site_url('parametro/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('parametro/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
+                                </li>
+                            </ul>
                         </li>
 						<li>
                             <a href="#">
