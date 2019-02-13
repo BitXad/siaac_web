@@ -48,6 +48,16 @@ class Mensualidad extends CI_Controller{
         $data['_view'] = 'mensualidad/boucher';
         $this->load->view('layouts/main',$data);
     }
+
+    function buscarpension($grupo)
+    {
+        $data['mensualidad'] = $this->Mensualidad_model->grupo_mensualidad($grupo);
+        $data['pensiones'] = $this->Mensualidad_model->geta_mensualidades();
+        $data['sumas'] = $this->Mensualidad_model->suma_mensualidades();
+        $data['institucion'] = $this->Institucion_model->get_institucion(1);
+        $data['_view'] = 'mensualidad/registropensiones';
+        $this->load->view('layouts/main',$data);
+    }
     /*
      * Adding a new mensualidad
      */
