@@ -88,8 +88,9 @@ class Plan_academico_model extends CI_Model
             FROM
                 plan_academico pa
             WHERE
-                `carrera_id` = ?
-        ",array($carrera_id))->result_array();
+                pa.carrera_id = $carrera_id
+            order by pa.planacad_id desc
+        ")->result_array();
 
         return $plan_academico;
     }

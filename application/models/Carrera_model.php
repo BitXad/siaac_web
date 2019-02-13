@@ -76,4 +76,24 @@ class Carrera_model extends CI_Model
     {
         return $this->db->delete('carrera',array('carrera_id'=>$carrera_id));
     }
+    /*
+     * Get all carrera
+     */
+    function get_all_carreras()
+    {
+        $carrera = $this->db->query("
+            SELECT
+                c.*
+
+            FROM
+                carrera c
+
+            WHERE
+                1 = 1
+
+            ORDER BY `carrera_id` DESC
+        ")->result_array();
+
+        return $carrera;
+    }
 }

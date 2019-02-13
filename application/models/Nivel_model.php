@@ -97,4 +97,23 @@ class Nivel_model extends CI_Model
 
         return $nivel;
     }
+    /*
+     * Get all nivel
+     */
+    function verifivar_nombre_nivel($planacad_id, $descripcion)
+    {
+        $nivel = $this->db->query("
+            SELECT
+               COUNT(n.nivel_descripcion) as resbusqueda
+
+            FROM
+                nivel n
+
+            WHERE
+                n.nivel_descripcion = '".$descripcion."'
+                and n.planacad_id = $planacad_id
+        ")->row_array();
+
+        return $nivel["resbusqueda"];
+    }
 }
