@@ -73,10 +73,10 @@ class Mensualidad_model extends CI_Model
     {
         $mensualidad = $this->db->query("
             SELECT
-                m.*, e.*,sum(m.mensualidad_montocancelado) as sux
+                m.*, e.*,sum(m.mensualidad_montocancelado) as sux, max(m.mensualidad_fechapago) as fecha
 
             FROM
-                mensualidad m, estado e
+                mensualidad m , estado e
 
             WHERE
                 m.estado_id=e.estado_id

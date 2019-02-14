@@ -1,6 +1,18 @@
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/alejo.css'); ?>" rel="stylesheet">
 <link href="<?php echo base_url('resources/css/cabecera.css'); ?>" rel="stylesheet">
+<style type="text/css">
+   @media print{@page {size: landscape;
+   margin-top: 0mm;
+    margin-left: 0mm;
+    margin-right: 0mm;}
+        
+}  @page{
+    margin-top: 0mm;
+    margin-left: 0mm;
+    margin-right: 0mm; }
+  
+</style>
 <!-------------------------------------------------------->
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
 <script language="javascript" type="text/javascript"> 
@@ -9,14 +21,13 @@ function cerrar() {
    window.close(); 
 } 
 </script>
-<div class="row">
+<div class="row" >
     <div class="cuerpo">
                     <div class="columna_derecha"  style="width:40%;">
                         <center> 
                      <h3 class="box-title">REGISTRO DE PENSIONES</h3>
                         <?php echo date('d/m/Y H:i:s'); ?>
                     </center>
-                    <b>CARRERA: <?php echo $mensualidad[0]['carrera_nombre']; ?></b>
                     </div>
                     <div class="columna_izquierda">
                        <center>   <?php echo "<img src='/siaac_web/resources/images/institucion/".$institucion['institucion_logo']."';  style='width:90px;height:80px'>"; ?>
@@ -33,32 +44,25 @@ function cerrar() {
 
             </div>
     <div class="col-md-12">
-        <div class="box">
+        <div class="box" style="padding-left: 0px;">
             <div class="box-header">
-              
+              <b>CARRERA: <?php echo $mensualidad[0]['carrera_nombre']; ?></b><b>  GRUPO: <?php echo $mensualidad[0]['grupo_nombre']; ?></b>
             <div class="box-body">
-                <table class="table-striped table-condensed" id="mitabla">
+                <table class="table-condensed" id="mitabla">
                     <tr>
-						
-						<th>GRUPO</th>                        
-						<th>#</th>                        
-                        <th>NOMBRE</th>
-                        <th>C.I.</th>
-                        <th>F.NAC.</th>
-                        <th>TELF.</th>
+						               
+						<th style="width: 1%;">#</th>                        
+                        <th>ESTUDIANATE</th>
                         <th>PAGO<BR>MES 1</th>
                         <th>PAGO<BR>MES 2</th>
                         <th>PAGO<BR>MES 3</th>
                         <th>PAGO<BR>MES 4</th>
                         <th>PAGO<BR>MES 5</th>
+                        <th>PAGO<BR>MES 6</th><th>PAGO<BR>MES 4</th>
+                        <th>PAGO<BR>MES 5</th>
+                        <th>PAGO<BR>MES 6</th><th>PAGO<BR>MES 4</th>
+                        <th>PAGO<BR>MES 5</th>
                         <th>PAGO<BR>MES 6</th>
-                        <th>PAGO<BR>MES 7</th>
-                        <th>PAGO<BR>MES 8</th>
-                        <th>PAGO<BR>MES 9</th>
-                        <th>PAGO<BR>MES 10</th>
-                        <th>PAGO<BR>MES 11</th>
-                        <th>PAGO<BR>MES 12</th>
-						
 					
                     </tr>
                     <?php $i=0;
@@ -68,21 +72,20 @@ function cerrar() {
                         ?>
                     <tr>
 						
-						<td><?php echo $m['grupo_nombre']; ?></td>
+						
 						<td ><?php echo $i; ?></td>
-                        <td><?php echo $m['estudiante_apellidos']; ?> <?php echo $m['estudiante_nombre']; ?></td>
-                        <td><?php echo $m['estudiante_ci']; ?></td>
-                        <td><?php echo date('d/m/Y', strtotime($m['estudiante_fechanac'])); ?></td>
-                        <td><?php echo $m['estudiante_telefono']; ?></td>
+                        <td style="padding-left: 1px;padding-right: 0px;width: 150px;"><?php echo $m['estudiante_apellidos']; ?> <?php echo $m['estudiante_nombre']; ?></br>
+                        C.I.: <?php echo $m['estudiante_ci']; ?> TELF.:<?php echo $m['estudiante_telefono']; ?></td>
+                    
                         
                         <?php   foreach($pensiones as $p) { if ($p['kardexeco_id']==$m['kardexeco_id']) {                           
                                
                                 $concatenar=$p['sux'];  ?>
-                               <td style="text-align: center;"><?php  echo number_format($concatenar, 2, ".", ","); ?> /
-                              <?php echo number_format($m['kardexeco_mensualidad'], 2, ".", ","); ?><br>
-                        <?php if ($p['mensualidad_fechapago']=='') { echo date('d/m/Y', strtotime($p['mensualidad_fechalimite']));
-                         
-                        } else{ echo $fecha_format = date('d/m/Y', strtotime($p['mensualidad_fechapago'])); } ?></td>
+                               <td style="text-align: center; width: 75px; font-size: 8px; padding-left: 0px;padding-right: 0px;"><font size="1"><?php  echo number_format($concatenar, 2, ".", ","); ?> /
+                              <?php echo number_format($m['kardexeco_mensualidad'], 2, ".", ","); ?></font><br>
+                        <?php if ($p['fecha']=='') { echo date('d/m/Y', strtotime($p['mensualidad_fechalimite']));
+                       $hoy = new DateTime(); $retraso = new DateTime($p['mensualidad_fechalimite']); $diasmora = $retraso->diff($hoy); echo "(", $diasmora->d, ")";
+                        } else{ echo $fecha_format = date('d/m/Y', strtotime($p['fecha'])); } ?></td>
                            
         
                        <?php   } }  ?>
