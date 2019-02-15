@@ -83,15 +83,18 @@ class Materia_model extends CI_Model
     {
         $materia = $this->db->query("
             SELECT
-                m.materia_id, m.materia_nombre, m.materia_codigo
+                m.materia_id, m.materia_nombre, m.materia_codigo, m.materia_horas, c.carrera_modalidad
 
             FROM
-                materia m
+                materia m, nivel n, plan_academico pa, carrera c
 
             WHERE
                 m.nivel_id = $nivel_id
+                and m.nivel_id = n.nivel_id
+                and n.planacad_id = pa.planacad_id
+                and pa.carrera_id = c.carrera_id
 
-            ORDER BY `materia_id` ASC
+            ORDER BY m.materia_id ASC
         ")->result_array();
 
         return $materia;

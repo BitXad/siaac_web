@@ -33,7 +33,6 @@ function get_planacademico(carrera_id){
                         }
                         html1 += "</select>";
                         $("#elegirplanacad").html(html1);
-                        $("#imprimirplanacademico").html("");
                         $("#dibujarniveles").html("");
                         new_planacademico(carrera_id);
                     document.getElementById('loader').style.display = 'none';
@@ -60,7 +59,6 @@ function get_planacademico(carrera_id){
         
         $("#isnuevoplan").html("");
         $("#elegirplanacad").html(htmln);
-        $("#imprimirplanacademico").html("");
         /*$('#bnewnivel').attr("disabled", true);
         $("#nuevonivel").css('visibility', 'hidden');*/
         $("#nuevonivel").html("");
@@ -139,18 +137,14 @@ function new_planacademico(carrera_id){
 //Busca Niveles de un Plana Academico y dibuja su tabla
 function elegir_planiveles(planacad_id){
     if(planacad_id>0){
-        var base_url = document.getElementById('base_url').value;
         var html = "";
         html += "<div class='col-md-6'>";
         html += "<div class='form-group'>";
         html += "<a class='btn btn-success' data-toggle='modal' onclick='getnombreplan()' data-target='#modalnuevonivel' title='Nuevo Nivel'>+ Nuevo Nivel</a>";
         html += "</div>";
         html += "</div>";
-        
-        var html1 = "<a href='"+base_url+"plan_academico/print_planacademico/"+planacad_id+"' id='imprimir' class='btn btn-sq-lg btn-success' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
         //$('#bnewnivel').attr("disabled", false);
         //$("#nuevonivel").css('visibility', 'visible');
-        $("#imprimirplanacademico").html(html1);
         $("#nuevonivel").html(html);
 
         if(planacad_id != undefined){
@@ -159,7 +153,6 @@ function elegir_planiveles(planacad_id){
     }else{
         //$('#bnewnivel').attr("disabled", true);
         //$("#nuevonivel").css('visibility', 'hidden');
-        $("#imprimirplanacademico").html("");
         $("#nuevonivel").html("");
         $("#dibujarniveles").html("");
     }
@@ -285,7 +278,7 @@ function dibujar_nivel(planacad_id){
                                     html += "</div>"; //FIN Contiene materias
                                 html += "</div>"; //FIN Materia de un Nivel
                                 html += "<div>";
-                                    html += "<div style='width:100%; text-align: right; padding-right: 5px;' id='sumahoras"+registros[i]['nivel_id']+"'>";
+                                    html += "<div id='sumahoras"+registros[i]['nivel_id']+"'>";
                                     html += "</div>";
                                 html += "</div>";
                             html += "</div>";
@@ -386,12 +379,7 @@ async function processData(nivel_id){
     try{
         const result = await materiasnivel(nivel_id);
         //alert(result);
-        $('#materia'+nivel_id).html(result[0]);
-        var sumarhoras = "Horas Semana: &nbsp;&nbsp;<b>"+ result[1]+"</b><br>";
-           sumarhoras += "Horas Mes: <b>"+ Number(result[1]*4)+"</b><br>";
-           sumarhoras += "Horas "+result[2]+": <b>"+ Number(result[1]*20)+"</b>";
-        
-        $('#sumahoras'+nivel_id).html(sumarhoras);
+        $('#materia'+nivel_id).html(result);
         //console.log(result);
         return "";
     }catch (err) {
@@ -409,9 +397,7 @@ function materiasnivel(nivel_id){
            data:{nivel_id:nivel_id},
            success:function(respuesta){
                var res = "";
-               var res2 = 0;
                var registros =  JSON.parse(respuesta);
-               var res3 = registros[0]['carrera_modalidad'];
                if (registros != null){
                     var n = registros.length; //tamaño del arreglo de la consulta
                     for (var i = 0; i < n ; i++){
@@ -419,15 +405,13 @@ function materiasnivel(nivel_id){
                         res += registros[i]['materia_nombre']+"<br>";
                         res += registros[i]['materia_codigo'];
                         res += "</div>";
-                        res2 += Number(registros[i]['materia_horas']);
                         /*res += "-"+registros[i]['producto_nombre']+" ("+registros[i]['producto_codigobarra']+")";
                         res += " <b>Cant.: </b>"+registros[i]['detalleven_cantidad'];
                         res += " <b>Prec.: </b>"+numberFormat(Number(registros[i]['detalleven_total']).toFixed(2))+"<br>";
                       */ 
                    }
                }
-               var resultado = [res, res2, res3];
-               resolve(resultado);
+               resolve(res);
         },
         error:function(error){
             reject(error);

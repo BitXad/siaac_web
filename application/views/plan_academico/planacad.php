@@ -83,6 +83,8 @@
         </div>
     </div>
 </div>
+<div id="imprimirplanacademico">
+</div>
 <div class="row" id='loader'  style='display:none; text-align: center'>
     <img src="<?php echo base_url("resources/images/loader.gif"); ?>"  >
 </div>
@@ -160,7 +162,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="carrera_nivel" class="control-label">Nivel</label>
+                    <label for="carrera_nivel" class="control-label">Nivel de Formación</label>
                     <div class="form-group">
                         <input type="text" name="carrera_nivel" value="<?php echo $this->input->post('carrera_nivel'); ?>" class="form-control" id="carrera_nivel" />
                     </div>
@@ -188,11 +190,23 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <label for="carrera_plan" class="control-label">Plan</label>
+                    <label for="carrera_tiempoestudio" class="control-label">Tiempo de Estudio</label>
                     <div class="form-group">
-                        <input type="text" name="carrera_plan" value="<?php echo $this->input->post('carrera_plan'); ?>" class="form-control" id="carrera_plan" />
+                        <input type="text" name="carrera_tiempoestudio" value="<?php echo $this->input->post('carrera_tiempoestudio'); ?>" class="form-control" id="carrera_tiempoestudio" placeholder="0 Semestres, 0 Años..." />
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <label for="carrera_cargahoraria" class="control-label">Carga Horaria</label>
+                    <div class="form-group">
+                        <input type="number" step="any" min="0" name="carrera_cargahoraria" value="<?php echo $this->input->post('carrera_cargahoraria'); ?>" class="form-control" id="carrera_cargahoraria" placeholder="0" />
+                    </div>
+                </div>
+                <!--<div class="col-md-6">
+                    <label for="carrera_plan" class="control-label">Plan</label>
+                    <div class="form-group">
+                        <input type="text" name="carrera_plan" value="<?php //echo $this->input->post('carrera_plan'); ?>" class="form-control" id="carrera_plan" />
+                    </div>
+                </div>-->
                 <div class="col-md-6">
                     <label for="carrera_fechacreacion" class="control-label">Fecha Creación</label>
                     <div class="form-group">
@@ -209,12 +223,6 @@
                     <label for="carrera_mensualidad" class="control-label">Mensualidad</label>
                     <div class="form-group">
                         <input type="number" step="any" min="0" name="carrera_mensualidad" value="<?php echo $this->input->post('carrera_mensualidad'); ?>" class="form-control" id="carrera_mensualidad" placeholder="0.00" />
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label for="carrera_nummeses" class="control-label">Num. Meses</label>
-                    <div class="form-group">
-                        <input type="number" min="0" name="carrera_nummeses" value="<?php echo $this->input->post('carrera_nummeses'); ?>" class="form-control" id="carrera_nummeses" placeholder="0" />
                     </div>
                 </div>
                 <!------------------------------------------------------------------->
