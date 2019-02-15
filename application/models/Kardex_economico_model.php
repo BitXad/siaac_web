@@ -90,6 +90,28 @@ class Kardex_economico_model extends CI_Model
         return $kardex_economico;
     }
 
+    function get_carrera_kardex($dato)
+    {
+        $kardex_economico = $this->db->query("
+            SELECT
+                n.nivel_id, pa.planacad_id, c.*, m.materia_id, g.*
+
+            FROM
+                nivel n, plan_academico pa, carrera c, materia m, grupo g
+
+            WHERE
+                m.materia_id=g.materia_id
+                and m.nivel_id=n.nivel_id
+                and n.planacad_id=pa.planacad_id
+                and pa.carrera_id=c.carrera_id
+                and ".$dato."
+
+            ORDER BY `grupo_id` DESC
+        ")->result_array();
+
+        return $kardex_economico;
+    }
+
     function get_datos_kardex($kardex_economico)
     {
         $kardex_economico = $this->db->query("
