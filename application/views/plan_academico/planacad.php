@@ -55,7 +55,7 @@
             <div class="box-body">
                 <div class="col-md-2">
                     <label for="carrera_id" class="control-label">&nbsp;</label>
-                    <div class="form-group">
+                    <div class="form-group no-print">
                         <a class="btn btn-success" data-toggle="modal" data-target="#modalnuevacarrera" onclick="borrardatosmodal()" title="Nueva Carrera" id="bnewcarrera">+ Nueva Carrera</a>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
         </div>
     </div>
 </div>
-<div id="imprimirplanacademico">
+<div id="imprimirplanacademico" class="no-print">
 </div>
 <div class="row" id='loader'  style='display:none; text-align: center'>
     <img src="<?php echo base_url("resources/images/loader.gif"); ?>"  >

@@ -83,6 +83,20 @@ class Materia_model extends CI_Model
     {
         $materia = $this->db->query("
             SELECT
+                m.materia_id, m.materia_nombre, m.materia_codigo, m.materia_horas,
+                c.carrera_modalidad,
+                pr.mat_materia_id, pr.materia_codigo as cod
+            FROM
+                materia m
+            LEFT JOIN materia pr on m.materia_id = pr.materia_id
+            LEFT JOIN nivel n on m.nivel_id = n.nivel_id
+            LEFT JOIN plan_academico pa on n.planacad_id = pa.planacad_id
+            LEFT JOIN carrera c on pa.carrera_id = c.carrera_id
+            where m.nivel_id = $nivel_id
+            
+            GROUP BY m.materia_id
+
+            /*SELECT
                 m.materia_id, m.materia_nombre, m.materia_codigo, m.materia_horas, c.carrera_modalidad
 
             FROM
@@ -93,8 +107,8 @@ class Materia_model extends CI_Model
                 and m.nivel_id = n.nivel_id
                 and n.planacad_id = pa.planacad_id
                 and pa.carrera_id = c.carrera_id
-
-            ORDER BY m.materia_id ASC
+            
+            ORDER BY m.materia_id ASC */
         ")->result_array();
 
         return $materia;
@@ -116,6 +130,24 @@ class Materia_model extends CI_Model
 
             ORDER BY `materia_id` ASC
         ")->result_array();
+
+        return $materia;
+    }
+    /*
+     * Get NOMBRE de la materia by materia_id que es el id de un prerequisito de una materia..
+     */
+    function get_codigo_pre_requisito($materia_id)
+    {
+        $materia = $this->db->query("
+            SELECT
+                m.materia_codigo
+
+            FROM
+                materia m
+
+            WHERE
+                `materia_id` = ?
+        ",array($materia_id))->row_array();
 
         return $materia;
     }

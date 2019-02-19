@@ -70,7 +70,7 @@ function get_planacademico(carrera_id){
 
 function new_planacademico(carrera_id){
     var html = "";
-    html += "<div class='col-md-2'>";
+    html += "<div class='col-md-2 no-print'>";
     html += "<div class='form-group' id='newplanacad'>";
     html += "<a class='btn btn-success' data-toggle='modal' data-target='#modalnuevoplanacad' title='Nuevo Plan Academico'>Nuevo Plan Academico</a>";
     html += "</div>";
@@ -141,13 +141,14 @@ function elegir_planiveles(planacad_id){
     if(planacad_id>0){
         var base_url = document.getElementById('base_url').value;
         var html = "";
-        html += "<div class='col-md-6'>";
+        html += "<div class='col-md-6 no-print'>";
         html += "<div class='form-group'>";
         html += "<a class='btn btn-success' data-toggle='modal' onclick='getnombreplan()' data-target='#modalnuevonivel' title='Nuevo Nivel'>+ Nuevo Nivel</a>";
         html += "</div>";
         html += "</div>";
         
-        var html1 = "<a href='"+base_url+"plan_academico/print_planacademico/"+planacad_id+"' id='imprimir' class='btn btn-sq-lg btn-success' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
+        //var html1 = "<a href='"+base_url+"plan_academico/print_planacademico/"+planacad_id+"' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
+        var html1 = "<a href='javascript:window.print(); void 0;' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
         //$('#bnewnivel').attr("disabled", false);
         //$("#nuevonivel").css('visibility', 'visible');
         $("#imprimirplanacademico").html(html1);
@@ -385,11 +386,13 @@ function dibujar_nivel(planacad_id){
 async function processData(nivel_id){
     try{
         const result = await materiasnivel(nivel_id);
+        //const result1 = await getprerequisito(mat_materia_id);
         //alert(result);
         $('#materia'+nivel_id).html(result[0]);
         var sumarhoras = "Horas Semana: &nbsp;&nbsp;<b>"+ result[1]+"</b><br>";
            sumarhoras += "Horas Mes: <b>"+ Number(result[1]*4)+"</b><br>";
            sumarhoras += "Horas "+result[2]+": <b>"+ Number(result[1]*20)+"</b>";
+           //sumarhoras += procesPrerequisito();
         
         $('#sumahoras'+nivel_id).html(sumarhoras);
         //console.log(result);
@@ -399,6 +402,17 @@ async function processData(nivel_id){
   }
 }
 
+async function processPrerequisito(mat_materia_id, materia_id){
+    try{
+        const result1 = await getprerequisito(mat_materia_id);
+        if(result1 != ""){
+            $('#isprerequisito'+materia_id).html("<b>["+result1+"]</b>");
+        }
+        return "";
+    }catch (err) {
+        return console.log(err.message);
+  }
+}
 function materiasnivel(nivel_id){
     const promise = new Promise(function (resolve, reject) {
     //var html = "";
@@ -412,12 +426,16 @@ function materiasnivel(nivel_id){
                var res2 = 0;
                var registros =  JSON.parse(respuesta);
                var res3 = registros[0]['carrera_modalidad'];
+
                if (registros != null){
                     var n = registros.length; //tamaño del arreglo de la consulta
                     for (var i = 0; i < n ; i++){
                         res += "<div class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
-                        res += registros[i]['materia_nombre']+"<br>";
-                        res += registros[i]['materia_codigo'];
+                        res += "<b>"+registros[i]['materia_nombre']+"</b><br>";
+                        res += registros[i]['materia_codigo']+"<br>";
+                        res += registros[i]['materia_horas']+" Hrs.<br>";
+                        res += "<div id='isprerequisito"+registros[i]["materia_id"]+"'></div>"
+                        processPrerequisito(registros[i]['mat_materia_id'], registros[i]['materia_id']);
                         res += "</div>";
                         res2 += Number(registros[i]['materia_horas']);
                         /*res += "-"+registros[i]['producto_nombre']+" ("+registros[i]['producto_codigobarra']+")";
@@ -431,6 +449,35 @@ function materiasnivel(nivel_id){
         },
         error:function(error){
             reject(error);
+        }
+        
+    });
+    });
+  
+  return promise;
+}
+
+function getprerequisito(mat_materia_id){
+    const promise = new Promise(function (resolve, reject) {
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'plan_academico/get_prerequisito';
+    var res = "";
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{mat_materia_id:mat_materia_id},
+           success:function(respuesta){
+               
+               var registros =  JSON.parse(respuesta);
+               if (registros != null){
+                     res = registros["materia_codigo"];
+                }else{
+                    res= "";
+                }
+                resolve(res);
+        },
+        error:function(respuesta){
+           // alert("Algo salio mal...!!!");
+           html = "";
         }
         
     });

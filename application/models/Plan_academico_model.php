@@ -14,7 +14,7 @@ class Plan_academico_model extends CI_Model
     /*
      * Get plan_academico by plan_academico_id
      */
-    function get_plan_academico($plan_academico_id)
+    function get_plan_academico($planacad_id)
     {
         $plan_academico = $this->db->query("
             SELECT
@@ -25,7 +25,7 @@ class Plan_academico_model extends CI_Model
 
             WHERE
                 `planacad_id` = ?
-        ",array($plan_academico_id))->row_array();
+        ",array($planacad_id))->row_array();
 
         return $plan_academico;
     }

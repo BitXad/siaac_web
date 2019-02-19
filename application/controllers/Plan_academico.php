@@ -391,10 +391,38 @@ class Plan_academico extends CI_Controller{
         $this->load->model('Institucion_model');
         $data['all_institucion'] = $this->Institucion_model->get_all_institucion();
         
-        $data['plan_academico'] = $this->Plan_academico_model->get_all_plan_academico();
+        $data['plan_academico'] = $this->Plan_academico_model->get_plan_academico($planacad_id);
+        
+        $this->load->model('Carrera_model');
+        $data['carrera'] = $this->Carrera_model->get_carrera($data['plan_academico']['carrera_id']);
+        
+        $this->load->model('Area_carrera_model');
+        $data['area'] = $this->Area_carrera_model->get_area_carrera($data['carrera']['areacarrera_id']);
+        
+        $this->load->model('Nivel_model');
+        $data['all_nivel'] = $this->Nivel_model->get_all_nivel_forplan($planacad_id);
         
         $data['_view'] = 'plan_academico/print_planacademico';
         $this->load->view('layouts/main',$data);
+    }
+    /***OBTIENE Prerequisitos de MATERIAS****/
+    function get_prerequisito()
+    {
+        if ($this->input->is_ajax_request()){
+            $mat_materia_id = $this->input->post('mat_materia_id');
+            if($mat_materia_id != null){
+                $this->load->model('Materia_model');
+                $datos = $this->Materia_model->get_codigo_pre_requisito($mat_materia_id);
+                echo json_encode($datos);
+            }else{
+                echo json_encode(null);
+            }
+            
+        }
+        else
+        {                 
+            show_404();
+        }
     }
 }
 
