@@ -85,9 +85,9 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="carrera_nummeses" class="control-label">Num. Meses</label>
+						<label for="carrera_tiempoestudio" class="control-label">Num. Meses</label>
 						<div class="form-group">
-                                                    <input type="number" min="0" name="carrera_nummeses" value="<?php echo $this->input->post('carrera_nummeses'); ?>" class="form-control" id="carrera_nummeses" placeholder="0" />
+                                                    <input type="number" min="0" name="carrera_tiempoestudio" value="<?php echo $this->input->post('carrera_tiempoestudio'); ?>" class="form-control" id="carrera_tiempoestudio" placeholder="0" />
 						</div>
 					</div>
 				</div>

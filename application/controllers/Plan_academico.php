@@ -126,12 +126,6 @@ class Plan_academico extends CI_Controller{
         $this->load->model('Institucion_model');
         $data['all_institucion'] = $this->Institucion_model->get_all_institucion();
         
-        /*$this->load->model('Carrera_model');
-        $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
-        /*
-        $this->load->model('Materia_model');
-        $data['all_materias'] = $this->Materia_model->get_all_materias_activo();
-        */
         $this->load->model('Area_carrera_model');
         $data['all_areacarrera'] = $this->Area_carrera_model->get_all_area_carrera();
         
@@ -267,16 +261,25 @@ class Plan_academico extends CI_Controller{
     {
         if ($this->input->is_ajax_request()){
             $this->load->library('form_validation');
+            $prerequisito = $this->input->post('prerequisito');
+            if($prerequisito == 0){
+                $this->form_validation->set_rules('mat_materia_id','Materia','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            }
             $this->form_validation->set_rules('materia_nombre','Materia Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('materia_alias','Materia Alias','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('materia_codigo','Materia Codigo','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('area_id','Area','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('materia_horas','Materia Horas','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 
             if($this->form_validation->run())     
             {
-                $prerequisito = $this->input->post('prerequisito');
+                
                 $materia_nombre = $this->input->post('materia_nombre');
                 $materia_alias = $this->input->post('materia_alias');
                 $mat_materia_id = $this->input->post('mat_materia_id');
                 $area_id = $this->input->post('area_id');
                 $materia_codigo = $this->input->post('materia_codigo');
+                $materia_horas = $this->input->post('materia_horas');
                 $nivel_id = $this->input->post('nivel_id');
                 if($prerequisito == 1){
                     $params = array(
@@ -286,6 +289,7 @@ class Plan_academico extends CI_Controller{
                             'materia_nombre' => $materia_nombre,
                             'materia_alias' => $materia_alias,
                             'materia_codigo' => $materia_codigo,
+                            'materia_horas' => $materia_horas,
                     );
                 }else{
                     $params = array(
@@ -296,6 +300,7 @@ class Plan_academico extends CI_Controller{
                             'materia_nombre' => $materia_nombre,
                             'materia_alias' => $materia_alias,
                             'materia_codigo' => $materia_codigo,
+                            'materia_horas' => $materia_horas,
                     );
                 }
                 $this->load->model('Materia_model');
@@ -361,11 +366,12 @@ class Plan_academico extends CI_Controller{
                         'carrera_codigo' => $this->input->post('carrera_codigo'),
                         'carrera_nivel' => $this->input->post('carrera_nivel'),
                         'carrera_modalidad' => $this->input->post('carrera_modalidad'),
-                        'carrera_plan' => $this->input->post('carrera_plan'),
+                        //'carrera_plan' => $this->input->post('carrera_plan'),
                         'carrera_fechacreacion' => $this->input->post('carrera_fechacreacion'),
                         'carrera_matricula' => $this->input->post('carrera_matricula'),
                         'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
-                        'carrera_nummeses' => $this->input->post('carrera_nummeses'),
+                        'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
+                        'carrera_cargahoraria' => $this->input->post('carrera_cargahoraria'),
                 );
 
                 $this->load->model('Carrera_model');
@@ -373,6 +379,45 @@ class Plan_academico extends CI_Controller{
                 //$datos = $this->Materia_model->get_all_materias_activo($nivel_id);
                 echo json_encode("ok");
             }else echo json_encode(null);
+        }
+        else
+        {                 
+            show_404();
+        }
+    }
+    /* Imprimir plan_academico */
+    function print_planacademico($planacad_id)
+    {
+        $this->load->model('Institucion_model');
+        $data['all_institucion'] = $this->Institucion_model->get_all_institucion();
+        
+        $data['plan_academico'] = $this->Plan_academico_model->get_plan_academico($planacad_id);
+        
+        $this->load->model('Carrera_model');
+        $data['carrera'] = $this->Carrera_model->get_carrera($data['plan_academico']['carrera_id']);
+        
+        $this->load->model('Area_carrera_model');
+        $data['area'] = $this->Area_carrera_model->get_area_carrera($data['carrera']['areacarrera_id']);
+        
+        $this->load->model('Nivel_model');
+        $data['all_nivel'] = $this->Nivel_model->get_all_nivel_forplan($planacad_id);
+        
+        $data['_view'] = 'plan_academico/print_planacademico';
+        $this->load->view('layouts/main',$data);
+    }
+    /***OBTIENE Prerequisitos de MATERIAS****/
+    function get_prerequisito()
+    {
+        if ($this->input->is_ajax_request()){
+            $mat_materia_id = $this->input->post('mat_materia_id');
+            if($mat_materia_id != null){
+                $this->load->model('Materia_model');
+                $datos = $this->Materia_model->get_codigo_pre_requisito($mat_materia_id);
+                echo json_encode($datos);
+            }else{
+                echo json_encode(null);
+            }
+            
         }
         else
         {                 

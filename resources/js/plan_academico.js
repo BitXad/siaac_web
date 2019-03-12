@@ -33,6 +33,7 @@ function get_planacademico(carrera_id){
                         }
                         html1 += "</select>";
                         $("#elegirplanacad").html(html1);
+                        $("#imprimirplanacademico").html("");
                         $("#dibujarniveles").html("");
                         new_planacademico(carrera_id);
                     document.getElementById('loader').style.display = 'none';
@@ -59,6 +60,7 @@ function get_planacademico(carrera_id){
         
         $("#isnuevoplan").html("");
         $("#elegirplanacad").html(htmln);
+        $("#imprimirplanacademico").html("");
         /*$('#bnewnivel').attr("disabled", true);
         $("#nuevonivel").css('visibility', 'hidden');*/
         $("#nuevonivel").html("");
@@ -68,7 +70,7 @@ function get_planacademico(carrera_id){
 
 function new_planacademico(carrera_id){
     var html = "";
-    html += "<div class='col-md-2'>";
+    html += "<div class='col-md-2 no-print'>";
     html += "<div class='form-group' id='newplanacad'>";
     html += "<a class='btn btn-success' data-toggle='modal' data-target='#modalnuevoplanacad' title='Nuevo Plan Academico'>Nuevo Plan Academico</a>";
     html += "</div>";
@@ -137,14 +139,19 @@ function new_planacademico(carrera_id){
 //Busca Niveles de un Plana Academico y dibuja su tabla
 function elegir_planiveles(planacad_id){
     if(planacad_id>0){
+        var base_url = document.getElementById('base_url').value;
         var html = "";
-        html += "<div class='col-md-6'>";
+        html += "<div class='col-md-6 no-print'>";
         html += "<div class='form-group'>";
         html += "<a class='btn btn-success' data-toggle='modal' onclick='getnombreplan()' data-target='#modalnuevonivel' title='Nuevo Nivel'>+ Nuevo Nivel</a>";
         html += "</div>";
         html += "</div>";
+        
+        //var html1 = "<a href='"+base_url+"plan_academico/print_planacademico/"+planacad_id+"' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
+        var html1 = "<a href='javascript:window.print(); void 0;' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
         //$('#bnewnivel').attr("disabled", false);
         //$("#nuevonivel").css('visibility', 'visible');
+        $("#imprimirplanacademico").html(html1);
         $("#nuevonivel").html(html);
 
         if(planacad_id != undefined){
@@ -153,6 +160,7 @@ function elegir_planiveles(planacad_id){
     }else{
         //$('#bnewnivel').attr("disabled", true);
         //$("#nuevonivel").css('visibility', 'hidden');
+        $("#imprimirplanacademico").html("");
         $("#nuevonivel").html("");
         $("#dibujarniveles").html("");
     }
@@ -277,8 +285,11 @@ function dibujar_nivel(planacad_id){
                                         processData(registros[i]["nivel_id"]);
                                     html += "</div>"; //FIN Contiene materias
                                 html += "</div>"; //FIN Materia de un Nivel
+                                html += "<div>";
+                                    html += "<div style='width:100%; text-align: right; padding-right: 5px;' id='sumahoras"+registros[i]['nivel_id']+"'>";
+                                    html += "</div>";
+                                html += "</div>";
                             html += "</div>";
-                            
                             html += "<!-- ---------------------- INICIO modal para Registrar Nueva Materia ----------------- -->";
                             html += "<div class='modal fade' id='modalnuevamateria"+registros[i]["nivel_id"]+"' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>";
                             html += "<div class='modal-dialog' role='document'>";
@@ -296,7 +307,7 @@ function dibujar_nivel(planacad_id){
                             html += "<div class='col-md-6'>";
                             html += "<label for='materia_nombre"+registros[i]['nivel_id']+"' class='control-label'><span class='text-danger'>*</span>Nombre</label>";
                             html += "<div class='form-group'>";
-                            html += "<input type='text' name='materia_nombre"+registros[i]['nivel_id']+"' class='form-control' id='materia_nombre"+registros[i]['nivel_id']+"' required />";
+                            html += "<input type='text' name='materia_nombre"+registros[i]['nivel_id']+"' onchange='replicar_a_alias("+registros[i]['nivel_id']+")' class='form-control' id='materia_nombre"+registros[i]['nivel_id']+"' required />";
                             html += "</div>";
                             html += "</div>";
                             
@@ -323,6 +334,12 @@ function dibujar_nivel(planacad_id){
                             html += "</select>";
                             html += "</div>";
                             html += "</div>";
+                            html += "<div class='col-md-6'>";
+                            html += "<label for='materia_horas"+registros[i]['nivel_id']+"' class='control-label'><span class='text-danger'>*</span>Horas</label>";
+                            html += "<div class='form-group'>";
+                            html += "<input type='number' step='any' min='0' name='materia_horas"+registros[i]['nivel_id']+"' class='form-control' id='materia_horas"+registros[i]['nivel_id']+"' />";
+                            html += "</div>";
+                            html += "</div>";
                             
                             html += "<div class='col-md-6' style='display:block' id='mosmaterias"+registros[i]["nivel_id"]+"' >";
                             html += "<label for='mat_materia_id"+registros[i]["nivel_id"]+"' class='control-label'><span class='text-danger'>*</span>Pre-Requisito</label>";
@@ -344,7 +361,7 @@ function dibujar_nivel(planacad_id){
                             html += "</div>";
                             html += "</div>";
                             html += "<!-- ---------------------- FIN modal para Registrar Nueva Materia ----------------- -->";
-
+                            
                         }
                         html += "<div>";
                         $("#dibujarniveles").html(html);
@@ -369,8 +386,15 @@ function dibujar_nivel(planacad_id){
 async function processData(nivel_id){
     try{
         const result = await materiasnivel(nivel_id);
+        //const result1 = await getprerequisito(mat_materia_id);
         //alert(result);
-        $('#materia'+nivel_id).html(result);
+        $('#materia'+nivel_id).html(result[0]);
+        var sumarhoras = "Horas Semana: &nbsp;&nbsp;<b>"+ result[1]+"</b><br>";
+           sumarhoras += "Horas Mes: <b>"+ Number(result[1]*4)+"</b><br>";
+           sumarhoras += "Horas "+result[2]+": <b>"+ Number(result[1]*20)+"</b>";
+           //sumarhoras += procesPrerequisito();
+        
+        $('#sumahoras'+nivel_id).html(sumarhoras);
         //console.log(result);
         return "";
     }catch (err) {
@@ -378,6 +402,17 @@ async function processData(nivel_id){
   }
 }
 
+async function processPrerequisito(mat_materia_id, materia_id){
+    try{
+        const result1 = await getprerequisito(mat_materia_id);
+        if(result1 != ""){
+            $('#isprerequisito'+materia_id).html("<b>["+result1+"]</b>");
+        }
+        return "";
+    }catch (err) {
+        return console.log(err.message);
+  }
+}
 function materiasnivel(nivel_id){
     const promise = new Promise(function (resolve, reject) {
     //var html = "";
@@ -388,21 +423,29 @@ function materiasnivel(nivel_id){
            data:{nivel_id:nivel_id},
            success:function(respuesta){
                var res = "";
+               var res2 = 0;
                var registros =  JSON.parse(respuesta);
+               var res3 = registros[0]['carrera_modalidad'];
+
                if (registros != null){
                     var n = registros.length; //tamaño del arreglo de la consulta
                     for (var i = 0; i < n ; i++){
                         res += "<div class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
-                        res += registros[i]['materia_nombre']+"<br>";
-                        res += registros[i]['materia_codigo'];
+                        res += "<b>"+registros[i]['materia_nombre']+"</b><br>";
+                        res += registros[i]['materia_codigo']+"<br>";
+                        res += registros[i]['materia_horas']+" Hrs.<br>";
+                        res += "<div id='isprerequisito"+registros[i]["materia_id"]+"'></div>"
+                        processPrerequisito(registros[i]['mat_materia_id'], registros[i]['materia_id']);
                         res += "</div>";
+                        res2 += Number(registros[i]['materia_horas']);
                         /*res += "-"+registros[i]['producto_nombre']+" ("+registros[i]['producto_codigobarra']+")";
                         res += " <b>Cant.: </b>"+registros[i]['detalleven_cantidad'];
                         res += " <b>Prec.: </b>"+numberFormat(Number(registros[i]['detalleven_total']).toFixed(2))+"<br>";
                       */ 
                    }
                }
-               resolve(res);
+               var resultado = [res, res2, res3];
+               resolve(resultado);
         },
         error:function(error){
             reject(error);
@@ -414,6 +457,39 @@ function materiasnivel(nivel_id){
   return promise;
 }
 
+function getprerequisito(mat_materia_id){
+    const promise = new Promise(function (resolve, reject) {
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'plan_academico/get_prerequisito';
+    var res = "";
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{mat_materia_id:mat_materia_id},
+           success:function(respuesta){
+               
+               var registros =  JSON.parse(respuesta);
+               if (registros != null){
+                     res = registros["materia_codigo"];
+                }else{
+                    res= "";
+                }
+                resolve(res);
+        },
+        error:function(respuesta){
+           // alert("Algo salio mal...!!!");
+           html = "";
+        }
+        
+    });
+    });
+  
+  return promise;
+}
+
+function replicar_a_alias(nivel_id){
+    var res = $('#materia_nombre'+nivel_id).val();
+    $('#materia_alias'+nivel_id).val(res);
+}
 /* **************Registrar nueva MATERIA en un NIVEL***************** */
 function registro_newmateria(nivel_id, planacad_id){
     var base_url = document.getElementById('base_url').value;
@@ -424,13 +500,14 @@ function registro_newmateria(nivel_id, planacad_id){
     var mat_materia_id = document.getElementById('mat_materia_id'+nivel_id).value;
     var area_id        = document.getElementById('area_id'+nivel_id).value;
     var materia_codigo = document.getElementById('materia_codigo'+nivel_id).value;
+    var materia_horas = document.getElementById('materia_horas'+nivel_id).value;
     var prerequisito = 0;
     if(prereq){
         prerequisito = 1;
     }
     $.ajax({url: controlador,
            type:"POST",
-           data:{prerequisito:prerequisito, materia_nombre:materia_nombre, materia_alias:materia_alias, mat_materia_id:mat_materia_id, area_id:area_id, materia_codigo:materia_codigo, nivel_id:nivel_id},
+           data:{prerequisito:prerequisito, materia_nombre:materia_nombre, materia_alias:materia_alias, mat_materia_id:mat_materia_id, area_id:area_id, materia_codigo:materia_codigo, nivel_id:nivel_id, materia_horas:materia_horas},
            success:function(respuesta){
                
                var registros =  JSON.parse(respuesta);
@@ -440,8 +517,8 @@ function registro_newmateria(nivel_id, planacad_id){
                   dibujar_nivel(planacad_id);   
                     
                 }else{
-                    //dibujar_nivel(planacad_id);
-                    alert("No se pudo registrar el Nivel");
+                    $('#modalnuevamateria'+nivel_id).modal('show');
+                    alert("Todos Los Campos son Obligados");
                 }
                 
         },
@@ -536,14 +613,15 @@ function registrocarrera(){
     var carrera_nivel = document.getElementById('carrera_nivel').value;
     var areacarrera_id = document.getElementById('areacarrera_id').value;
     var carrera_modalidad = document.getElementById('carrera_modalidad').value;
-    var carrera_plan = document.getElementById('carrera_plan').value;
+    var carrera_tiempoestudio = document.getElementById('carrera_tiempoestudio').value;
+    var carrera_cargahoraria = document.getElementById('carrera_cargahoraria').value;
+    //var carrera_plan = document.getElementById('carrera_plan').value;
     var carrera_fechacreacion = document.getElementById('carrera_fechacreacion').value;
     var carrera_matricula = document.getElementById('carrera_matricula').value;
     var carrera_mensualidad = document.getElementById('carrera_mensualidad').value;
-    var carrera_nummeses = document.getElementById('carrera_nummeses').value;
     $.ajax({url: controlador,
             type:"POST",
-            data:{carrera_nombre:carrera_nombre, carrera_codigo:carrera_codigo, carrera_nivel:carrera_nivel, areacarrera_id:areacarrera_id, carrera_modalidad:carrera_modalidad, carrera_plan:carrera_plan, carrera_fechacreacion:carrera_fechacreacion, carrera_matricula:carrera_matricula, carrera_mensualidad:carrera_mensualidad, carrera_nummeses:carrera_nummeses},
+            data:{carrera_nombre:carrera_nombre, carrera_codigo:carrera_codigo, carrera_nivel:carrera_nivel, areacarrera_id:areacarrera_id, carrera_modalidad:carrera_modalidad, carrera_tiempoestudio:carrera_tiempoestudio, carrera_cargahoraria:carrera_cargahoraria, carrera_fechacreacion:carrera_fechacreacion, carrera_matricula:carrera_matricula, carrera_mensualidad:carrera_mensualidad},
             success:function(respuesta){
                 var registros =  JSON.parse(respuesta);
                 if (registros != null){
@@ -569,11 +647,12 @@ function borrardatosmodal(){
     document.getElementById('carrera_nivel').value = "";
     document.getElementById('areacarrera_id').value = "";
     document.getElementById('carrera_modalidad').value = "";
-    document.getElementById('carrera_plan').value = "";
+    //document.getElementById('carrera_plan').value = "";
+    document.getElementById('carrera_tiempoestudio').value = "";
+    document.getElementById('carrera_cargahoraria').value = "";
     document.getElementById('carrera_fechacreacion').value = "";
     document.getElementById('carrera_matricula').value = "";
     document.getElementById('carrera_mensualidad').value = "";
-    document.getElementById('carrera_nummeses').value = "";
    
 }
 
