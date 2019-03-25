@@ -9,7 +9,6 @@
                 <h3 class="box-title">Aula</h3>
             	<div class="box-tools">
                     <a href="<?php echo site_url('aula/add'); ?>" class="btn btn-success btn-sm">Registrar Aula</a> 
-                    <a href="<?php echo site_url('aula/generar_excel'); ?>" target="_blank"> Generar excel </a>
                 </div>
             </div>
             <div class="box-body">
