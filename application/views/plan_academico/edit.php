@@ -33,7 +33,7 @@
               	<h3 class="box-title">Editar Plan Académico</h3>&nbsp;&nbsp;
                 <button type="button" class="btn btn-success btn-sm" onclick="cambiarcodplan();" title="genera codigo">
 			<i class="fa fa-edit"></i>Cambiar Código
-                </button>>
+                </button>
             </div>
 			<?php echo form_open('plan_academico/edit/'.$planacad['planacad_id']); ?>
 			<div class="box-body">
