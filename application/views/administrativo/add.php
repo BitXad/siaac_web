@@ -148,7 +148,12 @@
 					<div class="col-md-6">
 						<label for="administrativo_cargo" class="control-label">Cargo</label>
 						<div class="form-group">
-							<input type="text" name="administrativo_cargo" value="<?php echo $this->input->post('administrativo_cargo'); ?>" class="form-control" id="administrativo_cargo" />
+							<select name="administrativo_cargo" class="form-control" id="administrativo_cargo" required>
+								<option value="">- CARGO -</option>
+								<option value="3">- ADMINISTRATIVO -</option>
+								<option value="4">- SECRETARIA -</option>
+								
+							</select>
 						</div>
 					</div>
 					<div class="col-md-6">

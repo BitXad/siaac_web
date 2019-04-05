@@ -9,6 +9,7 @@ class Administrativo extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Administrativo_model');
+        $this->load->model('Usuario_model');
     } 
 
     /*
@@ -86,6 +87,27 @@ class Administrativo extends CI_Controller{
                         $foto = $new_name.$extension;
                     }
             /* *********************FIN imagen***************************** */
+            $cargo = $this->input->post('administrativo_cargo');
+            if ($cargo == 3){
+                $administrativo_cargo = 'ADMINISTRATIVO';
+            }
+            if ($cargo == 4){
+                $administrativo_cargo = 'SECRETARIA';
+            }
+             $nombre = $this->input->post('administrativo_nombre');
+            $apellido = $this->input->post('administrativo_apellidos');
+            $name = $nombre." ".$apellido;
+            $params = array(
+                'tipousuario_id' => $cargo,
+                'estado_id' => 1,
+                'usuario_nombre' => $name,
+                'usuario_email' => $this->input->post('administrativo_email'),
+                'usuario_login' => $this->input->post('administrativo_codigo'),
+                'usuario_clave' => md5($this->input->post('administrativo_ci')),
+                
+            );
+            
+            $usuario_id = $this->Usuario_model->add_usuario($params);
             $params = array(
 				'estado_id' => 1,
 				'estadocivil_id' => $this->input->post('estadocivil_id'),
@@ -101,13 +123,15 @@ class Administrativo extends CI_Controller{
 				'administrativo_direccion' => $this->input->post('administrativo_direccion'),
 				'administrativo_telefono' => $this->input->post('administrativo_telefono'),
 				'administrativo_celular' => $this->input->post('administrativo_celular'),
-				'administrativo_cargo' => $this->input->post('administrativo_cargo'),
+				'administrativo_cargo' => $administrativo_cargo,
 				'administrativo_foto' => $foto,
 				'administrativo_fechareg' => $this->input->post('administrativo_fechareg'),
                 'administrativo_email' => $this->input->post('administrativo_email'),
+                'usuario_id' => $usuario_id,
             );
             
             $administrativo_id = $this->Administrativo_model->add_administrativo($params);
+           
             redirect('administrativo/index');
         }
         else
@@ -209,6 +233,13 @@ class Administrativo extends CI_Controller{
                     $foto = $foto1;
                 }
             /* *********************FIN imagen***************************** */
+            $cargo = $this->input->post('administrativo_cargo');
+            if ($cargo == 3){
+                $administrativo_cargo = 'ADMINISTRATIVO';
+            }
+            if ($cargo == 4){
+                $administrativo_cargo = 'SECRETARIA';
+            }
                 $params = array(
 					'estado_id' => $this->input->post('estado_id'),
 					'estadocivil_id' => $this->input->post('estadocivil_id'),
@@ -224,13 +255,28 @@ class Administrativo extends CI_Controller{
 					'administrativo_direccion' => $this->input->post('administrativo_direccion'),
 					'administrativo_telefono' => $this->input->post('administrativo_telefono'),
 					'administrativo_celular' => $this->input->post('administrativo_celular'),
-					'administrativo_cargo' => $this->input->post('administrativo_cargo'),
+					'administrativo_cargo' => $administrativo_cargo,
 					'administrativo_foto' => $foto,
 					'administrativo_fechareg' => $this->input->post('administrativo_fechareg'),
                     'administrativo_email' => $this->input->post('administrativo_email'),
                 );
 
-                $this->Administrativo_model->update_administrativo($administrativo_id,$params);            
+                $this->Administrativo_model->update_administrativo($administrativo_id,$params);
+                $usuario_id = $this->input->post('usuario_id');
+                $nombre = $this->input->post('administrativo_nombre');
+                $apellido = $this->input->post('administrativo_apellidos');
+                $name = $nombre." ".$apellido;
+                $params = array(
+                'tipousuario_id' => $cargo,
+                'estado_id' => $this->input->post('estado_id'),
+                'usuario_nombre' => $name,
+                'usuario_email' => $this->input->post('administrativo_email'),
+                'usuario_login' => $this->input->post('administrativo_codigo'),
+                'usuario_clave' => md5($this->input->post('administrativo_ci')),
+               
+            );
+                $this->Usuario_model->update_usuario($usuario_id,$params);
+          
                 redirect('administrativo/index');
             }
             else
