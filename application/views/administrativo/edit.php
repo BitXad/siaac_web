@@ -28,6 +28,7 @@
 						<label for="administrativo_nombre" class="control-label"><span class="text-danger">*</span>Nombre</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_nombre" value="<?php echo ($this->input->post('administrativo_nombre') ? $this->input->post('administrativo_nombre') : $administrativo['administrativo_nombre']); ?>" class="form-control" id="administrativo_nombre" />
+							<input type="hidden" name="usuario_id" value="<?php echo ($this->input->post('usuario_id') ? $this->input->post('usuario_id') : $administrativo['usuario_id']); ?>" class="form-control" id="usuario_id" readonly/>
 							<span class="text-danger"><?php echo form_error('administrativo_nombre');?></span>
 						</div>
 					</div>
@@ -165,7 +166,12 @@
 					<div class="col-md-6">
 						<label for="administrativo_cargo" class="control-label">Cargo</label>
 						<div class="form-group">
-							<input type="text" name="administrativo_cargo" value="<?php echo ($this->input->post('administrativo_cargo') ? $this->input->post('administrativo_cargo') : $administrativo['administrativo_cargo']); ?>" class="form-control" id="administrativo_cargo" />
+							<select name="administrativo_cargo" class="form-control" id="administrativo_cargo" required>
+								<option value="">- CARGO -</option>
+								<option value="3" <?php if($administrativo['administrativo_cargo']=='ADMINISTRATIVO'){ ?> selected <?php } ?>>- ADMINISTRATIVO -</option>
+								<option value="4" <?php if($administrativo['administrativo_cargo']=='SECRETARIA'){ ?> selected <?php } ?>>- SECRETARIA -</option>
+								
+							</select>
 						</div>
 					</div>
 					<div class="col-md-6">
