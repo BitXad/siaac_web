@@ -87,12 +87,16 @@ class Administrativo extends CI_Controller{
                         $foto = $new_name.$extension;
                     }
             /* *********************FIN imagen***************************** */
+            $ci = $this->input->post('administrativo_ci');
+            
             $cargo = $this->input->post('administrativo_cargo');
             if ($cargo == 3){
                 $administrativo_cargo = 'ADMINISTRATIVO';
+                $login = 'adm'.$ci;
             }
             if ($cargo == 4){
                 $administrativo_cargo = 'SECRETARIA';
+                $login = 'sec'.$ci;
             }
              $nombre = $this->input->post('administrativo_nombre');
             $apellido = $this->input->post('administrativo_apellidos');
@@ -102,7 +106,7 @@ class Administrativo extends CI_Controller{
                 'estado_id' => 1,
                 'usuario_nombre' => $name,
                 'usuario_email' => $this->input->post('administrativo_email'),
-                'usuario_login' => $this->input->post('administrativo_codigo'),
+                'usuario_login' => $login,
                 'usuario_clave' => md5($this->input->post('administrativo_ci')),
                 
             );
@@ -233,12 +237,15 @@ class Administrativo extends CI_Controller{
                     $foto = $foto1;
                 }
             /* *********************FIN imagen***************************** */
+            $ci = $this->input->post('administrativo_ci');
             $cargo = $this->input->post('administrativo_cargo');
             if ($cargo == 3){
                 $administrativo_cargo = 'ADMINISTRATIVO';
+                 $login = 'adm'.$ci;
             }
             if ($cargo == 4){
                 $administrativo_cargo = 'SECRETARIA';
+                 $login = 'sec'.$ci;
             }
                 $params = array(
 					'estado_id' => $this->input->post('estado_id'),
@@ -271,7 +278,7 @@ class Administrativo extends CI_Controller{
                 'estado_id' => $this->input->post('estado_id'),
                 'usuario_nombre' => $name,
                 'usuario_email' => $this->input->post('administrativo_email'),
-                'usuario_login' => $this->input->post('administrativo_codigo'),
+                'usuario_login' => $login,
                 'usuario_clave' => md5($this->input->post('administrativo_ci')),
                
             );

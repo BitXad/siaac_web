@@ -92,13 +92,15 @@ class Docente extends CI_Controller{
             /* *********************FIN imagen***************************** */
             $nombre = $this->input->post('docente_nombre');
             $apellido = $this->input->post('docente_apellidos');
+            $ci = $this->input->post('docente_ci');
+            $login = 'doc'.$ci;
             $name = $nombre." ".$apellido;
             $params = array(
                 'tipousuario_id' => 2,
                 'estado_id' => 1,
                 'usuario_nombre' => $name,
                 'usuario_email' => $this->input->post('docente_email'),
-                'usuario_login' => $this->input->post('docente_codigo'),
+                'usuario_login' => $login,
                 'usuario_clave' => md5($this->input->post('docente_ci')),
                 
             );
@@ -243,13 +245,15 @@ class Docente extends CI_Controller{
                 $usuario_id = $this->input->post('usuario_id');
                 $nombre = $this->input->post('docente_nombre');
                 $apellido = $this->input->post('docente_apellidos');
+                $ci = $this->input->post('docente_ci');
+                $login = 'doc'.$ci;
                 $name = $nombre." ".$apellido;
                 $params = array(
                 'tipousuario_id' => 2,
                 'estado_id' => $this->input->post('estado_id'),
                 'usuario_nombre' => $name,
                 'usuario_email' => $this->input->post('docente_email'),
-                'usuario_login' => $this->input->post('docente_codigo'),
+                'usuario_login' => $login,
                 'usuario_clave' => md5($this->input->post('docente_ci')),
                 
             );
