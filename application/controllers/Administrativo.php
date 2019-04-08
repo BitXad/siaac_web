@@ -39,7 +39,7 @@ class Administrativo extends CI_Controller{
                 $foto="";
                 if (!empty($_FILES['administrativo_foto']['name'])){
                         $this->load->library('image_lib');
-                        $config['upload_path'] = './resources/images/administrativos/';
+                        $config['upload_path'] = './resources/images/usuarios/';
                         $img_full_path = $config['upload_path'];
 
                         $config['allowed_types'] = 'gif|jpeg|jpg|png';
@@ -60,7 +60,7 @@ class Administrativo extends CI_Controller{
                         if ($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
                             $conf['image_library'] = 'gd2';
                             $conf['source_image'] = $img_data['full_path'];
-                            $conf['new_image'] = './resources/images/administrativos/';
+                            $conf['new_image'] = './resources/images/usuarios/';
                             $conf['maintain_ratio'] = TRUE;
                             $conf['create_thumb'] = FALSE;
                             $conf['width'] = 800;
@@ -73,8 +73,8 @@ class Administrativo extends CI_Controller{
                         }
                         /* ********************F I N  para resize***************************** */
                         $confi['image_library'] = 'gd2';
-                        $confi['source_image'] = './resources/images/administrativos/'.$new_name.$extension;
-                        $confi['new_image'] = './resources/images/administrativos/'."thumb_".$new_name.$extension;
+                        $confi['source_image'] = './resources/images/usuarios/'.$new_name.$extension;
+                        $confi['new_image'] = './resources/images/usuarios/'."thumb_".$new_name.$extension;
                         $confi['create_thumb'] = FALSE;
                         $confi['maintain_ratio'] = TRUE;
                         $confi['width'] = 50;
@@ -108,6 +108,7 @@ class Administrativo extends CI_Controller{
                 'usuario_email' => $this->input->post('administrativo_email'),
                 'usuario_login' => $login,
                 'usuario_clave' => md5($this->input->post('administrativo_ci')),
+                'usuario_imagen' => $foto,
                 
             );
             
@@ -180,7 +181,7 @@ class Administrativo extends CI_Controller{
                 if (!empty($_FILES['administrativo_foto']['name']))
                 {
                     $this->load->library('image_lib');
-                    $config['upload_path'] = './resources/images/administrativos/';
+                    $config['upload_path'] = './resources/images/usuarios/';
                     $config['allowed_types'] = 'gif|jpeg|jpg|png';
                     $config['max_size'] = 200000;
                     $config['max_width'] = 2900;
@@ -199,7 +200,7 @@ class Administrativo extends CI_Controller{
                     if($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
                         $conf['image_library'] = 'gd2';
                         $conf['source_image'] = $img_data['full_path'];
-                        $conf['new_image'] = './resources/images/administrativos/';
+                        $conf['new_image'] = './resources/images/usuarios/';
                         $conf['maintain_ratio'] = TRUE;
                         $conf['create_thumb'] = FALSE;
                         $conf['width'] = 800;
@@ -212,7 +213,7 @@ class Administrativo extends CI_Controller{
                     }
                     /* ********************F I N  para resize***************************** */
                     //$directorio = base_url().'resources/imagenes/';
-                    $directorio = $_SERVER['DOCUMENT_ROOT'].'/siaac_web/resources/images/administrativos/';
+                    $directorio = $_SERVER['DOCUMENT_ROOT'].'/siaac_web/resources/images/usuarios/';
                     if(isset($foto1) && !empty($foto1)){
                       if(file_exists($directorio.$foto1)){
                           unlink($directorio.$foto1);
@@ -221,8 +222,8 @@ class Administrativo extends CI_Controller{
                       }
                   }
                     $confi['image_library'] = 'gd2';
-                    $confi['source_image'] = './resources/images/administrativos/'.$new_name.$extension;
-                    $confi['new_image'] = './resources/images/administrativos/'."thumb_".$new_name.$extension;
+                    $confi['source_image'] = './resources/images/usuarios/'.$new_name.$extension;
+                    $confi['new_image'] = './resources/images/usuarios/'."thumb_".$new_name.$extension;
                     $confi['create_thumb'] = FALSE;
                     $confi['maintain_ratio'] = TRUE;
                     $confi['width'] = 50;
@@ -280,6 +281,7 @@ class Administrativo extends CI_Controller{
                 'usuario_email' => $this->input->post('administrativo_email'),
                 'usuario_login' => $login,
                 'usuario_clave' => md5($this->input->post('administrativo_ci')),
+                'usuario_imagen' => $foto,
                
             );
                 $this->Usuario_model->update_usuario($usuario_id,$params);

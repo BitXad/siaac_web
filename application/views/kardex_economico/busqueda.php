@@ -30,17 +30,21 @@
         </div>
         </div>
     </div>
- 
+    <div class="col-md-12">
+    <div class="col-md-6"> 
                 <div id="tablaestudiantes">
                     
                     <!--------------- RESULTADO TABLA DE ESTUDIANTES--------------------------->
                     
                 </div>
+        </div>
+    <div class="col-md-6">
 
                 <div id="tablakardexeconomico">
                     
                     <!--------------- RESULTADO TABLA DE ESTUDIANTES--------------------------->
                     
                 </div>
-                
+        </div>
+    </div>            
 </div>

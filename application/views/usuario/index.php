@@ -70,13 +70,13 @@
                         <td style="text-align: center;"><?php echo $u['usuario_email']; ?></td>
                         <td  style="text-align: center;"><?php echo $u['usuario_login']; ?></td>
                         <td><?php if ($u['usuario_imagen']!=NULL && $u['usuario_imagen']!="") { ?>
-                          <a class="btn  btn-xs" id="contieneimg" data-toggle="modal" data-target="#mostrarimagen<?php echo $i; ?>" style="padding: 0px;">
+                          <a class="btn  btn-xs" id="contieneimg" data-toggle="modal" data-target="#mostrarimagen<?php echo $cont; ?>" style="padding: 0px;">
                                         <?php
                                         echo '<img src="'.site_url('/resources/images/usuarios/'.$u['usuario_imagen']).'" />';
                                         ?>
                                     </a>
                            <!------------------------ INICIO modal para MOSTRAR imagen REAL ------------------->
-                                    <div class="modal fade" id="mostrarimagen<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="mostrarimagenlabel<?php echo $i; ?>">
+                                    <div class="modal fade" id="mostrarimagen<?php echo $cont; ?>" tabindex="-1" role="dialog" aria-labelledby="mostrarimagenlabel<?php echo $cont; ?>">
                                       <div class="modal-dialog" role="document">
                                             <br><br>
                                         <div class="modal-content">
