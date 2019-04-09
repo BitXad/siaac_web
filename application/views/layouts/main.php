@@ -98,6 +98,7 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="header">Navegacion</li>
+                        <?php if($session_data['tipousuario_id'] == 1){ ?>
                         <li>
                             <a href="<?php echo site_url();?>admin/dashb">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -212,83 +213,18 @@
                                 </li>
                             </ul>
                         </li>
-                        
-                        
                         <li>
-                            <a href="<?php echo site_url('institucion');?>">
-                                <i class="fa fa-university"></i> <span>Institución</span>
-                            </a>
+                            <a href="<?php echo site_url('institucion');?>"><i class="fa fa-university"></i> <span>Institución</span></a>
                         </li>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
                         <li>
-                            <a href="#">
-                                <i class="fa fa-font"></i> <span>Aula</span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="active">
-                                    <a href="<?php echo site_url('aula/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('aula/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-                            </ul>
+                            <a href="<?php echo site_url('aula');?>"><i class="fa fa-font"></i> <span>Aula</span></a>
                         </li>
-                        
-                        
-						
-                        
-						<li>
-                            <a href="#">
-                                <i class="fa fa-users"></i> <span>Grupo</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('grupo/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('grupo/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
+                        <li>
+                            <a href="<?php echo site_url('grupo');?>"><i class="fa fa-users"></i> <span>Grupo</span></a>
                         </li>
-						
-                        
-						
-						
-						
-                        
-                        
-						
-						
-						<li>
-                            <a href="#">
-                                <i class="fa fa-server"></i> <span>Paralelo</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('paralelo/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('paralelo/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
+                        <li>
+                            <a href="<?php echo site_url('paralelo');?>"><i class="fa fa-server"></i> <span>Paralelo</span></a>
                         </li>
-                        
-						
-                            
-                        
                         <li>
                             <a href="#">
                                 <i class="fa fa-lock"></i> <span>Seguridad</span>
@@ -305,6 +241,46 @@
                                 </li>
                             </ul>
                         </li>
+                        <?php } ?>
+                        <?php if($session_data['tipousuario_id'] == 2){ ?>
+                        <li>
+                            <a href="<?php echo site_url('grupo');?>"><i class="fa fa-users"></i> <span>Grupo</span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('notum');?>"><i class="fa fa-list-alt"></i>Notas</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('horario');?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
+                        </li>
+                        <?php } ?>
+                        <?php if($session_data['tipousuario_id'] == 3){ ?>
+                        <li>
+                            <a href="<?php echo site_url('plan_academico');?>"><i class="fa fa-buysellads"></i>Plan Académico</a>
+                        </li>
+                                                        <li>
+                            <a href="<?php echo site_url('docente');?>"><i class="fa fa-user-circle"></i>Docentes</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('estudiante');?>"><i class="fa fa-user"></i>Estudiantes</a>
+                        </li>
+                                                        <li>
+                            <a href="<?php echo site_url('materia');?>"><i class="fa fa-maxcdn"></i>Materias</a>
+                        </li>
+                                                        <li>
+                            <a href="<?php echo site_url('horario');?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
+                        </li>
+                        <?php } ?>
+                        <?php if($session_data['tipousuario_id'] == 4){ ?>
+                        <li>
+                            <a href="#"><i class="fa fa-money"></i>Cobranza en construcción</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('inscripcion');?>"><i class="fa fa-check-square-o"></i>Inscripción</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-building"></i>Reportes Economicos en construcción</a>
+                        </li>
+                        <?php } ?>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -322,7 +298,7 @@
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <footer class="main-footer">
+            <footer class="main-footer no-print">
                 <strong>Generated By <a href="http://www.crudigniter.com/">CRUDigniter</a> 3.2</strong>
             </footer>
 
