@@ -16,9 +16,15 @@
         </div>
         
         <div class="col-md-3">
-            <label for="razon nombre" class="control-label">Nombre</label>
+            <label for="nombre" class="control-label">Nombre</label>
             <div class="form-group">
                 <input type="text" name="nombre" class="form-control" id="nombre"  autocomplete="off" onkeypress="validar(event,2)"  />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="nombre" class="control-label">Apellidos</label>
+            <div class="form-group">
+                <input type="text" name="apellidos" class="form-control" id="apellidos"  autocomplete="off" onkeypress="validar(event,2)"  />
             </div>
         </div>
         
