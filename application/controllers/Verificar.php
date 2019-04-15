@@ -25,7 +25,7 @@ class Verificar extends CI_Controller
         //var_dump($result);
 
         if ($result) {
-            if ($result->tipousuario_id == 1 or $result->tipousuario_id == 2 or $result->tipousuario_id == 5) {
+            if ($result->tipousuario_id == 1 or $result->tipousuario_id == 2 or $result->tipousuario_id == 3 or $result->tipousuario_id == 4) {
                 $thumb = "";
                 if ($result->usuario_imagen <> null) {
                     $thumb = $this->foto_thumb($result->usuario_imagen);
@@ -54,6 +54,12 @@ class Verificar extends CI_Controller
 
                 if ($session_data['tipousuario_id'] == 1) {// admin page
                     redirect('admin/dashb');
+                }elseif ($session_data['tipousuario_id'] == 2) {// docente page
+                    redirect('grupo');
+                }elseif ($session_data['tipousuario_id'] == 3) {// administrativo page
+                    redirect('plan_academico');
+                }elseif ($session_data['tipousuario_id'] == 4) {// secretaria page
+                    redirect('inscripcion');
                 }
 
             } else {
