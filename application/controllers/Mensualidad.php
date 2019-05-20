@@ -240,7 +240,7 @@ class Mensualidad extends CI_Controller{
 
 function pendiente($mensualidad_id,$kardexeco_id,$descuento)
     {       
-            
+            //$ptq="DELETE FROM mensualidad WHERE mensualidad.cuota_numcuota = ".$numcuota." and cuota_id > ".$cuota_id." and mensualidad.credito_id=".$credito_id." and mensualidad.estado_id=3 ";//
             $sql = "UPDATE mensualidad SET estado_id=3,mensualidad_montocancelado=0,mensualidad_montototal=mensualidad_montototal+".$descuento.", mensualidad_fechapago=NULL,mensualidad_saldo=0,mensualidad_descuento=0, mensualidad_nombre='',mensualidad_ci='',mensualidad_horapago=NULL WHERE mensualidad.mensualidad_id=".$mensualidad_id." and mensualidad.kardexeco_id=".$kardexeco_id." ";
             $this->db->query($sql);
              

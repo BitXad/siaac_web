@@ -113,6 +113,7 @@ function cerrar() {
 						<th></th>
                     </tr>
                     <?php $i=0;
+                    $bandera=0;
                     foreach($mensualidad as $m){ 
                     	$i=$i+1; ?>
                     <tr>
@@ -200,8 +201,10 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
                       
                            
                              <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal<?php echo $i; ?>"  title="Eliminar"><span class="fa fa-trash" title="ELIMINAR"></span></a>
+                            <?php if ($bandera==0) { ?>
+                           
                             <a href="#" data-toggle="modal" data-target="#pagar<?php echo $i; ?>" class="btn btn-success btn-xs"><span class="fa fa-dollar" title="COBRAR"></span></a>
-
+<?php } $bandera=1; ?>
                             <!------------------------ INICIO modal para confirmar eliminación ------------------->
                                     <div class="modal fade" id="myModal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel<?php echo $i; ?>">
                                       <div class="modal-dialog" role="document">
