@@ -64,7 +64,7 @@ class Mensualidad_model extends CI_Model
                 m.estado_id=e.estado_id
                 and m.kardexeco_id = ".$kardex_id."
 
-            ORDER BY `mensualidad_id` ASC
+            ORDER BY m.mensualidad_numero, m.mensualidad_id  ASC
         ")->result_array();
 
         return $mensualidad;
