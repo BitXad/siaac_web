@@ -7,7 +7,7 @@
             <div class="box-header">
                 <h3 class="box-title">Periodos</h3>
             	<div class="box-tools">
-                    <a href="<?php echo site_url('periodo/nuevo'); ?>" class="btn btn-success btn-sm">Nuevo</a>
+                    <a href="<?php echo site_url('periodo/nuevo'); ?>" class="btn btn-success btn-sm">+ Añadir</a>
                 </div>
                 <?php if($this->session->flashdata('msg')): ?>
                     <p><?php echo $this->session->flashdata('msg'); ?></p>
@@ -17,11 +17,11 @@
                 <table class="table table-striped" id="mitabla">
                     <tr>
 
-						<th>ID</th>
+						<th>#</th>
 						<th>Nombre</th>
 						<th>Hora de inicio</th>
 						<th>Hora fin</th>
-						<th>Operaciones</th>
+						<th></th>
                     </tr>
                     <?php $i=0; 
                     foreach($periodo as $p){ 
@@ -32,8 +32,8 @@
 						<td><?php echo substr_replace($p['periodo_horainicio'] ,"", -3) ?></td>
 						<td><?php echo substr_replace($p['periodo_horafin'] ,"", -3); ?></td>
 						<td>
-                            <a href="<?php echo site_url('periodo/editar/'.$p['periodo_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Editar</a>
-                            <a href="<?php echo site_url('periodo/remove/'.$p['periodo_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Borrar</a>
+                            <a href="<?php echo site_url('periodo/editar/'.$p['periodo_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a>
+                            <a href="<?php echo site_url('periodo/remove/'.$p['periodo_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>
                         </td>
                     </tr>
                     <?php } ?>

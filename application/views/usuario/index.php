@@ -26,7 +26,7 @@
 <!-- ---------------------------------------------------- -->
 <div class="box-header">
                 <h3 class="box-title">Usuarios</h3>
-            	<div class="box-tools">
+                <div class="box-tools">
                     <a href="<?php echo site_url('usuario/add'); ?>" class="btn btn-success btn-sm">+ Añadir</a> 
                 </div>
             </div>
@@ -38,20 +38,18 @@
                   </div>
             <!-- ------------------- fin parametro de buscador ------------------- -->
         <div class="box">
-            <?php if($this->session->flashdata('msg')): ?>
-                <p><?php echo $this->session->flashdata('msg'); ?></p>
-            <?php endif; ?>
+          
             <div class="box-body table-responsive">
                 <table class="table table-striped table-condensed" id="mitabla">
                     <tr>
-						<th>Num</th>
-						<th>Nombre</th>
-						<th>Tipo Usuario</th>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Tipo Usuario</th>
                         <th>Email</th>
-						<th>Login</th>
-						<th>Imagen</th>
+                        <th>Login</th>
+                        <th>Imagen</th>
                         <th>Estado</th>
-						<th></th>
+                        <th></th>
                     </tr>
                     <tbody class="buscar">
                   <?php
@@ -66,54 +64,56 @@
                   ?>
 
                     <tr>
-						<td><?php echo $cont ?></td>
+                        <td><?php echo $cont ?></td>
                         <td><?php echo $u['usuario_nombre']; ?></td>
-						<td><?php echo $u['tipousuario_descripcion']; ?></td>
-                      	<td><?php echo $u['usuario_email']; ?></td>
-						<td><?php echo $u['usuario_login']; ?></td>
-                        <td><div id="contieneimg"><?php echo "<img src='".site_url()."/resources/images/usuarios/"."thumb_".$u['usuario_imagen']."'>"; ?></div></td>
-                        <td><?php echo $u['estado_descripcion']; ?></td>
-
-                        <td>
-                            <a href="<?php echo site_url('usuario/editar/'. $u['usuario_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a>
-                            <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal<?php echo $i; ?>"  title="Eliminar"><em class="fa fa-trash"></em></a>
-                            <a href="<?php echo site_url('usuario/password/'.$u['usuario_id']); ?>" class="btn btn-success btn-xs"><span class="fa fa-asterisk"></span></a> 
-                        </td>
-                    </tr>
-                  
-                             <!-- ---------------------- modal para eliminar el producto ----------------- -->
-                                    <div class="modal fade" id="myModal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel<?php echo $i; ?>">
+                        <td style="text-align: center;"><?php echo $u['tipousuario_descripcion']; ?></td>
+                        <td style="text-align: center;"><?php echo $u['usuario_email']; ?></td>
+                        <td  style="text-align: center;"><?php echo $u['usuario_login']; ?></td>
+                        <td><?php if ($u['usuario_imagen']!=NULL && $u['usuario_imagen']!="") { ?>
+                          <a class="btn  btn-xs" id="contieneimg" data-toggle="modal" data-target="#mostrarimagen<?php echo $cont; ?>" style="padding: 0px;">
+                                        <?php
+                                        echo '<img src="'.site_url('/resources/images/usuarios/'.$u['usuario_imagen']).'" />';
+                                        ?>
+                                    </a>
+                           <!------------------------ INICIO modal para MOSTRAR imagen REAL ------------------->
+                                    <div class="modal fade" id="mostrarimagen<?php echo $cont; ?>" tabindex="-1" role="dialog" aria-labelledby="mostrarimagenlabel<?php echo $cont; ?>">
                                       <div class="modal-dialog" role="document">
                                             <br><br>
                                         <div class="modal-content">
                                           <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-                                    <!--        <h4 class="modal-title" id="myModalLabel">LISTA DE PRODUCTOS</h4>-->
+                                            <font size="3"><b><?php echo $u['usuario_nombre']; ?></b></font>
                                           </div>
-                                          <div class="modal-body">
-
-                                           <!-- --------------------------------------------------------------- -->
-
-                                           <h1><b> <em class="fa fa-trash"></b></em> 
-                                               ¿Desea eliminar el usuario <b> <?php echo $u['usuario_nombre']; ?></b> seleccionado?
-                                           </h1>
-                                           <!-- --------------------------------------------------------------- -->
+                                            <div class="modal-body">
+                                           <!------------------------------------------------------------------->
+                                           <?php echo '<img style="max-height: 100%; max-width: 100%" src="'.site_url('/resources/images/usuarios/'.$u['usuario_imagen']).'" />'; ?>
+                                           <!------------------------------------------------------------------->
                                           </div>
-                                          <div class="modal-footer aligncenter">
-
-
-                                                      <a href="<?php echo site_url('usuario/remove/'.$u['usuario_id']); ?>" class="btn btn-danger"><em class="fa fa-pencil"></em> Si </a></a>
-
-                                                      <a href="#" class="btn btn-success" data-dismiss="modal"><em class="fa fa-times"></em> No </a>
-                                          </div>
-
+                                          
                                         </div>
                                       </div>
                                     </div>
+                            <!------------------------ FIN modal para MOSTRAR imagen REAL ------------------->
+                             <?php } else { ?>
+                                    <div id="contieneimg">
+                                        <img src="<?php echo site_url('/resources/images/default.jpg');  ?>" />
+                                    </div>
+                                    <?php }  ?>
+                        </td>
+                        <td style="background-color: <?php echo $u['estado_color']; ?>;text-align: center;"><?php echo $u['estado_descripcion']; ?></td>
 
-                                    
-                   <td hidden="hidden"><?php echo $i++; ?></td>
-                    <?php  }?>  
+                        <td>
+                            <a href="<?php echo site_url('usuario/edit/'. $u['usuario_id']); ?>" title="EDITAR" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a>
+                            <a href="<?php echo site_url('usuario/password/'.$u['usuario_id']); ?>" title="CAMBIAR CONTRASENA" class="btn btn-success btn-xs"><span class="fa fa-asterisk"></span></a>
+                            <?php if($u['estado_id']==1){ ?>
+                            <a href="<?php echo site_url('usuario/inactivar/'.$u['usuario_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-ban"  title="INACTIVAR"></span></a>
+                          <?php } else { ?>
+                            <a href="<?php echo site_url('usuario/activar/'.$u['usuario_id']); ?>" class="btn btn-facebook btn-xs"><span class="fa fa-reply"  title="ACTIVAR"></span></a>
+                          <?php } ?>
+                           </td>                            
+                    </tr>
+                    <?php  } ?>  
+
                 </table>
                 
             </div>

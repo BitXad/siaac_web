@@ -45,7 +45,7 @@
                         <td><?php echo $c['carrera_codaprod']; ?></td>
                         <td><?php echo number_format($c['carrera_matricula'],2); ?></td>
                         <td><?php echo number_format($c['carrera_mensualidad'],2); ?></td>
-                        <td><?php echo $c['carrera_nummeses']; ?></td>
+                        <td><?php echo $c['carrera_tiempoestudio']; ?></td>
                         <td>
                             <a href="<?php echo site_url('carrera/edit/'.$c['carrera_id']); ?>" class="btn btn-info btn-xs" title="Editar"><span class="fa fa-pencil"></span></a> 
                             <!--<a href="<?php //echo site_url('carrera/remove/'.$c['carrera_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->

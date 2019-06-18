@@ -98,427 +98,189 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="header">Navegacion</li>
+                        <?php if($session_data['tipousuario_id'] == 1){ ?>
                         <li>
                             <a href="<?php echo site_url();?>admin/dashb">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
-						<li>
+                        <li>
                             <a href="#">
-                                <i class="fa fa-user"></i> <span>Administrativo</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('administrativo/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('administrativo/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-university"></i> <span>Area Carrera</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('area_carrera/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('area_carrera/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-book"></i> <span>Area Materium</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('area_materium/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('area_materium/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-font"></i> <span>Aula</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('aula/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('aula/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-file-code-o"></i> <span>Carrera</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('carrera/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('carrera/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-file-text-o"></i> <span>Detalle Factura</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('detalle_factura/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('detalle_factura/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-users"></i> <span>Docente</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('docente/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('docente/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-etsy"></i> <span>Estado</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('estado/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('estado/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-odnoklassniki"></i> <span>Estado Civil</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('estado_civil/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('estado_civil/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-users"></i> <span>Estudiante</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('estudiante/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('estudiante/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-align-left"></i> <span>Factura</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('factura/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('factura/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-venus-mars"></i> <span>Genero</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('genero/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('genero/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-calendar"></i> <span>Gestion</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('gestion/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('gestion/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-users"></i> <span>Grupo</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('grupo/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('grupo/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-calendar-check-o"></i> <span>Horario</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('horario/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('horario/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-check-square-o"></i> <span>Inscripcion</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('inscripcion/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('inscripcion/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-university"></i> <span>Institucion</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('institucion/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('institucion/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-address-book-o"></i> <span>Kardex Academico</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('kardex_academico/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('kardex_academico/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-address-book"></i> <span>Kardex Economico</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('kardex_economico/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('kardex_economico/busqueda');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-maxcdn"></i> <span>Materia</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('materia/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('materia/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-navicon"></i> <span>Materia Asignada</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('materia_asignada/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('materia_asignada/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-money"></i> <span>Matricula</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('matricula/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('matricula/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-usd"></i> <span>Mensualidad</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('mensualidad/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('mensualidad/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-sort"></i> <span>Nivel</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('nivel/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('nivel/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-list-alt"></i> <span>Notum</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('notum/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('notum/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-server"></i> <span>Paralelo</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('paralelo/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('paralelo/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-clock-o"></i> <span>Periodo</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('periodo/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('periodo/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-buysellads"></i> <span>Plan Academico</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('plan_academico/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('plan_academico/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-						<li>
-                            <a href="#">
-                                <i class="fa fa-retweet"></i> <span>Rol</span>
-                            </a>
-                            <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('rol/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-								<li>
-                                    <a href="<?php echo site_url('rol/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-							</ul>
-                        </li>
-                            <li>
-                            <a href="#">
-                                <i class="fa fa-home"></i> <span>Tipo Aula</span>
+                                <i class="fa fa-address-book-o"></i> <span>Registros</span>
                             </a>
                             <ul class="treeview-menu">
                                 <li class="active">
-                                    <a href="<?php echo site_url('tipo_aula/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                    <a href="<?php echo site_url('administrativo');?>"><i class="fa fa-user-circle-o"></i>Administrativos</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo site_url('tipo_aula/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
+                                    <a href="<?php echo site_url('docente');?>"><i class="fa fa-user-circle"></i> Docentes</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('estudiante');?>"><i class="fa fa-user"></i> Estudiantes</a>
                                 </li>
                             </ul>
                         </li>
-						<li>
+                        <li>
                             <a href="#">
-                                <i class="fa fa-adjust"></i> <span>Turno</span>
+                                <i class="fa fa-list-ol"></i> <span>Parametros</span>
                             </a>
                             <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('turno/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                <li>
+                                    <a href="<?php echo site_url('area_carrera');?>"><i class="fa fa-university"></i>Area Carrera</a>
                                 </li>
-								<li>
-                                    <a href="<?php echo site_url('turno/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
+                                <li>
+                                    <a href="<?php echo site_url('area_materium');?>"><i class="fa fa-book"></i> Area Materia</a>
                                 </li>
-							</ul>
+                                <li>
+                                    <a href="<?php echo site_url('estado');?>"><i class="fa fa-etsy"></i>Estado</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('estado_civil');?>"><i class="fa fa-odnoklassniki"></i>Estado Civil</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('genero');?>"><i class="fa fa-venus-mars"></i>Genero</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('gestion');?>"><i class="fa fa-calendar"></i>Gestion</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('parametro');?>"><i class="fa fa-server"></i>Parametro</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('periodo');?>"><i class="fa fa-clock-o"></i>Periodo</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('tipo_aula');?>"><i class="fa fa-home"></i>Tipo Aula</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('turno');?>"><i class="fa fa-adjust"></i>Turno</a>
+                                </li>
+                            </ul>
                         </li>
-						<li>
+                        
+                        <li>
                             <a href="#">
-                                <i class="fa fa-user"></i> <span>Usuario</span>
+                                <i class="fa fa-industry"></i> <span>Operaciones</span>
                             </a>
                             <ul class="treeview-menu">
-								<li class="active">
-                                    <a href="<?php echo site_url('usuario/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                <li class="active">
+                                    <a href="<?php echo site_url('carrera');?>"><i class="fa fa-file-code-o"></i>Carrera</a>
                                 </li>
-								<li>
-                                    <a href="<?php echo site_url('usuario/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
+                                <li>
+                                    <a href="<?php echo site_url('detalle_factura');?>"><i class="fa fa-file-text-o"></i>Detalle Factura</a>
                                 </li>
-							</ul>
+                                <li>
+                                    <a href="<?php echo site_url('egreso');?>"><i class="fa fa-arrow-left"></i>Egresos</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('factura');?>"><i class="fa fa-align-left"></i>Factura</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('horario');?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('ingreso');?>"><i class="fa fa-arrow-right"></i>Ingresos</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('inscripcion');?>"><i class="fa fa-check-square-o"></i>Inscripción</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('kardex_academico');?>"><i class="fa fa-address-book-o"></i> Kardex Academico</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('kardex_economico/busqueda');?>"><i class="fa fa-address-book"></i>Kardex Economico</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('materia');?>"><i class="fa fa-maxcdn"></i>Materias</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('materia_asignada');?>"><i class="fa fa-navicon"></i>Materias Asignadas</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('matricula');?>"><i class="fa fa-money"></i>Matricula</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('mensualidad');?>"><i class="fa fa-usd"></i>Mensualidad</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('nivel');?>"><i class="fa fa-sort"></i>Nivel</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('notum');?>"><i class="fa fa-list-alt"></i>Notas</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('plan_academico');?>"><i class="fa fa-buysellads"></i>Plan Académico</a>
+                                </li>
+                            </ul>
                         </li>
+                        <li>
+                            <a href="<?php echo site_url('institucion');?>"><i class="fa fa-university"></i> <span>Institución</span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('aula');?>"><i class="fa fa-font"></i> <span>Aula</span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('grupo');?>"><i class="fa fa-users"></i> <span>Grupo</span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('paralelo');?>"><i class="fa fa-server"></i> <span>Paralelo</span></a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-lock"></i> <span>Seguridad</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="<?php echo site_url('rol');?>"><i class="fa fa-retweet"></i>Rol</a>
+                                </li>
+                                <li class="active">
+                                    <a href="<?php echo site_url('usuario/tipo_usuario');?>"><i class="fa fa-list-ul"></i>Tipo Usuario</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('usuario');?>"><i class="fa fa-users"></i>Usuarios</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <?php } ?>
+                        <?php if($session_data['tipousuario_id'] == 2){ ?>
+                        <li>
+                            <a href="<?php echo site_url('grupo');?>"><i class="fa fa-users"></i> <span>Grupo</span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('notum');?>"><i class="fa fa-list-alt"></i>Notas</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('horario');?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
+                        </li>
+                        <?php } ?>
+                        <?php if($session_data['tipousuario_id'] == 3){ ?>
+                        <li>
+                            <a href="<?php echo site_url('plan_academico');?>"><i class="fa fa-buysellads"></i>Plan Académico</a>
+                        </li>
+                                                        <li>
+                            <a href="<?php echo site_url('docente');?>"><i class="fa fa-user-circle"></i>Docentes</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('estudiante');?>"><i class="fa fa-user"></i>Estudiantes</a>
+                        </li>
+                                                        <li>
+                            <a href="<?php echo site_url('materia');?>"><i class="fa fa-maxcdn"></i>Materias</a>
+                        </li>
+                                                        <li>
+                            <a href="<?php echo site_url('horario');?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
+                        </li>
+                        <?php } ?>
+                        <?php if($session_data['tipousuario_id'] == 4){ ?>
+                        <li>
+                            <a href="#"><i class="fa fa-money"></i>Cobranza en construcción</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('inscripcion');?>"><i class="fa fa-check-square-o"></i>Inscripción</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-building"></i>Reportes Economicos en construcción</a>
+                        </li>
+                        <?php } ?>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -536,7 +298,7 @@
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <footer class="main-footer">
+            <footer class="main-footer no-print">
                 <strong>Generated By <a href="http://www.crudigniter.com/">CRUDigniter</a> 3.2</strong>
             </footer>
 

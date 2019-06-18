@@ -42,7 +42,7 @@
                                     ?>
                                     <a class="btn  btn-xs" data-toggle="modal" data-target="#mostrarimagen<?php echo $i; ?>" style="padding: 0px;">
                                         <?php
-                                        echo '<img src="'.site_url('/resources/images/administrativos/'.$mimagen).'" />';
+                                        echo '<img src="'.site_url('/resources/images/usuarios/'.$mimagen).'" />';
                                         ?>
                                     </a>
                                 </div>
@@ -86,7 +86,7 @@
                                           </div>
                                             <div class="modal-body">
                                            <!------------------------------------------------------------------->
-                                           <?php echo '<img style="max-height: 100%; max-width: 100%" src="'.site_url('/resources/images/administrativos/'.$a['administrativo_foto']).'" />'; ?>
+                                           <?php echo '<img style="max-height: 100%; max-width: 100%" src="'.site_url('/resources/images/usuarios/'.$a['administrativo_foto']).'" />'; ?>
                                            <!------------------------------------------------------------------->
                                           </div>
                                           

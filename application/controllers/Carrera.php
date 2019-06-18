@@ -46,7 +46,7 @@ class Carrera extends CI_Controller{
 				'carrera_codaprod' => $this->input->post('carrera_codaprod'),
 				'carrera_matricula' => $this->input->post('carrera_matricula'),
 				'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
-				'carrera_nummeses' => $this->input->post('carrera_nummeses'),
+				'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
             );
             
             $carrera_id = $this->Carrera_model->add_carrera($params);
@@ -93,7 +93,7 @@ class Carrera extends CI_Controller{
 					'carrera_codaprod' => $this->input->post('carrera_codaprod'),
 					'carrera_matricula' => $this->input->post('carrera_matricula'),
 					'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
-					'carrera_nummeses' => $this->input->post('carrera_nummeses'),
+					'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
                 );
 
                 $this->Carrera_model->update_carrera($carrera_id,$params);            

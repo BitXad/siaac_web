@@ -48,6 +48,16 @@ class Mensualidad extends CI_Controller{
         $data['_view'] = 'mensualidad/boucher';
         $this->load->view('layouts/main',$data);
     }
+
+    function buscarpension($grupo)
+    {
+        $data['mensualidad'] = $this->Mensualidad_model->grupo_mensualidad($grupo);
+        $data['pensiones'] = $this->Mensualidad_model->geta_mensualidades();
+        $data['sumas'] = $this->Mensualidad_model->suma_mensualidades();
+        $data['institucion'] = $this->Institucion_model->get_institucion(1);
+        $data['_view'] = 'mensualidad/registropensiones';
+        $this->load->view('layouts/main',$data);
+    }
     /*
      * Adding a new mensualidad
      */
@@ -228,9 +238,10 @@ class Mensualidad extends CI_Controller{
                  redirect('mensualidad/mensualidad/'.$kardexeco_id);  
             }
 
-function pendiente($mensualidad_id,$kardexeco_id,$descuento)
+function pendiente($mensualidad_id,$kardexeco_id,$descuento,$numero)
     {       
-            
+            $ptq="DELETE FROM mensualidad WHERE mensualidad_numero = ".$numero." and mensualidad_id > ".$mensualidad_id." and kardexeco_id=".$kardexeco_id." and estado_id=3 ";
+            $this->db->query($ptq);
             $sql = "UPDATE mensualidad SET estado_id=3,mensualidad_montocancelado=0,mensualidad_montototal=mensualidad_montototal+".$descuento.", mensualidad_fechapago=NULL,mensualidad_saldo=0,mensualidad_descuento=0, mensualidad_nombre='',mensualidad_ci='',mensualidad_horapago=NULL WHERE mensualidad.mensualidad_id=".$mensualidad_id." and mensualidad.kardexeco_id=".$kardexeco_id." ";
             $this->db->query($sql);
              

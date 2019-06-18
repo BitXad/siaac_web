@@ -64,11 +64,45 @@ class Mensualidad_model extends CI_Model
                 m.estado_id=e.estado_id
                 and m.kardexeco_id = ".$kardex_id."
 
-            ORDER BY `mensualidad_id` ASC
+            ORDER BY m.mensualidad_numero, m.mensualidad_id  ASC
         ")->result_array();
 
         return $mensualidad;
     }
+     function geta_mensualidades()
+    {
+        $mensualidad = $this->db->query("
+            SELECT
+                m.*, e.*,sum(m.mensualidad_montocancelado) as sux, max(m.mensualidad_fechapago) as fecha
+
+            FROM
+                mensualidad m , estado e
+
+            WHERE
+                m.estado_id=e.estado_id
+
+             group by m.kardexeco_id, m.mensualidad_numero 
+            
+        ")->result_array();
+
+        return $mensualidad;
+    }
+    function suma_mensualidades()
+    {
+        $mensualidad = $this->db->query("
+           SELECT
+                m.mensualidad_numero,m.kardexeco_id,sum(m.mensualidad_montocancelado) as sux, k.kardexeco_id 
+
+            FROM
+                mensualidad m, kardex_economico k
+            WHERE
+                m.kardexeco_id=k.kardexeco_id
+            group by m.mensualidad_numero,m.kardexeco_id
+        ")->result_array();
+
+        return $mensualidad;
+    }
+    
     function boucher_mensualidad($mensualidad_id)
     {
         $mensualidad = $this->db->query("
@@ -91,6 +125,59 @@ class Mensualidad_model extends CI_Model
         return $mensualidad;
     }
 
+    function grupo_mensualidad($grupo)
+    {
+        $mensualidad = $this->db->query("
+            SELECT
+                 c.*, g.*, i.inscripcion_id, gi.*, ke.*, e.*
+
+            FROM
+                carrera c, grupo g, inscripcion i, grupo_inscripcion gi, kardex_economico ke, estudiante e
+
+            WHERE
+                g.grupo_id=".$grupo."
+                and g.grupo_id=gi.grupo_id
+                and gi.inscripcion_id=i.inscripcion_id
+                and ke.inscripcion_id = i.inscripcion_id
+                and i.carrera_id = c.carrera_id
+                and i.estudiante_id = e.estudiante_id
+               
+
+            ORDER BY `estudiante_apellidos` DESC
+        ")->result_array();
+
+        return $mensualidad;
+    }
+
+   /* function get_pensiones($grupo,$estudiante)
+    {
+        foreach ($estudiante as $e ) {
+            
+       
+         $mensualidad = $this->db->query("
+            SELECT
+                 c.*, g.*, i.inscripcion_id, gi.*, ke.*, e.*, m.*
+
+            FROM
+                carrera c, grupo g, inscripcion i, grupo_inscripcion gi, kardex_economico ke, estudiante e, mensualidad m
+
+            WHERE
+                g.grupo_id=".$grupo."
+                and g.grupo_id=gi.grupo_id
+                and gi.inscripcion_id=i.inscripcion_id
+                and ke.inscripcion_id = i.inscripcion_id
+                and ke.kardexeco_id = m.kardexeco_id
+                and i.carrera_id = c.carrera_id
+                and ".$e." = e.estudiante_id
+                and i.estudiante_id = e.estudiante_id
+                
+
+            ORDER BY `estudiante_apellidos` DESC
+        ")->result_array();
+
+        return $mensualidad;
+         }
+    }*/
 
     function parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id,$mes)
     {

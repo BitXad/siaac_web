@@ -47,6 +47,30 @@ class Kardex_economico extends CI_Controller{
        
     }
 
+     function carrera()
+    {
+
+        if ($this->input->is_ajax_request()) {
+            $carrera = $this->input->post('dato');
+            if ($carrera!="") {
+            
+           
+            $datos = $this->Kardex_economico_model->get_carrera_kardex($carrera);
+            
+            echo json_encode($datos);
+       
+            }
+            else{ echo json_encode(null);
+            }
+        }
+        else
+        {                 
+                     $data['_view'] = 'kardex_economico/pensiones';
+                     $this->load->view('layouts/main',$data);
+        } 
+       
+    }
+
      function mostrarkardex()
     {
 

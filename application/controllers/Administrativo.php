@@ -9,6 +9,7 @@ class Administrativo extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Administrativo_model');
+        $this->load->model('Usuario_model');
     } 
 
     /*
@@ -38,7 +39,7 @@ class Administrativo extends CI_Controller{
                 $foto="";
                 if (!empty($_FILES['administrativo_foto']['name'])){
                         $this->load->library('image_lib');
-                        $config['upload_path'] = './resources/images/administrativos/';
+                        $config['upload_path'] = './resources/images/usuarios/';
                         $img_full_path = $config['upload_path'];
 
                         $config['allowed_types'] = 'gif|jpeg|jpg|png';
@@ -59,7 +60,7 @@ class Administrativo extends CI_Controller{
                         if ($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
                             $conf['image_library'] = 'gd2';
                             $conf['source_image'] = $img_data['full_path'];
-                            $conf['new_image'] = './resources/images/administrativos/';
+                            $conf['new_image'] = './resources/images/usuarios/';
                             $conf['maintain_ratio'] = TRUE;
                             $conf['create_thumb'] = FALSE;
                             $conf['width'] = 800;
@@ -72,8 +73,8 @@ class Administrativo extends CI_Controller{
                         }
                         /* ********************F I N  para resize***************************** */
                         $confi['image_library'] = 'gd2';
-                        $confi['source_image'] = './resources/images/administrativos/'.$new_name.$extension;
-                        $confi['new_image'] = './resources/images/administrativos/'."thumb_".$new_name.$extension;
+                        $confi['source_image'] = './resources/images/usuarios/'.$new_name.$extension;
+                        $confi['new_image'] = './resources/images/usuarios/'."thumb_".$new_name.$extension;
                         $confi['create_thumb'] = FALSE;
                         $confi['maintain_ratio'] = TRUE;
                         $confi['width'] = 50;
@@ -86,6 +87,32 @@ class Administrativo extends CI_Controller{
                         $foto = $new_name.$extension;
                     }
             /* *********************FIN imagen***************************** */
+            $ci = $this->input->post('administrativo_ci');
+            
+            $cargo = $this->input->post('administrativo_cargo');
+            if ($cargo == 3){
+                $administrativo_cargo = 'ADMINISTRATIVO';
+                $login = 'adm'.$ci;
+            }
+            if ($cargo == 4){
+                $administrativo_cargo = 'SECRETARIA';
+                $login = 'sec'.$ci;
+            }
+             $nombre = $this->input->post('administrativo_nombre');
+            $apellido = $this->input->post('administrativo_apellidos');
+            $name = $nombre." ".$apellido;
+            $params = array(
+                'tipousuario_id' => $cargo,
+                'estado_id' => 1,
+                'usuario_nombre' => $name,
+                'usuario_email' => $this->input->post('administrativo_email'),
+                'usuario_login' => $login,
+                'usuario_clave' => md5($this->input->post('administrativo_ci')),
+                'usuario_imagen' => $foto,
+                
+            );
+            
+            $usuario_id = $this->Usuario_model->add_usuario($params);
             $params = array(
 				'estado_id' => 1,
 				'estadocivil_id' => $this->input->post('estadocivil_id'),
@@ -101,13 +128,15 @@ class Administrativo extends CI_Controller{
 				'administrativo_direccion' => $this->input->post('administrativo_direccion'),
 				'administrativo_telefono' => $this->input->post('administrativo_telefono'),
 				'administrativo_celular' => $this->input->post('administrativo_celular'),
-				'administrativo_cargo' => $this->input->post('administrativo_cargo'),
+				'administrativo_cargo' => $administrativo_cargo,
 				'administrativo_foto' => $foto,
 				'administrativo_fechareg' => $this->input->post('administrativo_fechareg'),
                 'administrativo_email' => $this->input->post('administrativo_email'),
+                'usuario_id' => $usuario_id,
             );
             
             $administrativo_id = $this->Administrativo_model->add_administrativo($params);
+           
             redirect('administrativo/index');
         }
         else
@@ -152,7 +181,7 @@ class Administrativo extends CI_Controller{
                 if (!empty($_FILES['administrativo_foto']['name']))
                 {
                     $this->load->library('image_lib');
-                    $config['upload_path'] = './resources/images/administrativos/';
+                    $config['upload_path'] = './resources/images/usuarios/';
                     $config['allowed_types'] = 'gif|jpeg|jpg|png';
                     $config['max_size'] = 200000;
                     $config['max_width'] = 2900;
@@ -171,7 +200,7 @@ class Administrativo extends CI_Controller{
                     if($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
                         $conf['image_library'] = 'gd2';
                         $conf['source_image'] = $img_data['full_path'];
-                        $conf['new_image'] = './resources/images/administrativos/';
+                        $conf['new_image'] = './resources/images/usuarios/';
                         $conf['maintain_ratio'] = TRUE;
                         $conf['create_thumb'] = FALSE;
                         $conf['width'] = 800;
@@ -184,7 +213,7 @@ class Administrativo extends CI_Controller{
                     }
                     /* ********************F I N  para resize***************************** */
                     //$directorio = base_url().'resources/imagenes/';
-                    $directorio = $_SERVER['DOCUMENT_ROOT'].'/siaac_web/resources/images/administrativos/';
+                    $directorio = $_SERVER['DOCUMENT_ROOT'].'/siaac_web/resources/images/usuarios/';
                     if(isset($foto1) && !empty($foto1)){
                       if(file_exists($directorio.$foto1)){
                           unlink($directorio.$foto1);
@@ -193,8 +222,8 @@ class Administrativo extends CI_Controller{
                       }
                   }
                     $confi['image_library'] = 'gd2';
-                    $confi['source_image'] = './resources/images/administrativos/'.$new_name.$extension;
-                    $confi['new_image'] = './resources/images/administrativos/'."thumb_".$new_name.$extension;
+                    $confi['source_image'] = './resources/images/usuarios/'.$new_name.$extension;
+                    $confi['new_image'] = './resources/images/usuarios/'."thumb_".$new_name.$extension;
                     $confi['create_thumb'] = FALSE;
                     $confi['maintain_ratio'] = TRUE;
                     $confi['width'] = 50;
@@ -209,6 +238,16 @@ class Administrativo extends CI_Controller{
                     $foto = $foto1;
                 }
             /* *********************FIN imagen***************************** */
+            $ci = $this->input->post('administrativo_ci');
+            $cargo = $this->input->post('administrativo_cargo');
+            if ($cargo == 3){
+                $administrativo_cargo = 'ADMINISTRATIVO';
+                 $login = 'adm'.$ci;
+            }
+            if ($cargo == 4){
+                $administrativo_cargo = 'SECRETARIA';
+                 $login = 'sec'.$ci;
+            }
                 $params = array(
 					'estado_id' => $this->input->post('estado_id'),
 					'estadocivil_id' => $this->input->post('estadocivil_id'),
@@ -224,13 +263,29 @@ class Administrativo extends CI_Controller{
 					'administrativo_direccion' => $this->input->post('administrativo_direccion'),
 					'administrativo_telefono' => $this->input->post('administrativo_telefono'),
 					'administrativo_celular' => $this->input->post('administrativo_celular'),
-					'administrativo_cargo' => $this->input->post('administrativo_cargo'),
+					'administrativo_cargo' => $administrativo_cargo,
 					'administrativo_foto' => $foto,
 					'administrativo_fechareg' => $this->input->post('administrativo_fechareg'),
                     'administrativo_email' => $this->input->post('administrativo_email'),
                 );
 
-                $this->Administrativo_model->update_administrativo($administrativo_id,$params);            
+                $this->Administrativo_model->update_administrativo($administrativo_id,$params);
+                $usuario_id = $this->input->post('usuario_id');
+                $nombre = $this->input->post('administrativo_nombre');
+                $apellido = $this->input->post('administrativo_apellidos');
+                $name = $nombre." ".$apellido;
+                $params = array(
+                'tipousuario_id' => $cargo,
+                'estado_id' => $this->input->post('estado_id'),
+                'usuario_nombre' => $name,
+                'usuario_email' => $this->input->post('administrativo_email'),
+                'usuario_login' => $login,
+                'usuario_clave' => md5($this->input->post('administrativo_ci')),
+                'usuario_imagen' => $foto,
+               
+            );
+                $this->Usuario_model->update_usuario($usuario_id,$params);
+          
                 redirect('administrativo/index');
             }
             else
