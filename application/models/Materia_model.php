@@ -37,10 +37,14 @@ class Materia_model extends CI_Model
     {
         $materia = $this->db->query("
             SELECT
-                *
+                m.*, a.*, n.*, e.*, t.materia_nombre as 'requisito'
 
             FROM
-                `materia`
+                materia m
+            LEFT JOIN area_materia a ON m.area_id=a.area_id
+            LEFT JOIN nivel n ON m.nivel_id=n.nivel_id
+            LEFT JOIN estado e ON m.estado_id=e.estado_id
+            LEFT JOIN materia t ON m.mat_materia_id=t.materia_id
 
             WHERE
                 1 = 1
