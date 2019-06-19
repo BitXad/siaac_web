@@ -42,7 +42,6 @@ class Gestion extends CI_Controller{
 				'gestion_semestre' => $this->input->post('gestion_semestre'),
 				'gestion_inicio' => $this->input->post('gestion_inicio'),
 				'gestion_fin' => $this->input->post('gestion_fin'),
-				'gestion_estado' => 0,
 				'gestion_descripcion' => $this->input->post('gestion_descripcion'),
             );
             
@@ -75,8 +74,7 @@ class Gestion extends CI_Controller{
 					'estado_id' => $this->input->post('estado_id'),
 					'gestion_semestre' => $this->input->post('gestion_semestre'),
 					'gestion_inicio' => $this->input->post('gestion_inicio'),
-					'gestion_fin' => $this->input->post('gestion_fin'),
-					'gestion_estado' => 0,
+					'gestion_fin' => $this->input->post('gestion_fin'),					
 					'gestion_descripcion' => $this->input->post('gestion_descripcion'),
                 );
 

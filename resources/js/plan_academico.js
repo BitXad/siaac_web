@@ -405,8 +405,10 @@ async function processData(nivel_id){
 async function processPrerequisito(mat_materia_id, materia_id){
     try{
         const result1 = await getprerequisito(mat_materia_id);
+        var prerequisito = document.getElementById('prerequisito').value;
         if(result1 != ""){
             $('#isprerequisito'+materia_id).html("<b>["+result1+"]</b>");
+            $('#prerequisito').val(prerequisito+"'"+materia_id+"':['"+mat_materia_id+"'],");
         }
         return "";
     }catch (err) {
@@ -615,13 +617,14 @@ function registrocarrera(){
     var carrera_modalidad = document.getElementById('carrera_modalidad').value;
     var carrera_tiempoestudio = document.getElementById('carrera_tiempoestudio').value;
     var carrera_cargahoraria = document.getElementById('carrera_cargahoraria').value;
-    //var carrera_plan = document.getElementById('carrera_plan').value;
+    var carrera_plan = document.getElementById('carrera_plan').value;
     var carrera_fechacreacion = document.getElementById('carrera_fechacreacion').value;
     var carrera_matricula = document.getElementById('carrera_matricula').value;
     var carrera_mensualidad = document.getElementById('carrera_mensualidad').value;
+    var carrera_nummeses = document.getElementById('carrera_nummeses').value;
     $.ajax({url: controlador,
             type:"POST",
-            data:{carrera_nombre:carrera_nombre, carrera_codigo:carrera_codigo, carrera_nivel:carrera_nivel, areacarrera_id:areacarrera_id, carrera_modalidad:carrera_modalidad, carrera_tiempoestudio:carrera_tiempoestudio, carrera_cargahoraria:carrera_cargahoraria, carrera_fechacreacion:carrera_fechacreacion, carrera_matricula:carrera_matricula, carrera_mensualidad:carrera_mensualidad},
+            data:{carrera_nombre:carrera_nombre, carrera_codigo:carrera_codigo, carrera_nivel:carrera_nivel, areacarrera_id:areacarrera_id, carrera_modalidad:carrera_modalidad, carrera_tiempoestudio:carrera_tiempoestudio, carrera_cargahoraria:carrera_cargahoraria, carrera_plan:carrera_plan, carrera_fechacreacion:carrera_fechacreacion, carrera_matricula:carrera_matricula, carrera_mensualidad:carrera_mensualidad, carrera_nummeses:carrera_nummeses},
             success:function(respuesta){
                 var registros =  JSON.parse(respuesta);
                 if (registros != null){
@@ -680,7 +683,8 @@ function borrardatosmodal(){
 
 /* ********************************************** */
 /*Array Asociativo en el que se indica para cada materia cuales materias se deben tomar despues*/
-var PREREQUISITOS = { 
+var PREREQUISITOS = '{'+document.getElementById('prerequisito').value+'}';
+/*var PREREQUISITOS = {
            '30':['31'],
            'CB0260':['CB0236'],
            'ST0242':['ST0245','ST0244'],
@@ -709,7 +713,7 @@ var PREREQUISITOS = {
 'CB0245':['PT0131'],
 'ST0258':['PT0131'],
 'ST0257':['PT0131']
-           };
+           }; */
 
 //Array Asociativo en el que se indican los correquisitos de una materia
 var CORREQUISITOS = {'CB0260':['CB0246'],
