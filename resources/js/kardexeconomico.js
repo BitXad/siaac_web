@@ -15,7 +15,9 @@ if (tecla==13){
 
         if (opcion==2){   //si la pulsacion proviene del nombre  
             var nombre = document.getElementById('nombre').value;
-            sql = "e.estudiante_nombre='"+nombre+"' ";
+            var apellidos = document.getElementById('apellidos').value;
+
+            sql = "e.estudiante_nombre='"+nombre+"' or e.estudiante_apellidos='"+apellidos+"'";
             buscarestudiante(sql);
         }
     }
