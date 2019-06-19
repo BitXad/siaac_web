@@ -11,7 +11,7 @@ class Administrativo extends CI_Controller{
         $this->load->model('Administrativo_model');
         $this->load->model('Usuario_model');
     } 
-
+    
     /*
      * Listing of administrativo
      */
@@ -27,7 +27,7 @@ class Administrativo extends CI_Controller{
      * Adding a new administrativo
      */
     function add()
-    {   
+    {
         $this->load->library('form_validation');
 
 		$this->form_validation->set_rules('administrativo_nombre','Administrativo Nombre','required');
@@ -162,7 +162,7 @@ class Administrativo extends CI_Controller{
      * Editing a administrativo
      */
     function edit($administrativo_id)
-    {   
+    {
         // check if the administrativo exists before trying to edit it
         $data['administrativo'] = $this->Administrativo_model->get_administrativo($administrativo_id);
         

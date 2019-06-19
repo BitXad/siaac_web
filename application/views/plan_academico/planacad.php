@@ -7,6 +7,7 @@
 <!--<input type="hidden" name="lasmaterias" id="lasmaterias" value='<?php //echo json_encode($all_materias);  ?>' />-->
 <input type="hidden" name="lasareas" id="lasareas" value='<?php echo json_encode($all_areas);  ?>' />
 <input type="hidden" name="mosprereq" id="mosprereq" value='0' />
+<input type="hidden" name="prerequisito" id="prerequisito" value='' />
 
 <script type="text/javascript">
     function cambiarcodplan(){
