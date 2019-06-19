@@ -405,8 +405,10 @@ async function processData(nivel_id){
 async function processPrerequisito(mat_materia_id, materia_id){
     try{
         const result1 = await getprerequisito(mat_materia_id);
+        var prerequisito = document.getElementById('prerequisito').value;
         if(result1 != ""){
             $('#isprerequisito'+materia_id).html("<b>["+result1+"]</b>");
+            $('#prerequisito').val(prerequisito+"'"+materia_id+"':['"+mat_materia_id+"'],");
         }
         return "";
     }catch (err) {
@@ -680,7 +682,8 @@ function borrardatosmodal(){
 
 /* ********************************************** */
 /*Array Asociativo en el que se indica para cada materia cuales materias se deben tomar despues*/
-var PREREQUISITOS = { 
+var PREREQUISITOS = '{'+document.getElementById('prerequisito').value+'}';
+/*var PREREQUISITOS = {
            '30':['31'],
            'CB0260':['CB0236'],
            'ST0242':['ST0245','ST0244'],
@@ -709,7 +712,7 @@ var PREREQUISITOS = {
 'CB0245':['PT0131'],
 'ST0258':['PT0131'],
 'ST0257':['PT0131']
-           };
+           }; */
 
 //Array Asociativo en el que se indican los correquisitos de una materia
 var CORREQUISITOS = {'CB0260':['CB0246'],
