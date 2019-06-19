@@ -31,22 +31,24 @@ class Carrera extends CI_Controller{
 
         $this->form_validation->set_rules('carrera_nombre','Carrera Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
         $this->form_validation->set_rules('carrera_codigo','Carrera Código','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+        $this->form_validation->set_rules('areacarrera_id','Area Carrera','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 
         if($this->form_validation->run())     
         {   
             $params = array(
-				'areacarrera_id' => $this->input->post('areacarrera_id'),
-				'carrera_nombre' => $this->input->post('carrera_nombre'),
-				'carrera_nombreinterno' => $this->input->post('carrera_nombreinterno'),
-				'carrera_codigo' => $this->input->post('carrera_codigo'),
-				'carrera_nivel' => $this->input->post('carrera_nivel'),
-				'carrera_modalidad' => $this->input->post('carrera_modalidad'),
-				'carrera_plan' => $this->input->post('carrera_plan'),
-				'carrera_fechacreacion' => $this->input->post('carrera_fechacreacion'),
-				'carrera_codaprod' => $this->input->post('carrera_codaprod'),
-				'carrera_matricula' => $this->input->post('carrera_matricula'),
-				'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
-				'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
+                'areacarrera_id' => $this->input->post('areacarrera_id'),
+                'carrera_nombre' => $this->input->post('carrera_nombre'),
+                'carrera_nombreinterno' => $this->input->post('carrera_nombreinterno'),
+                'carrera_codigo' => $this->input->post('carrera_codigo'),
+                'carrera_nivel' => $this->input->post('carrera_nivel'),
+                'carrera_modalidad' => $this->input->post('carrera_modalidad'),
+                'carrera_plan' => $this->input->post('carrera_plan'),
+                'carrera_fechacreacion' => $this->input->post('carrera_fechacreacion'),
+                'carrera_matricula' => $this->input->post('carrera_matricula'),
+                'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
+                'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
+                'carrera_cargahoraria' => $this->input->post('carrera_cargahoraria'),
+                'carrera_nummeses' => $this->input->post('carrera_nummeses'),
             );
             
             $carrera_id = $this->Carrera_model->add_carrera($params);
@@ -82,18 +84,19 @@ class Carrera extends CI_Controller{
             if($this->form_validation->run())
             {   
                 $params = array(
-					'areacarrera_id' => $this->input->post('areacarrera_id'),
-					'carrera_nombre' => $this->input->post('carrera_nombre'),
-					'carrera_nombreinterno' => $this->input->post('carrera_nombreinterno'),
-					'carrera_codigo' => $this->input->post('carrera_codigo'),
-					'carrera_nivel' => $this->input->post('carrera_nivel'),
-					'carrera_modalidad' => $this->input->post('carrera_modalidad'),
-					'carrera_plan' => $this->input->post('carrera_plan'),
-					'carrera_fechacreacion' => $this->input->post('carrera_fechacreacion'),
-					'carrera_codaprod' => $this->input->post('carrera_codaprod'),
-					'carrera_matricula' => $this->input->post('carrera_matricula'),
-					'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
-					'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
+                    'areacarrera_id' => $this->input->post('areacarrera_id'),
+                    'carrera_nombre' => $this->input->post('carrera_nombre'),
+                    'carrera_nombreinterno' => $this->input->post('carrera_nombreinterno'),
+                    'carrera_codigo' => $this->input->post('carrera_codigo'),
+                    'carrera_nivel' => $this->input->post('carrera_nivel'),
+                    'carrera_modalidad' => $this->input->post('carrera_modalidad'),
+                    'carrera_plan' => $this->input->post('carrera_plan'),
+                    'carrera_fechacreacion' => $this->input->post('carrera_fechacreacion'),
+                    'carrera_matricula' => $this->input->post('carrera_matricula'),
+                    'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
+                    'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
+                    'carrera_cargahoraria' => $this->input->post('carrera_cargahoraria'),
+                    'carrera_nummeses' => $this->input->post('carrera_nummeses'),
                 );
 
                 $this->Carrera_model->update_carrera($carrera_id,$params);            
