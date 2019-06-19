@@ -366,12 +366,13 @@ class Plan_academico extends CI_Controller{
                         'carrera_codigo' => $this->input->post('carrera_codigo'),
                         'carrera_nivel' => $this->input->post('carrera_nivel'),
                         'carrera_modalidad' => $this->input->post('carrera_modalidad'),
-                        //'carrera_plan' => $this->input->post('carrera_plan'),
+                        'carrera_plan' => $this->input->post('carrera_plan'),
                         'carrera_fechacreacion' => $this->input->post('carrera_fechacreacion'),
                         'carrera_matricula' => $this->input->post('carrera_matricula'),
                         'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
                         'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
                         'carrera_cargahoraria' => $this->input->post('carrera_cargahoraria'),
+                        'carrera_nummeses' => $this->input->post('carrera_nummeses'),
                 );
 
                 $this->load->model('Carrera_model');
