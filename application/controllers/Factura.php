@@ -29,6 +29,7 @@ class Factura extends CI_Controller{
     $fecha_desde = $this->input->post('fecha_desde');
     $fecha_hasta = $this->input->post('fecha_hasta');
     $opcion = $this->input->post('opcion');
+    
     if ($opcion == 1) {
 
     $llamadas = $this->Factura_model->get_factura_ventas($fecha_desde, $fecha_hasta);
