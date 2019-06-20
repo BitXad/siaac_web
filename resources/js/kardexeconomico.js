@@ -41,11 +41,15 @@ function buscarestudiante(dato){
                         html += "<th>Apellidos</th>";
                         html += "<th>C.I.</th>";
                         html += "<th>Codigo</th>";
+                        html += "<th>CARRERA</th>";
+                        html += "<th>MATRICULA</th>";                            
+                        html += "<th>MENSUALIDAD</th>";
+                        html += "<th>No. MENSUALIDADES</th>";
                         html += "<th></th>";
                         
                         html += "</tr>";  
                         var cont = 0;
-                        for (var i = 0; i < 55 ; i++){
+                        for (var i = 0; i < 5000 ; i++){
                            cont = cont+1;
 
                         html += "<tr>";
@@ -54,8 +58,12 @@ function buscarestudiante(dato){
                         html += "<td><b>"+registros[i]["estudiante_apellidos"]+"</b></td>";
                         html += "<td><b>"+registros[i]["estudiante_ci"]+"</b></td>";
                         html += "<td><b>"+registros[i]["estudiante_codigo"]+"</b></td>";
-                        html += "<td><button class='btn btn-info btn-sm' onclick='buscarkardex("+registros[i]["estudiante_id"]+")'><i class='fa fa-eye'></i> Kardex Economico</button></td>";
-                        
+                        html += "<td><b>"+registros[i]["carrera_nombre"]+"</b></td>";
+                        html += "<td align='right'><b>"+Number(registros[i]["kardexeco_matricula"]).toFixed(2)+"</b></td>";
+                        html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"]).toFixed(2)+"</b></td>";
+                        html += "<td align='center'><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
+                        html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-sm' title='COBRAR'><i class='fa fa-usd'></i></a><a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-sm' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
+                       
                         html += "</tr>";  
                         html += "</table>";
                         $("#tablaestudiantes").html(html);

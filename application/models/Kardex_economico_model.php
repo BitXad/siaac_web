@@ -74,15 +74,18 @@ class Kardex_economico_model extends CI_Model
     {
         $kardex_economico = $this->db->query("
             SELECT
-                i.*, ke.*, c.*
+                i.*, ke.*, c.*, e.*
 
             FROM
-                inscripcion i, kardex_economico ke, carrera c
+                inscripcion i
+
+            LEFT JOIN kardex_economico ke ON i.inscripcion_id=ke.inscripcion_id
+            LEFT JOIN carrera c ON i.carrera_id=c.carrera_id
+            LEFT JOIN estudiante e ON i.estudiante_id=e.estudiante_id
 
             WHERE
-                i.inscripcion_id=ke.inscripcion_id
-                and i.carrera_id=c.carrera_id
-                and i.estudiante_id=".$dato."
+                
+                 ".$dato."
 
             ORDER BY `kardexeco_id` DESC
         ")->result_array();
