@@ -617,13 +617,14 @@ function registrocarrera(){
     var carrera_modalidad = document.getElementById('carrera_modalidad').value;
     var carrera_tiempoestudio = document.getElementById('carrera_tiempoestudio').value;
     var carrera_cargahoraria = document.getElementById('carrera_cargahoraria').value;
-    //var carrera_plan = document.getElementById('carrera_plan').value;
+    var carrera_plan = document.getElementById('carrera_plan').value;
     var carrera_fechacreacion = document.getElementById('carrera_fechacreacion').value;
     var carrera_matricula = document.getElementById('carrera_matricula').value;
     var carrera_mensualidad = document.getElementById('carrera_mensualidad').value;
+    var carrera_nummeses = document.getElementById('carrera_nummeses').value;
     $.ajax({url: controlador,
             type:"POST",
-            data:{carrera_nombre:carrera_nombre, carrera_codigo:carrera_codigo, carrera_nivel:carrera_nivel, areacarrera_id:areacarrera_id, carrera_modalidad:carrera_modalidad, carrera_tiempoestudio:carrera_tiempoestudio, carrera_cargahoraria:carrera_cargahoraria, carrera_fechacreacion:carrera_fechacreacion, carrera_matricula:carrera_matricula, carrera_mensualidad:carrera_mensualidad},
+            data:{carrera_nombre:carrera_nombre, carrera_codigo:carrera_codigo, carrera_nivel:carrera_nivel, areacarrera_id:areacarrera_id, carrera_modalidad:carrera_modalidad, carrera_tiempoestudio:carrera_tiempoestudio, carrera_cargahoraria:carrera_cargahoraria, carrera_plan:carrera_plan, carrera_fechacreacion:carrera_fechacreacion, carrera_matricula:carrera_matricula, carrera_mensualidad:carrera_mensualidad, carrera_nummeses:carrera_nummeses},
             success:function(respuesta){
                 var registros =  JSON.parse(respuesta);
                 if (registros != null){

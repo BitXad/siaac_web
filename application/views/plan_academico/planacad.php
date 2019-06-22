@@ -141,7 +141,7 @@
 
 <!------------------------ INICIO modal para crear nueva Carrera ------------------->
 <div class="modal fade" id="modalnuevacarrera" tabindex="-1" role="dialog" aria-labelledby="modalnuevacarreraLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <br><br>
         <div class="modal-content">
             <div class="modal-header">
@@ -153,19 +153,19 @@
                 <div class='col-md-6'>
                     <label for='carrera_nombre' class='control-label'><span class="text-danger">*</span>Carrera</label>
                     <div class='form-group'>
-                        <input type='text' name='carrera_nombre' class='form-control' id='carrera_nombre' required autocomplete="off" />
+                        <input type='text' name='carrera_nombre' class='form-control' id='carrera_nombre' required autocomplete="off" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label for="carrera_codigo" class="control-label"><span class="text-danger">*</span>Código</label>
                     <div class="form-group">
-                        <input type="text" name="carrera_codigo" value="<?php echo $this->input->post('carrera_codigo'); ?>" class="form-control" id="carrera_codigo" required />
+                        <input type="text" name="carrera_codigo" value="<?php echo $this->input->post('carrera_codigo'); ?>" class="form-control" id="carrera_codigo" required onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label for="carrera_nivel" class="control-label">Nivel de Formación</label>
                     <div class="form-group">
-                        <input type="text" name="carrera_nivel" value="<?php echo $this->input->post('carrera_nivel'); ?>" class="form-control" id="carrera_nivel" />
+                        <input type="text" name="carrera_nivel" value="<?php echo $this->input->post('carrera_nivel'); ?>" class="form-control" id="carrera_nivel" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -184,16 +184,22 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <label for="carrera_modalidad" class="control-label">Modalidad</label>
+                <div class="col-md-4">
+                    <label for="carrera_plan" class="control-label">Plan</label>
                     <div class="form-group">
-                        <input type="text" name="carrera_modalidad" value="<?php echo $this->input->post('carrera_modalidad'); ?>" class="form-control" id="carrera_modalidad" />
+                        <input type="text" name="carrera_plan" value="<?php echo $this->input->post('carrera_plan'); ?>" class="form-control" id="carrera_plan" placeholder="Semestral, Anual...." onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    <label for="carrera_modalidad" class="control-label">Modalidad</label>
+                    <div class="form-group">
+                        <input type="text" name="carrera_modalidad" value="<?php echo $this->input->post('carrera_modalidad'); ?>" class="form-control" id="carrera_modalidad" placeholder="Modular, Bimestral, Trimestral...." onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <label for="carrera_tiempoestudio" class="control-label">Tiempo de Estudio</label>
                     <div class="form-group">
-                        <input type="text" name="carrera_tiempoestudio" value="<?php echo $this->input->post('carrera_tiempoestudio'); ?>" class="form-control" id="carrera_tiempoestudio" placeholder="0 Semestres, 0 Años..." />
+                        <input type="text" name="carrera_tiempoestudio" value="<?php echo $this->input->post('carrera_tiempoestudio'); ?>" class="form-control" id="carrera_tiempoestudio" placeholder="N Semestres, N Años..." onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -202,28 +208,28 @@
                         <input type="number" step="any" min="0" name="carrera_cargahoraria" value="<?php echo $this->input->post('carrera_cargahoraria'); ?>" class="form-control" id="carrera_cargahoraria" placeholder="0" />
                     </div>
                 </div>
-                <!--<div class="col-md-6">
-                    <label for="carrera_plan" class="control-label">Plan</label>
-                    <div class="form-group">
-                        <input type="text" name="carrera_plan" value="<?php //echo $this->input->post('carrera_plan'); ?>" class="form-control" id="carrera_plan" />
-                    </div>
-                </div>-->
                 <div class="col-md-6">
                     <label for="carrera_fechacreacion" class="control-label">Fecha Creación</label>
                     <div class="form-group">
                         <input type="date" name="carrera_fechacreacion" value="<?php echo $this->input->post('carrera_fechacreacion'); ?>" class="form-control" id="carrera_fechacreacion" />
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="carrera_matricula" class="control-label">Matrícula</label>
                     <div class="form-group">
                         <input type="number" step="any" min="0" name="carrera_matricula" value="<?php echo $this->input->post('carrera_matricula'); ?>" class="form-control" id="carrera_matricula" placeholder="0.00" />
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="carrera_mensualidad" class="control-label">Mensualidad</label>
                     <div class="form-group">
                         <input type="number" step="any" min="0" name="carrera_mensualidad" value="<?php echo $this->input->post('carrera_mensualidad'); ?>" class="form-control" id="carrera_mensualidad" placeholder="0.00" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="carrera_nummeses" class="control-label">Nro. Mensualidad</label>
+                    <div class="form-group">
+                        <input type="number" min="0" name="carrera_nummeses" value="<?php echo $this->input->post('carrera_nummeses'); ?>" class="form-control" id="carrera_nummeses" placeholder="0" />
                     </div>
                 </div>
                 <!------------------------------------------------------------------->

@@ -31,7 +31,7 @@ class Kardex_economico extends CI_Controller{
             if ($estudiante!="") {
             
            
-            $datos = $this->Kardex_economico_model->get_kardex_est($estudiante);
+            $datos = $this->Kardex_economico_model->get_est_kardex($estudiante);
             
             echo json_encode($datos);
        

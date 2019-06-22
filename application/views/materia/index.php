@@ -14,88 +14,34 @@
                 <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>#</th>
-						<th>Area</th>
-						<th>Nivel</th>
-						<th>Mat Materia Id</th>
-						<th>Estado</th>
-						<th>Nombre</th>
-						<th>Alias</th>
+						<th>Materia</th>
 						<th>Codigo</th>
-						<th>Materia Hp</th>
-						<th>Materia Ht</th>
-						<th>Materia Th</th>
-						<th>Materia Cyp</th>
-						<th>Materia Cys</th>
-						<th>Materia Vtt</th>
-						<th>Materia Ctp</th>
-						<th>Materia Estapa1</th>
-						<th>Materia Estapa2</th>
-						<th>Materia Estapa3</th>
-						<th>Materia Estapa4</th>
-						<th>Materia Numareas</th>
-						<th>Materia Notainstancia</th>
-						<th>Materia Notaaprobado</th>
-						<th>Materia Maxima</th>
-						<th>Materia Calificacion1</th>
-						<th>Materia Ponderado1</th>
-						<th>Materia Calificacion2</th>
-						<th>Materia Ponderado2</th>
-						<th>Materia Calificacion3</th>
-						<th>Materia Ponderado3</th>
-						<th>Materia Calificacion4</th>
-						<th>Materia Ponderado4</th>
-						<th>Materia Ponderado5</th>
-						<th>Materia Calificacion5</th>
-						<th>Materia Calificacion6</th>
-						<th>Materia Ponderado6</th>
-						<th>Materia Calificacion7</th>
-						<th>Materia Ponderado7</th>
-						<th>Actions</th>
+						<th>Nivel</th>
+						<th>Pre-Requisito</th>
+						<th>Area</th>
+						<th>Estado</th>
+						<th></th>
                     </tr>
                     <?php $cont = 0;
                     foreach($materia as $m){ 
                         $cont = $cont+1; ?>
                     <tr>
 						<td><?php echo $cont; ?></td>
-						<td><?php echo $m['area_id']; ?></td>
-						<td><?php echo $m['nivel_id']; ?></td>
-						<td><?php echo $m['mat_materia_id']; ?></td>
-						<td><?php echo $m['estado_id']; ?></td>
-						<td><?php echo $m['materia_nombre']; ?></td>
-						<td><?php echo $m['materia_alias']; ?></td>
+						
+						<td><?php echo $m['materia_nombre']; ?>
+						(<?php echo $m['materia_alias']; ?>)</td>
 						<td><?php echo $m['materia_codigo']; ?></td>
-						<td><?php echo $m['materia_hp']; ?></td>
-						<td><?php echo $m['materia_ht']; ?></td>
-						<td><?php echo $m['materia_th']; ?></td>
-						<td><?php echo $m['materia_cyp']; ?></td>
-						<td><?php echo $m['materia_cys']; ?></td>
-						<td><?php echo $m['materia_vtt']; ?></td>
-						<td><?php echo $m['materia_ctp']; ?></td>
-						<td><?php echo $m['materia_estapa1']; ?></td>
-						<td><?php echo $m['materia_estapa2']; ?></td>
-						<td><?php echo $m['materia_estapa3']; ?></td>
-						<td><?php echo $m['materia_estapa4']; ?></td>
-						<td><?php echo $m['materia_numareas']; ?></td>
-						<td><?php echo $m['materia_notainstancia']; ?></td>
-						<td><?php echo $m['materia_notaaprobado']; ?></td>
-						<td><?php echo $m['materia_maxima']; ?></td>
-						<td><?php echo $m['materia_calificacion1']; ?></td>
-						<td><?php echo $m['materia_ponderado1']; ?></td>
-						<td><?php echo $m['materia_calificacion2']; ?></td>
-						<td><?php echo $m['materia_ponderado2']; ?></td>
-						<td><?php echo $m['materia_calificacion3']; ?></td>
-						<td><?php echo $m['materia_ponderado3']; ?></td>
-						<td><?php echo $m['materia_calificacion4']; ?></td>
-						<td><?php echo $m['materia_ponderado4']; ?></td>
-						<td><?php echo $m['materia_ponderado5']; ?></td>
-						<td><?php echo $m['materia_calificacion5']; ?></td>
-						<td><?php echo $m['materia_calificacion6']; ?></td>
-						<td><?php echo $m['materia_ponderado6']; ?></td>
-						<td><?php echo $m['materia_calificacion7']; ?></td>
-						<td><?php echo $m['materia_ponderado7']; ?></td>
+						<td><?php echo $m['nivel_descripcion']; ?></td>
+						<?php if($m['mat_materia_id']==0) { ?>
+						<td>NINGUNO</td>
+						<?php } else { ?>
+						<td><?php echo $m['requisito']; ?></td>
+						<?php } ?>
+						<td><?php echo $m['area_nombre']; ?></td>
+						<td><?php echo $m['estado_descripcion']; ?></td>
 						<td>
-                            <a href="<?php echo site_url('materia/edit/'.$m['materia_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-                            <a href="<?php echo site_url('materia/remove/'.$m['materia_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                            <a href="<?php echo site_url('materia/edit/'.$m['materia_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
+                            <!--<a href="<?php echo site_url('materia/remove/'.$m['materia_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->
                         </td>
                     </tr>
                     <?php } ?>

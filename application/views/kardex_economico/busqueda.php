@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <label for="nombre" class="control-label">Apellidos</label>
+            <label for="apellidos" class="control-label">Apellidos</label>
             <div class="form-group">
                 <input type="text" name="apellidos" class="form-control" id="apellidos"  autocomplete="off" onkeypress="validar(event,2)"  />
             </div>
@@ -37,20 +37,13 @@
         </div>
     </div>
     <div class="col-md-12">
-    <div class="col-md-6"> 
+    
                 <div id="tablaestudiantes">
                     
                     <!--------------- RESULTADO TABLA DE ESTUDIANTES--------------------------->
                     
                 </div>
-        </div>
-    <div class="col-md-6">
-
-                <div id="tablakardexeconomico">
-                    
-                    <!--------------- RESULTADO TABLA DE ESTUDIANTES--------------------------->
-                    
-                </div>
-        </div>
+ 
+   
     </div>            
 </div>
