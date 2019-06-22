@@ -53,7 +53,7 @@
                         <!-- User Account: style can be found in dropdown.less -->
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['thumb']);?>" class="user-image" alt="User Image">
+                                    <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['usuario_imagen']);?>" class="user-image" alt="Imagen de usuario">
                                     <span class="hidden-xs"><?php echo $session_data['usuario_nombre']?></span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -88,7 +88,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['thumb']);?>" class="img-circle" alt="User Image">
+                            <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['thumb']);?>" class="img-circle" alt="Imagen de usuario">
                         </div>
                         <div class="pull-left info">
                             <p><?php echo $session_data['usuario_nombre']?></p>
@@ -182,7 +182,7 @@
                                     <a href="<?php echo site_url('ingreso');?>"><i class="fa fa-arrow-right"></i>Ingresos</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo site_url('inscripcion');?>"><i class="fa fa-check-square-o"></i>Inscripción</a>
+                                    <a href="<?php echo site_url('inscripcion/inscribir/0');?>"><i class="fa fa-check-square-o"></i>Inscripción</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo site_url('kardex_academico');?>"><i class="fa fa-address-book-o"></i> Kardex Academico</a>

@@ -45,7 +45,7 @@ class Turno_model extends CI_Model
             WHERE
                 t.estado_id=e.estado_id
 
-            ORDER BY `turno_id` DESC
+            ORDER BY `turno_id` asc
         ")->result_array();
 
         return $turno;

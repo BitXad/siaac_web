@@ -45,7 +45,7 @@ class Paralelo_model extends CI_Model
             WHERE
                 p.estado_id=e.estado_id
 
-            ORDER BY `paralelo_id` DESC
+            ORDER BY `paralelo_id` asc
         ")->result_array();
 
         return $paralelo;

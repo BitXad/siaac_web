@@ -141,6 +141,14 @@ class Kardex_economico_model extends CI_Model
         $this->db->insert('kardex_economico',$params);
         return $this->db->insert_id();
     }
+
+    function registrar_kardex($sql)
+    {
+//        $this->db->insert('kardex_economico',$params);
+        $this->db->query($sql);
+        return $this->db->insert_id();
+
+    }
     
     /*
      * function to update kardex_economico
