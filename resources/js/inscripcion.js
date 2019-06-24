@@ -157,8 +157,13 @@ function calcular(){
     var total_final = document.getElementById('total_final').value;
     
     var descuento = document.getElementById('descuento').value;
-    var efectivo = document.getElementById('efectivo').value;
+    
+//    var efectivo = document.getElementById('efectivo').value;
+    var efectivo = total_final - descuento;
+    $("#efectivo").val(Number(efectivo).toFixed(2));
+    
     var cambio = document.getElementById('cambio').value;
+    
     
     cambio = efectivo - (total_final - descuento);
     $("#cambio").val(cambio);

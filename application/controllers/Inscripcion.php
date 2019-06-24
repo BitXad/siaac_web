@@ -324,7 +324,7 @@ class Inscripcion extends CI_Controller{
         for ($i = 1; $i<=$kardexeco_nummens; $i++){
             
                        
-            $estado_id = 1;
+            $estado_id = 3;
             
             $mes = date("m", strtotime($cuota_fechalimite));
             
