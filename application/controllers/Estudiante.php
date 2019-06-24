@@ -198,6 +198,173 @@ class Estudiante extends CI_Controller{
     }  
 
     /*
+     * Registrar nuevo estudiante
+     */
+    function registrar()
+    {   
+        $this->load->library('form_validation');
+
+		$this->form_validation->set_rules('estudiante_nombre','Estudiante Nombre','required');
+		$this->form_validation->set_rules('estudiante_apellidos','Estudiante Apellidos','required');
+		
+		if($this->form_validation->run())     
+        {   
+                        /* *********************INICIO imagen***************************** */
+                $foto="";
+                if (!empty($_FILES['estudiante_foto']['name'])){
+                        $this->load->library('image_lib');
+                        
+                        $config['upload_path'] = './resources/images/estudiantes/';
+                        $img_full_path = $config['upload_path'];
+
+                        $config['allowed_types'] = 'gif|jpeg|jpg|png';
+                        $config['max_size'] = 200000;
+                        $config['max_width'] = 2900;
+                        $config['max_height'] = 2900;
+                        
+                        $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
+                        $config['file_name'] = $new_name; //.$extencion;
+                        $config['file_ext_tolower'] = TRUE;
+
+                        $this->load->library('upload', $config);
+                        $this->upload->do_upload('estudiante_foto');
+
+                        $img_data = $this->upload->data();
+                        $extension = $img_data['file_ext'];
+                        /* ********************INICIO para resize***************************** */
+                        if ($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
+                            $conf['image_library'] = 'gd2';
+                            $conf['source_image'] = $img_data['full_path'];
+                            $conf['new_image'] = './resources/images/estudiantes/';
+                            $conf['maintain_ratio'] = TRUE;
+                            $conf['create_thumb'] = FALSE;
+                            $conf['width'] = 800;
+                            $conf['height'] = 600;
+                            $this->image_lib->clear();
+                            $this->image_lib->initialize($conf);
+                            if(!$this->image_lib->resize()){
+                                echo $this->image_lib->display_errors('','');
+                            }
+                        }
+                        /* ********************F I N  para resize***************************** */
+                        $confi['image_library'] = 'gd2';
+                        $confi['source_image'] = './resources/images/estudiantes/'.$new_name.$extension;
+                        $confi['new_image'] = './resources/images/estudiantes/'."thumb_".$new_name.$extension;
+                        $confi['create_thumb'] = FALSE;
+                        $confi['maintain_ratio'] = TRUE;
+                        $confi['width'] = 50;
+                        $confi['height'] = 50;
+
+                        $this->image_lib->clear();
+                        $this->image_lib->initialize($confi);
+                        $this->image_lib->resize();
+
+                        $foto = $new_name.$extension;
+                    }
+            /* *********************FIN imagen***************************** */
+             /* *********************INICIO imagen***************************** */
+                $fotoapo="";
+                if (!empty($_FILES['apoderado_foto']['name'])){
+                        $this->load->library('image_lib');    
+                        $config1['upload_path'] = './resources/images/apoderados/';
+                        $img_full_path1 = $config1['upload_path'];
+
+                        $config1['allowed_types'] = 'gif|jpeg|jpg|png';
+                        $config1['max_size'] = 200000;
+                        $config1['max_width'] = 2900;
+                        $config1['max_height'] = 2900;
+                        
+                        $new_name1 = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
+                        $config1['file_name'] = $new_name1; //.$extencion;
+                        $config1['file_ext_tolower'] = TRUE;
+
+
+                        $this->load->library('upload', $config1);
+                        $this->upload->initialize($config1);
+                        $this->upload->do_upload('apoderado_foto');
+
+                        $img_data1 = $this->upload->data();
+                        $extension1 = $img_data1['file_ext'];
+                        /* ********************INICIO para resize***************************** */
+                        if ($img_data1['file_ext'] == ".jpg" || $img_data1['file_ext'] == ".png" || $img_data1['file_ext'] == ".jpeg" || $img_data1['file_ext'] == ".gif") {
+                            $conf1['image_library'] = 'gd2';
+                            $conf1['source_image'] = $img_data1['full_path'];
+                            $conf1['new_image'] = './resources/images/apoderados/';
+                            $conf1['maintain_ratio'] = TRUE;
+                            $conf1['create_thumb'] = FALSE;
+                            $conf1['width'] = 800;
+                            $conf1['height'] = 600;
+                            $this->image_lib->clear();
+                            $this->image_lib->initialize($conf1);
+                            if(!$this->image_lib->resize()){
+                                echo $this->image_lib->display_errors('','');
+                            }
+                        }
+                        /* ********************F I N  para resize***************************** */
+                        $confi1['image_library'] = 'gd2';
+                        $confi1['source_image'] = './resources/images/apoderados/'.$new_name1.$extension1;
+                        $confi1['new_image'] = './resources/images/apoderados/'."thumb_".$new_name1.$extension1;
+                        $confi1['create_thumb'] = FALSE;
+                        $confi1['maintain_ratio'] = TRUE;
+                        $confi1['width'] = 50;
+                        $confi1['height'] = 50;
+
+                        $this->image_lib->clear();
+                        $this->image_lib->initialize($confi1);
+                        $this->image_lib->resize();
+
+                        $fotoapo = $new_name1.$extension1;
+                    }
+            /* *********************FIN imagen***************************** */
+            $params = array(
+				'estado_id' => 1,
+				'genero_id' => $this->input->post('genero_id'),
+				'estadocivil_id' => $this->input->post('estadocivil_id'),
+				'estudiante_nombre' => $this->input->post('estudiante_nombre'),
+				'estudiante_apellidos' => $this->input->post('estudiante_apellidos'),
+				'estudiante_fechanac' => $this->input->post('estudiante_fechanac'),
+				'estudiante_edad' => $this->input->post('estudiante_edad'),
+				'estudiante_ci' => $this->input->post('estudiante_ci'),
+                'estudiante_extci' => $this->input->post('estudiante_extci'),
+				'estudiante_codigo' => $this->input->post('estudiante_codigo'),
+				'estudiante_direccion' => $this->input->post('estudiante_direccion'),
+				'estudiante_telefono' => $this->input->post('estudiante_telefono'),
+				'estudiante_celular' => $this->input->post('estudiante_celular'),
+				'estudiante_foto' => $foto,
+				'estudiante_lugarnac' => $this->input->post('estudiante_lugarnac'),
+				'estudiante_nacionalidad' => $this->input->post('estudiante_nacionalidad'),
+				'estudiante_establecimiento' => $this->input->post('estudiante_establecimiento'),
+				'estudiante_distrito' => $this->input->post('estudiante_distrito'),
+				'estudiante_apoderado' => $this->input->post('estudiante_apoderado'),
+				'apoderado_foto' => $fotoapo,
+				'estudiante_apodireccion' => $this->input->post('estudiante_apodireccion'),
+				'estudiante_apoparentesco' => $this->input->post('estudiante_apoparentesco'),
+				'estudiante_apotelefono' => $this->input->post('estudiante_apotelefono'),
+				'estudiante_nit' => $this->input->post('estudiante_nit'),
+				'estudiante_razon' => $this->input->post('estudiante_razon'),
+                'estudiante_email' => $this->input->post('estudiante_email'),
+            );
+            
+            $estudiante_id = $this->Estudiante_model->add_estudiante($params);
+            redirect('inscripcion/inscribir/'.$estudiante_id);
+        }
+        else
+        {
+			$this->load->model('Estado_model');
+			$data['all_estado'] = $this->Estado_model->get_all_estado();
+
+			$this->load->model('Genero_model');
+			$data['all_genero'] = $this->Genero_model->get_all_genero();
+
+			$this->load->model('Estado_civil_model');
+			$data['all_estado_civil'] = $this->Estado_civil_model->get_all_estado_civil();
+            
+            $data['_view'] = 'estudiante/registrar';
+            $this->load->view('layouts/main',$data);
+        }
+    }  
+
+    /*
      * Editing a estudiante
      */
     function edit($estudiante_id)

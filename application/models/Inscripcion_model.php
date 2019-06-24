@@ -98,4 +98,48 @@ class Inscripcion_model extends CI_Model
     {
         return $this->db->delete('inscripcion',array('inscripcion_id'=>$inscripcion_id));
     }
+    
+    /*
+     * function to ejecutar una consulta sql
+     */
+    function ejecutar($sql)
+    {
+        $this->db->query($sql);
+        return TRUE;
+    }
+    
+    
+    /*
+     * function to ejecutar una consulta sql
+     */
+    function ultima_inscripcion()
+    {
+        $sql = "select max(inscripcion_id) as inscripcion_id from inscripcion";
+        $resultado = $this->db->query($sql)->result_array();
+        return $resultado;
+    }
+    
+    /*
+     * function to ejecutar una consulta sql y devolver una tupla
+     */
+    function consultar($sql)
+    {
+        $resultado = $this->db->query($sql)->$result_array();
+        return $resultado;
+    }
+    
+    /*
+     * function to ejecutar una consulta sql y devolver una tupla
+     */
+    function get_estudiantes($parametro)
+    {
+        $sql = "select * from estudiante where "
+                . "estudiante_nombre like '%".$parametro."%' or "
+                . "estudiante_apellidos like '%".$parametro."%' or "
+                . "estudiante_codigo like '%".$parametro."%' or "
+                . "estudiante_ci like '%".$parametro."%' ";
+
+        $resultado = $this->db->query($sql)->result_array();
+        return $resultado;
+    }
 }

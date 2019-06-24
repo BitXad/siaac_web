@@ -29,6 +29,13 @@ class Carrera_model extends CI_Model
 
         return $carrera;
     }
+
+    function get_carrera_por_id($carrera_id)
+    {
+        $sql = "select * from carrera where carrera_id = ".$carrera_id;
+        $carrera = $this->db->query($sql)->result_array();
+        return $carrera;
+    }
         
     /*
      * Get all carrera
@@ -45,7 +52,7 @@ class Carrera_model extends CI_Model
             WHERE
                 c.areacarrera_id = ac.areacarrera_id
 
-            ORDER BY `carrera_id` DESC
+            ORDER BY `carrera_id` ASC
         ")->result_array();
 
         return $carrera;

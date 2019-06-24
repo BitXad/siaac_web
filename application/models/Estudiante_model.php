@@ -76,6 +76,47 @@ class Estudiante_model extends CI_Model
     }
         
     /*
+     * Get all estudiante
+     */
+    function get_estudiante_por_id($estudiante_id)
+    {
+        $sql = "select * from estudiante where estudiante_id = ".$estudiante_id;
+        
+        $estudiante = $this->db->query($sql)->result_array();
+        return $estudiante;
+    }
+        
+    /*
+     * Get datos estudiante temporal
+     */
+    function get_estudiante_temporal()
+    {
+        $sql = "select 0 as estudiante_id,
+                'NO DEFINIDIO' as estadocivil_id,
+                'NO DEFINIDIO' as estudiante_nombre,
+                'NO DEFINIDIO' as estudiante_apellidos,
+                'NO DEFINIDIO' as estudiante_fechanac,
+                0 as estudiante_edad,
+                'NO DEFINIDIO' as estudiante_ci,
+                'NO DEFINIDIO' as estudiante_extci,
+                'NO DEFINIDIO' as estudiante_codigo,
+                'NO DEFINIDIO' as estudiante_direccion,
+                'NO DEFINIDIO' as estudiante_telefono,
+                'NO DEFINIDIO' as estudiante_celular,
+                'NO DEFINIDIO' as estudiante_foto,
+                'NO DEFINIDIO' as estudiante_lugarnac,
+                'NO DEFINIDIO' as estudiante_nacionalidad,
+                'NO DEFINIDIO' as estudiante_establecimiento,
+                'NO DEFINIDIO' as estudiante_distrito,
+                'NO DEFINIDIO' as estudiante_apoderado,
+                0 as estudiante_nit,
+                'SIN NOMBRE' as estudiante_razon
+                ";
+        $estudiante = $this->db->query($sql)->result_array();
+        return $estudiante;
+    }
+        
+    /*
      * function to add new estudiante
      */
     function add_estudiante($params)

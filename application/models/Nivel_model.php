@@ -116,4 +116,15 @@ class Nivel_model extends CI_Model
 
         return $nivel["resbusqueda"];
     }
+    
+    /*
+     * Get all nivel
+     */
+    function get_nivel_por_carrera($carrera_id)
+    {
+        $sql = "select * from nivel where carrera_id = ".$carrera_id." order by nivel_id desc";
+        $nivel = $this->db->query($sql)->result_array();
+        return $nivel;
+    }
+    
 }
