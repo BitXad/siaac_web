@@ -100,4 +100,24 @@ class Docente_model extends CI_Model
     {
         return $this->db->delete('docente',array('docente_id'=>$docente_id));
     }
+    
+    /*
+     * Get all docente
+     */
+    function get_all_docente_activo()
+    {
+        $docente = $this->db->query("
+            SELECT
+                d.*
+            FROM
+                docente d, estado e
+            WHERE
+                d.estado_id = e.estado_id
+                and e.estado_id = 1
+            ORDER BY d.docente_apellidos, d.docente_nombre
+            
+        ")->result_array();
+
+        return $docente;
+    }
 }
