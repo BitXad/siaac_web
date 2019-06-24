@@ -273,7 +273,7 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
 
                         <label for="mensualidad_montocancelado" class="control-label">Monto Cancelado</label>
                         <div class="form-group">
-                            <input type="text" name="mensualidad_montocancelado" value="<?php echo $m['mensualidad_montototal']; ?>" class="form-control" id="mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>" />
+                            <input type="number" step="any" name="mensualidad_montocancelado" value="<?php echo $m['mensualidad_montototal']; ?>" class="form-control" id="mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>" min="0"/>
                             <input type="hidden"  name="mensualidad_montototal" value="<?php echo $m['mensualidad_montototal']; ?>" class="form-control" id="mensualidad_montototal<?php echo $m['mensualidad_id']; ?>" />
                             <input type="hidden"  name="kardexeco_id" value="<?php echo $m['kardexeco_id']; ?>" class="form-control" id="kardexeco_id" />
                         </div>
@@ -283,7 +283,7 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
                         <div class="form-group">
                             
                             
-                           <input type="text" name="mensualidad_saldo" value="0" class="form-control" id="mensualidad_saldo<?php echo $m['mensualidad_id']; ?>" />
+                           <input type="number" step="any" name="mensualidad_saldo" value="0" class="form-control" id="mensualidad_saldo<?php echo $m['mensualidad_id']; ?>" />
                             <input type="hidden" name="mensualidad_numero" value="<?php echo $m['mensualidad_numero']; ?>" class="form-control" id="mensualidad_numero" />
                              <input type="hidden" name="mensualidad_fechalimite" value="<?php echo $m['mensualidad_fechalimite']; ?>" class="form-control" id="mensualidad_fechalimite" />
                              <input type="hidden" name="mensualidad_fecha" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="mensualidad_fecha" />

@@ -63,7 +63,7 @@ function buscarestudiante(dato){
                         html += "<td align='right'><b>"+Number(registros[i]["kardexeco_matricula"]).toFixed(2)+"</b></td>";
                         html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"]).toFixed(2)+"</b></td>";
                         html += "<td align='center'><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
-                        html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-sm' title='COBRAR'><i class='fa fa-usd'></i></a><a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-sm' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
+                        html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-xs' title='COBRAR'><i class='fa fa-usd'></i></a> <a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-xs' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
                         html += "</tr>";  
                         }     
                         html += "</table>"; 
