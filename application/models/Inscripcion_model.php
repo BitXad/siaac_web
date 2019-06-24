@@ -142,4 +142,15 @@ class Inscripcion_model extends CI_Model
         $resultado = $this->db->query($sql)->result_array();
         return $resultado;
     }
+
+    /*
+     * function to ejecutar una consulta sql y devolver una tupla
+     */
+    function get_inscripciones()
+    {
+        $sql = "select * from consinscripcion";
+
+        $resultado = $this->db->query($sql)->result_array();
+        return $resultado;
+    }
 }
