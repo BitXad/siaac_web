@@ -32,15 +32,16 @@ function buscarestudiante(dato){
             data:{dato:dato},
             success:function(respuesta){
             	var registros = JSON.parse(respuesta);
+                var x = registros.length;
                 if (registros != null){
                 		html = "";
                         html += "<table class='table table-striped table-condensed' id='mitabla'";
                         html += "<tr>";
                         html += "<th>#</th>";
-                        html += "<th>Nombre</th>";                            
-                        html += "<th>Apellidos</th>";
+                        html += "<th>NOMBRE</th>";                            
+                        html += "<th>APELLIDOS</th>";
                         html += "<th>C.I.</th>";
-                        html += "<th>Codigo</th>";
+                        html += "<th>CODIGO</th>";
                         html += "<th>CARRERA</th>";
                         html += "<th>MATRICULA</th>";                            
                         html += "<th>MENSUALIDAD</th>";
@@ -49,8 +50,8 @@ function buscarestudiante(dato){
                         
                         html += "</tr>";  
                         var cont = 0;
-                        for (var i = 0; i < 5000 ; i++){
-                           cont = cont+1;
+                        for (var i = 0; i < x; i++){
+                        cont = i+1;
 
                         html += "<tr>";
                         html += "<td>"+cont+"</td>";
@@ -63,60 +64,15 @@ function buscarestudiante(dato){
                         html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"]).toFixed(2)+"</b></td>";
                         html += "<td align='center'><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
                         html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-sm' title='COBRAR'><i class='fa fa-usd'></i></a><a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-sm' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
-                       
                         html += "</tr>";  
-                        html += "</table>";
-                        $("#tablaestudiantes").html(html);
-                        }              
+                        }     
+                        html += "</table>"; 
+                        $("#tablaestudiantes").html(html);        
                 }
             },
                 error:function(respuesta){
 
         		}		
-        });
-}
-
-function buscarkardex(dato){
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'kardex_economico/mostrarkardex';
-        $.ajax({url:controlador,
-            type:"POST",
-            data:{dato:dato},
-            success:function(respuesta){
-                var registros = JSON.parse(respuesta);
-                if (registros != null){
-                        html = "";
-                        html += "<table class='table table-striped table-condensed' id='mitabla'";
-                        html += "<tr>";
-                        html += "<th>#</th>";
-                        html += "<th>CARRERA</th>";
-                        html += "<th>MATRICULA</th>";                            
-                        html += "<th>MENSUALIDAD</th>";
-                        html += "<th>No. MENSUALIDADES</th>";
-                        
-                        html += "<th></th>";
-                        html += "</tr>";  
-                        var cont = 0;
-                        for (var i = 0; i < 10 ; i++){
-                           cont = cont+1;
-
-                        html += "<tr>";
-                        html += "<td>"+cont+"</td>";
-                        html += "<td><b>"+registros[i]["carrera_nombre"]+"</b></td>";
-                        html += "<td align='right'><b>"+Number(registros[i]["kardexeco_matricula"]).toFixed(2)+"</b></td>";
-                        html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"]).toFixed(2)+"</b></td>";
-                        html += "<td align='center'><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
-                        html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-sm' title='COBRAR'><i class='fa fa-usd'></i></a><a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-sm' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
-                       
-                        html += "</tr>";  
-                        html += "</table>";
-                        $("#tablakardexeconomico").html(html);
-                        }              
-                }
-            },
-                error:function(respuesta){
-
-                }       
         });
 }
 
