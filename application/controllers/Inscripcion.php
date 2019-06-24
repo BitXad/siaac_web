@@ -29,7 +29,7 @@ class Inscripcion extends CI_Controller{
         $config['total_rows'] = $this->Inscripcion_model->get_all_inscripcion_count();
         $this->pagination->initialize($config);
 
-        $data['inscripcion'] = $this->Inscripcion_model->get_all_inscripcion($params);
+        $data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($params);
         
         $data['_view'] = 'inscripcion/index';
         $this->load->view('layouts/main',$data);
@@ -324,7 +324,7 @@ class Inscripcion extends CI_Controller{
         for ($i = 1; $i<=$kardexeco_nummens; $i++){
             
                        
-            $estado_id = 1;
+            $estado_id = 3;
             
             $mes = date("m", strtotime($cuota_fechalimite));
             

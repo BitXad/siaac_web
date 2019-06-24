@@ -157,8 +157,13 @@ function calcular(){
     var total_final = document.getElementById('total_final').value;
     
     var descuento = document.getElementById('descuento').value;
-    var efectivo = document.getElementById('efectivo').value;
+    
+//    var efectivo = document.getElementById('efectivo').value;
+    var efectivo = total_final - descuento;
+    $("#efectivo").val(Number(efectivo).toFixed(2));
+    
     var cambio = document.getElementById('cambio').value;
+    
     
     cambio = efectivo - (total_final - descuento);
     $("#cambio").val(cambio);
@@ -226,4 +231,54 @@ function registrar_inscripcion(){
         alert(men);
     }
 
+}
+
+function buscar_inscripciones()
+{
+//    var base_url    = document.getElementById('base_url').value;
+    var opcion      = document.getElementById('select_inscripcion').value;
+ 
+    
+    if (opcion == 1)
+    {
+        filtro = " and v.venta_fecha = date(now())";
+        mostrar_ocultar_buscador("ocultar");
+        
+        
+    }//pedidos de hoy
+    
+    if (opcion == 2)
+    {
+        filtro = " and v.venta_fecha = date_add(date(now()), INTERVAL -1 DAY)";
+        mostrar_ocultar_buscador("ocultar");
+    }//pedidos de ayer
+    
+    if (opcion == 3) 
+    {
+        filtro = " and v.venta_fecha >= date_add(date(now()), INTERVAL -1 WEEK)";//pedidos de la semana
+        mostrar_ocultar_buscador("ocultar");
+    }
+    
+    if (opcion == 4) 
+    {   filtro = " ";//todos los pedidos
+        mostrar_ocultar_buscador("ocultar");
+    }
+    
+    if (opcion == 5) {
+
+        mostrar_ocultar_buscador("mostrar");
+        filtro = null;
+    }
+
+    tabla_ventas(filtro);
+    //tabla_pedidos(filtro);
+}
+
+function mostrar_ocultar_buscador(parametro){
+       
+    if (parametro == "mostrar"){
+        document.getElementById('buscador_oculto').style.display = 'block';}
+    else{
+        document.getElementById('buscador_oculto').style.display = 'none';}
+    
 }
