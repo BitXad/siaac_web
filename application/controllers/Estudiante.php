@@ -177,7 +177,7 @@ class Estudiante extends CI_Controller{
 				'estudiante_razon' => $this->input->post('estudiante_razon'),
                 'estudiante_email' => $this->input->post('estudiante_email'),
                 'estudiante_login' => $this->input->post('estudiante_codigo'),
-                'estudiante_clave' => $this->input->post('estudiante_ci'),
+                'estudiante_clave' => md5($this->input->post('estudiante_ci')),
                 'tipousuario_id' => 8,
             );
             
@@ -347,7 +347,7 @@ class Estudiante extends CI_Controller{
 				'estudiante_razon' => $this->input->post('estudiante_razon'),
                 'estudiante_email' => $this->input->post('estudiante_email'),
                 'estudiante_login' => $this->input->post('estudiante_codigo'),
-                'estudiante_clave' => $this->input->post('estudiante_ci'),
+                'estudiante_clave' => md5($this->input->post('estudiante_ci')),
                 'tipousuario_id' => 8,
             );
             
@@ -542,7 +542,7 @@ class Estudiante extends CI_Controller{
 					'estudiante_razon' => $this->input->post('estudiante_razon'),
                     'estudiante_email' => $this->input->post('estudiante_email'),
                     'estudiante_login' => $this->input->post('estudiante_codigo'),
-                    'estudiante_clave' => $this->input->post('estudiante_ci'),
+                    'estudiante_clave' => md5($this->input->post('estudiante_ci')),
                     'tipousuario_id' => 8,
                 );
 

@@ -168,8 +168,12 @@
 						<div class="form-group">
 							<select name="administrativo_cargo" class="form-control" id="administrativo_cargo" required>
 								<option value="">- CARGO -</option>
-								<option value="3" <?php if($administrativo['administrativo_cargo']=='ADMINISTRATIVO'){ ?> selected <?php } ?>>- ADMINISTRATIVO -</option>
-								<option value="4" <?php if($administrativo['administrativo_cargo']=='SECRETARIA'){ ?> selected <?php } ?>>- SECRETARIA -</option>
+								<option value="1" <?php if($administrativo['administrativo_cargo']=='1'){ ?> selected <?php } ?>>- DIR. GENERAL -</option>
+								<option value="2" <?php if($administrativo['administrativo_cargo']=='2'){ ?> selected <?php } ?>>- DIR. ACADEMICO -</option>
+								<option value="3" <?php if($administrativo['administrativo_cargo']=='3'){ ?> selected <?php } ?>>- DIR. ADMINISTRATIVO -</option>
+								<option value="4" <?php if($administrativo['administrativo_cargo']=='4'){ ?> selected <?php } ?>>- SECRETARIA -</option>
+								<option value="5" <?php if($administrativo['administrativo_cargo']=='5'){ ?> selected <?php } ?>>- JEFE CARRERA -</option>
+								<option value="6" <?php if($administrativo['administrativo_cargo']=='6'){ ?> selected <?php } ?>>- COBRANZA -</option>
 								
 							</select>
 						</div>
