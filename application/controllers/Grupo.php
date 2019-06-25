@@ -25,6 +25,15 @@ class Grupo extends CI_Controller{
         $this->load->model('Docente_model');
         $data['all_docente'] = $this->Docente_model->get_all_docente_activo();
         
+        $this->load->model('Aula_model');
+        $data['all_aula'] = $this->Aula_model->get_all_aula();
+        
+        $this->load->model('Periodo_model');
+        $data['all_periodo'] = $this->Periodo_model->get_all_periodo();
+        
+        $this->load->model('Dia_model');
+        $data['all_dia'] = $this->Dia_model->get_all_dias_activos();
+        
         $data['grupo'] = $this->Grupo_model->get_all_grupo();
         
         $data['_view'] = 'grupo/index';
@@ -181,6 +190,44 @@ class Grupo extends CI_Controller{
             $docente_id = $this->input->post('docente_id');
             if ($docente_id!=""){
                 $datos = $this->Docente_model->get_docente($docente_id);
+                echo json_encode($datos);
+            }
+            else echo json_encode(null);
+        }
+        else
+        {
+            show_404();
+        }
+        
+    }
+    /****obtener Niveles de un plan academico****/
+    function get_niveles()
+    {
+        if ($this->input->is_ajax_request())
+        {
+            $this->load->model('Nivel_model');
+            $planacad_id = $this->input->post('planacad_id');
+            if ($planacad_id != ""){
+                $datos = $this->Nivel_model->get_all_nivel_forplan($planacad_id);
+                echo json_encode($datos);
+            }
+            else echo json_encode(null);
+        }
+        else
+        {
+            show_404();
+        }
+        
+    }
+    /****obtener Materias de un Nivel ****/
+    function get_materias()
+    {
+        if ($this->input->is_ajax_request())
+        {
+            $this->load->model('Materia_model');
+            $nivel_id = $this->input->post('nivel_id');
+            if ($nivel_id != ""){
+                $datos = $this->Materia_model->get_all_materia_nivel($nivel_id);
                 echo json_encode($datos);
             }
             else echo json_encode(null);
