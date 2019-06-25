@@ -67,7 +67,7 @@
 							<input type="text" name="materia_codigo" value="<?php echo $this->input->post('materia_codigo'); ?>" class="form-control" id="materia_codigo" required/>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<label for="mat_materia_id" class="control-label">Pre-Requisito</label>
 						<div class="form-group">
 							<select name="mat_materia_id" class="form-control">
@@ -83,7 +83,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<label for="area_id" class="control-label">Area</label>
 						<div class="form-group">
 							<select name="area_id" class="form-control" required>
@@ -99,7 +99,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<label for="nivel_id" class="control-label">Nivel</label>
 						<div class="form-group">
 							<select name="nivel_id" class="form-control" required>
@@ -113,6 +113,12 @@
 								} 
 								?>
 							</select>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label for="materia_horas" class="control-label">Horas por Semana</label>
+						<div class="form-group">
+							<input type="text" name="materia_horas" value="<?php echo $this->input->post('materia_horas'); ?>" class="form-control" id="materia_horas" />
 						</div>
 					</div>
 					

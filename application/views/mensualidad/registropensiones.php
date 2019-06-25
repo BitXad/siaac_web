@@ -58,11 +58,13 @@ function cerrar() {
                         <th>PAGO<BR>MES 3</th>
                         <th>PAGO<BR>MES 4</th>
                         <th>PAGO<BR>MES 5</th>
-                        <th>PAGO<BR>MES 6</th><th>PAGO<BR>MES 4</th>
-                        <th>PAGO<BR>MES 5</th>
-                        <th>PAGO<BR>MES 6</th><th>PAGO<BR>MES 4</th>
-                        <th>PAGO<BR>MES 5</th>
                         <th>PAGO<BR>MES 6</th>
+                        <th>PAGO<BR>MES 7</th>
+                        <th>PAGO<BR>MES 8</th>
+                        <th>PAGO<BR>MES 9</th>
+                        <th>PAGO<BR>MES 10</th>
+                        <th>PAGO<BR>MES 11</th>
+                        <th>PAGO<BR>MES 121</th>
 					
                     </tr>
                     <?php $i=0;
@@ -105,7 +107,8 @@ function cerrar() {
                       </div> 
                     <div class="columna_central">
                         <CENTER>
-                      <hr style="border-color: black; width: 50%;">
+                      
+                      <br>---------------------------------------<br>
                         RESPONSABLE
                     </CENTER></div>
 
