@@ -142,6 +142,17 @@ class Inscripcion_model extends CI_Model
         $resultado = $this->db->query($sql)->result_array();
         return $resultado;
     }
+    
+    /*
+     * function que devuelve las materias pertenecientes a un nivel
+     */
+    function get_materias($nivel_id)
+    {
+        $sql = "select * from materia where nivel_id = ".$nivel_id;                
+        $resultado = $this->db->query($sql)->result_array();
+        
+        return $resultado;
+    }
 
     /*
      * function to ejecutar una consulta sql y devolver una tupla

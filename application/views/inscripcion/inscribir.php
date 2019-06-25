@@ -227,7 +227,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
 					<div class="col-md-3">
 						<label for="nivel_id" class="control-label">Nivel</label>
 						<div class="form-group">
-							<select name="nivel_id" id="nivel_id" class="form-control">
+                                                    <select name="nivel_id" id="nivel_id" class="form-control" onchange="mostrar_materias()">
 								<option value="0">- NIVEL -</option>
 							</select>
 						</div>
@@ -276,7 +276,32 @@ $session_data = $this->session->userdata('logged_in'); ?>
 
 <!-------------------------------- INICIO ---------------------------------------->
 
-					<div class="col-md-3">
+					<div class="col-md-6">
+						<label for="pagar_matricula" class="control-label">Materias</label>
+						<div class="form-group">
+                                                    <table class="table table-striped" id="mitabla">
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Materia</th>
+                                                            <th>Cód</th>
+                                                            <th>Grupo</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        <tbody id="tabla_materia">
+<!--                                                            <tr>
+                                                                <td style="padding: 0;">1</td>
+                                                                <td style="padding: 0;">Matematicas</td>
+                                                                <td style="padding: 0;">MS100</td>
+                                                                <td align="center" style="padding: 0;"><input type="checkbox" name="" valur="1" checked=""/></td>
+                                                            </tr>
+             -->
+                                                        </tbody>
+                                                    </table>
+                                                    
+                                                </div>
+					</div>
+
+                                        <div class="col-md-3">
 						<label for="pagar_matricula" class="control-label">Pagar Matrícula</label>
 						<div class="form-group">
                                                     <select id="pagar_matricula" name="pagar_matricula"  class="form-control" onchange="calcular()">
