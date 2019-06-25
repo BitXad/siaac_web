@@ -29,7 +29,7 @@
 						<label for="docente_nombre" class="control-label">Nombre</label>
 						<div class="form-group">
 							<input type="text" name="docente_nombre" value="<?php echo ($this->input->post('docente_nombre') ? $this->input->post('docente_nombre') : $docente['docente_nombre']); ?>" class="form-control" id="docente_nombre" required/>
-							<input type="hidden" name="usuario_id" value="<?php echo ($this->input->post('usuario_id') ? $this->input->post('usuario_id') : $docente['usuario_id']); ?>" class="form-control" id="usuario_id" readonly/>
+							
 						</div>
 					</div>
 					<div class="col-md-6">

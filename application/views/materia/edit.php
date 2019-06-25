@@ -47,23 +47,29 @@
             ?>
 			<div class="box-body">
 				<div class="row clearfix">
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<label for="materia_nombre" class="control-label">Materia</label>
 						<div class="form-group">
 							<input type="text" name="materia_nombre" value="<?php echo ($this->input->post('materia_nombre') ? $this->input->post('materia_nombre') : $materia['materia_nombre']); ?>" class="form-control" id="materia_nombre" />
 							<input type="hidden" name="materia_id" value="<?php echo ($this->input->post('materia_id') ? $this->input->post('materia_id') : $materia['materia_id']); ?>" class="form-control" id="materia_id" />
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<label for="materia_alias" class="control-label">Alias</label>
 						<div class="form-group">
 							<input type="text" name="materia_alias" value="<?php echo ($this->input->post('materia_alias') ? $this->input->post('materia_alias') : $materia['materia_alias']); ?>" class="form-control" id="materia_alias" />
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<label for="materia_codigo" class="control-label">Codigo</label>
 						<div class="form-group">
 							<input type="text" name="materia_codigo" value="<?php echo ($this->input->post('materia_codigo') ? $this->input->post('materia_codigo') : $materia['materia_codigo']); ?>" class="form-control" id="materia_codigo" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label for="materia_horas" class="control-label">Horas por Semana</label>
+						<div class="form-group">
+							<input type="text" name="materia_horas" value="<?php echo ($this->input->post('materia_horas') ? $this->input->post('materia_horas') : $materia['materia_horas']); ?>" class="form-control" id="materia_horas" />
 						</div>
 					</div>
 					<div class="col-md-3">
@@ -114,6 +120,7 @@
 							</select>
 						</div>
 					</div>
+
 					
 					<div class="col-md-3">
 						<label for="estado_id" class="control-label">Estado</label>

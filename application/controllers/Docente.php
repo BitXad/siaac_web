@@ -9,7 +9,7 @@ class Docente extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Docente_model');
-        $this->load->model('Usuario_model');
+        
     } 
 
     /*
@@ -42,7 +42,7 @@ class Docente extends CI_Controller{
                 $foto="";
                 if (!empty($_FILES['docente_foto']['name'])){
                         $this->load->library('image_lib');
-                        $config['upload_path'] = './resources/images/usuarios/';
+                        $config['upload_path'] = './resources/images/docentes/';
                         $img_full_path = $config['upload_path'];
 
                         $config['allowed_types'] = 'gif|jpeg|jpg|png';
@@ -63,7 +63,7 @@ class Docente extends CI_Controller{
                         if ($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
                             $conf['image_library'] = 'gd2';
                             $conf['source_image'] = $img_data['full_path'];
-                            $conf['new_image'] = './resources/images/usuarios/';
+                            $conf['new_image'] = './resources/images/docentes/';
                             $conf['maintain_ratio'] = TRUE;
                             $conf['create_thumb'] = FALSE;
                             $conf['width'] = 800;
@@ -76,8 +76,8 @@ class Docente extends CI_Controller{
                         }
                         /* ********************F I N  para resize***************************** */
                         $confi['image_library'] = 'gd2';
-                        $confi['source_image'] = './resources/images/usuarios/'.$new_name.$extension;
-                        $confi['new_image'] = './resources/images/usuarios/'."thumb_".$new_name.$extension;
+                        $confi['source_image'] = './resources/images/docentes/'.$new_name.$extension;
+                        $confi['new_image'] = './resources/images/docentes/'."thumb_".$new_name.$extension;
                         $confi['create_thumb'] = FALSE;
                         $confi['maintain_ratio'] = TRUE;
                         $confi['width'] = 50;
@@ -90,23 +90,7 @@ class Docente extends CI_Controller{
                         $foto = $new_name.$extension;
                     }
             /* *********************FIN imagen***************************** */
-            $nombre = $this->input->post('docente_nombre');
-            $apellido = $this->input->post('docente_apellidos');
-            $ci = $this->input->post('docente_ci');
-            $login = 'doc'.$ci;
-            $name = $nombre." ".$apellido;
-            $params = array(
-                'tipousuario_id' => 2,
-                'estado_id' => 1,
-                'usuario_nombre' => $name,
-                'usuario_email' => $this->input->post('docente_email'),
-                'usuario_login' => $login,
-                'usuario_clave' => md5($this->input->post('docente_ci')),
-                'usuario_imagen' => $foto,
-                
-            );
-            
-            $usuario_id = $this->Usuario_model->add_usuario($params);
+          
             $params = array(
 				'estado_id' => 1,
 				'genero_id' => $this->input->post('genero_id'),
@@ -125,7 +109,9 @@ class Docente extends CI_Controller{
 				'docente_especialidad' => $this->input->post('docente_especialidad'),
 				'docente_foto' => $foto,
 				'docente_email' => $this->input->post('docente_email'),
-                'usuario_id' => $usuario_id,
+                'docente_login' => $this->input->post('docente_codigo'),
+                'docente_clave' => md5($this->input->post('docente_ci')),
+                'tipousuario_id' => 9,
             );
             
             $docente_id = $this->Docente_model->add_docente($params);
@@ -165,7 +151,7 @@ class Docente extends CI_Controller{
                 if (!empty($_FILES['docente_foto']['name']))
                 {
                     $this->load->library('image_lib');
-                    $config['upload_path'] = './resources/images/usuarios/';
+                    $config['upload_path'] = './resources/images/docentes/';
                     $config['allowed_types'] = 'gif|jpeg|jpg|png';
                     $config['max_size'] = 200000;
                     $config['max_width'] = 2900;
@@ -184,7 +170,7 @@ class Docente extends CI_Controller{
                     if($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
                         $conf['image_library'] = 'gd2';
                         $conf['source_image'] = $img_data['full_path'];
-                        $conf['new_image'] = './resources/images/usuarios/';
+                        $conf['new_image'] = './resources/images/docentes/';
                         $conf['maintain_ratio'] = TRUE;
                         $conf['create_thumb'] = FALSE;
                         $conf['width'] = 800;
@@ -197,7 +183,7 @@ class Docente extends CI_Controller{
                     }
                     /* ********************F I N  para resize***************************** */
                     //$directorio = base_url().'resources/imagenes/';
-                    $directorio = $_SERVER['DOCUMENT_ROOT'].'/siaac_web/resources/images/usuarios/';
+                    $directorio = $_SERVER['DOCUMENT_ROOT'].'/siaac_web/resources/images/docentes/';
                     if(isset($foto1) && !empty($foto1)){
                       if(file_exists($directorio.$foto1)){
                           unlink($directorio.$foto1);
@@ -206,8 +192,8 @@ class Docente extends CI_Controller{
                       }
                   }
                     $confi['image_library'] = 'gd2';
-                    $confi['source_image'] = './resources/images/usuarios/'.$new_name.$extension;
-                    $confi['new_image'] = './resources/images/usuarios/'."thumb_".$new_name.$extension;
+                    $confi['source_image'] = './resources/images/docentes/'.$new_name.$extension;
+                    $confi['new_image'] = './resources/images/docentes/'."thumb_".$new_name.$extension;
                     $confi['create_thumb'] = FALSE;
                     $confi['maintain_ratio'] = TRUE;
                     $confi['width'] = 50;
@@ -240,26 +226,13 @@ class Docente extends CI_Controller{
 					'docente_especialidad' => $this->input->post('docente_especialidad'),
 					'docente_foto' => $foto,
 					'docente_email' => $this->input->post('docente_email'),
+                    'docente_login' => $this->input->post('docente_codigo'),
+                    'docente_clave' => md5($this->input->post('docente_ci')),
+                    'tipousuario_id' => 9,
                 );
 
                 $this->Docente_model->update_docente($docente_id,$params); 
-                $usuario_id = $this->input->post('usuario_id');
-                $nombre = $this->input->post('docente_nombre');
-                $apellido = $this->input->post('docente_apellidos');
-                $ci = $this->input->post('docente_ci');
-                $login = 'doc'.$ci;
-                $name = $nombre." ".$apellido;
-                $params = array(
-                'tipousuario_id' => 2,
-                'estado_id' => $this->input->post('estado_id'),
-                'usuario_nombre' => $name,
-                'usuario_email' => $this->input->post('docente_email'),
-                'usuario_login' => $login,
-                'usuario_clave' => md5($this->input->post('docente_ci')),
-                'usuario_imagen' => $foto,
-                
-            );
-            $this->Usuario_model->update_usuario($usuario_id,$params);           
+                      
                 redirect('docente/index');
             }
             else
