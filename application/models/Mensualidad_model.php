@@ -132,17 +132,17 @@ class Mensualidad_model extends CI_Model
                  c.*, g.*, i.inscripcion_id, gi.*, ke.*, e.*
 
             FROM
-                carrera c, grupo g, inscripcion i, grupo_inscripcion gi, kardex_economico ke, estudiante e
+                grupo g
+                
+            LEFT JOIN grupo_inscripcion gi on g.grupo_id=gi.grupo_id
+            LEFT JOIN inscripcion i on gi.inscripcion_id=i.inscripcion_id
+            LEFT JOIN kardex_economico ke on ke.inscripcion_id = i.inscripcion_id
+            LEFT JOIN carrera c on i.carrera_id = c.carrera_id
+            LEFT JOIN estudiante e on i.estudiante_id = e.estudiante_id
 
             WHERE
                 g.grupo_id=".$grupo."
-                and g.grupo_id=gi.grupo_id
-                and gi.inscripcion_id=i.inscripcion_id
-                and ke.inscripcion_id = i.inscripcion_id
-                and i.carrera_id = c.carrera_id
-                and i.estudiante_id = e.estudiante_id
-               
-
+                
             ORDER BY `estudiante_apellidos` DESC
         ")->result_array();
 

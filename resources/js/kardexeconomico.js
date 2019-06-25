@@ -63,7 +63,7 @@ function buscarestudiante(dato){
                         html += "<td align='right'><b>"+Number(registros[i]["kardexeco_matricula"]).toFixed(2)+"</b></td>";
                         html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"]).toFixed(2)+"</b></td>";
                         html += "<td align='center'><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
-                        html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-sm' title='COBRAR'><i class='fa fa-usd'></i></a><a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-sm' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
+                        html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-xs' title='COBRAR'><i class='fa fa-usd'></i></a> <a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-xs' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
                         html += "</tr>";  
                         }     
                         html += "</table>"; 
@@ -97,6 +97,7 @@ function buscargrupos(dato){
             data:{dato:dato},
             success:function(respuesta){
                 var registros = JSON.parse(respuesta);
+                var x = registros.length;
                 if (registros != null){
                         html = "";
                         html += "<table class='table table-striped table-condensed' id='mitabla'";
@@ -110,7 +111,7 @@ function buscargrupos(dato){
                         html += "<th></th>";
                         html += "</tr>";  
                         var cont = 0;
-                        for (var i = 0; i < 55 ; i++){
+                        for (var i = 0; i < x ; i++){
                            cont = cont+1;
 
                         html += "<tr>";
@@ -122,9 +123,10 @@ function buscargrupos(dato){
                         html += "<td><a class='btn btn-info btn-sm' href='"+base_url+"mensualidad/buscarpension/"+registros[i]["grupo_id"]+"' target='_blank'><i class='fa fa-eye'></i> Registro de Pensiones</a></td>";
                         html += "<td></td>";
                         html += "</tr>";  
+                        
+                        }    
                         html += "</table>";
-                        $("#tablagrupos").html(html);
-                        }              
+                        $("#tablagrupos").html(html);          
                 }
             },
                 error:function(respuesta){

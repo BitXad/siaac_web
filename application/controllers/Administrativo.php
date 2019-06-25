@@ -90,14 +90,7 @@ class Administrativo extends CI_Controller{
             $ci = $this->input->post('administrativo_ci');
             
             $cargo = $this->input->post('administrativo_cargo');
-            if ($cargo == 3){
-                $administrativo_cargo = 'ADMINISTRATIVO';
-                $login = 'adm'.$ci;
-            }
-            if ($cargo == 4){
-                $administrativo_cargo = 'SECRETARIA';
-                $login = 'sec'.$ci;
-            }
+            
              $nombre = $this->input->post('administrativo_nombre');
             $apellido = $this->input->post('administrativo_apellidos');
             $name = $nombre." ".$apellido;
@@ -106,7 +99,7 @@ class Administrativo extends CI_Controller{
                 'estado_id' => 1,
                 'usuario_nombre' => $name,
                 'usuario_email' => $this->input->post('administrativo_email'),
-                'usuario_login' => $login,
+                'usuario_login' => $this->input->post('administrativo_codigo'),
                 'usuario_clave' => md5($this->input->post('administrativo_ci')),
                 'usuario_imagen' => $foto,
                 
@@ -128,11 +121,12 @@ class Administrativo extends CI_Controller{
 				'administrativo_direccion' => $this->input->post('administrativo_direccion'),
 				'administrativo_telefono' => $this->input->post('administrativo_telefono'),
 				'administrativo_celular' => $this->input->post('administrativo_celular'),
-				'administrativo_cargo' => $administrativo_cargo,
+				'administrativo_cargo' => $cargo,
 				'administrativo_foto' => $foto,
 				'administrativo_fechareg' => $this->input->post('administrativo_fechareg'),
                 'administrativo_email' => $this->input->post('administrativo_email'),
                 'usuario_id' => $usuario_id,
+                'tipousuario_id' => $cargo,
             );
             
             $administrativo_id = $this->Administrativo_model->add_administrativo($params);
@@ -240,14 +234,7 @@ class Administrativo extends CI_Controller{
             /* *********************FIN imagen***************************** */
             $ci = $this->input->post('administrativo_ci');
             $cargo = $this->input->post('administrativo_cargo');
-            if ($cargo == 3){
-                $administrativo_cargo = 'ADMINISTRATIVO';
-                 $login = 'adm'.$ci;
-            }
-            if ($cargo == 4){
-                $administrativo_cargo = 'SECRETARIA';
-                 $login = 'sec'.$ci;
-            }
+           
                 $params = array(
 					'estado_id' => $this->input->post('estado_id'),
 					'estadocivil_id' => $this->input->post('estadocivil_id'),
@@ -263,10 +250,11 @@ class Administrativo extends CI_Controller{
 					'administrativo_direccion' => $this->input->post('administrativo_direccion'),
 					'administrativo_telefono' => $this->input->post('administrativo_telefono'),
 					'administrativo_celular' => $this->input->post('administrativo_celular'),
-					'administrativo_cargo' => $administrativo_cargo,
+					'administrativo_cargo' => $this->input->post('administrativo_cargo'),
 					'administrativo_foto' => $foto,
 					'administrativo_fechareg' => $this->input->post('administrativo_fechareg'),
                     'administrativo_email' => $this->input->post('administrativo_email'),
+                    'tipousuario_id' => $cargo,
                 );
 
                 $this->Administrativo_model->update_administrativo($administrativo_id,$params);
@@ -279,7 +267,7 @@ class Administrativo extends CI_Controller{
                 'estado_id' => $this->input->post('estado_id'),
                 'usuario_nombre' => $name,
                 'usuario_email' => $this->input->post('administrativo_email'),
-                'usuario_login' => $login,
+                'usuario_login' => $this->input->post('administrativo_codigo'),
                 'usuario_clave' => md5($this->input->post('administrativo_ci')),
                 'usuario_imagen' => $foto,
                

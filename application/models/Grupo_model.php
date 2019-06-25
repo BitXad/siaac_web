@@ -49,12 +49,8 @@ class Grupo_model extends CI_Model
     /*
      * Get all grupo
      */
-    function get_all_grupo($params = array())
+    function get_all_grupo()
     {
-        $limit_condition = "";
-        if(isset($params) && !empty($params))
-            $limit_condition = " LIMIT " . $params['offset'] . "," . $params['limit'];
-        
         $grupo = $this->db->query("
             SELECT
                 *
@@ -66,8 +62,7 @@ class Grupo_model extends CI_Model
                 1 = 1
 
             ORDER BY `grupo_id` DESC
-
-            " . $limit_condition . "
+            
         ")->result_array();
 
         return $grupo;

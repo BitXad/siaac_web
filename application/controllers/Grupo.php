@@ -16,15 +16,16 @@ class Grupo extends CI_Controller{
      */
     function index()
     {
-        $params['limit'] = RECORDS_PER_PAGE; 
-        $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+        $this->load->model('Carrera_model');
+        $data['all_carrera'] = $this->Carrera_model->get_all_carreras();
         
-        $config = $this->config->item('pagination');
-        $config['base_url'] = site_url('grupo/index?');
-        $config['total_rows'] = $this->Grupo_model->get_all_grupo_count();
-        $this->pagination->initialize($config);
-
-        $data['grupo'] = $this->Grupo_model->get_all_grupo($params);
+        $this->load->model('Paralelo_model');
+        $data['all_paralelo'] = $this->Paralelo_model->get_all_paralelo();
+        
+        $this->load->model('Docente_model');
+        $data['all_docente'] = $this->Docente_model->get_all_docente_activo();
+        
+        $data['grupo'] = $this->Grupo_model->get_all_grupo();
         
         $data['_view'] = 'grupo/index';
         $this->load->view('layouts/main',$data);
@@ -149,6 +150,46 @@ class Grupo extends CI_Controller{
         }
         else
             show_error('The grupo you are trying to delete does not exist.');
+    }
+    
+    /****obtener planes academicos de una carrera****/
+    function get_planes_academicos()
+    {
+        if ($this->input->is_ajax_request())
+        {
+            $this->load->model('Plan_academico_model');
+            $carrera_id = $this->input->post('carrera_id');
+            if ($carrera_id!=""){
+                $datos = $this->Plan_academico_model->get_plan_acad_carr($carrera_id);
+                echo json_encode($datos);
+            }
+            else echo json_encode(null);
+        }
+        else
+        {
+            show_404();
+        }
+        
+    }
+    
+    /****obtener planes academicos de una carrera****/
+    function get_docente()
+    {
+        if ($this->input->is_ajax_request())
+        {
+            $this->load->model('Docente_model');
+            $docente_id = $this->input->post('docente_id');
+            if ($docente_id!=""){
+                $datos = $this->Docente_model->get_docente($docente_id);
+                echo json_encode($datos);
+            }
+            else echo json_encode(null);
+        }
+        else
+        {
+            show_404();
+        }
+        
     }
     
 }

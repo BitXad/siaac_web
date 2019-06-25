@@ -5,10 +5,7 @@
     <h1>
         Nuevo Horario
     </h1>
-    <ol class="breadcrumb">
-        <li><a href="<?php echo site_url() ?>horario"><i class="fa fa-calendar-check-o"></i> Horarios</a></li>
-        <li class="active">Nuevo Horario</li>
-    </ol>
+   
 </section>
 <div class="row">
     <div class="col-md-12">
@@ -69,8 +66,10 @@
 			</div>
           	<div class="box-footer">
             	<button type="submit" id="boton" class="btn btn-success">
-            		<i class="fa fa-check"></i> Crear
+            		<i class="fa fa-check"></i> Guardar
             	</button>
+                <a href="<?php echo site_url('horario/index'); ?>" class="btn btn-danger">
+                    <i class="fa fa-times"></i> Cancelar</a>
           	</div>
             <?php echo form_close(); ?>
       	</div>

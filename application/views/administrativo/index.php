@@ -73,7 +73,7 @@
 						<td><?php echo "<b>Dir.:</b> ".$a['administrativo_direccion']; ?></br>
 						<?php echo "<b>Telf.:</b> ".$a['administrativo_telefono']; ?><br>
 						<?php echo $a['administrativo_celular']; ?></td>
-						<td><?php echo $a['administrativo_cargo']; ?></td>
+						<td><?php echo $a['tipousuario_descripcion']; ?></td>  
 						<td><?php echo $a['estado_descripcion']; ?>
 							 <!------------------------ INICIO modal para MOSTRAR imagen REAL ------------------->
                                     <div class="modal fade" id="mostrarimagen<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="mostrarimagenlabel<?php echo $i; ?>">

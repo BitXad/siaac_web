@@ -208,8 +208,7 @@ class Usuario extends CI_Controller{
                 $estado_id = $this->input->post('estado_id');
                 $tipousuario_id = $this->input->post('tipousuario_id');
             
-                    $sql="UPDATE docente set estado_id=".$estado_id." where usuario_id=".$usuario_id." ";
-                    $this->db->query($sql);
+                    
                
                     $ptq="UPDATE administrativo set estado_id=".$estado_id." where usuario_id=".$usuario_id." ";
                     $this->db->query($ptq);
@@ -294,8 +293,7 @@ class Usuario extends CI_Controller{
         if(isset($usuario['usuario_id']))
         {
             $this->Usuario_model->inactivar_usuario($usuario_id);
-             $sql="UPDATE docente set estado_id=2 where usuario_id=".$usuario_id." ";
-                    $this->db->query($sql);
+             
                
                     $ptq="UPDATE administrativo set estado_id=2 where usuario_id=".$usuario_id." ";
                     $this->db->query($ptq);
@@ -312,8 +310,7 @@ class Usuario extends CI_Controller{
         if(isset($usuario['usuario_id']))
         {
             $this->Usuario_model->activar_usuario($usuario_id);
-            $sql="UPDATE docente set estado_id=1 where usuario_id=".$usuario_id." ";
-                    $this->db->query($sql);
+            
                
                     $ptq="UPDATE administrativo set estado_id=1 where usuario_id=".$usuario_id." ";
                     $this->db->query($ptq);
