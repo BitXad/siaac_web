@@ -21,7 +21,7 @@ class Verificar extends CI_Controller
         $gestion_id = $this->input->post('gestion');
 
         $result = $this->login_model->login2($username, $clave);
-        print "<pre>"; print_r( $result); print "</pre>";
+        //print "<pre>"; print_r( $result); print "</pre>";
         //var_dump($result);
 
         if ($result) {
