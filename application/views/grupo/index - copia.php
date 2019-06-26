@@ -26,8 +26,8 @@ function toggle(source) {
 </script>
 <div class="box-header" style="padding-left: 0px">
     <!--<h3 class="box-title">Grupo Listing</h3>-->
-    <div class="col-md-12">
-        <div class="col-md-4">
+    <div class="col-md-3">
+        <div class="col-md-12">
             <label for="carrera_id" class="control-label">Carrera:</label>
             <div class="form-group">
                 <select name="carrera_id" id="carrera_id" class="form-control" onchange="get_planes_academicos(this.value)">
@@ -42,7 +42,7 @@ function toggle(source) {
                 </select>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-12">
             <label for=´planacad_id" class="control-label">Plan Academico:</label>
             <div class="form-group" id="elegirplanacad">
                 <select name="planacad_id" id="planacad_id" class="form-control">
@@ -50,7 +50,7 @@ function toggle(source) {
                 </select>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-12">
             <label for=´nivel_id" class="control-label">Nivel:</label>
             <div class="form-group" id="elegirnivel">
                 <select name="nivel_id" id="nivel_id" class="form-control">
@@ -58,7 +58,23 @@ function toggle(source) {
                 </select>
             </div>
         </div>
-        <div class="col-md-4">
+    </div>
+    <div class="col-md-3">
+        <!--<div class="col-md-12">
+            <label for="paralelo_id" class="control-label">Paralelo:</label>
+            <div class="form-group">
+                <select name="paralelo_id" id="paralelo_id" class="form-control" >
+                    <?php 
+                    /*foreach($all_paralelo as $paralelo)
+                    {
+                        $selected = ($paralelo['paralelo_id'] == $this->input->post('paralelo_id')) ? ' selected="selected"' : "";
+                        echo '<option value="'.$carrera['paralelo_id'].'" '.$selected.'>'.$paralelo['paralelo_descripcion'].'</option>';
+                    } */
+                    ?>
+                </select>
+            </div>
+        </div>-->
+        <div class="col-md-12">
             <div id="horizontal">
                 <div id="fotodocente"></div>
                 <div id class="contieneimg">
@@ -78,7 +94,8 @@ function toggle(source) {
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-12">
+            <br>
             <label for=´materia_id" class="control-label">Materia:</label>
             <div class="form-group" id="elegirmateria">
                 <select name="materia_id" id="materia_id" class="form-control">
@@ -86,33 +103,8 @@ function toggle(source) {
                 </select>
             </div>
         </div>
-        <div class="col-md-4">
-            <label for=´horario_id" class="control-label">Grupo:</label>
-            <div class="form-group" id="elegirhorario">
-                <input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control">
-            </div>
-        </div>
     </div>
     <div class="col-md-3">
-        
-        <!--<div class="col-md-12">
-            <label for="paralelo_id" class="control-label">Paralelo:</label>
-            <div class="form-group">
-                <select name="paralelo_id" id="paralelo_id" class="form-control" >
-                    <?php 
-                    /*foreach($all_paralelo as $paralelo)
-                    {
-                        $selected = ($paralelo['paralelo_id'] == $this->input->post('paralelo_id')) ? ' selected="selected"' : "";
-                        echo '<option value="'.$carrera['paralelo_id'].'" '.$selected.'>'.$paralelo['paralelo_descripcion'].'</option>';
-                    } */
-                    ?>
-                </select>
-            </div>
-        </div>-->
-        
-    </div>
-    <div class="col-md-3">
-        
         <!--<div class="col-md-12">
             <label for=´aula_id" class="control-label">Aula:</label>
             <div class="form-group" id="elegiraula">
@@ -143,7 +135,12 @@ function toggle(source) {
                 </select>
             </div>
         </div>-->
-        
+        <div class="col-md-12">
+            <label for=´horario_id" class="control-label">Grupo:</label>
+            <div class="form-group" id="elegirhorario">
+                <input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control">
+            </div>
+        </div>
     </div>
     <div class="col-md-12">
         <!--<div class="col-md-12">-->
@@ -157,12 +154,12 @@ function toggle(source) {
                 <!--<label for=´horario_id" class="control-label">Horario:</label>-->
                 <!--<div class="form-group" id="elegirhorario">-->
                     <select name="horario_id" id="horario_id" class="form-control">
-                        <option value="">- PERIODO -</option>
+                        <option value="">- HORARIO -</option>
                         <?php 
-                        foreach($all_periodo as $periodo)
+                        foreach($all_horario as $horario)
                         {
-                            $selected = ($periodo['periodo_id'] == $this->input->post('periodo_id')) ? ' selected="selected"' : "";
-                            echo '<option value="'.$periodo['periodo_id'].'" '.$selected.'>'.$periodo['periodo_horainicio'].' - '.$periodo['periodo_horafin'].'</option>';
+                            $selected = ($horario['horario_id'] == $this->input->post('horario_id')) ? ' selected="selected"' : "";
+                            echo '<option value="'.$horario['horario_id'].'" '.$selected.'>'.$horario['horario_desde'].' - '.$horario['horario_hasta'].'</option>';
                         } 
                         ?>
                     </select>
