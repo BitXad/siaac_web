@@ -126,4 +126,23 @@ class Horario_model extends CI_Model
     {
         return $this->db->delete('horario',array('horario_id'=>$horario_id));
     }
+    
+    /* muestra todos los horarios Activos */
+    function get_all_horarios_activos()
+    {
+        $horario = $this->db->query("
+            SELECT
+                h.*
+
+            FROM
+                horario h
+
+            WHERE
+                1=1
+
+            ORDER BY h.horario_id asc
+        ")->result_array();
+
+        return $horario;
+    }
 }

@@ -234,6 +234,14 @@ class Inscripcion extends CI_Controller{
         
     }
         
+    function buscar_materias(){
+        
+        $nivel_id = $this->input->post('nivel_id');
+        $materias = $this->Inscripcion_model->get_materias($nivel_id);
+        echo json_encode($materias);
+        
+    }
+        
     function registrar_inscripcion(){
 
         $session_data = $this->session->userdata('logged_in');

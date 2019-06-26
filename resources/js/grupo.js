@@ -26,7 +26,7 @@ function get_planes_academicos(carrera_id){
                     var n = registros.length; //tamaño del arreglo de la consulta
                   //  if(n > 0){
                         html1 = "";
-                        html1 += "<select name='planacad_id' class='form-control' onchange='elegir_planiveles(this.value)' id='planacad_id' required>";
+                        html1 += "<select name='planacad_id' class='form-control' onchange='elegir_niveles(this.value)' id='planacad_id' required>";
                         html1 += "<option value=''>- PLAN ACADEMICO -</option>";
                         for (var i = 0; i < n ; i++){
                             html1 += "<option value='"+registros[i]['planacad_id']+"'>"+registros[i]['planacad_nombre']+"</option>";
@@ -45,7 +45,7 @@ function get_planes_academicos(carrera_id){
         error:function(respuesta){
            // alert("Algo salio mal...!!!");
            html = "";
-           $("#tablaresultados").html(html);
+           $("#elegirplanacad").html(html);
         },
         complete: function (jqXHR, textStatus) {
             document.getElementById('loader').style.display = 'none';
@@ -81,58 +81,22 @@ function get_foto_docente(docente_id){
                 var registros =  JSON.parse(respuesta);
                 var html = "";
                 if (registros != null){
-                    html += "<div id='horizontal'>";
-                    html += "<div id='contieneimg'>";
+                    //html += "<div id='horizontal'>";
+                    //html += "<div id='contieneimg'>";
                     var mimagen = "";
                     if(registros['docente_foto'] != null){
-                        mimagen += "<img src='"+base_url+"resources/images/docentes/thumb_"+registros["docente_foto"]+"' class='img img-circle />";
+                        mimagen += "<img src='"+base_url+"resources/images/docentes/thumb_"+registros["docente_foto"]+"' class='img img-circle' />";
                         //mimagen = "thumb_"+registros[i]['docente_foto'];
                     }else{
-                        mimagen += "<img src='"+base_url+"resources/images/docentes/thumb_default.jpg"+"' class='img img-circle />";
+                        mimagen += "<img src='"+base_url+"resources/images/docentes/thumb_default.jpg"+"' class='img img-circle' />";
                     }
-                    //html += if($p['producto_foto']){";
-                    //html += "?>";
-                    //html += "<a class='btn  btn-xs' style='padding: 0px;'>";
+                    
                     html += mimagen;
-                    //html += "<img src='"+base_url+"resources/images/docentes/thumb_"+registros[i]["docente_foto"]+"' class='img img-circle />";
-                    //html += "echo '<img src="'.site_url('/resources/images/productos/'.$mimagen).'" />';";
-                    //html += "?>";
-                    //html += "</a>";
-                    //}
-                    //html += "<?php }";
-                    //html += "else{";
-                    //html += "echo '<img style src="'.site_url('/resources/images/productos/thumb_default.jpg').'" />'; ";
-                    //html += "}";
-                    //html += "?>";
-                    html += "</div>";
-                    html += "</div>";
-                    /*html += "<b id='masgrande'><?php echo $p['producto_nombre']; ?></b><br>";
-                    html += "<?php echo $p['producto_unidad']; ?> | <?php echo $p['producto_marca']; ?> | <?php echo $p['producto_industria']; ?>";
-                    html += "</div>";
-                    html += "</div>";*/
                     
+                    //html += "</div>";
+                    //html += "</div>";
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    /*
-                    var n = registros.length; //tamaño del arreglo de la consulta
-                  //  if(n > 0){
-                        html1 = "";
-                        html1 += "<select name='planacad_id' class='form-control' onchange='elegir_planiveles(this.value)' id='planacad_id' required>";
-                        html1 += "<option value=''>- PLAN ACADEMICO -</option>";
-                        for (var i = 0; i < n ; i++){
-                            html1 += "<option value='"+registros[i]['planacad_id']+"'>"+registros[i]['planacad_nombre']+"</option>";
-                        }
-                        html1 += "</select>";*/
                         $("#fotodocente").html(html);
-                        /*$("#imprimirplanacademico").html("");
-                        $("#dibujarniveles").html("");
-                        new_planacademico(carrera_id);*/
-                   // document.getElementById('loader').style.display = 'none';
             }
 
             
@@ -146,62 +110,109 @@ function get_foto_docente(docente_id){
         
     });   
     }else{
-        var htmln = "";
-        htmln += "<select name='planacad_id' class='form-control' id='planacad_id' required>";
-        htmln += "<option value=''>- PLAN ACADEMICO -</option>";
-        htmln += "</select>";
+        var mimagen = "";
+        mimagen += "<img src='"+base_url+"resources/images/docentes/thumb_default.jpg"+"' class='img img-circle' />";
         
-        $("#elegirplanacad").html(htmln);
+        $("#fotodocente").html(mimagen);
         
     }
 }
 
+/* Elegir NIVELES de plan academico */
+function elegir_niveles(planacad_id){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'grupo/get_niveles';
+    document.getElementById('loader').style.display = 'block';
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{planacad_id:planacad_id},
+           success:function(respuesta){
+               
+                var registros =  JSON.parse(respuesta);
+                var html1 = "";
+                if (registros != null){
+                    var n = registros.length; //tamaño del arreglo de la consulta
+                        html1 = "";
+                        html1 += "<select name='nivel_id' class='form-control' onchange='elegir_materias(this.value)' id='nivel_id' required>";
+                        html1 += "<option value=''>- NIVEL -</option>";
+                        for (var i = 0; i < n ; i++){
+                            html1 += "<option value='"+registros[i]['nivel_id']+"'>"+registros[i]['nivel_descripcion']+"</option>";
+                        }
+                        html1 += "</select>";
+                        $("#elegirnivel").html(html1);
+                    document.getElementById('loader').style.display = 'none';
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Elegir planes academicos */
-function elegir_planiveles(planacad_id){
-    if(planacad_id>0){
-        var base_url = document.getElementById('base_url').value;
-        var html = "";
-        html += "<div class='col-md-6 no-print'>";
-        html += "<div class='form-group'>";
-        html += "<a class='btn btn-success' data-toggle='modal' onclick='getnombreplan()' data-target='#modalnuevonivel' title='Nuevo Nivel'>+ Nuevo Nivel</a>";
-        html += "</div>";
-        html += "</div>";
-        
-        //var html1 = "<a href='"+base_url+"plan_academico/print_planacademico/"+planacad_id+"' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
-        var html1 = "<a href='javascript:window.print(); void 0;' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
-        //$('#bnewnivel').attr("disabled", false);
-        //$("#nuevonivel").css('visibility', 'visible');
-        $("#imprimirplanacademico").html(html1);
-        $("#nuevonivel").html(html);
-
-        if(planacad_id != undefined){
-            dibujar_nivel(planacad_id);
+            
+            document.getElementById('loader').style.display = 'none';
+        },
+        error:function(respuesta){
+           html = "";
+           $("#elegirnivel").html(html);
+        },
+        complete: function (jqXHR, textStatus) {
+            document.getElementById('loader').style.display = 'none';
         }
-    }else{
-        //$('#bnewnivel').attr("disabled", true);
-        //$("#nuevonivel").css('visibility', 'hidden');
-        $("#imprimirplanacademico").html("");
-        $("#nuevonivel").html("");
-        $("#dibujarniveles").html("");
-    }
-
+        
+    });
 }
+
+/* Elegir NIVELES de plan academico */
+function elegir_materias(nivel_id){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'grupo/get_materias';
+    document.getElementById('loader').style.display = 'block';
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{nivel_id:nivel_id},
+           success:function(respuesta){
+               
+                var registros =  JSON.parse(respuesta);
+                var html1 = "";
+                if (registros != null){
+                    var n = registros.length; //tamaño del arreglo de la consulta
+                        html1 = "";
+                        html1 += "<select name='materia_id' class='form-control' onchange='mostrar_grupos(this.value)' id='materia_id' required>";
+                        html1 += "<option value=''>- MATERIA -</option>";
+                        for (var i = 0; i < n ; i++){
+                            html1 += "<option value='"+registros[i]['materia_id']+"'>"+registros[i]['materia_nombre']+"</option>";
+                        }
+                        html1 += "</select>";
+                        $("#elegirmateria").html(html1);
+                    document.getElementById('loader').style.display = 'none';
+            }
+
+            
+            document.getElementById('loader').style.display = 'none';
+        },
+        error:function(respuesta){
+           html = "";
+           $("#elegirmateria").html(html);
+        },
+        complete: function (jqXHR, textStatus) {
+            document.getElementById('loader').style.display = 'none';
+        }
+        
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

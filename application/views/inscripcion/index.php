@@ -24,7 +24,7 @@
                     </select>
                     <button class="btn btn-warning btn-sm" onclick="verificar_Inscripciones()"><span class="fa fa-binoculars"></span> Verificar </button>
                     <a href="<?php echo site_url('venta/ventas'); ?>" class="btn btn-success btn-sm"><span class="fa fa-cart-arrow-down"></span> Ventas</a>
-                    <a href="<?php echo site_url('inscripcion/add'); ?>" class="btn btn-info btn-sm"> <span class="fa fa-address-card"></span> Inscribir</a> 
+                    <a href="<?php echo site_url('inscripcion/inscribir/0'); ?>" class="btn btn-info btn-sm"> <span class="fa fa-address-card"></span> Inscribir</a> 
                 </div>
 </div>
 

@@ -70,6 +70,7 @@ function buscarestudiante(parametro){
         });
 }
 
+
 function seleccionar_carrera(){
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/buscar_carrera";
@@ -81,6 +82,8 @@ function seleccionar_carrera(){
             type:"POST",
             data:{carrera_id:carrera_id},
             success:function(respuesta){
+                html = " ";
+                $("#tabla_materia").html(html);
                 
                 var registros = JSON.parse(respuesta);
                 if (registros != null){
@@ -136,8 +139,51 @@ function seleccionar_carrera(){
 
             }, 
         }); 
-
+        
+  
     calcular(); 
+    
+  
+}
+
+function mostrar_materias(){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+"inscripcion/buscar_materias";
+    var nivel_id = document.getElementById('nivel_id').value;
+    
+  //  alert(nivel_id);
+        $.ajax({
+            url:controlador,
+            type:"POST",
+            data:{nivel_id:nivel_id},
+            success:function(respuesta){
+                html = " ";
+                
+                var registros = JSON.parse(respuesta);
+                if (registros != null){
+                   
+                    for (j = 0; j<Number(registros.length) ; j++){
+                        html += "<tr>";
+                        html += "<td style='padding: 0;'>"+(j+1)+"</td>";
+                        html += "<td style='padding: 0;'>"+registros[j]["materia_nombre"]+"</td>";
+                        html += "<td style='padding: 0;'>"+registros[j].materia_codigo+"</td>";
+                        html += "<td style='padding: 0;'><select >";
+                        html += "<option value='0'>- GRUPO -</option>";
+                        html += "<option value='1'>Grupo 1</option>";
+                        
+                        html += "</select></td>";
+                        html += "<td align='center' style='padding: 0;'><input type='checkbox' name='materias' id='materias' value='1' checked/></td>";
+                        html += "</tr>";<input type='checkbox' name='materias' id='materias' value='1' checked/></
+                    }
+                              
+                $("#tabla_materia").html(html);
+                    
+                }
+            },
+            error:function(respuesta){
+
+            }, 
+        }); 
 }
 
 
@@ -153,7 +199,6 @@ function calcular(){
     
     $("#total_final").val(Number(calculo_total).toFixed(2));
     
-    //var total_final = document.getElementById('total_final').value;
     var total_final = document.getElementById('total_final').value;
     
     var descuento = document.getElementById('descuento').value;
@@ -193,6 +238,9 @@ function registrar_inscripcion(){
 
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/registrar_inscripcion";
+
+   // var materias = document.getElementByname('materias');
+   
 
     var ban = 0;
     var men = "ERROR: ";
