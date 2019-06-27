@@ -81,7 +81,7 @@ function buscar(e,opcion) {
 if (tecla==13){ 
         if (opcion==1){   //si la pulsacion proviene del codigo
             var carrera = document.getElementById('carrera').value;
-            sql = "c.carrera_nombre='"+carrera+"' ";
+            sql = "c.carrera_nombre like '%"+carrera+"%' ";
             buscargrupos(sql);
         }
   

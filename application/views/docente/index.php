@@ -11,7 +11,7 @@
                     <a href="<?php echo site_url('docente/add'); ?>" class="btn btn-success btn-sm">Registrar Docente</a> 
                 </div>
             </div>
-            <div class="box-body">
+            <div class="box-body table-responsive">
                 <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>#</th>
