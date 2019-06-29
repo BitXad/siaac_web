@@ -420,7 +420,7 @@ function registrar_grupo(){
                         resetearcamposgrupo(2);
                     }else if(registros == "siaula"){
                         alert("El Horario Seleccionado ya se encuentra ocupado, por favor revise sus datos.");
-                    }else if(registros == "isdoc"){
+                    }else if(registros == "sidoc"){
                         alert("El Docente Seleccionado ya tiene hora y dia ocupado, por favor revise sus datos.");
                     }
                 }

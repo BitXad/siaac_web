@@ -126,12 +126,13 @@ class Grupo_model extends CI_Model
         $horario = $this->db->query("
             SELECT
                 count(g.grupo_id) as res
+                
             FROM
-                grupo g
+                grupo g, horario h
             where
                 g.docente_id = $docente_id
-                and g.dia_id = $dia_id
-                and g.periodo_id = $periodo_id
+                and h.dia_id = $dia_id
+                and h.periodo_id = $periodo_id
         ")->row_array();
 
         return $horario;

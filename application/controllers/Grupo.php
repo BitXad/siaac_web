@@ -323,7 +323,7 @@ class Grupo extends CI_Controller{
                     if($hayregistrado['res'] >0){
                         $yaregistrado = true;
                     }
-                    $haydoc_dia_per = existe_docentedia_periodo($docente_id, $dia, $periodo);
+                    $haydoc_dia_per = $this->Grupo_model->existe_docentedia_periodo($docente_id, $dia, $periodo);
                     if($haydoc_dia_per['res'] >0){
                         $yaregistrado = true;
                         $yaregistradodoc = true;
