@@ -145,4 +145,22 @@ class Horario_model extends CI_Model
 
         return $horario;
     }
+    /*  */
+    function existe_horario($aula, $periodo, $dia)
+    {
+        $horario = $this->db->query("
+            SELECT
+                count(h.horario_id) as res
+                
+            FROM
+                horario h
+            where
+                h.aula_id = $aula
+                and h.periodo_id = $periodo
+                and h.dia_id = $dia
+        ")->row_array();
+
+        return $horario;
+    }
+
 }
