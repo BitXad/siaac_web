@@ -313,6 +313,7 @@ class Grupo extends CI_Controller{
             
             $estado_id = 1;
             $yaregistrado = false;
+            $yaregistradodoc = false;
             for ($index = 1; $index < 8; $index++) {
                 $aula    = $this->input->post('aula'.$index);
                 $periodo = $this->input->post('periodo'.$index);
@@ -321,6 +322,11 @@ class Grupo extends CI_Controller{
                     $hayregistrado = $this->Horario_model->existe_horario($aula, $periodo, $dia);
                     if($hayregistrado['res'] >0){
                         $yaregistrado = true;
+                    }
+                    $haydoc_dia_per = existe_docentedia_periodo($docente_id, $dia, $periodo);
+                    if($haydoc_dia_per['res'] >0){
+                        $yaregistrado = true;
+                        $yaregistradodoc = true;
                     }
                 }
             }
@@ -367,7 +373,11 @@ class Grupo extends CI_Controller{
             }*/
                 echo json_encode("ok");
             }else{
-                echo json_encode(null);
+                if($yaregistradodoc == true){
+                    echo json_encode("sidoc");
+                }else{
+                    echo json_encode("siaula");
+                }
             }
             
         }

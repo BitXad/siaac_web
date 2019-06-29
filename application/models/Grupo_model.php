@@ -120,4 +120,21 @@ class Grupo_model extends CI_Model
 
         return $grupo;
     }
+    /* para ver si ya hay registrado dia->periodo y aula */
+    function existe_docentedia_periodo($docente_id, $dia_id, $periodo_id)
+    {
+        $horario = $this->db->query("
+            SELECT
+                count(g.grupo_id) as res
+            FROM
+                grupo g
+            where
+                g.docente_id = $docente_id
+                and g.dia_id = $dia_id
+                and g.periodo_id = $periodo_id
+        ")->row_array();
+
+        return $horario;
+    }
+    
 }

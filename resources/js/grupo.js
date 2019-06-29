@@ -415,12 +415,15 @@ function registrar_grupo(){
                 var registros =  JSON.parse(respuesta);
                 
                 if (registros != null){
-                    getgrupo_docente(docente_id);
-                    resetearcamposgrupo(2);
-                }else{
-                    alert("El Horario Seleccionado ya se encuentra ocupado, por favor revise sus datos.");
+                    if(registros == "ok"){
+                        getgrupo_docente(docente_id);
+                        resetearcamposgrupo(2);
+                    }else if(registros == "siaula"){
+                        alert("El Horario Seleccionado ya se encuentra ocupado, por favor revise sus datos.");
+                    }else if(registros == "isdoc"){
+                        alert("El Docente Seleccionado ya tiene hora y dia ocupado, por favor revise sus datos.");
+                    }
                 }
-
             
             document.getElementById('loader').style.display = 'none';
         },

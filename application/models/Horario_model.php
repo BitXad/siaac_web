@@ -145,7 +145,7 @@ class Horario_model extends CI_Model
 
         return $horario;
     }
-    /*  */
+    /* para ver si ya hay registrado dia->periodo y aula */
     function existe_horario($aula, $periodo, $dia)
     {
         $horario = $this->db->query("
