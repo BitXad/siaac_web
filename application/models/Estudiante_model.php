@@ -74,6 +74,28 @@ class Estudiante_model extends CI_Model
 
         return $estudiante;
     }
+    function get_estudiantes($parametro)
+    {
+        $estudiante = $this->db->query("
+            SELECT
+                es.*, e.*, ec.*, g.*
+
+            FROM
+                estudiante es, estado e, estado_civil ec, genero g
+
+            WHERE
+                es.estado_id=e.estado_id
+                and es.genero_id=g.genero_id
+                and es.estadocivil_id=ec.estadocivil_id
+                and es.estudiante_nombre like '%".$parametro."%' 
+                or es.estudiante_apellidos like '%".$parametro."%' 
+
+            ORDER BY `estudiante_id` DESC
+
+        ")->result_array();
+
+        return $estudiante;
+    }
         
     /*
      * Get all estudiante

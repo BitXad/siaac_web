@@ -16,18 +16,19 @@ class Estudiante extends CI_Controller{
      */
     function index()
     {
-        $params['limit'] = RECORDS_PER_PAGE; 
-        $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
         
-        $config = $this->config->item('pagination');
-        $config['base_url'] = site_url('estudiante/index?');
-        $config['total_rows'] = $this->Estudiante_model->get_all_estudiante_count();
-        $this->pagination->initialize($config);
-
-        $data['estudiante'] = $this->Estudiante_model->get_all_estudiante($params);
+        
+        $data['estudiante'] = $this->Estudiante_model->get_all_estudiante();
         
         $data['_view'] = 'estudiante/index';
         $this->load->view('layouts/main',$data);
+    }
+    function buscar_estudiante(){
+        
+        $parametro = $this->input->post('parametro');
+        $estudiantes = $this->Estudiante_model->get_estudiantes($parametro);
+        echo json_encode($estudiantes);
+        
     }
 
     /*

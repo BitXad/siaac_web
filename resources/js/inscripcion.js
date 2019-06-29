@@ -173,7 +173,8 @@ function mostrar_materias(){
                         
                         html += "</select></td>";
                         html += "<td align='center' style='padding: 0;'><input type='checkbox' name='materias' id='materias' value='1' checked/></td>";
-                        html += "</tr>";<input type='checkbox' name='materias' id='materias' value='1' checked/></
+                        html += "</tr>";
+                        
                     }
                               
                 $("#tabla_materia").html(html);

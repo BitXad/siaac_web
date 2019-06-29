@@ -1,6 +1,21 @@
+<script type="text/javascript">
+        $(document).ready(function () {
+            (function ($) {
+                $('#nombre').keyup(function () {
+                    var rex = new RegExp($(this).val(), 'i');
+                    $('.buscar tr').hide();
+                    $('.buscar tr').filter(function () {
+                        return rex.test($(this).text());
+                    }).show();
+                })
+            }(jQuery));
+        });
+</script>
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/alejo.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
+<script src="<?php echo base_url('resources/js/estudiante.js'); ?>" type="text/javascript"></script>
+<input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
@@ -8,9 +23,16 @@
                 <h3 class="box-title">Estudiante</h3>
             	<div class="box-tools">
                     <a href="<?php echo site_url('estudiante/add'); ?>" class="btn btn-success btn-sm">Registrar Estudiante</a> 
-                </div>
+                </div>  
             </div>
-            <div class="box-body">
+            <div class="input-group">
+        <span class="input-group-addon">Buscar</span>
+            
+            <div class="form-group">
+                <input type="text" name="nombre" class="form-control" id="nombre" autocomplete="off" onkeypress="validar(event,1)"  placeholder="Nombre, Apellidos del Estudiante" />
+            </div>
+        </div>
+            <div class="box-body table-responsive">
                 <table class="table table-striped" id="mitabla">
                     <tr>
 						<th>#</th>
@@ -26,10 +48,12 @@
 						<th>Estado</th>
 						<th></th>
                     </tr>
+                    <tbody class="buscar" id="tablaestudiantes">
                     <?php $cont = 0;
                     $i=0;
                     foreach($estudiante as $e){ 
                         $cont = $cont+1; $i+1; ?>
+                    
                     <tr>
 						<td><?php echo $cont; ?></td>
 						<td>
@@ -147,11 +171,11 @@
                             <!--<a href="<?php echo site_url('estudiante/remove/'.$e['estudiante_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->
                         </td>
                     </tr>
+                
                     <?php $i++; } ?>
+                    </tbody>
                 </table>
-                <div class="pull-right">
-                    <?php echo $this->pagination->create_links(); ?>                    
-                </div>                
+                               
             </div>
         </div>
     </div>
