@@ -5,11 +5,28 @@
  */
  
 class Grupo extends CI_Controller{
+    private $session_data = "";
     function __construct()
     {
         parent::__construct();
         $this->load->model('Grupo_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of grupo
@@ -34,7 +51,7 @@ class Grupo extends CI_Controller{
         $this->load->model('Dia_model');
         $data['all_dia'] = $this->Dia_model->get_all_dias_activos();
         
-        $data['grupo'] = $this->Grupo_model->get_all_grupo();
+        //$data['grupo'] = $this->Grupo_model->get_all_grupo();
         
         $data['_view'] = 'grupo/index';
         $this->load->view('layouts/main',$data);
@@ -238,5 +255,136 @@ class Grupo extends CI_Controller{
         }
         
     }
+    /****obtener grupos de DOCENTE ****/
+    function get_grupodocente()
+    {
+        if ($this->input->is_ajax_request())
+        {
+            $docente_id = $this->input->post('docente_id');
+            if ($docente_id != ""){
+                $datos = $this->Grupo_model->get_allgrupo_docente($docente_id);
+                echo json_encode($datos);
+            }
+            else echo json_encode(null);
+        }
+        else
+        {
+            show_404();
+        }
+        
+    }
     
+    /**** Registrar nuevo grupo docente ****/
+    function registrar_newgrupodocente()
+    {
+        if ($this->input->is_ajax_request())
+        {
+            $carrera_id   = $this->input->post('carrera_id');
+            $planacad_id  = $this->input->post('planacad_id');
+            $nivel_id     = $this->input->post('nivel_id');
+            $docente_id   = $this->input->post('docente_id');
+            $materia_id   = $this->input->post('materia_id');
+            $grupo_nombre = $this->input->post('grupo_nombre');
+            /*$dia1 = $this->input->post('dia1');
+            $dia2 = $this->input->post('dia2');
+            $dia3 = $this->input->post('dia3');
+            $dia4 = $this->input->post('dia4');
+            $dia5 = $this->input->post('dia5');
+            $dia6 = $this->input->post('dia6');
+            $dia7 = $this->input->post('dia7');
+            $periodo1 = $this->input->post('periodo1');
+            $periodo2 = $this->input->post('periodo2');
+            $periodo3 = $this->input->post('periodo3');
+            $periodo4 = $this->input->post('periodo4');
+            $periodo5 = $this->input->post('periodo5');
+            $periodo6 = $this->input->post('periodo6');
+            $periodo7 = $this->input->post('periodo7');
+            $aula1 = $this->input->post('aula1');
+            $aula2 = $this->input->post('aula2');
+            $aula3 = $this->input->post('aula3');
+            $aula4 = $this->input->post('aula4');
+            $aula5 = $this->input->post('aula5');
+            $aula6 = $this->input->post('aula6');
+            $aula7 = $this->input->post('aula7');*/
+            $this->load->model('Horario_model');
+            
+            $gestion_id = $this->session_data['gestion_id'];
+            $usuario_id = $this->session_data['usuario_id'];
+            
+            $estado_id = 1;
+            $yaregistrado = false;
+            $yaregistradodoc = false;
+            for ($index = 1; $index < 8; $index++) {
+                $aula    = $this->input->post('aula'.$index);
+                $periodo = $this->input->post('periodo'.$index);
+                $dia     = $this->input->post('dia'.$index);
+                if(!empty($aula) && !empty($periodo) && !empty($dia)){
+                    $hayregistrado = $this->Horario_model->existe_horario($aula, $periodo, $dia);
+                    if($hayregistrado['res'] >0){
+                        $yaregistrado = true;
+                    }
+                    $haydoc_dia_per = $this->Grupo_model->existe_docentedia_periodo($docente_id, $dia, $periodo);
+                    if($haydoc_dia_per['res'] >0){
+                        $yaregistrado = true;
+                        $yaregistradodoc = true;
+                    }
+                }
+            }
+            if($yaregistrado == false){
+                for ($i = 1; $i < 8; $i++) {
+                    if($this->input->post('dia'.$i) != ""){
+                        $params = array(
+                            'estado_id'  => $estado_id,
+                            'periodo_id' => $this->input->post('periodo'.$i),
+                            'dia_id'     => $this->input->post('dia'.$i),
+                            'aula_id'    => $this->input->post('aula'.$i),
+                        );
+                        $horario_id = $this->Horario_model->add_horario($params);
+                        $paramsg = array(
+                            'horario_id' => $horario_id,
+                            'docente_id' => $docente_id,
+                            'gestion_id' => $gestion_id,
+                            'usuario_id' => $usuario_id,
+                            'aula_id' => $this->input->post('aula'.$i),
+                            'materia_id' => $materia_id,
+                            'grupo_nombre' => $grupo_nombre,
+                        );
+                        $grupo_id = $this->Grupo_model->add_grupo($paramsg);
+                    }
+                }
+            /*if($dia1 != ""){
+                $params = array(
+                    'estado_id'  => $estado_id,
+                    'periodo_id' => $periodo1,
+                    'dia_id'     => $dia1,
+                    'aula_id'    => $aula1,
+                );
+                $horario_id = $this->Horario_model->add_horario($params);
+                $paramsg = array(
+                    'horario_id' => $horario_id,
+                    'docente_id' => $docente_id,
+                    'gestion_id' => $gestion_id,
+                    'usuario_id' => $usuario_id,
+                    'aula_id' => $aula1,
+                    'materia_id' => $materia_id,
+                    'grupo_nombre' => $grupo_nombre,
+                );
+                $grupo_id = $this->Grupo_model->add_grupo($paramsg);
+            }*/
+                echo json_encode("ok");
+            }else{
+                if($yaregistradodoc == true){
+                    echo json_encode("sidoc");
+                }else{
+                    echo json_encode("siaula");
+                }
+            }
+            
+        }
+        else
+        {
+            show_404();
+        }
+        
+    }
 }

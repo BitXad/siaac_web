@@ -93,4 +93,49 @@ class Grupo_model extends CI_Model
     {
         return $this->db->delete('grupo',array('grupo_id'=>$grupo_id));
     }
+    /*
+     * Get all grupos de docente
+     */
+    function get_allgrupo_docente($docente_id)
+    {
+        $grupo = $this->db->query("
+            SELECT
+                g.grupo_nombre, p.periodo_horainicio, p.periodo_horafin,
+                di.dia_nombre, a.aula_nombre, concat(ge.gestion_semestre, ' ', ge.gestion_descripcion) as descripcion_gestion,
+                concat(d.docente_apellidos, ' ', d.docente_nombre) as nombre_docente, m.materia_nombre, u.usuario_nombre
+            FROM
+                grupo g
+            LEFT JOIN horario h  on h.horario_id = g.horario_id
+            LEFT JOIN periodo p  on p.periodo_id = h.horario_id
+            LEFT JOIN dia     di on di.dia_id = h.dia_id
+            LEFT JOIN aula    a  on a.aula_id = h.aula_id
+            LEFT JOIN docente d  on d.docente_id = g.docente_id
+            LEFT JOIN gestion ge on ge.gestion_id = g.gestion_id
+            LEFT JOIN usuario u  on u.usuario_id = g.usuario_id
+            LEFT JOIN materia m on m.materia_id = g.materia_id
+            where
+                d.docente_id = $docente_id
+            
+        ")->result_array();
+
+        return $grupo;
+    }
+    /* para ver si ya hay registrado dia->periodo y aula */
+    function existe_docentedia_periodo($docente_id, $dia_id, $periodo_id)
+    {
+        $horario = $this->db->query("
+            SELECT
+                count(g.grupo_id) as res
+                
+            FROM
+                grupo g, horario h
+            where
+                g.docente_id = $docente_id
+                and h.dia_id = $dia_id
+                and h.periodo_id = $periodo_id
+        ")->row_array();
+
+        return $horario;
+    }
+    
 }

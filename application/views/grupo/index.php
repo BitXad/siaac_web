@@ -1,4 +1,5 @@
 <script src="<?php echo base_url('resources/js/grupo.js'); ?>" type="text/javascript"></script>
+<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <style type="text/css">
     #contieneimg{
@@ -9,19 +10,51 @@
         white-space: nowrap;
         border-style: none !important;
     }
-    #masg{
+    /*#masg{
         font-size: 12px;
     }
     td div div{
         
-    }
+    }*/
 </style>
 <script type="text/javascript">
 function toggle(source) {
   checkboxes = document.getElementsByClassName('checkbox');
   for(var i=0, n=checkboxes.length;i<n;i++) {
     checkboxes[i].checked = source.checked;
+    
   }
+    if(checkboxes[0].checked == true){
+        $(".periodoselect").each(function(){
+        	    $(this).prop('disabled', false)
+        	});
+        
+        $(".aulaselect").each(function(){
+        	    $(this).prop('disabled', false)
+        	});
+        //$('#horario_id').prop('disabled', false);
+    }else{
+        $(".periodoselect").each(function(){
+        	    $(this).prop('disabled', true)
+        	});
+        $(".aulaselect").each(function(){
+        	    $(this).prop('disabled', true)
+        	});
+        //$('#horario_id').prop('disabled', true);
+    }
+}
+
+function sel_individual(source, dia_id) {
+    estecheck = document.getElementById(dia_id); //.checked
+    estecheck.checked = source.checked;
+  
+    if(estecheck.checked == true){
+        $('#periodo_id'+dia_id).prop('disabled', false);
+        $('#aula_id'+dia_id).prop('disabled', false);
+    }else{
+         $('#periodo_id'+dia_id).prop('disabled', true);
+        $('#aula_id'+dia_id).prop('disabled', true);
+    }
 }
 </script>
 <div class="box-header" style="padding-left: 0px">
@@ -61,10 +94,10 @@ function toggle(source) {
         <div class="col-md-4">
             <div id="horizontal">
                 <div id="fotodocente"></div>
-                <div id class="contieneimg">
+                <div id="contieneimg">
                     <label for="docente_id" class="control-label">Docente:</label>
                     <div style="display: inline">
-                        <select name="docente_id" id="docente_id" class="form-control" onchange="get_foto_docente(this.value)" >
+                        <select name="docente_id" id="docente_id" class="form-control" onchange="get_foto_docente(this.value); getgrupo_docente(this.value);" style="width: 200px" >
                             <option value="">- DOCENTE -</option>
                             <?php 
                             foreach($all_docente as $docente)
@@ -93,70 +126,18 @@ function toggle(source) {
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        
-        <!--<div class="col-md-12">
-            <label for="paralelo_id" class="control-label">Paralelo:</label>
-            <div class="form-group">
-                <select name="paralelo_id" id="paralelo_id" class="form-control" >
-                    <?php 
-                    /*foreach($all_paralelo as $paralelo)
-                    {
-                        $selected = ($paralelo['paralelo_id'] == $this->input->post('paralelo_id')) ? ' selected="selected"' : "";
-                        echo '<option value="'.$carrera['paralelo_id'].'" '.$selected.'>'.$paralelo['paralelo_descripcion'].'</option>';
-                    } */
-                    ?>
-                </select>
-            </div>
-        </div>-->
-        
-    </div>
-    <div class="col-md-3">
-        
-        <!--<div class="col-md-12">
-            <label for=´aula_id" class="control-label">Aula:</label>
-            <div class="form-group" id="elegiraula">
-                <select name="aula_id" id="aula_id" class="form-control">
-                    <option value="">- AULA -</option>
-                    <?php 
-                    /*foreach($all_aula as $aula)
-                    {
-                        $selected = ($aula['aula_id'] == $this->input->post('aula_id')) ? ' selected="selected"' : "";
-                        echo '<option value="'.$aula['aula_id'].'" '.$selected.'>'.$aula['aula_nombre'].'</option>';
-                    } */
-                    ?>
-                </select>
-            </div>
-        </div>-->
-        <!--<div class="col-md-12">
-            <label for=´horario_id" class="control-label">Horario:</label>
-            <div class="form-group" id="elegirhorario">
-                <select name="horario_id" id="horario_id" class="form-control">
-                    <option value="">- HORARIO -</option>
-                    <?php 
-                    /*foreach($all_horario as $horario)
-                    {
-                        $selected = ($horario['horario_id'] == $this->input->post('horario_id')) ? ' selected="selected"' : "";
-                        echo '<option value="'.$horario['horario_id'].'" '.$selected.'>'.$horario['horario_desde'].' - '.$horario['horario_hasta'].'</option>';
-                    } */
-                    ?>
-                </select>
-            </div>
-        </div>-->
-        
-    </div>
     <div class="col-md-12">
         <!--<div class="col-md-12">-->
             <label for="dias_visita" class="control-label"></label><input type="checkbox" id="select_all" onClick="toggle(this)" /> Todos
-            <div id="horizontal" class="form-group table-responsive">
+            <div  class="form-group table-responsive">
                 <?php 
                 foreach($all_dia as $dia)
                 { ?>
                 <div class="col-md-2">
-                <label><?php echo $dia['dia_nombre']; ?><input class="checkbox" type="checkbox" name="<?php echo $dia['dia_nombre']; ?>" value="1" id="<?php echo $dia['dia_nombre']; ?>" /></label>&nbsp;&nbsp;&nbsp;
+                <label><?php echo $dia['dia_nombre']; ?><input class="checkbox checkdia" type="checkbox" name="<?php echo $dia['dia_id']; ?>" value="1" id="<?php echo $dia['dia_id']; ?>" onClick="sel_individual(this, <?php echo $dia['dia_id']; ?>)" /></label>&nbsp;&nbsp;&nbsp;
                 <!--<label for=´horario_id" class="control-label">Horario:</label>-->
                 <!--<div class="form-group" id="elegirhorario">-->
-                    <select name="horario_id" id="horario_id" class="form-control">
+                    <select name="periodo_id<?php echo $dia['dia_id']; ?>" id="periodo_id<?php echo $dia['dia_id']; ?>" class="form-control periodoselect" disabled>
                         <option value="">- PERIODO -</option>
                         <?php 
                         foreach($all_periodo as $periodo)
@@ -166,7 +147,7 @@ function toggle(source) {
                         } 
                         ?>
                     </select>
-                    <select name="aula_id" id="aula_id" class="form-control">
+                <select name="aula_id<?php echo $dia['dia_id']; ?>" id="aula_id<?php echo $dia['dia_id']; ?>" class="form-control aulaselect" disabled>
                         <option value="">- AULA -</option>
                         <?php 
                         foreach($all_aula as $aula)
@@ -184,6 +165,18 @@ function toggle(source) {
                 </div>
         <!--</div>-->
     </div>
+    <div class="col-md-12">
+        <div class="col-md-2">
+            <div class="box-tools">
+                <a class="btn btn-success btn-sm" onclick="registrar_grupo()" ><span class="fa fa-check"></span> Registrar Grupo</a>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="box-tools">
+                <a class="btn btn-danger btn-sm" onclick="resetearcamposgrupo(1)"><span class="fa fa-times"></span> Cancelar</a>
+            </div>
+        </div>
+    </div>
     
     <div class="row" id='loader' style='display:none; text-align: center'>
         <img src="<?php echo base_url("resources/images/loader.gif"); ?>"  >
@@ -197,47 +190,38 @@ function toggle(source) {
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Grupo Listing</h3>
-            	<div class="box-tools">
-                    <a href="<?php echo site_url('grupo/add'); ?>" class="btn btn-success btn-sm">Add</a> 
-                </div>
-            </div>
-            <div class="box-body">
-                <table class="table table-striped">
+            <!--<div class="box-header">
+                <h3 class="box-title" id="docente_grupo"></h3>
+            </div>-->
+            <div class="box-body table-responsive">
+                <table class="table table-striped" id="mitabla">
                     <tr>
-						<th>Grupo Id</th>
-						<th>Horario Id</th>
-						<th>Docente Id</th>
-						<th>Gestion Id</th>
-						<th>Usuario Id</th>
-						<th>Aula Id</th>
-						<th>Materia Id</th>
-						<th>Grupo Nombre</th>
-						<th>Grupo Descripcion</th>
-						<th>Grupo Horanicio</th>
-						<th>Grupo Horafin</th>
-						<th>Actions</th>
+                        <th>Materia</th>
+                        <th>Grupo</th>
+                        <th>Horario</th>
+                        <th>Aula</th>
+                        <th>Docente</th>
+                        <th>Gestion</th>
+                        <th>Usuario</th>
+                        <th></th>
                     </tr>
-                    <?php foreach($grupo as $g){ ?>
+                    <tbody id="mostrarhorariodocente">
+                    <?php /*foreach($grupo as $g){ ?>
                     <tr>
-						<td><?php echo $g['grupo_id']; ?></td>
-						<td><?php echo $g['horario_id']; ?></td>
-						<td><?php echo $g['docente_id']; ?></td>
-						<td><?php echo $g['gestion_id']; ?></td>
-						<td><?php echo $g['usuario_id']; ?></td>
-						<td><?php echo $g['aula_id']; ?></td>
-						<td><?php echo $g['materia_id']; ?></td>
-						<td><?php echo $g['grupo_nombre']; ?></td>
-						<td><?php echo $g['grupo_descripcion']; ?></td>
-						<td><?php echo $g['grupo_horanicio']; ?></td>
-						<td><?php echo $g['grupo_horafin']; ?></td>
-						<td>
-                            <a href="<?php echo site_url('grupo/edit/'.$g['grupo_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-                            <a href="<?php echo site_url('grupo/remove/'.$g['grupo_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                        <td><?php echo $g['grupo_nombre']; ?></td>
+                        <td><?php echo $g['horario_id']; ?></td>
+                        <td><?php echo $g['docente_id']; ?></td>
+                        <td><?php echo $g['gestion_id']; ?></td>
+                        <td><?php echo $g['usuario_id']; ?></td>
+                        <td><?php echo $g['aula_id']; ?></td>
+                        <td><?php echo $g['materia_id']; ?></td>
+                        <td>
+                            <a href="<?php echo site_url('grupo/edit/'.$g['grupo_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> 
+                            <a href="<?php echo site_url('grupo/remove/'.$g['grupo_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a>
                         </td>
                     </tr>
-                    <?php } ?>
+                    <?php } */ ?>
+                    </tbody>
                 </table>
                 
             </div>
