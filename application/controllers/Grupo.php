@@ -109,50 +109,86 @@ class Grupo extends CI_Controller{
      * Editing a grupo
      */
     function edit($grupo_id)
-    {   
+    {
         // check if the grupo exists before trying to edit it
-        $data['grupo'] = $this->Grupo_model->get_grupo($grupo_id);
+        $data['grupo'] = $this->Grupo_model->get_all_thisgrupo($grupo_id);
         
         if(isset($data['grupo']['grupo_id']))
         {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'horario_id' => $this->input->post('horario_id'),
-					'docente_id' => $this->input->post('docente_id'),
-					'gestion_id' => $this->input->post('gestion_id'),
-					'usuario_id' => $this->input->post('usuario_id'),
-					'aula_id' => $this->input->post('aula_id'),
-					'materia_id' => $this->input->post('materia_id'),
-					'grupo_nombre' => $this->input->post('grupo_nombre'),
-					'grupo_descripcion' => $this->input->post('grupo_descripcion'),
-					'grupo_horanicio' => $this->input->post('grupo_horanicio'),
-					'grupo_horafin' => $this->input->post('grupo_horafin'),
-                );
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('materia_id','Materia','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('grupo_nombre','Grupo Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('dia_id','Dia','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('periodo_id','Periodo','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('aula_id','Aula','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->load->model('Horario_model');
+            $mensaje = "";
+            if($this->form_validation->run())
+            {
+                $yaregistrado    = false;
+                $yaregistradodoc = false;
+                $hayregistrado = $this->Horario_model->existe_horario($this->input->post('aula_id'), $this->input->post('periodo_id'), $this->input->post('dia_id'));
+                if($hayregistrado['res'] >0){
+                    $yaregistrado = true;
+                    $mensaje = 1;
+                }
+                $haydoc_dia_per = $this->Grupo_model->existe_docentedia_periodo($this->input->post('docente_id'), $this->input->post('dia_id'), $this->input->post('periodo_id'));
+                if($haydoc_dia_per['res'] >0){
+                    $yaregistradodoc = true;
+                    $mensaje = 2;
+                }
+                if($yaregistrado == false && $yaregistradodoc == false){
+                    $params = array(
+                        'periodo_id' => $this->input->post('periodo_id'),
+                        'dia_id'     => $this->input->post('dia_id'),
+                        'aula_id'    => $this->input->post('aula_id'),
+                    );
+                    $this->Horario_model->update_horario($data['grupo']['horario_id'],$params);
+                    $paramsg = array(
+                        'aula_id' => $this->input->post('aula_id'),
+                        'materia_id' => $this->input->post('materia_id'),
+                        'grupo_nombre' => $this->input->post('grupo_nombre'),
+                    );
+                    $this->Grupo_model->update_grupo($grupo_id,$paramsg);
+                    
+                    redirect('grupo/index');
+                }else{
+                    $data['mensaje'] = $mensaje;
+                    $data['all_todo'] = $this->Grupo_model->get_carr_plan_nivel($data['grupo']['materia_id']);
+                
+                    $this->load->model('Docente_model');
+                    $data['docente'] = $this->Docente_model->get_docente($data['grupo']['docente_id']);
 
-                $this->Grupo_model->update_grupo($grupo_id,$params);            
-                redirect('grupo/index');
+                    $this->load->model('Materia_model');
+                    $data['all_materia'] = $this->Materia_model->get_all_materia_nivel($data['all_todo']['nivel_id']);
+
+                    $this->load->model('Dia_model');
+                    $data['all_dia'] = $this->Dia_model->get_all_dias_activos();
+                    $this->load->model('Periodo_model');
+                    $data['all_periodo'] = $this->Periodo_model->get_all_periodo();
+                    $this->load->model('Aula_model');
+                    $data['all_aula'] = $this->Aula_model->get_all_aula();
+                    $data['_view'] = 'grupo/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
             {
-				$this->load->model('Horario_model');
-				$data['all_horario'] = $this->Horario_model->get_all_horario();
-
-				$this->load->model('Docente_model');
-				$data['all_docente'] = $this->Docente_model->get_all_docente();
-
-				$this->load->model('Gestion_model');
-				$data['all_gestion'] = $this->Gestion_model->get_all_gestion();
-
-				$this->load->model('Usuario_model');
-				$data['all_usuario'] = $this->Usuario_model->get_all_usuario();
-
-				$this->load->model('Aula_model');
-				$data['all_aula'] = $this->Aula_model->get_all_aula();
-
-				$this->load->model('Materia_model');
-				$data['all_materia'] = $this->Materia_model->get_all_materia();
-
+                $data['mensaje'] = $mensaje;
+                $data['all_todo'] = $this->Grupo_model->get_carr_plan_nivel($data['grupo']['materia_id']);
+                
+                $this->load->model('Docente_model');
+                $data['docente'] = $this->Docente_model->get_docente($data['grupo']['docente_id']);
+                
+                $this->load->model('Materia_model');
+                $data['all_materia'] = $this->Materia_model->get_all_materia_nivel($data['all_todo']['nivel_id']);
+                
+                $this->load->model('Dia_model');
+                $data['all_dia'] = $this->Dia_model->get_all_dias_activos();
+                $this->load->model('Periodo_model');
+                $data['all_periodo'] = $this->Periodo_model->get_all_periodo();
+                $this->load->model('Aula_model');
+                $data['all_aula'] = $this->Aula_model->get_all_aula();
                 $data['_view'] = 'grupo/edit';
                 $this->load->view('layouts/main',$data);
             }
@@ -162,20 +198,30 @@ class Grupo extends CI_Controller{
     } 
 
     /*
-     * Deleting grupo
+     * Deleting grupo y horario
      */
-    function remove($grupo_id)
+    function remove()
     {
-        $grupo = $this->Grupo_model->get_grupo($grupo_id);
-
-        // check if the grupo exists before trying to delete it
-        if(isset($grupo['grupo_id']))
+        if ($this->input->is_ajax_request())
         {
-            $this->Grupo_model->delete_grupo($grupo_id);
-            redirect('grupo/index');
+            $this->load->model('Horario_model');
+            $grupo_id = $this->input->post('grupo_id');
+            if ($grupo_id!=""){
+                $data['grupo'] = $this->Grupo_model->get_all_thisgrupo($grupo_id);
+                $horario_id = $data['grupo']['horario_id'];
+                
+                $this->Horario_model->delete_horario($horario_id);
+                $this->Grupo_model->delete_grupo($grupo_id);
+                
+                echo json_encode("ok");
+            }
+            else echo json_encode(null);
         }
         else
-            show_error('The grupo you are trying to delete does not exist.');
+        {
+            show_404();
+        }
+        
     }
     
     /****obtener planes academicos de una carrera****/

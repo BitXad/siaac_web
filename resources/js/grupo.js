@@ -224,7 +224,34 @@ function getgrupo_docente(docente_id){
                         html += "<td>"+registros[i]['usuario_nombre']+"</td>";
                         html += "<td>";
                         html += "<a href='"+base_url+"grupo/edit/"+registros[i]["grupo_id"]+"' class='btn btn-info btn-xs' title='modificar grupo'><span class='fa fa-pencil'></span> </a>";
-                        html += "<a href='"+base_url+"grupo/remove/"+registros[i]["grupo_id"]+"' class='btn btn-danger btn-xs' title='eliminar'><span class='fa fa-trash'></span> </a>";
+                        //html += "<a href='"+base_url+"grupo/remove/"+registros[i]["grupo_id"]+"' class='btn btn-danger btn-xs' title='eliminar'><span class='fa fa-trash'></span> </a>";
+                        html += "<a class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modaleliminarhorario"+i+"' title='eliminar Grupo y Horario' ><span class='fa fa-trash'></span></a>";
+                        html += "<!------------------------ INICIO modal para confirmar Eliminación ------------------->";
+                        html += "<div class='modal fade' id='modaleliminarhorario"+i+"' tabindex='-1' role='dialog' aria-labelledby='modaleliminarLabel"+i+"'>";
+                        html += "<div class='modal-dialog' role='document'>";
+                        html += "<br><br>";
+                        html += "<div class='modal-content'>";
+                        html += "<div class='modal-header'>";
+                        html += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
+                        html += "</div>";
+                        html += "<div class='modal-body'>";
+                        html += "<!------------------------------------------------------------------->";
+                        html += "<h3><b><span class='fa fa-trash'></span></b>";
+                        html += "¿Desea Eliminar el grupo: <b>"+registros[i]["grupo_nombre"]+"</b> y sus horarios?";
+                        html += "</h3>";
+                        html += "Al eliminar este grupo, se perdera toda la información.";
+                        html += "<!------------------------------------------------------------------->";
+                        html += "</div>";
+                        html += "<div class='modal-footer aligncenter'>";
+                        html += "<a onclick='eliminargrupohorario("+docente_id+", "+registros[i]['grupo_id']+", "+i+")' class='btn btn-success'><span class='fa fa-check'></span> Si </a>";
+                        html += "<a href='#' class='btn btn-danger' data-dismiss='modal'><span class='fa fa-times'></span> No </a>";
+                        html += "</div>";
+                        html += "</div>";
+                        html += "</div>";
+                        html += "</div>";
+                        html += "<!------------------------ FIN modal para confirmar Eliminación ------------------->";
+                        
+                        
                         html += "</td>";
                         html += "</tr>";
                     }
@@ -484,3 +511,35 @@ function resetearcamposgrupo(reseteardocente){
     
 }
 
+function eliminargrupohorario(docente_id, grupo_id, nummodal){
+    var nombremodal = nummodal;
+    var base_url    = document.getElementById('base_url').value;
+    var controlador = base_url+"grupo/remove/";
+    $('#modaleliminarhorario'+nombremodal).modal('hide');
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{grupo_id:grupo_id},
+            success:function(resul){
+                
+                var registros =  JSON.parse(resul);
+                if (registros != null){
+                    if(registros == "ok"){
+                        
+                        //alert('#modaleliminar'+nombremodal);
+                        alert("Eliminacion exitosa");
+                        getgrupo_docente(docente_id);
+                        
+                    }else{
+                        alert("Hubo problemas con la Eliminacion");
+                    }
+                }
+                
+        },
+        error:function(resul){
+          // alert("Algo salio mal...!!!");
+           alert("Ocurrio un error inesperado");
+        }
+        
+    });   
+
+}
