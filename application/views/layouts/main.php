@@ -231,10 +231,10 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li class="active">
-                                    <a href="<?php echo site_url('rol');?>"><i class="fa fa-retweet"></i>Rol</a>
+                                    <a href="<?php echo site_url('rol');?>"><i class="fa fa-retweet"></i>Roles</a>
                                 </li>
                                 <li class="active">
-                                    <a href="<?php echo site_url('usuario/tipo_usuario');?>"><i class="fa fa-list-ul"></i>Tipo Usuario</a>
+                                    <a href="<?php echo site_url('tipo_usuario');?>"><i class="fa fa-list-ul"></i>Tipo Usuario</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo site_url('usuario');?>"><i class="fa fa-users"></i>Usuarios</a>
