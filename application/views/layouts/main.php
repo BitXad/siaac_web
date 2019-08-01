@@ -132,6 +132,12 @@
                                     <a href="<?php echo site_url('area_materium');?>"><i class="fa fa-book"></i> Area Materia</a>
                                 </li>
                                 <li>
+                                    <a href="<?php echo site_url('categoria_egreso');?>"><i class="fa fa-list"></i>Categoria Egreso</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('categoria_ingreso');?>"><i class="fa fa-list-alt"></i>Categoria Ingreso</a>
+                                </li>
+                                <li>
                                     <a href="<?php echo site_url('estado');?>"><i class="fa fa-etsy"></i>Estado</a>
                                 </li>
                                 <li>
