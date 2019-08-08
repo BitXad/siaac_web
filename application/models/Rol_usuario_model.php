@@ -122,4 +122,36 @@ class Rol_usuario_model extends CI_Model
     {
         return $this->db->delete('rol_usuario',array('tipousuario_id'=>$tipousuario_id));
     }
+    /*
+     * Get all rol_usuario
+     */
+  /*  function get_all_rol_usuario($params = array())
+
+    {
+    
+     
+$limit_condition = "";
+        if(isset($params) && !empty($params))
+            $limit_condition = " LIMIT " . $params['offset'] . "," . $params['limit'];
+        
+        $rol_usuario = $this->db->query("
+            SELECT
+                ru.*, t.*, r.*
+
+            FROM
+                rol_usuario ru, tipo_usuario t, rol r
+
+            WHERE
+                ru.rol_id=r.rol_id
+                and ru.tipousuario_id=t.tipousuario_id
+
+
+            ORDER BY `rol_idfk` ASC
+
+            " . $limit_condition . "
+        ")->result_array();
+
+        return $rol_usuario;
+
+      }*/
 }

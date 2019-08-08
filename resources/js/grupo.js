@@ -172,7 +172,8 @@ function elegir_materias(nivel_id){
                 if (registros != null){
                     var n = registros.length; //tamaño del arreglo de la consulta
                         html1 = "";
-                        html1 += "<select name='materia_id' class='form-control' onchange='mostrar_grupos(this.value)' id='materia_id' required>";
+                        //html1 += "<select name='materia_id' class='form-control' onchange='mostrar_grupos(this.value)' id='materia_id' required>";
+                        html1 += "<select name='materia_id' class='form-control' id='materia_id' required>";
                         html1 += "<option value=''>- MATERIA -</option>";
                         for (var i = 0; i < n ; i++){
                             html1 += "<option value='"+registros[i]['materia_id']+"'>"+registros[i]['materia_nombre']+"</option>";
@@ -196,608 +197,349 @@ function elegir_materias(nivel_id){
     });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function new_planacademico(carrera_id){
-    var html = "";
-    html += "<div class='col-md-2 no-print'>";
-    html += "<div class='form-group' id='newplanacad'>";
-    html += "<a class='btn btn-success' data-toggle='modal' data-target='#modalnuevoplanacad' title='Nuevo Plan Academico'>Nuevo Plan Academico</a>";
-    html += "</div>";
-    html += "</div>";
-
-    html += "<!-- ---------------------- INICIO modal para Registrar Nuevo Plan Academico ----------------- -->";
-    html += "<div class='modal fade' id='modalnuevoplanacad' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>";
-    html += "<div class='modal-dialog' role='document'>";
-    html += "<br><br>";
-    html += "<div class='modal-content'>";
-    html += "<div class='modal-header'>";
-    html += "<label>Nuevo Plan Academico&nbsp;&nbsp;</label>";
-    html += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
-    html += "<button type='button' class='btn btn-success btn-xs' onclick='cambiarcodplan();' title='genera codigo'>";
-    html += "<i class='fa fa-edit'></i> Generar Código";
-    html += "</button>";
-    //html += "<span id='mensajetec_detalleserv"+registros[i]["detalleserv_id"]+"' class='text-danger'></span>";
-    html += "</div>";
-    //html += "form_open('detalle_serv/registrartec/"+servicio_id+"/"+registros[i]["detalleserv_id"]+"')";
-    html += "<div class='modal-body'>";
-    html += "<!------------------------------------------------------------------->";
-
-
-    html += "<div class='col-md-6'>";
-    html += "<label for='planacad_nombre' class='control-label'><span class='text-danger'>*</span>Nombre</label>";
-    html += "<div class='form-group'>";
-    html += "<input type='text' name='planacad_nombre' class='form-control' id='planacad_nombre' required />";
-    html += "</div>";
-    html += "</div>";
-
-    html += "<div class='col-md-6'>";
-    html += "<label for='planacad_codigo' class='control-label'>Código&nbsp;&nbsp;";
-
-    html += "</label>";
-    html += "<div class='form-group'>";
-    html += "<input type='text' name='planacad_codigo' class='form-control' id='planacad_codigo' required />";
-    html += "</div>";
-    html += "</div>";
-    html += "<div class='col-md-6'>";
-    html += "<label for='planacad_titmodalidad' class='control-label'>Titulo/Modalidad</label>";
-    html += "<div class='form-group'>";
-    html += "<input type='text' name='planacad_titmodalidad' class='form-control' id='planacad_titmodalidad' required />";
-    html += "</div>";
-    html += "</div>";
-    html += "<!------------------------------------------------------------------->";
-    html += "</div>";
-    html += "<div class='modal-footer aligncenter'>";
-    html += "<button onclick='registroplanacademico("+carrera_id+")' class='btn btn-success' data-dismiss='modal'>";
-    html += "<i class='fa fa-check'></i> Guardar";
-    html += "</button>";
-    html += "<a href='#' class='btn btn-danger' data-dismiss='modal'>";
-    html += "<i class='fa fa-times'></i> Cancelar</a>";
-    html += "</div>";
-    //html += "<?php echo form_close(); ?>";
-    html += "</div>";
-    html += "</div>";
-    html += "</div>";
-    html += "<!-- ---------------------- FIN modal para Registrar Nuevo Plan Academico ----------------- -->";
-
-
-
-
-    $("#isnuevoplan").html(html);
-}
-
-
-
-/* **************Registrar plan academico***************** */
-function registroplanacademico(carrera_id){
+/* Elegir grupos de un docente */
+function getgrupo_docente(docente_id){
     var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'plan_academico/new_plan_acadcarrera';
-    var planacad_nombre       = document.getElementById('planacad_nombre').value;
-    var planacad_codigo       = document.getElementById('planacad_codigo').value;
-    var planacad_titmodalidad = document.getElementById('planacad_titmodalidad').value;
-    
+    var controlador = base_url+'grupo/get_grupodocente';
+    document.getElementById('loader').style.display = 'block';
     $.ajax({url: controlador,
            type:"POST",
-           data:{carrera_id:carrera_id, planacad_nombre:planacad_nombre, planacad_codigo:planacad_codigo, planacad_titmodalidad:planacad_titmodalidad},
+           data:{docente_id:docente_id},
            success:function(respuesta){
-               
-               var registros =  JSON.parse(respuesta);
-                
-               if (registros != null){
-                   $("#nuevonivel").html("");
-                   get_planacademico(carrera_id);
-                    
-            }else{
-                /*$('#bnewnivel').attr("disabled", true);
-                $("#nuevonivel").css('visibility', 'hidden');*/
-                alert("Nombre no debe ser vacio");
-            }
-
-            
-            
-        },
-        error:function(respuesta){
-           // alert("Algo salio mal...!!!");
-           html = "";
-           $("#tablaresultados").html(html);
-        }
-        
-    });   
-
-}
-
-/* **************Obtiene el NOMBRE del plan academico seleccionado***************** */
-function getnombreplan(){
-        var titplan =  ($("#planacad_id option:selected").text());
-        var titplan_id =  ($("#planacad_id").val());
-        $("#estetitplan").html("<b>"+titplan+"</b>");
-        $("#hplanacad_id").val(titplan_id);
-        $("#nivel_descripcion").val("");
-}
-
-/* **************Registrar NIVEL en un plan academico***************** */
-function registronivel(){
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'plan_academico/new_nivel';
-    var nivel_descripcion = document.getElementById('nivel_descripcion').value;
-    var nivel_color = document.getElementById('nivel_color').value;
-    var planacad_id       = document.getElementById('hplanacad_id').value;
-    
-    $.ajax({url: controlador,
-           type:"POST",
-           data:{nivel_descripcion:nivel_descripcion, nivel_color:nivel_color, planacad_id:planacad_id},
-           success:function(respuesta){
-               
                 var registros =  JSON.parse(respuesta);
                 
                 if (registros != null){
-                    if(registros == "dp"){
-                        alert("Nombre de Nivel Ya existe, verifique y cambie el nombre");
-                    }else{
-                        $('#modalnuevonivel').modal('hide');
-                       dibujar_nivel(planacad_id);   
-                   }
-                }else{
-                    //$('#modalnuevonivel').modal('show');
-                    alert("No se pudo registrar el Nivel; Nivel no debe ser vacio");
-                }
-                
-        },
-        error:function(respuesta){
-           // alert("Algo salio mal...!!!");
-           html = "";
-        }
-        
-    });   
-   
-}
-
-/* **************Registrar plan academico***************** */
-function dibujar_nivel(planacad_id){
-    var base_url = document.getElementById('base_url').value;
-    //var esprereq = document.getElementById('mosprereq').value;
-    //var all_materias = JSON.parse(document.getElementById('lasmaterias').value);
-    var all_area = JSON.parse(document.getElementById('lasareas').value);
-    var controlador = base_url+'plan_academico/get_nivel_planacad';
-    //alert(planacad_id);
-    $.ajax({url: controlador,
-           type:"POST",
-           data:{planacad_id:planacad_id},
-           success:function(respuesta){
-               
-               var registros =  JSON.parse(respuesta);
-                
-               if (registros != null){
+                    var html = "";
                     var n = registros.length; //tamaño del arreglo de la consulta
-                    //var cantmat = all_materias.length;
-                    var canta = all_area.length;
-                        html = "";
-                        html += "<div class='cont_nivel'>";
-                        for (var i = 0; i < n ; i++){
-                            html += "<div style='background-color: "+registros[i]["nivel_color"]+"'>";
-                                html += "<div class='cont_titulo'>"; //inicio titulo  NIVEL
-                                    html += "<div>";
-                                        html += "<a  style='width: 100%' class='btn cont_titulo' data-toggle='modal' data-target='#modalnuevamateria"+registros[i]['nivel_id']+"' title='Crear Nueva Materia'>"+registros[i]["nivel_descripcion"]+"</a>";
-                                        //html += registros[i]['nivel_descripcion'];
-                                    html += "</div>";
-                                html += "</div>"; // fin titulo NIVEL
-                                html += "<div class='cont_materias'>"; //INICIO Materia de un nivel
-                                    html += "<div id='materia"+registros[i]["nivel_id"]+"'>"; //inicioContiene MAterias
-                                        processData(registros[i]["nivel_id"]);
-                                    html += "</div>"; //FIN Contiene materias
-                                html += "</div>"; //FIN Materia de un Nivel
-                                html += "<div>";
-                                    html += "<div style='width:100%; text-align: right; padding-right: 5px;' id='sumahoras"+registros[i]['nivel_id']+"'>";
-                                    html += "</div>";
-                                html += "</div>";
-                            html += "</div>";
-                            html += "<!-- ---------------------- INICIO modal para Registrar Nueva Materia ----------------- -->";
-                            html += "<div class='modal fade' id='modalnuevamateria"+registros[i]["nivel_id"]+"' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>";
-                            html += "<div class='modal-dialog' role='document'>";
-                            html += "<br><br>";
-                            html += "<div class='modal-content'>";
-                            html += "<div class='modal-header'>";
-                            html += "<label>Nueva Materia para el Nivel: &nbsp;"+registros[i]["nivel_descripcion"]+"</label>";
-                            html += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
-                            //html += "<span id='mensajetec_detalleserv"+registros[i]["detalleserv_id"]+"' class='text-danger'></span>";
-                            html += "<label class='alinearizq'><input type='checkbox' onclick='mostrarcheck("+registros[i]["nivel_id"]+")' class='checkbox' name='prerequisito"+registros[i]["nivel_id"]+"' id='prerequisito"+registros[i]["nivel_id"]+"' />Sin Pre-requisito</label>";
-                            html += "</div>";
-                            //html += "form_open('detalle_serv/registrartec/"+servicio_id+"/"+registros[i]["detalleserv_id"]+"')";
-                            html += "<div class='modal-body textizq'>";
-                            html += "<!------------------------------------------------------------------->";
-                            html += "<div class='col-md-6'>";
-                            html += "<label for='materia_nombre"+registros[i]['nivel_id']+"' class='control-label'><span class='text-danger'>*</span>Nombre</label>";
-                            html += "<div class='form-group'>";
-                            html += "<input type='text' name='materia_nombre"+registros[i]['nivel_id']+"' onchange='replicar_a_alias("+registros[i]['nivel_id']+")' class='form-control' id='materia_nombre"+registros[i]['nivel_id']+"' required />";
-                            html += "</div>";
-                            html += "</div>";
-                            
-                            html += "<div class='col-md-6'>";
-                            html += "<label for='materia_alias"+registros[i]['nivel_id']+"' class='control-label'><span class='text-danger'>*</span>Alias</label>";
-                            html += "<div class='form-group'>";
-                            html += "<input type='text' name='materia_alias"+registros[i]['nivel_id']+"' class='form-control' id='materia_alias"+registros[i]['nivel_id']+"' />";
-                            html += "</div>";
-                            html += "</div>";
-                            html += "<div class='col-md-6'>";
-                            html += "<label for='materia_codigo"+registros[i]["nivel_id"]+"' class='control-label'><span class='text-danger'>*</span>Codigo</label>";
-                            html += "<div class='form-group'>";
-                            html += "<input type='text' name='materia_codigo"+registros[i]["nivel_id"]+"' class='form-control' id='materia_codigo"+registros[i]["nivel_id"]+"' />";
-                            html += "</div>";
-                            html += "</div>";
-                            html += "<div class='col-md-6'>";
-                            html += "<label for='area_id"+registros[i]["nivel_id"]+"' class='control-label'><span class='text-danger'>*</span>Area</label>";
-                            html += "<div class='form-group'>";
-                            html += "<select name='area_id"+registros[i]["nivel_id"]+"' class='form-control' id='area_id"+registros[i]["nivel_id"]+"' required>";
-                            html += "<option value=''>- AREA -</option>";
-                            for (var a = 0; a < canta ; a++){
-                                html += "<option value='"+all_area[a]["area_id"]+"'>"+all_area[a]["area_nombre"]+"</option>"; 
-                            }
-                            html += "</select>";
-                            html += "</div>";
-                            html += "</div>";
-                            html += "<div class='col-md-6'>";
-                            html += "<label for='materia_horas"+registros[i]['nivel_id']+"' class='control-label'><span class='text-danger'>*</span>Horas</label>";
-                            html += "<div class='form-group'>";
-                            html += "<input type='number' step='any' min='0' name='materia_horas"+registros[i]['nivel_id']+"' class='form-control' id='materia_horas"+registros[i]['nivel_id']+"' />";
-                            html += "</div>";
-                            html += "</div>";
-                            
-                            html += "<div class='col-md-6' style='display:block' id='mosmaterias"+registros[i]["nivel_id"]+"' >";
-                            html += "<label for='mat_materia_id"+registros[i]["nivel_id"]+"' class='control-label'><span class='text-danger'>*</span>Pre-Requisito</label>";
-                            html += "<div class='form-group' id='dibmaterias"+registros[i]["nivel_id"]+"'>";
-                            get_materia(registros[i]["nivel_id"], planacad_id);
-                            html += "</div>";
-                            html += "</div>";
-                            html += "<!------------------------------------------------------------------->";
-                            html += "</div>";
-                            html += "<div class='modal-footer aligncenter'>";
-                            html += "<button onclick='registro_newmateria("+registros[i]["nivel_id"]+", "+planacad_id+")' class='btn btn-success' data-dismiss='modal'>";
-                            html += "<i class='fa fa-check'></i> Guardar";
-                            html += "</button>";
-                            html += "<a href='#' class='btn btn-danger' data-dismiss='modal'>";
-                            html += "<i class='fa fa-times'></i> Cancelar</a>";
-                            html += "</div>";
-                            //html += "<?php echo form_close(); ?>";
-                            html += "</div>";
-                            html += "</div>";
-                            html += "</div>";
-                            html += "<!-- ---------------------- FIN modal para Registrar Nueva Materia ----------------- -->";
-                            
-                        }
-                        html += "<div>";
-                        $("#dibujarniveles").html(html);
-                        
-                        /*$('#bnewnivel').attr("disabled", false);
-                        $("#nuevonivel").css('visibility', 'visible');
-                        $("#isnuevoplan").html("");
-                        $("#elegirplanacad").html(html);*/
-                    
-            }
-        },
-        error:function(respuesta){
-           // alert("Algo salio mal...!!!");
-           html = "";
-           $("#tablaresultados").html(html);
-        }
-        
-    });   
-
-}
-
-async function processData(nivel_id){
-    try{
-        const result = await materiasnivel(nivel_id);
-        //const result1 = await getprerequisito(mat_materia_id);
-        //alert(result);
-        $('#materia'+nivel_id).html(result[0]);
-        var sumarhoras = "Horas Semana: &nbsp;&nbsp;<b>"+ result[1]+"</b><br>";
-           sumarhoras += "Horas Mes: <b>"+ Number(result[1]*4)+"</b><br>";
-           sumarhoras += "Horas "+result[2]+": <b>"+ Number(result[1]*20)+"</b>";
-           //sumarhoras += procesPrerequisito();
-        
-        $('#sumahoras'+nivel_id).html(sumarhoras);
-        //console.log(result);
-        return "";
-    }catch (err) {
-        return console.log(err.message);
-  }
-}
-
-async function processPrerequisito(mat_materia_id, materia_id){
-    try{
-        const result1 = await getprerequisito(mat_materia_id);
-        var prerequisito = document.getElementById('prerequisito').value;
-        if(result1 != ""){
-            $('#isprerequisito'+materia_id).html("<b>["+result1+"]</b>");
-            $('#prerequisito').val(prerequisito+"'"+materia_id+"':['"+mat_materia_id+"'],");
-        }
-        return "";
-    }catch (err) {
-        return console.log(err.message);
-  }
-}
-function materiasnivel(nivel_id){
-    const promise = new Promise(function (resolve, reject) {
-    //var html = "";
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'plan_academico/get_materiasnivel';
-    $.ajax({url: controlador,
-           type:"POST",
-           data:{nivel_id:nivel_id},
-           success:function(respuesta){
-               var res = "";
-               var res2 = 0;
-               var registros =  JSON.parse(respuesta);
-               var res3 = registros[0]['carrera_modalidad'];
-
-               if (registros != null){
-                    var n = registros.length; //tamaño del arreglo de la consulta
+                        //html1 += "<select name='materia_id' class='form-control' onchange='mostrar_grupos(this.value)' id='materia_id' required>";
+                        //html1 += "<option value=''>- MATERIA -</option>";
                     for (var i = 0; i < n ; i++){
-                        res += "<div class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
-                        res += "<b>"+registros[i]['materia_nombre']+"</b><br>";
-                        res += registros[i]['materia_codigo']+"<br>";
-                        res += registros[i]['materia_horas']+" Hrs.<br>";
-                        res += "<div id='isprerequisito"+registros[i]["materia_id"]+"'></div>"
-                        processPrerequisito(registros[i]['mat_materia_id'], registros[i]['materia_id']);
-                        res += "</div>";
-                        res2 += Number(registros[i]['materia_horas']);
-                        /*res += "-"+registros[i]['producto_nombre']+" ("+registros[i]['producto_codigobarra']+")";
-                        res += " <b>Cant.: </b>"+registros[i]['detalleven_cantidad'];
-                        res += " <b>Prec.: </b>"+numberFormat(Number(registros[i]['detalleven_total']).toFixed(2))+"<br>";
-                      */ 
-                   }
-               }
-               var resultado = [res, res2, res3];
-               resolve(resultado);
-        },
-        error:function(error){
-            reject(error);
-        }
-        
-    });
-    });
-  
-  return promise;
-}
-
-function getprerequisito(mat_materia_id){
-    const promise = new Promise(function (resolve, reject) {
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'plan_academico/get_prerequisito';
-    var res = "";
-    $.ajax({url: controlador,
-           type:"POST",
-           data:{mat_materia_id:mat_materia_id},
-           success:function(respuesta){
-               
-               var registros =  JSON.parse(respuesta);
-               if (registros != null){
-                     res = registros["materia_codigo"];
-                }else{
-                    res= "";
-                }
-                resolve(res);
+                        html += "<tr>";
+                        html += "<td>"+registros[i]['materia_nombre']+"</td>";
+                        html += "<td>"+registros[i]['grupo_nombre']+"</td>";
+                        html += "<td>"+registros[i]['dia_nombre']+": "+registros[i]['periodo_horainicio']+" - "+registros[i]['periodo_horafin']+"</td>";
+                        html += "<td>"+registros[i]['aula_nombre']+"</td>";
+                        html += "<td>"+registros[i]['nombre_docente']+"</td>";
+                        html += "<td>"+registros[i]['descripcion_gestion']+"</td>";
+                        html += "<td>"+registros[i]['usuario_nombre']+"</td>";
+                        html += "<td>";
+                        html += "<a href='"+base_url+"grupo/edit/"+registros[i]["grupo_id"]+"' class='btn btn-info btn-xs' title='modificar grupo'><span class='fa fa-pencil'></span> </a>";
+                        //html += "<a href='"+base_url+"grupo/remove/"+registros[i]["grupo_id"]+"' class='btn btn-danger btn-xs' title='eliminar'><span class='fa fa-trash'></span> </a>";
+                        html += "<a class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modaleliminarhorario"+i+"' title='eliminar Grupo y Horario' ><span class='fa fa-trash'></span></a>";
+                        html += "<!------------------------ INICIO modal para confirmar Eliminación ------------------->";
+                        html += "<div class='modal fade' id='modaleliminarhorario"+i+"' tabindex='-1' role='dialog' aria-labelledby='modaleliminarLabel"+i+"'>";
+                        html += "<div class='modal-dialog' role='document'>";
+                        html += "<br><br>";
+                        html += "<div class='modal-content'>";
+                        html += "<div class='modal-header'>";
+                        html += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
+                        html += "</div>";
+                        html += "<div class='modal-body'>";
+                        html += "<!------------------------------------------------------------------->";
+                        html += "<h3><b><span class='fa fa-trash'></span></b>";
+                        html += "¿Desea Eliminar el grupo: <b>"+registros[i]["grupo_nombre"]+"</b> y sus horarios?";
+                        html += "</h3>";
+                        html += "Al eliminar este grupo, se perdera toda la información.";
+                        html += "<!------------------------------------------------------------------->";
+                        html += "</div>";
+                        html += "<div class='modal-footer aligncenter'>";
+                        html += "<a onclick='eliminargrupohorario("+docente_id+", "+registros[i]['grupo_id']+", "+i+")' class='btn btn-success'><span class='fa fa-check'></span> Si </a>";
+                        html += "<a href='#' class='btn btn-danger' data-dismiss='modal'><span class='fa fa-times'></span> No </a>";
+                        html += "</div>";
+                        html += "</div>";
+                        html += "</div>";
+                        html += "</div>";
+                        html += "<!------------------------ FIN modal para confirmar Eliminación ------------------->";
+                        
+                        
+                        html += "</td>";
+                        html += "</tr>";
+                    }
+                    //html1 += "</select>";
+                    $("#mostrarhorariodocente").html(html);
+                    //$("#docente_grupo").html(registros[0]['nombre_docente']);
+                    document.getElementById('loader').style.display = 'none';
+                    
+            }
+            
+            document.getElementById('loader').style.display = 'none';
         },
         error:function(respuesta){
-           // alert("Algo salio mal...!!!");
            html = "";
+           $("#mostrarhorariodocente").html(html);
+        },
+        complete: function (jqXHR, textStatus) {
+            document.getElementById('loader').style.display = 'none';
         }
         
     });
-    });
-  
-  return promise;
 }
 
-function replicar_a_alias(nivel_id){
-    var res = $('#materia_nombre'+nivel_id).val();
-    $('#materia_alias'+nivel_id).val(res);
-}
-/* **************Registrar nueva MATERIA en un NIVEL***************** */
-function registro_newmateria(nivel_id, planacad_id){
+/* Registrar un grupo */
+function registrar_grupo(){
+    var band = true;
     var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'plan_academico/new_materia';
-    var prereq         = document.getElementById('prerequisito'+nivel_id).checked;
-    var materia_nombre = document.getElementById('materia_nombre'+nivel_id).value;
-    var materia_alias  = document.getElementById('materia_alias'+nivel_id).value;
-    var mat_materia_id = document.getElementById('mat_materia_id'+nivel_id).value;
-    var area_id        = document.getElementById('area_id'+nivel_id).value;
-    var materia_codigo = document.getElementById('materia_codigo'+nivel_id).value;
-    var materia_horas = document.getElementById('materia_horas'+nivel_id).value;
-    var prerequisito = 0;
-    if(prereq){
-        prerequisito = 1;
+    var carrera_id = document.getElementById('carrera_id').value;
+    var planacad_id = document.getElementById('planacad_id').value;
+    var nivel_id = document.getElementById('nivel_id').value;
+    var docente_id = document.getElementById('docente_id').value;
+    var materia_id = document.getElementById('materia_id').value;
+    var grupo_nombre = document.getElementById('grupo_nombre').value;
+    var dia1 = "";
+    var dia2 = "";
+    var dia3 = "";
+    var dia4 = "";
+    var dia5 = "";
+    var dia6 = "";
+    var dia7 = "";
+    var periodo1 = "";
+    var periodo2 = "";
+    var periodo3 = "";
+    var periodo4 = "";
+    var periodo5 = "";
+    var periodo6 = "";
+    var periodo7 = "";
+    var aula1 = "";
+    var aula2 = "";
+    var aula3 = "";
+    var aula4 = "";
+    var aula5 = "";
+    var aula6 = "";
+    var aula7 = "";
+    var checkdias = document.getElementsByClassName('checkdia');
+    var getdia = [];
+    var ind = 0;
+    for(var i=0, n=checkdias.length;i<n;i++){
+        if(checkdias[i].checked == true ){
+            getdia[ind] = checkdias[i].name;
+            //getdia[ind] = getdia.push(checkdias[i].name);
+            ind = ind+1;
+        }
+        //alert(checkdias[i].checked+" "+checkdias[i].name);
     }
-    $.ajax({url: controlador,
-           type:"POST",
-           data:{prerequisito:prerequisito, materia_nombre:materia_nombre, materia_alias:materia_alias, mat_materia_id:mat_materia_id, area_id:area_id, materia_codigo:materia_codigo, nivel_id:nivel_id, materia_horas:materia_horas},
-           success:function(respuesta){
-               
-               var registros =  JSON.parse(respuesta);
-                
-               if (registros != null){
-                   $('#modalnuevamateria'+nivel_id).modal('hide');
-                  dibujar_nivel(planacad_id);   
-                    
-                }else{
-                    $('#modalnuevamateria'+nivel_id).modal('show');
-                    alert("Todos Los Campos son Obligados");
+    for(var i=0, n=getdia.length;i<n;i++){
+        //alert(getdia[i]);
+        if(getdia[i] == 1){
+                dia1     = 1;
+                periodo1 = document.getElementById('periodo_id'+getdia[i]).value;
+                aula1    = document.getElementById('aula_id'+getdia[i]).value;
+                if(periodo1 == ""){
+                    alert("debe seleccioanr un periodo");
+                    band = false;
                 }
-                
-        },
-        error:function(respuesta){
-           // alert("Algo salio mal...!!!");
-           html = "";
-        }
-        
-    });   
-   
-}
-
-/* **************Mostrar MATERIAS de un plan academico***************** */
-function get_materia(nivel_id, planacad_id){
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'plan_academico/get_materias_activas_plan';
-    var html ="";
-    $.ajax({url: controlador,
-           type:"POST",
-           data:{planacad_id:planacad_id},
-           success:function(respuesta){
-               
-               var registros =  JSON.parse(respuesta);
-               if (registros != null){
-                   var cantmat = registros.length;
-                   html += "<select name='mat_materia_id"+nivel_id+"' class='form-control' id='mat_materia_id"+nivel_id+"' >";
-                   html += "<option value=''>- MATERIA -</option>";
-                   for (var m = 0; m < cantmat ; m++){
-                       html += "<option value='"+registros[m]["materia_id"]+"'>"+registros[m]["materia_nombre"]+"&nbsp;&nbsp;["+registros[m]["materia_codigo"]+"]</option>"; 
-                   }
-                   
-                   html += "</select>";
-                   $('#dibmaterias'+nivel_id).html(html);
-                    
+                if(aula1 == ""){
+                    alert("debe seleccioanr un aula");
+                    band = false;
                 }
-        },
-        error:function(respuesta){
-           // alert("Algo salio mal...!!!");
-           html = "";
-        }
-        
-    });
-}
-
-function mostrarcheck(nivel_id){
-    var prereq         = document.getElementById('prerequisito'+nivel_id).checked;
-    if(prereq){
-        document.getElementById('mosmaterias'+nivel_id).style.display = 'none';
-    }else{
-        document.getElementById('mosmaterias'+nivel_id).style.display = 'block';
+            }else if(getdia[i] == 2){
+                dia2     = 2;
+                periodo2 = document.getElementById('periodo_id'+getdia[i]).value;
+                aula2    = document.getElementById('aula_id'+getdia[i]).value;
+                if(periodo2 == ""){
+                    alert("debe seleccioanr un periodo");
+                    band = false;
+                }
+                if(aula2 == ""){
+                    alert("debe seleccioanr un aula");
+                    band = false;
+                }
+            }else if(getdia[i] == 3){
+                dia3     = 3;
+                periodo3 = document.getElementById('periodo_id'+getdia[i]).value;
+                aula3    = document.getElementById('aula_id'+getdia[i]).value;
+                if(periodo3 == ""){
+                    alert("debe seleccioanr un periodo");
+                    band = false;
+                }
+                if(aula3 == ""){
+                    alert("debe seleccioanr un aula");
+                    band = false;
+                }
+            }else if(getdia[i] == 4){
+                dia4     = 4;
+                periodo4 = document.getElementById('periodo_id'+getdia[i]).value;
+                aula4    = document.getElementById('aula_id'+getdia[i]).value;
+                if(periodo4 == ""){
+                    alert("debe seleccioanr un periodo");
+                    band = false;
+                }
+                if(aula4 == ""){
+                    alert("debe seleccioanr un aula");
+                    band = false;
+                }
+            }else if(getdia[i] == 5){
+                dia5     = 5;
+                periodo5 = document.getElementById('periodo_id'+getdia[i]).value;
+                aula5    = document.getElementById('aula_id'+getdia[i]).value;
+                if(periodo5 == ""){
+                    alert("debe seleccioanr un periodo");
+                    band = false;
+                }
+                if(aula5 == ""){
+                    alert("debe seleccioanr un aula");
+                    band = false;
+                }
+            }else if(getdia[i] == 6){
+                dia6     = 6;
+                periodo6 = document.getElementById('periodo_id'+getdia[i]).value;
+                aula6    = document.getElementById('aula_id'+getdia[i]).value;
+                if(periodo6 == ""){
+                    alert("debe seleccioanr un periodo");
+                    band = false;
+                }
+                if(aula6 == ""){
+                    alert("debe seleccioanr un aula");
+                    band = false;
+                }
+            }else if(getdia[i] == 7){
+                dia7     = 7;
+                periodo7 = document.getElementById('periodo_id'+getdia[i]).value;
+                aula7    = document.getElementById('aula_id'+getdia[i]).value;
+                if(periodo7 == ""){
+                    alert("debe seleccioanr un periodo");
+                    band = false;
+                }
+                if(aula7 == ""){
+                    alert("debe seleccioanr un aula");
+                    band = false;
+                }
+            }
     }
-}
-
-/* ************** Mostrar MATERIAS ***************** */
-function get_all_carrera(){
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'plan_academico/get_carreras';
-    var html ="";
+    
+    if(carrera_id == "" && planacad_id == "" && nivel_id == "" && docente_id == "" && materia_id == "" && grupo_nombre == ""){
+        alert("Debe: elegir una Carrera; elegir un Plan Academico; elegir un Nivel; elegir Docente; elegir Materia; nombre de Grupo no debe ser vacio");
+        band = false;
+    }else if(planacad_id == "" && nivel_id == "" && docente_id == "" && materia_id == "" && grupo_nombre == ""){
+        alert("Debe: elegir un Plan Academico; elegir un Nivel; elegir Docente; elegir Materia; nombre de Grupo no debe ser vacio");
+        band = false;
+    }else if(nivel_id == "" && docente_id == "" && materia_id == "" && grupo_nombre == ""){
+        alert("Debe: elegir un Nivel; elegir Docente; elegir Materia; nombre de Grupo no debe ser vacio");
+        band = false;
+    }else if(docente_id == "" && materia_id == "" && grupo_nombre == ""){
+        alert("Debe: elegir Docente; elegir Materia; nombre de Grupo no debe ser vacio");
+        band = false;
+    }else if(materia_id == "" && grupo_nombre == ""){
+        alert("Debe: elegir Materia; nombre de Grupo no debe ser vacio");
+        band = false;
+    }else if(grupo_nombre == ""){
+        alert("El Nombre de Grupo no debe ser vacio");
+        band = false;
+    }else if(ind == 0){
+        alert("Por lo menos debe elegir un día");
+        band = false;
+    }
+    if(band == true){
+    var controlador = base_url+'grupo/registrar_newgrupodocente';
+    document.getElementById('loader').style.display = 'block';
     $.ajax({url: controlador,
            type:"POST",
-           data:{},
+           data:{carrera_id:carrera_id, planacad_id:planacad_id, nivel_id:nivel_id, docente_id:docente_id,
+                 materia_id:materia_id, grupo_nombre:grupo_nombre, periodo1:periodo1, periodo2:periodo2,
+                 periodo3:periodo3, periodo4:periodo4, periodo5:periodo5, periodo6:periodo6, periodo7:periodo7,
+                 aula1:aula1, aula2:aula2, aula3:aula3, aula4:aula4, aula5:aula5, aula6:aula6, aula7:aula7,
+                 dia1:dia1, dia2:dia2, dia3:dia3, dia4:dia4, dia5:dia5, dia6:dia6, dia7:dia7},
            success:function(respuesta){
-               
-               var registros =  JSON.parse(respuesta);
-               if (registros != null){
-                   var cantcarr = registros.length;
-                   html += "<select name='carrera_id' class='form-control' id='carrera_id' onchange='get_planacademico(this.value)'>";
-                   html += "<option value=''>- CARRERA -</option>";
-                   for (var m = 0; m < cantcarr ; m++){
-                       html += "<option value='"+registros[m]["carrera_id"]+"'>"+registros[m]["carrera_nombre"]+"</option>";
-                   }
-                   
-                   html += "</select>";
-                   $('#sonlascarreras').html(html);
-                    
-                }
-        },
-        error:function(respuesta){
-           // alert("Algo salio mal...!!!");
-           html = "";
-        }
-        
-    });
-}
-
-/* **************Registrar nueva CARRERA***************** */
-function registrocarrera(){
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'plan_academico/new_carrera';
-    var carrera_nombre = document.getElementById('carrera_nombre').value;
-    var carrera_codigo = document.getElementById('carrera_codigo').value;
-    var carrera_nivel = document.getElementById('carrera_nivel').value;
-    var areacarrera_id = document.getElementById('areacarrera_id').value;
-    var carrera_modalidad = document.getElementById('carrera_modalidad').value;
-    var carrera_tiempoestudio = document.getElementById('carrera_tiempoestudio').value;
-    var carrera_cargahoraria = document.getElementById('carrera_cargahoraria').value;
-    var carrera_plan = document.getElementById('carrera_plan').value;
-    var carrera_fechacreacion = document.getElementById('carrera_fechacreacion').value;
-    var carrera_matricula = document.getElementById('carrera_matricula').value;
-    var carrera_mensualidad = document.getElementById('carrera_mensualidad').value;
-    var carrera_nummeses = document.getElementById('carrera_nummeses').value;
-    $.ajax({url: controlador,
-            type:"POST",
-            data:{carrera_nombre:carrera_nombre, carrera_codigo:carrera_codigo, carrera_nivel:carrera_nivel, areacarrera_id:areacarrera_id, carrera_modalidad:carrera_modalidad, carrera_tiempoestudio:carrera_tiempoestudio, carrera_cargahoraria:carrera_cargahoraria, carrera_plan:carrera_plan, carrera_fechacreacion:carrera_fechacreacion, carrera_matricula:carrera_matricula, carrera_mensualidad:carrera_mensualidad, carrera_nummeses:carrera_nummeses},
-            success:function(respuesta){
                 var registros =  JSON.parse(respuesta);
+                
                 if (registros != null){
-                    get_all_carrera();
-                    $('#modalnuevacarrera').modal('hide');
-                }else{
-                    alert("Hay Campos que son obligados para llenar, verifique los datos de Carrera");
+                    if(registros == "ok"){
+                        getgrupo_docente(docente_id);
+                        resetearcamposgrupo(2);
+                    }else if(registros == "siaula"){
+                        alert("El Horario Seleccionado ya se encuentra ocupado, por favor revise sus datos.");
+                    }else if(registros == "sidoc"){
+                        alert("El Docente Seleccionado ya tiene hora y dia ocupado, por favor revise sus datos.");
+                    }
                 }
+            
+            document.getElementById('loader').style.display = 'none';
         },
         error:function(respuesta){
-           // alert("Algo salio mal...!!!");
            html = "";
+        },
+        complete: function (jqXHR, textStatus) {
+            document.getElementById('loader').style.display = 'none';
+        }
+        
+    });
+    }
+}
+
+/* ****** Resetar campos de registro de GRUPO ********* */
+function resetearcamposgrupo(reseteardocente){
+    $('#carrera_id').find('option:first').attr('selected', 'selected').parent('select');
+    $('#planacad_id').find('option:first').attr('selected', 'selected').parent('select');
+    $('#nivel_id').find('option:first').attr('selected', 'selected').parent('select');
+    if(reseteardocente == 1){
+        $('#docente_id').find('option:first').attr('selected', 'selected').parent('select');
+    }
+    $('#materia_id').find('option:first').attr('selected', 'selected').parent('select');
+    $('#grupo_nombre').val('');
+    $('#select_all').prop("checked", false);
+    checkboxes = document.getElementsByClassName('checkbox');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+        checkboxes[i].checked = false;
+    }
+    $('#periodo_id1').find('option:first').attr('selected', 'selected').parent('select');
+    $('#periodo_id1').prop("disabled", true);
+    $('#periodo_id2').find('option:first').attr('selected', 'selected').parent('select');
+    $('#periodo_id2').prop("disabled", true);
+    $('#periodo_id3').find('option:first').attr('selected', 'selected').parent('select');
+    $('#periodo_id3').prop("disabled", true);
+    $('#periodo_id4').find('option:first').attr('selected', 'selected').parent('select');
+    $('#periodo_id4').prop("disabled", true);
+    $('#periodo_id5').find('option:first').attr('selected', 'selected').parent('select');
+    $('#periodo_id5').prop("disabled", true);
+    $('#periodo_id6').find('option:first').attr('selected', 'selected').parent('select');
+    $('#periodo_id6').prop("disabled", true);
+    $('#periodo_id7').find('option:first').attr('selected', 'selected').parent('select');
+    $('#periodo_id7').prop("disabled", true);
+    $('#aula_id1').find('option:first').attr('selected', 'selected').parent('select');
+    $('#aula_id1').prop("disabled", true);
+    $('#aula_id2').find('option:first').attr('selected', 'selected').parent('select');
+    $('#aula_id2').prop("disabled", true);
+    $('#aula_id3').find('option:first').attr('selected', 'selected').parent('select');
+    $('#aula_id3').prop("disabled", true);
+    $('#aula_id4').find('option:first').attr('selected', 'selected').parent('select');
+    $('#aula_id4').prop("disabled", true);
+    $('#aula_id5').find('option:first').attr('selected', 'selected').parent('select');
+    $('#aula_id5').prop("disabled", true);
+    $('#aula_id6').find('option:first').attr('selected', 'selected').parent('select');
+    $('#aula_id6').prop("disabled", true);
+    $('#aula_id7').find('option:first').attr('selected', 'selected').parent('select');
+    $('#aula_id7').prop("disabled", true);
+    
+}
+
+function eliminargrupohorario(docente_id, grupo_id, nummodal){
+    var nombremodal = nummodal;
+    var base_url    = document.getElementById('base_url').value;
+    var controlador = base_url+"grupo/remove/";
+    $('#modaleliminarhorario'+nombremodal).modal('hide');
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{grupo_id:grupo_id},
+            success:function(resul){
+                
+                var registros =  JSON.parse(resul);
+                if (registros != null){
+                    if(registros == "ok"){
+                        
+                        //alert('#modaleliminar'+nombremodal);
+                        alert("Eliminacion exitosa");
+                        getgrupo_docente(docente_id);
+                        
+                    }else{
+                        alert("Hubo problemas con la Eliminacion");
+                    }
+                }
+                
+        },
+        error:function(resul){
+          // alert("Algo salio mal...!!!");
+           alert("Ocurrio un error inesperado");
         }
         
     });   
-   
-}
 
-/* **************Registrar nueva CARRERA***************** */
-function borrardatosmodal(){
-    document.getElementById('carrera_nombre').value = "";
-    document.getElementById('carrera_codigo').value = "";
-    document.getElementById('carrera_nivel').value = "";
-    document.getElementById('areacarrera_id').value = "";
-    document.getElementById('carrera_modalidad').value = "";
-    //document.getElementById('carrera_plan').value = "";
-    document.getElementById('carrera_tiempoestudio').value = "";
-    document.getElementById('carrera_cargahoraria').value = "";
-    document.getElementById('carrera_fechacreacion').value = "";
-    document.getElementById('carrera_matricula').value = "";
-    document.getElementById('carrera_mensualidad').value = "";
-   
 }
