@@ -151,6 +151,7 @@ function mostrar_materias(){
     var controlador = base_url+"inscripcion/buscar_materias";
     var nivel_id = document.getElementById('nivel_id').value;
     
+    
   //  alert(nivel_id);
         $.ajax({
             url:controlador,
@@ -172,7 +173,7 @@ function mostrar_materias(){
                         html += "<option value='1'>Grupo 1</option>";
                         
                         html += "</select></td>";
-                        html += "<td align='center' style='padding: 0;'><input type='checkbox' name='materias' id='materias' value='1' checked/></td>";
+                        html += "<td align='center' style='padding: 0;'><input type='checkbox' name='mat' id='materias' value='"+registros[j].materia_id+"' checked/></td>";
                         html += "</tr>";
                         
                     }
@@ -240,9 +241,20 @@ function registrar_inscripcion(){
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/registrar_inscripcion";
 
-   // var materias = document.getElementByname('materias');
+    //var materias = document.getElementByname('mat');
+    var materias = document.getElementsByName('mat');
+    var cons = "";
+    
+    //alert(materias.length);
+    
+    for(i=0; i<materias.length; i++){
+        if (materias[i].checked){
+         
+            //res = materias[i].value;        
+           cons += cons + ""
+        }
+    }
    
-
     var ban = 0;
     var men = "ERROR: ";
     

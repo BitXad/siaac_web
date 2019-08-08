@@ -1,6 +1,6 @@
 <?php
 $session_data = $this->session->userdata('logged_in');
-echo  '<h1>hola</h1><br>';
+echo  '<h1>hola y adios </h1><br>';
 
 echo 'gestion: '.$session_data['gestion'].'<br>';
 echo 'gestion-semestre: '.$session_data['semestre'].'<br>';
