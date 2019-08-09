@@ -132,6 +132,12 @@
                                     <a href="<?php echo site_url('area_materium');?>"><i class="fa fa-book"></i> Area Materia</a>
                                 </li>
                                 <li>
+                                    <a href="<?php echo site_url('categoria_egreso');?>"><i class="fa fa-list"></i>Categoria Egreso</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('categoria_ingreso');?>"><i class="fa fa-list-alt"></i>Categoria Ingreso</a>
+                                </li>
+                                <li>
                                     <a href="<?php echo site_url('estado');?>"><i class="fa fa-etsy"></i>Estado</a>
                                 </li>
                                 <li>
@@ -166,17 +172,17 @@
                                 <li class="active">
                                     <a href="<?php echo site_url('carrera');?>"><i class="fa fa-file-code-o"></i>Carrera</a>
                                 </li>
-                                <li>
+                                <!--<li>
                                     <a href="<?php echo site_url('detalle_factura');?>"><i class="fa fa-file-text-o"></i>Detalle Factura</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('egreso');?>"><i class="fa fa-arrow-left"></i>Egresos</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo site_url('factura');?>"><i class="fa fa-align-left"></i>Factura</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo site_url('horario');?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
+                                </li>-->
+                                <li>
+                                    <a href="<?php echo site_url('egreso');?>"><i class="fa fa-arrow-left"></i>Egresos</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo site_url('ingreso');?>"><i class="fa fa-arrow-right"></i>Ingresos</a>
@@ -193,7 +199,7 @@
                                 <li>
                                     <a href="<?php echo site_url('materia');?>"><i class="fa fa-maxcdn"></i>Materias</a>
                                 </li>
-                                <li>
+                                <!--<li>
                                     <a href="<?php echo site_url('materia_asignada');?>"><i class="fa fa-navicon"></i>Materias Asignadas</a>
                                 </li>
                                 <li>
@@ -204,12 +210,12 @@
                                 </li>
                                 <li>
                                     <a href="<?php echo site_url('nivel');?>"><i class="fa fa-sort"></i>Nivel</a>
-                                </li>
+                                </li>-->
                                 <li>
                                     <a href="<?php echo site_url('notum');?>"><i class="fa fa-list-alt"></i>Notas</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo site_url('plan_academico');?>"><i class="fa fa-buysellads"></i>Plan Académico</a>
+                                    <a href="<?php echo site_url('plan_academico/planacad');?>"><i class="fa fa-buysellads"></i>Plan Académico</a>
                                 </li>
                             </ul>
                         </li>
