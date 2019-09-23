@@ -55,13 +55,13 @@
                                     ?>
                                     <a class="btn  btn-xs" data-toggle="modal" data-target="#mostrarimagen<?php echo $i; ?>" style="padding: 0px;">
                                         <?php
-                                        echo '<img src="'.site_url('/resources/images/usuarios/'.$mimagen).'" />';
+                                        echo '<img src="'.site_url('/resources/images/docentes/'.$mimagen).'" />';
                                         ?>
                                     </a>
                                 </div>
                                 <?php } else { ?>
                                     <div id="contieneimg">
-                                        <img src="<?php echo site_url('/resources/images/usuarios/thumb_default.jpg');  ?>" />
+                                        <img src="<?php echo site_url('/resources/images/docentes/thumb_default.jpg');  ?>" />
                                     </div>
                                     <?php }  ?>
                                 <div style="padding-left: 4px">
@@ -100,7 +100,7 @@
                                           </div>
                                             <div class="modal-body">
                                            <!------------------------------------------------------------------->
-                                           <?php echo '<img style="max-height: 100%; max-width: 100%" src="'.site_url('/resources/images/usuarios/'.$d['docente_foto']).'" />'; ?>
+                                           <?php echo '<img style="max-height: 100%; max-width: 100%" src="'.site_url('/resources/images/docentes/'.$d['docente_foto']).'" />'; ?>
                                            <!------------------------------------------------------------------->
                                           </div>
                                           
