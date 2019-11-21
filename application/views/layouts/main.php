@@ -3,6 +3,8 @@
     <head>
         <?php
             $session_data = $this->session->userdata('logged_in');
+
+            $institucion = $this->db->query("SELECT  *  FROM `institucion` WHERE `institucion_id` = 1")->row_array();
         ?>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -89,7 +91,7 @@
                         </ul>
                     </div>
                     <div style="float: none; width: 90%" face="Arial" class="text-center" >
-    <span class="text-bold" style="display: block; padding-top: 0px;padding-bottom: -8px; color: #FFF; font-size: 22px;">Nombre Instituto</span>
+    <span class="text-bold" style="display: block; padding-top: 0px;padding-bottom: -8px; color: #FFF; font-size: 22px;"><?php echo $institucion['institucion_nombre'] ?></span>
     <span name="reloj" id="reloj" style="color: #FFF; font-size: 12px;"></span> 
     
 </div>
