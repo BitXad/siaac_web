@@ -52,7 +52,7 @@ class Carrera_model extends CI_Model
             WHERE
                 c.areacarrera_id = ac.areacarrera_id
 
-            ORDER BY `carrera_id` ASC
+            ORDER BY `carrera_nombre` ASC
         ")->result_array();
 
         return $carrera;

@@ -12,9 +12,22 @@ class Inscripcion extends CI_Controller{
         $this->load->model('Carrera_model');
         $this->load->model('Nivel_model');
         $this->load->model('Kardex_economico_model');
-        
-       
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of inscripcion
@@ -86,56 +99,60 @@ class Inscripcion extends CI_Controller{
      * Adding a new inscripcion
      */
     function inscribir($estudiante_id)
-    {   
+    {
+        //($this->acceso(145)){
         if(isset($_POST) && count($_POST) > 0)     
-        {   
+        {
             $params = array(
-				'usuario_id' => $this->input->post('usuario_id'),
-				'gestion_id' => $this->input->post('gestion_id'),
-				'estudiante_id' => $this->input->post('estudiante_id'),
-				'paralelo_id' => $this->input->post('paralelo_id'),
-				'nivel_id' => $this->input->post('nivel_id'),
-				'turno_id' => $this->input->post('turno_id'),
-				'inscripcion_fecha' => $this->input->post('inscripcion_fecha'),
-				'inscripcion_hora' => $this->input->post('inscripcion_hora'),
-				'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
+                'usuario_id' => $this->input->post('usuario_id'),
+                'gestion_id' => $this->input->post('gestion_id'),
+                'estudiante_id' => $this->input->post('estudiante_id'),
+                'paralelo_id' => $this->input->post('paralelo_id'),
+                'nivel_id' => $this->input->post('nivel_id'),
+                'turno_id' => $this->input->post('turno_id'),
+                'inscripcion_fecha' => $this->input->post('inscripcion_fecha'),
+                'inscripcion_hora' => $this->input->post('inscripcion_hora'),
+                'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
             );
-            
             $inscripcion_id = $this->Inscripcion_model->add_inscripcion($params);
             redirect('inscripcion/index');
         }
         else
         {
-			
-            
-                        $this->load->model('Carrera_model');
-			$data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+            $gestion_id = $this->session_data['gestion_id'];
+            $this->load->model('Carrera_model');
+            $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
 
 //			$this->load->model('Usuario_model');
 //			$data['all_usuario'] = $this->Usuario_model->get_all_usuario();
 
-			$this->load->model('Gestion_model');
-			$data['all_gestion'] = $this->Gestion_model->get_all_gestion();
+            $this->load->model('Gestion_model');
+            $data['all_gestion'] = $this->Gestion_model->get_all_gestion();
 
-			$this->load->model('Estudiante_model');
-			
-                        if ($estudiante_id>0)                        
-                            $data['estudiante'] = $this->Estudiante_model->get_estudiante_por_id($estudiante_id);
-                        else
-                            $data['estudiante'] = $this->Estudiante_model->get_estudiante_temporal();
-                        
-			$this->load->model('Paralelo_model');
-			$data['all_paralelo'] = $this->Paralelo_model->get_all_paralelo();
+            $this->load->model('Estudiante_model');
+
+            if ($estudiante_id>0){
+                $data['estudiante'] = $this->Estudiante_model->get_estudiante_por_id($estudiante_id);
+                $this->load->model('Inscripcion_model');
+                $data['carrera_idinsc_est'] = $this->Inscripcion_model->get_carreraid_inscripcion($estudiante_id);
+            }else{
+                $data['estudiante'] = $this->Estudiante_model->get_estudiante_temporal();
+                $data['carrera_idinsc_est'] = 0;
+            }
+
+            $this->load->model('Paralelo_model');
+            $data['all_paralelo'] = $this->Paralelo_model->get_all_paralelo();
 
 //			$this->load->model('Nivel_model');
 //			$data['all_nivel'] = $this->Nivel_model->get_all_nivel();
 
-			$this->load->model('Turno_model');
-			$data['all_turno'] = $this->Turno_model->get_all_turno();
-            
+            $this->load->model('Turno_model');
+            $data['all_turno'] = $this->Turno_model->get_all_turno();
+
             $data['_view'] = 'inscripcion/inscribir';
             $this->load->view('layouts/main',$data);
         }
+        //}
     }  
 
     /*
@@ -235,7 +252,6 @@ class Inscripcion extends CI_Controller{
     }
         
     function buscar_materias(){
-        
         $nivel_id = $this->input->post('nivel_id');
         $materias = $this->Inscripcion_model->get_materias($nivel_id);
         echo json_encode($materias);
@@ -393,6 +409,10 @@ class Inscripcion extends CI_Controller{
         
         return true;
     }
-    
+    function getname_grupo(){
+        $materia_id = $this->input->post('materia_id');
+        $materias = $this->Inscripcion_model->get_grupomateria($materia_id);
+        echo json_encode($materias);
+    }
     
 }

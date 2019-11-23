@@ -164,4 +164,38 @@ class Inscripcion_model extends CI_Model
         $resultado = $this->db->query($sql)->result_array();
         return $resultado;
     }
+    /*
+     * Get inscripcion by inscripcion_id
+     */
+    function get_carreraid_inscripcion($estudiante_id)
+    {
+        $inscripcion = $this->db->query("
+            SELECT
+                i.carrera_id
+            FROM
+                inscripcion i
+            WHERE
+                i.estudiante_id = $estudiante_id
+                order by i.inscripcion_id desc
+        ")->row_array();
+
+        return $inscripcion['carrera_id'];
+    }
+    /*
+     * Get grupos de una materia
+     */
+    function get_grupomateria($materia_id)
+    {
+        $grupo = $this->db->query("
+            SELECT
+                g.grupo_id, g.grupo_nombre
+            FROM
+                grupo g
+            WHERE
+                g.materia_id = $materia_id
+                group by g.grupo_nombre
+        ")->result_array();
+
+        return $grupo;
+    }
 }
