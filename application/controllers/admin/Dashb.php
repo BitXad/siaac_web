@@ -11,6 +11,8 @@ class Dashb extends CI_Controller
         $this->load->library(array('form_validation'));
         $this->load->model('user_model');
         $this->load->model('rol_model');
+        $this->load->model('Dashboard_model');
+        $this->load->model('Institucion_model');
         $this->session_data = $this->session->userdata('logged_in');
     }
 
@@ -18,11 +20,108 @@ class Dashb extends CI_Controller
     {
         $this->acceso();
         $data['page_title'] = ' - Bienvenido '.$this->session_data['usuario_nombre'];
+        $data['inscripcion'] = $this->Dashboard_model->get_inscripcion();
+        $data['docentes'] = $this->Dashboard_model->get_docentes();
+        $data['estudiantes'] = $this->Dashboard_model->get_estudiantes();
+        $data['pensiones'] = $this->Dashboard_model->get_pensiones();
+        $data['facturas'] = $this->Dashboard_model->get_facturas();
+        $data['kardex_eco'] = $this->Dashboard_model->get_kardex_eco();
+        $data['kardex_aca'] = $this->Dashboard_model->get_kardex_aca();
+        //$data['carrera_estudiante'] = $this->Dashboard_model->get_carrera();
+        $data['estudiante_carr'] = $this->Dashboard_model->get_carreraest();
+        $data['usuario_inscripcion'] = $this->Dashboard_model->get_usuario_inscripcion();
+        $data['montos_inscripcion'] = $this->Dashboard_model->get_montoinsc();
+        $data['inscritos_estudiante'] = $this->Dashboard_model->get_inscritos(10);
+        $data['institucion'] = $this->Institucion_model->get_institucion(1);
+
+
         $data['_view'] = 'hola';
         $this->load->view('layouts/main',$data);
 
     }
 
+    //Para graficos//
+
+    public function getUltimoDiaMes($elAnio,$elMes) {
+     return date("d",(mktime(0,0,0,$elMes+1,1,$elAnio)-1));
+    }
+
+    function mes($anio,$mes)
+    {
+        $primer_dia=1;
+        $ultimo_dia=$this->getUltimoDiaMes($anio,$mes);
+        $fecha_inicial=date("Y-m-d H:i:s", strtotime($anio."-".$mes."-".$primer_dia) );
+        $fecha_final=date("Y-m-d H:i:s", strtotime($anio."-".$mes."-".$ultimo_dia) );
+        $fechas = "SELECT i.inscripcion_fecha, round(k.kardexeco_matricula,2) as matricula_totalfinal FROM inscripcion i, kardex_economico k where i.inscripcion_id=k.inscripcion_id and i.inscripcion_fecha >= '".$anio."-".$mes."-01' and  i.inscripcion_fecha <= '".$anio."-".$mes."-31' ";
+        $result= $this->db->query($fechas)->result_array();
+        $fechasven = "SELECT m.mensualidad_fechapago, round(m.mensualidad_montocancelado,2) as mesualidad_total FROM mensualidad m where m.mensualidad_fechapago >= '".$anio."-".$mes."-01' and  m.mensualidad_fechapago <= '".$anio."-".$mes."-31' ";
+        $resultven= $this->db->query($fechasven)->result_array();
+        //$result=$data['result'];
+        $ct=count($result);
+
+        for($d=1;$d<=$ultimo_dia;$d++){
+            $registros[$d]=0;
+            $registrosven[$d]=0;     
+        }
+
+        foreach($result as $res){
+        $diasel=intval(date("d",strtotime($res['inscripcion_fecha']) ) );
+        
+        $suma=$res['matricula_totalfinal'];
+        
+        $registros[$diasel]+=$suma;    
+        }
+
+        foreach($resultven as $resven){
+        $diaselven=intval(date("d",strtotime($resven['mensualidad_fechapago']) ) );
+        
+        $sumave=$resven['mesualidad_total'];
+       
+        $registrosven[$diaselven]+=$sumave;    
+        }
+
+        $data=array("totaldias"=>$ultimo_dia, "registrosdia" =>$registros, "registrosven" =>$registrosven);
+        echo   json_encode($data);
+        /*$anio = $this->input->post('anio');   1555891200
+        $mes = $this->input->post('fecha2'); 
+*/
+        
+    }
+
+    function incripciones($anio,$mes)
+    {
+        $primer_dia=1;
+        $ultimo_dia=$this->getUltimoDiaMes($anio,$mes);
+        $fecha_inicial=date("Y-m-d H:i:s", strtotime($anio."-".$mes."-".$primer_dia) );
+        $fecha_final=date("Y-m-d H:i:s", strtotime($anio."-".$mes."-".$ultimo_dia) );
+        $fechas = "SELECT i.inscripcion_fecha FROM inscripcion i where i.inscripcion_fecha >= '".$anio."-".$mes."-01' and  i.inscripcion_fecha <= '".$anio."-".$mes."-31' ";
+        $result= $this->db->query($fechas)->result_array();
+        
+        //$result=$data['result'];
+        $ct=count($result);
+
+        for($d=1;$d<=$ultimo_dia;$d++){
+            $registros[$d]=0;
+            $registrosven[$d]=0;     
+        }
+
+        foreach($result as $res){
+        $diasel=intval(date("d",strtotime($res['inscripcion_fecha']) ) );
+        
+        $suma=1;
+        
+        $registros[$diasel]+=$suma;    
+        }
+
+
+        $data=array("totaldias"=>$ultimo_dia, "registrosdia" =>$registros);
+        echo   json_encode($data);
+        /*$anio = $this->input->post('anio');   1555891200
+        $mes = $this->input->post('fecha2'); 
+*/
+        
+    }
+    // Fin para graficos//
     public function logout()
     {
         $this->session->unset_userdata('logged_in');
