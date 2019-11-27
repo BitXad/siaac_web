@@ -12,6 +12,7 @@ class Inscripcion extends CI_Controller{
         $this->load->model('Carrera_model');
         $this->load->model('Nivel_model');
         $this->load->model('Kardex_economico_model');
+        $this->load->model('Kardex_academico_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -259,7 +260,6 @@ class Inscripcion extends CI_Controller{
     }
         
     function registrar_inscripcion(){
-
         $session_data = $this->session->userdata('logged_in');
         $usuario_id = $session_data['usuario_id'];
         $gestion_id = $session_data['gestion_id'];
@@ -269,32 +269,28 @@ class Inscripcion extends CI_Controller{
         $nivel_id = $this->input->post('nivel_id');
         $turno_id = $this->input->post('turno_id');
         $inscripcion_fecha = date('Y-m-d');
-        $inscripcion_hora = date('H:t:s');
+        $inscripcion_hora = date('H:i:s');
         $inscripcion_fechainicio = $this->input->post('inscripcion_fechainicio');
         $carrera_id = $this->input->post('carrera_id');
         $inscripcion_glosa = $this->input->post('inscripcion_glosa');
+        $pagar_matricula = $this->input->post('pagar_matricula');
+        $pagar_mensualidad = $this->input->post('pagar_mensualidad');
         
-        $sql = "insert into inscripcion(usuario_id,gestion_id,estudiante_id,"
-                . "paralelo_id,nivel_id,turno_id,inscripcion_fecha,inscripcion_hora,"
-                . "inscripcion_fechainicio,carrera_id,inscripcion_glosa) value(".
-                $usuario_id.",".
-                $gestion_id.",".
-                $estudiante_id.",".
-                $paralelo_id.",".
-                $nivel_id.",".
-                $turno_id.",".
-                "'".$inscripcion_fecha."',".
-                "'".$inscripcion_hora."',".
-                "'".$inscripcion_fechainicio."',".
-                $carrera_id.",".
-                "'".$inscripcion_glosa."')";       
-        $this->Inscripcion_model->ejecutar($sql);        
-        
-        //Registro de kardek académico
-       
-        $res = $this->Inscripcion_model->ultima_inscripcion();
-        
-        $inscripcion_id = $res[0]["inscripcion_id"];
+        $paramsi = array(
+            'usuario_id' => $usuario_id,
+            'gestion_id' => $gestion_id,
+            'estudiante_id' => $estudiante_id,
+            'paralelo_id' => $paralelo_id,
+            'nivel_id' => $nivel_id,
+            'turno_id' => $turno_id,
+            'inscripcion_fecha' => $inscripcion_fecha,
+            'inscripcion_hora' => $inscripcion_hora,
+            'inscripcion_fechainicio' => $inscripcion_fechainicio,
+            'carrera_id' => $carrera_id,
+            'inscripcion_glosa' => $inscripcion_glosa,
+            );
+        $inscripcion_id = $this->Inscripcion_model->add_inscripcion($paramsi);
+
         $kardexacad_notfinal1 = 0;
         $kardexacad_notfinal2 = 0;
         $kardexacad_notfinal3 = 0;
@@ -303,19 +299,18 @@ class Inscripcion extends CI_Controller{
         $kardexacad_notfinal = 0;
         $kardexacad_estado = 1;
         
-        $sql = "insert into kardex_academico(inscripcion_id,kardexacad_notfinal1,"
-                . "kardexacad_notfinal2,kardexacad_notfinal3,kardexacad_notfinal4,"
-                . "kardexacad_notfinal5,kardexacad_notfinal,kardexacad_estado) value(".
-                $inscripcion_id.",".
-                $kardexacad_notfinal1.",".
-                $kardexacad_notfinal2.",".
-                $kardexacad_notfinal3.",".
-                $kardexacad_notfinal4.",".
-                $kardexacad_notfinal5.",".
-                $kardexacad_notfinal.",".
-                $kardexacad_estado.")";
-        $this->Inscripcion_model->ejecutar($sql);
-
+        $params = array(
+            'inscripcion_id' => $inscripcion_id,
+            'kardexacad_notfinal1' => $kardexacad_notfinal1,
+            'kardexacad_notfinal2' => $kardexacad_notfinal2,
+            'kardexacad_notfinal3' => $kardexacad_notfinal3,
+            'kardexacad_notfinal4' => $kardexacad_notfinal4,
+            'kardexacad_notfinal5' => $kardexacad_notfinal5,
+            'kardexacad_notfinal' => $kardexacad_notfinal,
+            'kardexacad_estado' => $kardexacad_estado,
+            );
+            $kardexacad_id = $this->Kardex_academico_model->add_kardex_academico($params);
+        
         //Registro de kardex economico
         
         //$inscripcion_id = ;
@@ -326,18 +321,19 @@ class Inscripcion extends CI_Controller{
         $kardexeco_observacion = $this->input->post('inscripcion_glosa');
         $kardexeco_fechainicio = $this->input->post('inscripcion_fechainicio');
         //$kardexeco_hora = $this->input->post('inscripcion_fechainicio');
-        
-        $sql = "insert into kardex_economico(inscripcion_id,estado_id,kardexeco_matricula,"
-                . "kardexeco_mensualidad,kardexeco_nummens,kardexeco_observacion,kardexeco_fecha) value(".
-                $inscripcion_id.",".
-                $estado_id.",".
-                $kardexeco_matricula.",".
-                $kardexeco_mensualidad.",".
-                $kardexeco_nummens.",".
-                "'".$kardexeco_observacion."',".
-                "'".$kardexeco_fecha."')";
-        
-        $kardexeco_id = $this->Kardex_economico_model->registrar_kardex($sql);
+        $kardexeco_fecha = date("Y-m-d");
+        $kardexeco_hora  = date("H:i:s");
+        $paramseco = array(
+            'inscripcion_id' => $inscripcion_id,
+            'estado_id' => $estado_id,
+            'kardexeco_matricula' => $kardexeco_matricula,
+            'kardexeco_mensualidad' => $kardexeco_mensualidad,
+            'kardexeco_nummens' => $kardexeco_nummens,
+            'kardexeco_observacion' => $kardexeco_observacion,
+            'kardexeco_fecha' => $kardexeco_fecha,
+            'kardexeco_hora' => $kardexeco_hora,
+            );
+        $kardexeco_id = $this->Kardex_economico_model->add_kardex_economico($paramseco);
         
         $intervalo = 30; //mensual
         //$dia_pago = date('d');
@@ -348,7 +344,7 @@ class Inscripcion extends CI_Controller{
         for ($i = 1; $i<=$kardexeco_nummens; $i++){
             
                        
-            $estado_id = 3;
+            $estado_id = 3; // estado PENDIENTE
             
             $mes = date("m", strtotime($cuota_fechalimite));
             
@@ -407,12 +403,68 @@ class Inscripcion extends CI_Controller{
             $cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);
         }
         
-        return true;
+        if($pagar_matricula == 1){
+            $this->load->model('Matricula_model');
+            $paramspm = array(
+                'inscripcion_id' => $inscripcion_id,
+                'matricula_fechapago' => $kardexeco_fecha,
+                'matricula_horapago' => $kardexeco_hora,
+                //'matricula_fechalimite' => $kardexeco_mensualidad,
+                'matricula_monto' => $kardexeco_matricula,
+                'matricula_descuento' => 0,
+                'matricula_total' => $kardexeco_matricula,
+            );
+            $matricula_id = $this->Matricula_model->add_matricula($paramspm);
+        }
+        if($pagar_mensualidad >0){
+            $estadomen_id = 4; //cancelado
+            $this->load->model('Estudiante_model');
+            $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
+            $this->load->model('Mensualidad_model');
+            $thismensualidad = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
+            $cont = 0;
+            for($i = 1; $i <= $pagar_mensualidad; $i++){
+                $parampm = array(
+                    'estado_id' => $estadomen_id,
+                    'mensualidad_montocancelado' => $kardexeco_fecha,
+                    'mensualidad_fechapago' => $kardexeco_fecha,
+                    'mensualidad_horapago' => $kardexeco_hora,
+                    'mensualidad_nombre' => $thisestudiante['estudiante_nombre']." ".$thisestudiante['estudiante_apellidos'],
+                    'mensualidad_ci' => $thisestudiante['estudiante_ci'],
+                    'mensualidad_glosa' => "Se pago al momento de inscribirse",
+                );
+                $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
+                $cont++;
+            }
+        }
+        
+        echo json_encode($kardexacad_id);
     }
+    
     function getname_grupo(){
         $materia_id = $this->input->post('materia_id');
         $materias = $this->Inscripcion_model->get_grupomateria($materia_id);
         echo json_encode($materias);
+    }
+    
+    function registrar_matasignada(){
+        $this->load->model('Materia_model');
+        $this->load->model('Materia_asignada_model');
+        $kardexacad_id = $this->input->post('kardexacad_id');
+        $materia_id    = $this->input->post('materia_id');
+        $grupo_id      = $this->input->post('grupo_id');
+        $materia = $this->Materia_model->get_materia($materia_id);
+        $estado_id = 1;
+        $params = array(
+            'estado_id' => $estado_id,
+            'kardexacad_id' => $kardexacad_id,
+            'materiaasig_nombre' => $materia['materia_nombre'],
+            'materiaasig_codigo' => $materia['materia_codigo'],
+            'materia_id' => $materia_id,
+            'grupo_id' => $grupo_id,
+            );
+            $materiaasig_id = $this->Materia_asignada_model->add_materia_asignada($params);
+        echo json_encode("ok");
     }
     
 }

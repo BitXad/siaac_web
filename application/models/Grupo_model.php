@@ -105,14 +105,15 @@ class Grupo_model extends CI_Model
                 concat(d.docente_apellidos, ' ', d.docente_nombre) as nombre_docente, m.materia_nombre, u.usuario_nombre
             FROM
                 grupo g
-            LEFT JOIN horario h  on h.horario_id = g.horario_id
-            LEFT JOIN periodo p  on p.periodo_id = h.horario_id
-            LEFT JOIN dia     di on di.dia_id = h.dia_id
-            LEFT JOIN aula    a  on a.aula_id = h.aula_id
-            LEFT JOIN docente d  on d.docente_id = g.docente_id
-            LEFT JOIN gestion ge on ge.gestion_id = g.gestion_id
-            LEFT JOIN usuario u  on u.usuario_id = g.usuario_id
-            LEFT JOIN materia m on m.materia_id = g.materia_id
+            LEFT JOIN docente d  on g.docente_id = d.docente_id
+            LEFT JOIN horario h  on g.horario_id = h.horario_id
+            LEFT JOIN aula    a  on g.aula_id = a.aula_id
+            LEFT JOIN aula    b  on h.aula_id = b.aula_id
+            LEFT JOIN periodo p  on h.periodo_id = p.periodo_id
+            LEFT JOIN dia     di on h.dia_id = di.dia_id
+            LEFT JOIN gestion ge on g.gestion_id = ge.gestion_id
+            LEFT JOIN usuario u  on g.usuario_id = u.usuario_id
+            LEFT JOIN materia m on g.materia_id = m.materia_id
             where
                 d.docente_id = $docente_id
             
@@ -130,7 +131,8 @@ class Grupo_model extends CI_Model
             FROM
                 grupo g, horario h
             where
-                g.docente_id = $docente_id
+                g.horario_id = h.horario_id
+                and g.docente_id = $docente_id
                 and h.dia_id = $dia_id
                 and h.periodo_id = $periodo_id
         ")->row_array();

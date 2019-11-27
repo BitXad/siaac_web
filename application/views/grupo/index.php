@@ -122,7 +122,7 @@ function sel_individual(source, dia_id) {
         <div class="col-md-4">
             <label for=´horario_id" class="control-label">Grupo:</label>
             <div class="form-group" id="elegirhorario">
-                <input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control">
+                <input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" autocomplete="off">
             </div>
         </div>
     </div>
