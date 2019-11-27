@@ -22,7 +22,7 @@
 </div>
 <div class="input-group">
     <span class="input-group-addon">Buscar</span>
-    <input id="filtrar" type="text" class="form-control" placeholder="Ingrese cliente, código, estado serv.." onkeypress="validar2(event,3)" autofocus autocomplete="off">
+    <input id="filtrar" type="text" class="form-control" placeholder="Ingrese nombre, código, nivel formación" onkeypress="validar2(event,3)" autofocus autocomplete="off">
 </div>
 <div class="row">
     <div class="col-md-12">
