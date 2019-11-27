@@ -125,7 +125,7 @@
                                 <i class="fa fa-address-book-o"></i> <span>Registros</span>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="active">
+                                <li>
                                     <a href="<?php echo site_url('administrativo');?>"><i class="fa fa-user-circle-o"></i>Administrativos</a>
                                 </li>
                                 <li>
@@ -185,7 +185,7 @@
                                 <i class="fa fa-industry"></i> <span>Operaciones</span>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="active">
+                                <li>
                                     <a href="<?php echo site_url('carrera');?>"><i class="fa fa-file-code-o"></i>Carrera</a>
                                 </li>
                                 <!--<li>
@@ -252,10 +252,10 @@
                                 <i class="fa fa-lock"></i> <span>Seguridad</span>
                             </a>
                             <ul class="treeview-menu">
-                                <li class="active">
+                                <li>
                                     <a href="<?php echo site_url('rol');?>"><i class="fa fa-retweet"></i>Roles</a>
                                 </li>
-                                <li class="active">
+                                <li>
                                     <a href="<?php echo site_url('tipo_usuario');?>"><i class="fa fa-list-ul"></i>Tipo Usuario</a>
                                 </li>
                                 <li>

@@ -20,7 +20,7 @@ $session_data = $this->session->userdata('logged_in');
 
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="container">
+  <div class="container-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
