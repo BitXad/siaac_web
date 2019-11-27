@@ -242,21 +242,8 @@ function registrar_inscripcion(){
 
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/registrar_inscripcion";
-
-    //var materias = document.getElementByname('mat');
     var materias = document.getElementsByName('mat');
-    var cons = "";
     
-    //alert(materias.length);
-    
-    for(i=0; i<materias.length; i++){
-        if (materias[i].checked){
-         
-            //res = materias[i].value;        
-           cons += cons + ""
-        }
-    }
-   
     var ban = 0;
     var men = "ERROR: ";
     
@@ -266,9 +253,7 @@ function registrar_inscripcion(){
     if (nivel_id<=0) { ban = 1; men = men + "Debe seleccionar un nivel \n"; }
     if (paralelo_id<=0) { ban = 1; men = men + "Debe seleccionar un paralelo \n"; }
 
-
     if (ban==0){
-        
         $.ajax({
             url:controlador,
             type:"POST",
@@ -279,21 +264,29 @@ function registrar_inscripcion(){
                     pagar_matricula:pagar_matricula, pagar_mensualidad:pagar_mensualidad
                 },
             success:function(respuesta){
-                
+                var kardexacad_id =  JSON.parse(respuesta);
+                for(i=0; i<materias.length; i++){
+                    if (materias[i].checked){
+                        var thismateria_id = materias[i].value;
+                        var thisgrupo_id = document.getElementById('selgrupo'+thismateria_id).value;
+                        if(thisgrupo_id >0){
+                            registrar_materiagrupo(kardexacad_id, thismateria_id, thisgrupo_id);
+                        }
+                        //res = materias[i].value;
+                       //cons += cons + ""
+                    }
+                }
                 alert("Inscripcion realizada con éxito..!!");
-                
+                location.href =base_url+"inscripcion/inscribir/0";
             },
             error:function(respuesta){
                 alert("proceso erroneo");
-
             }
         }); 
-
     }
     else{
         alert(men);
     }
-
 }
 
 function buscar_inscripciones()
@@ -387,4 +380,28 @@ function mostrargrupo(materia_id){
     });
   
   return promise;
+}
+
+function registrar_materiagrupo(kardexacad_id, materia_id, grupo_id)
+{
+    var base_url    = document.getElementById('base_url').value;
+    var controlador = base_url+"inscripcion/registrar_matasignada";
+    $.ajax({url: controlador,
+            type:"POST",
+            data:{kardexacad_id:kardexacad_id, materia_id:materia_id, grupo_id:grupo_id},
+            success:function(resul){
+                var registros =  JSON.parse(resul);
+               if (registros == "ok"){
+                   
+               }else{
+                   
+               }
+                
+        },
+        error:function(resul){
+           alert("Algo salio mal...!!!");
+        }
+        
+    });   
+
 }
