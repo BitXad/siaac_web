@@ -145,6 +145,7 @@ class Dashboard_model extends CI_Model
                 WHERE 
                 u.usuario_id = i.usuario_id and
                 i.inscripcion_id = k.inscripcion_id
+                and i.inscripcion_fecha >= CURDATE() - INTERVAL DAY(CURDATE())-1 DAY
                 group by u.usuario_id
             
         ")->result_array();

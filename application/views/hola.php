@@ -20,7 +20,7 @@ $session_data = $this->session->userdata('logged_in');
 
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="container">
+  <div class="container-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -35,7 +35,7 @@ $session_data = $this->session->userdata('logged_in');
       <!-- Info boxes -->
       <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <a href="../inscripcion/inscribir/0"><div class="info-box">
+          <a href="../inscripcion/inscribir/0" style="color: black;"><div class="info-box">
             <span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span>
 
             <div class="info-box-content">
@@ -48,7 +48,7 @@ $session_data = $this->session->userdata('logged_in');
         </div>
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <a href="../inscripcion/index"><div class="info-box">
+          <a href="../inscripcion/index" style="color: black;"><div class="info-box">
             <span class="info-box-icon bg-red"><i class="fa fa-book"></i></span>
 
             <div class="info-box-content">
@@ -65,7 +65,7 @@ $session_data = $this->session->userdata('logged_in');
         <div class="clearfix visible-sm-block"></div>
 
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <a href="../docente"><div class="info-box">
+          <a href="../docente" style="color: black;"><div class="info-box">
             <span class="info-box-icon bg-green"><i class="fa fa-user-o"></i></span>
 
             <div class="info-box-content">
@@ -78,7 +78,7 @@ $session_data = $this->session->userdata('logged_in');
         </div>
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <a href="../estudiante"><div class="info-box">
+          <a href="../estudiante" style="color: black;"><div class="info-box">
             <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
 
             <div class="info-box-content">
@@ -184,7 +184,7 @@ $session_data = $this->session->userdata('logged_in');
           <!-- MAP & BOX PANE -->
           <div class="box box-success">
             <div class="box-header with-border">
-              <h3 class="box-title">Visitors Report</h3>
+              <h3 class="box-title">Inscripciones</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -244,9 +244,11 @@ $session_data = $this->session->userdata('logged_in');
                     <td><?php echo $ce["carrera_nombre"] ?></td>
                     <td><span class="label label-success"><?php echo $ce["carrera_codigo"] ?></span></td>
                     <td>
-                      
+                      <?php  if($ce["cant"]>0) { ?>
                       <div class="sparkbar" data-color="#00a65a" data-height="20" align="center"><?php echo $ce["cant"]; ?></div>
-                    
+                      <?php }else{  ?>
+                      <div class="sparkbar" data-color="#00a65a" data-height="20" align="center">0</div>
+                      <?php } ?>
                     </td>
                   </tr>
                   <?php } ?>
@@ -272,11 +274,11 @@ $session_data = $this->session->userdata('logged_in');
             <span class="info-box-icon"><i class="ion ion-cash"></i></span>
 
             <a href="../kardex_economico" style="color: white;"><div class="info-box-content">
-              <span class="info-box-text">Pensiones</span>
-              <span class="info-box-number"><?php echo sizeof($pensiones); ?></span>
+              <span class="info-box-text">Mensualidades</span>
+              <span class="info-box-number"></span>
 
               <div class="progress">
-                <div class="progress-bar" style="width: 50%"></div>
+                <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
                    
@@ -290,10 +292,10 @@ $session_data = $this->session->userdata('logged_in');
 
             <a href="../factura" style="color: white;"><div class="info-box-content">
               <span class="info-box-text">Facturas</span>
-              <span class="info-box-number"><?php echo sizeof($facturas); ?></span>
+              <span class="info-box-number"></span>
 
               <div class="progress">
-                <div class="progress-bar" style="width: 20%"></div>
+                <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
                    
@@ -307,10 +309,10 @@ $session_data = $this->session->userdata('logged_in');
 
             <a href="../kardex_economico" style="color: white;"><div class="info-box-content">
               <span class="info-box-text">Kardex Economico</span>
-              <span class="info-box-number"><?php echo sizeof($kardex_eco); ?></span>
+              <span class="info-box-number"></span>
 
               <div class="progress">
-                <div class="progress-bar" style="width: 70%"></div>
+                <div class="progress-bar" style="width: 1000%"></div>
               </div>
               <span class="progress-description">
                
@@ -324,10 +326,10 @@ $session_data = $this->session->userdata('logged_in');
 
             <a href="../kardex_academico" style="color: white;"><div class="info-box-content">
               <span class="info-box-text">Kardex Academico</span>
-              <span class="info-box-number"><?php echo sizeof($kardex_aca); ?></span>
+              <span class="info-box-number"></span>
 
               <div class="progress">
-                <div class="progress-bar" style="width: 40%"></div>
+                <div class="progress-bar" style="width: 100%"></div>
               </div>
               <span class="progress-description">
                    
@@ -341,7 +343,7 @@ $session_data = $this->session->userdata('logged_in');
           <!-- PRODUCT LIST -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Ultimos Estudiantes inscritos</h3>
+              <h3 class="box-title">Ultimos estudiantes inscritos</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
