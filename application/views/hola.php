@@ -97,12 +97,12 @@ $session_data = $this->session->userdata('logged_in');
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Reportes del mes</h3>
+              <h3 class="box-title"><span class="fa fa-money"></span> Reportes del mes</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <div class="btn-group">
+                <!--<div class="btn-group">
                   <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-wrench"></i></button>
                   <ul class="dropdown-menu" role="menu">
@@ -112,7 +112,7 @@ $session_data = $this->session->userdata('logged_in');
                     <li class="divider"></li>
                     <li><a href="#">Separated link</a></li>
                   </ul>
-                </div>
+                </div>-->
                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
             </div>
@@ -157,7 +157,7 @@ $session_data = $this->session->userdata('logged_in');
                           <div class="progress-bar progress-bar-<?php echo $tipobar; ?> progress-xs" style="width: <?php echo $user['total_insc']/$montos_inscripcion[0]['total_insc']*100;?>%"></div>                    
                         </div>
                       </td>
-                      <td><span class="badge bg-<?php echo $color; ?>"><?php echo number_format($user['total_insc'],2,',','.');?></span></td>
+                      <td><span class="badge bg-<?php echo $color; ?>"><?php echo number_format($user['total_insc'],'2','.',',');?></span></td>
                     </tr>
                 <?php } ?>
                   <!-- /.progress-group -->
@@ -184,7 +184,7 @@ $session_data = $this->session->userdata('logged_in');
           <!-- MAP & BOX PANE -->
           <div class="box box-success">
             <div class="box-header with-border">
-              <h3 class="box-title">Inscripciones</h3>
+              <h3 class="box-title"><span class="fa fa-user-plus"></span> Inscripciones</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -215,7 +215,7 @@ $session_data = $this->session->userdata('logged_in');
           <!-- TABLE: LATEST ORDERS -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Carreras</h3>
+              <h3 class="box-title"><span class="fa fa-university"></span> Carreras</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -343,7 +343,7 @@ $session_data = $this->session->userdata('logged_in');
           <!-- PRODUCT LIST -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Ultimos estudiantes inscritos</h3>
+              <h3 class="box-title"><span class="fa fa-users"></span> Ultimos estudiantes inscritos</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
