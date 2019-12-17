@@ -44,7 +44,13 @@
                 <div class="col-md-3">
                         <label for="estudiante_fechanac" class="control-label">Fecha de Nacimiento</label>
                         <div class="form-group">
-                            <?php echo date("d/m/Y", time($estudiante['estudiante_fechanac'])); ?>
+                            <?php
+                            if($estudiante['estudiante_fechanac'] != null){
+                                echo date("d/m/Y", time($estudiante['estudiante_fechanac']));
+                            }else{
+                                
+                            }
+                            ?>
                         </div>
                 </div>
                 <div class="col-md-3">
