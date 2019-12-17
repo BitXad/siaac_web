@@ -265,17 +265,17 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         </div>
 
 <!-------------------------------- INICIO ---------------------------------------->
-
+                                <?php $padding = "style='padding:0;'"; ?>
 					<div class="col-md-6">
 						<label for="pagar_matricula" class="control-label">Materias</label>
 						<div class="form-group">
                                                     <table class="table table-striped" id="mitabla">
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Materia</th>
-                                                            <th>Cód</th>
-                                                            <th>Grupo</th>
-                                                            <th></th>
+                                                        <tr >
+                                                            <th <?php echo $padding; ?>>#</th>
+                                                            <th <?php echo $padding; ?>>Materia</th>
+                                                            <th <?php echo $padding; ?>>Cód</th>
+                                                            <th <?php echo $padding; ?>>Grupo</th>
+                                                            <th <?php echo $padding; ?>></th>
                                                         </tr>
                                                         <tbody id="tabla_materia">
 <!--                                                            <tr>
@@ -401,6 +401,9 @@ $session_data = $this->session->userdata('logged_in'); ?>
                             <button type="button" class="btn btn-facebook btn-block" onclick="registrar_inscripcion()">
                                     <i class="fa fa-floppy-o"></i> Finalizar Inscripción
                             </button>
+                            <a href="<?php echo base_url("inscripcion/ultima_inscripcion"); ?>" target="_BLANK" class="btn btn-warning btn-block" id="boton_imprimir">
+                                    <i class="fa fa-print"></i> Imprimir
+                            </a>
                             <a href="<?php echo base_url("admin/dashb"); ?>" class="btn btn-danger btn-block">
                                     <i class="fa fa-fax"></i> Salir
                             </a>

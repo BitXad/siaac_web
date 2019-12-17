@@ -9,6 +9,7 @@ class Inscripcion extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Inscripcion_model');
+        $this->load->model('Institucion_model');
         $this->load->model('Carrera_model');
         $this->load->model('Nivel_model');
         $this->load->model('Kardex_economico_model');
@@ -466,5 +467,17 @@ class Inscripcion extends CI_Controller{
             $materiaasig_id = $this->Materia_asignada_model->add_materia_asignada($params);
         echo json_encode("ok");
     }
+    
+    function ultima_inscripcion()
+    {   
+        
+        $data['inscripcion'] = $this->Inscripcion_model->get_ultima_inscripcion();
+        $data['institucion'] = $this->Institucion_model->get_all_institucion();
+        
+        $data['_view'] = 'inscripcion/comprobante';
+        $this->load->view('layouts/main',$data);
+    }
+    
+    
     
 }

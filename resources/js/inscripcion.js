@@ -276,8 +276,10 @@ function registrar_inscripcion(){
                        //cons += cons + ""
                     }
                 }
+                $("#boton_imprimir").click();
+                location.href = base_url+"inscripcion/inscribir/0";
                 alert("Inscripcion realizada con éxito..!!");
-                location.href =base_url+"inscripcion/inscribir/0";
+                
             },
             error:function(respuesta){
                 alert("proceso erroneo");
