@@ -10,7 +10,7 @@
     
     </div>
     <div class="col-md-12">
-        <div id="tablaestudiantes">
+        <div id="tablaestudiantes" class="table-responsive">
             <table class='table table-striped table-condensed' id='mitabla'>
                 <tr>
                     <th>#</th>
