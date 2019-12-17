@@ -198,4 +198,18 @@ class Inscripcion_model extends CI_Model
 
         return $grupo;
     }
+
+    function get_ultima_inscripcion()
+    {
+        $sql = "select * 
+                from inscripcion i, estudiante e, kardex_economico ke, usuario u, carrera c
+                where i.estudiante_id = e.estudiante_id and 
+                i.inscripcion_id = ke.inscripcion_id and 
+                c.carrera_id = i.carrera_id and
+                i.usuario_id = u.usuario_id and
+                i.inscripcion_id = (select max(inscripcion_id) from inscripcion)";
+        $grupo = $this->db->query($sql)->result_array();
+        return $grupo;
+    }
+    
 }
