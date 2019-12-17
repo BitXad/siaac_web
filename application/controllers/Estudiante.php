@@ -688,25 +688,15 @@ class Estudiante extends CI_Controller{
     }
     function keconomico($estudiante_id)
     {
-
-        if ($this->input->is_ajax_request()) {
-            $estudiante = $this->input->post('dato');
-            if ($estudiante!="") {
+        $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+        if(isset($data['estudiante']['estudiante_id']))
+        {
+            $data['mikardex'] = $this->Estudiante_model->get_estudiante_kardexecon($estudiante_id);
             
-           
-            $datos = $this->Kardex_economico_model->get_est_kardex($estudiante);
-            
-            echo json_encode($datos);
-       
-            }
-            else{ echo json_encode(null);
-            }
-        }
-        else
-        {                 
-                     $data['_view'] = 'kardex_economico/busqueda';
-                     $this->load->view('layouts/main',$data);
-        } 
+             $data['_view'] = 'estudiante/keconomico';
+             $this->load->view('layouts/main',$data);
+        }else
+            show_error('The estudiante you are trying to edit does not exist.');
        
     }
 }

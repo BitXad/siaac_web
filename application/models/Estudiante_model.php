@@ -218,4 +218,25 @@ class Estudiante_model extends CI_Model
 
         return $mikardex;
     }
+    function get_estudiante_kardexecon($estudiante_id)
+    {
+        $kardex_economico = $this->db->query("
+            SELECT
+                i.*, ke.*, c.*, e.*
+
+            FROM
+                inscripcion i
+
+            LEFT JOIN kardex_economico ke ON i.inscripcion_id=ke.inscripcion_id
+            LEFT JOIN carrera c ON i.carrera_id=c.carrera_id
+            LEFT JOIN estudiante e ON i.estudiante_id=e.estudiante_id
+
+            WHERE
+                e.estudiante_id = $estudiante_id
+
+            ORDER BY `kardexeco_id` DESC
+        ")->result_array();
+
+        return $kardex_economico;
+    }
 }
