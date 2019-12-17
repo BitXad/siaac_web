@@ -41,26 +41,26 @@
 <div class="box-body table-responsive" >
                 <table class="table table-striped" id="mitabla">
                     <tr>
-						<th rowspan="2"><BR>N</th>
-						<th rowspan="2"><BR>APELLIDOS</th>
-						<th rowspan="2"><BR>NOMBRES</th>
-						<th>1er.</th>
-						<th>2do.</th>
-						
-						
-						<th colspan="2" >PROM. ANUAL</th>
-						<th rowspan="2"><BR>Obs.</th>
-						<th colspan="2" >HABILITACION</th>
-						<th rowspan="2"><BR>Obs.</th>
-						
+            <th rowspan="2"><BR>N°</th>
+            <th rowspan="2"><BR>APELLIDOS</th>
+            <th rowspan="2"><BR>NOMBRES</th>
+            <th>1er.</th>
+            <th>2do.</th>
+            
+            
+            <th colspan="2" >PROM. ANUAL</th>
+            <th rowspan="2"><BR>Obs.</th>
+            <th colspan="2" >HABILITACION</th>
+            <th rowspan="2"><BR>Obs.</th>
+            
                     </tr>
                     <tr>
-						<th>P<br>A<br>R</th>
-						<th>P<br>A<br>R</th>
-						<th>N<br>U<br>M</th>
-						<th>LITERAL</th>
-						<th>N<br>U<br>M</th>
-						<th>LITERAL</th>
+            <th>P<br>A<br>R</th>
+            <th>P<br>A<br>R</th>
+            <th>N<br>U<br>M</th>
+            <th>LITERAL</th>
+            <th>N<br>U<br>M</th>
+            <th>LITERAL</th>
 
                     </tr>
                                        <!--  ESTA TABLA ES de ejempl-->
@@ -92,11 +92,11 @@
 
                  } ?>
 
-              	</table>
-              	<?php echo date('d/m/Y H:i:s'); ?>
-              	<center>
-              	<table class="table table-striped" id="mitabla" style="width: 50%">
-              		<tr>
+                </table>
+                <?php echo date('d/m/Y H:i:s'); ?>
+                <center>
+                <table class="table table-striped" id="mitabla" style="width: 50%">
+                  <tr>
                     <th colspan="5">ESTADISTICA DE FISICA I</th>
                   </tr>
                   <tr>
@@ -141,8 +141,8 @@
                     <td><?php echo $rep; ?></td>
                     <td><?php echo round($rep/$cont*100, 2) ?> %</td>
                   </tr>
-              	</table>
-              	</center>
+                </table>
+                </center>
 </div>
 
 <center>
