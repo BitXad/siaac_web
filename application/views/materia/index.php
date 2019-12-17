@@ -1,29 +1,47 @@
+<script type="text/javascript">
+        $(document).ready(function () {
+            (function ($) {
+                $('#nombre').keyup(function () {
+                    var rex = new RegExp($(this).val(), 'i');
+                    $('.buscar tr').hide();
+                    $('.buscar tr').filter(function () {
+                        return rex.test($(this).text());
+                    }).show();
+                })
+            }(jQuery));
+        });
+</script>
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
+<div class="box-header">
+    <h3 class="box-title">Materia</h3>
+    <div class="box-tools">
+        <a href="<?php echo site_url('materia/add'); ?>" class="btn btn-success btn-sm">Registrar Materia</a> 
+    </div>
+</div>
+<div class="input-group">
+    <span class="input-group-addon">Buscar</span>
+    <input type="text" name="nombre" class="form-control" id="nombre" autocomplete="off" onkeypress="validar(event,1)"  placeholder="Nombre, Apellidos del Estudiante" />
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Materia</h3>
-            	<div class="box-tools">
-                    <a href="<?php echo site_url('materia/add'); ?>" class="btn btn-success btn-sm">Registrar Materia</a> 
-                </div>
-            </div>
             <div class="box-body">
                 <table class="table table-striped" id="mitabla">
                     <tr>
-						<th>#</th>
-						<th>Materia</th>
-						<th>Codigo</th>
-						<th>Nivel</th>
-						<th>Pre-Requisito</th>
-						<th>Area</th>
-						<th>Estado</th>
-						<th></th>
+                        <th>#</th>
+                        <th>Materia</th>
+                        <th>Codigo</th>
+                        <th>Nivel</th>
+                        <th>Pre-Requisito</th>
+                        <th>Area</th>
+                        <th>Estado</th>
+                        <th></th>
                     </tr>
+                    <tbody class="buscar">
                     <?php $cont = 0;
-                    foreach($materia as $m){ 
+                    foreach($materia as $m){
                         $cont = $cont+1; ?>
                     <tr>
 						<td><?php echo $cont; ?></td>
@@ -45,6 +63,7 @@
                         </td>
                     </tr>
                     <?php } ?>
+                    </tbody>
                 </table>
                                 
             </div>
