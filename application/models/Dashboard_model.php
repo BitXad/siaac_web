@@ -176,14 +176,14 @@ class Dashboard_model extends CI_Model
     {
         $carrera = $this->db->query("
             SELECT
-                c.*, insc.cant
-
+              c.*, insc.cant
             FROM
                 carrera c   
-            LEFT JOIN 
-            
-            (SELECT  count(i.inscripcion_id) as 'cant', i.carrera_id
-            FROM inscripcion i) AS insc
+
+            LEFT JOIN             
+
+            (SELECT  count(i.inscripcion_id) as cant, i.carrera_id
+            FROM inscripcion i group by i.carrera_id  ) AS insc
             ON c.carrera_id=insc.carrera_id            
             ORDER BY c.carrera_id ASC 
 
@@ -196,15 +196,16 @@ class Dashboard_model extends CI_Model
     {
         $carrera = $this->db->query("
             SELECT
-                i.estudiante_id, e.estudiante_apellidos, e.estudiante_nombre, e.estudiante_foto
-
+                i.estudiante_id, e.estudiante_apellidos, e.estudiante_nombre, e.estudiante_foto,
+                c.carrera_nombre
             FROM
-                estudiante e, inscripcion i
+                estudiante e, inscripcion i, carrera c
             WHERE
-                i.estudiante_id=e.estudiante_id    
+                i.estudiante_id = e.estudiante_id  and
+                i.carrera_id = c.carrera_id
            
 
-            ORDER BY i.inscripcion_fecha ASC limit ".$ultimos."
+            ORDER BY i.inscripcion_id DESC limit ".$ultimos."
         ")->result_array();
 
         return $carrera;

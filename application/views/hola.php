@@ -242,7 +242,7 @@ $session_data = $this->session->userdata('logged_in');
                   <tr>
                     <td><?php echo $ce["carrera_id"] ?></td>
                     <td><?php echo $ce["carrera_nombre"] ?></td>
-                    <td><span class="label label-success"><?php echo $ce["carrera_codigo"] ?></span></td>
+                    <td><span class="label label-danger"><?php echo $ce["carrera_codigo"] ?></span></td>
                     <td>
                       <?php  if($ce["cant"]>0) { ?>
                       <div class="sparkbar" data-color="#00a65a" data-height="20" align="center"><?php echo $ce["cant"]; ?></div>
@@ -359,15 +359,18 @@ $session_data = $this->session->userdata('logged_in');
                 <li class="item">
                   <div class="product-img">
                     <?php if ($ie['estudiante_foto']!=NULL && $ie['estudiante_foto']!="") { ?>
-                    <img src="<?php echo base_url('/resources/images/estudiantes/'.$ie['estudiante_foto']);  ?>" width="30px" height="30px" class="img-circle">
+                    <img src="<?php echo base_url('/resources/images/estudiantes/'.$ie['estudiante_foto']);  ?>" width="20px" height="20px" class="img-circle">
                     <?php } else { ?>
-                    <img src="<?php echo site_url('/resources/images/usuarios/thumb_default.jpg');  ?>" width="30px" height="30px">  
+                    <img src="<?php echo site_url('/resources/images/usuarios/thumb_default.jpg');  ?>" width="20px" height="20px">  
                     <?php }  ?>
                   </div>
                   <div class="product-info">
                   
                     <span class="product-description">
-                         <?php echo $ie["estudiante_apellidos"]; ?> <?php echo $ie["estudiante_nombre"]; ?>
+                         <?php echo $ie["estudiante_apellidos"]; ?> <?php echo $ie["estudiante_nombre"]; ?><br>
+                         <b>
+                             <?php echo $ie["carrera_nombre"]; ?>                             
+                         </b>
                         </span>
                   </div>
                 </li>
@@ -380,7 +383,8 @@ $session_data = $this->session->userdata('logged_in');
             </div>
             <!-- /.box-body -->
             <div class="box-footer text-center">
-              <a href="javascript:void(0)" class="uppercase">View All Products</a>
+              <!--<a href="javascript:void(0)" class="uppercase">Inscripciones</a>-->
+              <a href="<?php echo base_url("inscripcion/inscribir/0");  ?>" class="uppercase">Inscripciones</a>
             </div>
             <!-- /.box-footer -->
           </div>
