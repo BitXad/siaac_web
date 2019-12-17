@@ -103,4 +103,24 @@ class Carrera_model extends CI_Model
 
         return $carrera;
     }
+    
+    function get_carrera_porestudante($estudiante_id)
+    {
+        $carrera = $this->db->query("
+            SELECT
+                c.*, ac.areacarrera_nombre
+
+            FROM
+                estudiante e
+            LEFT JOIN inscripcion i on e.estudiante_id = i.estudiante_id
+            LEFT JOIN carrera c on i.carrera_id = c.carrera_id
+            LEFT JOIN area_carrera ac on c.areacarrera_id = ac.areacarrera_id
+
+            WHERE
+                e.estudiante_id = $estudiante_id
+            group by c.carrera_nombre
+        ")->result_array();
+
+        return $carrera;
+    }
 }
