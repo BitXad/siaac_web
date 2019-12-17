@@ -54,7 +54,7 @@ function cerrar() {
                     </div>
         </div>
     
-            <div class="box-body">
+            <div class="box-body table-responsive">
                 <table class="table-striped table-condensed" id="mitabla">
                     <tr>
 						
