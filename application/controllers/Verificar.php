@@ -62,7 +62,7 @@ class Verificar extends CI_Controller
                     redirect('inscripcion');
                 }
                 elseif ($session_data['tipousuario_id'] == 5 || $session_data['tipousuario_id'] == 8) {// estudiante aqui mario!!!!
-                    redirect('estudiante/menu_estudiante/'.$session_data['tipousuario_id']);
+                    redirect('estudiante/menu_estudiante/19');
                 }
 
             } else {
