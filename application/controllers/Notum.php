@@ -10,6 +10,8 @@ class Notum extends CI_Controller{
         parent::__construct();
         $this->load->model('Notum_model');
         $this->load->model('Institucion_model');
+        $this->load->model('Docente_model');
+        $this->load->helper('notas');
     } 
 
     /*
@@ -25,6 +27,7 @@ class Notum extends CI_Controller{
     function notae2()
     {
         
+        $data['estudiante'] = $this->Docente_model->get_estudiantes(1);
         $data['institucion'] = $this->Institucion_model->get_institucion(1);
         $data['_view'] = 'notum/notae2';
         $this->load->view('layouts/main',$data);
@@ -32,7 +35,7 @@ class Notum extends CI_Controller{
 
     function notae3()
     {
-        
+        $data['estudiante'] = $this->Docente_model->get_estudiantes(1);
         $data['institucion'] = $this->Institucion_model->get_institucion(1);
         $data['_view'] = 'notum/notae3';
         $this->load->view('layouts/main',$data);
