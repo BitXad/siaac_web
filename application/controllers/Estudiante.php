@@ -50,9 +50,9 @@ class Estudiante extends CI_Controller{
                         $img_full_path = $config['upload_path'];
 
                         $config['allowed_types'] = 'gif|jpeg|jpg|png';
-                        $config['max_size'] = 200000;
-                        $config['max_width'] = 2900;
-                        $config['max_height'] = 2900;
+                        $config['max_size'] = 0;
+                        /*$config['max_width'] = 2900;
+                        $config['max_height'] = 2900;*/
                         
                         $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                         $config['file_name'] = $new_name; //.$extencion;
@@ -220,9 +220,9 @@ class Estudiante extends CI_Controller{
                         $img_full_path = $config['upload_path'];
 
                         $config['allowed_types'] = 'gif|jpeg|jpg|png';
-                        $config['max_size'] = 200000;
-                        $config['max_width'] = 2900;
-                        $config['max_height'] = 2900;
+                        $config['max_size'] = 0;
+                        /*$config['max_width'] = 2900;
+                        $config['max_height'] = 2900;*/
                         
                         $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                         $config['file_name'] = $new_name; //.$extencion;
@@ -272,9 +272,9 @@ class Estudiante extends CI_Controller{
                         $img_full_path1 = $config1['upload_path'];
 
                         $config1['allowed_types'] = 'gif|jpeg|jpg|png';
-                        $config1['max_size'] = 200000;
-                        $config1['max_width'] = 2900;
-                        $config1['max_height'] = 2900;
+                        $config1['max_size'] = 0;
+                        /*$config1['max_width'] = 2900;
+                        $config1['max_height'] = 2900;*/
                         
                         $new_name1 = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                         $config1['file_name'] = $new_name1; //.$extencion;
@@ -457,9 +457,9 @@ class Estudiante extends CI_Controller{
                     $this->load->library('image_lib');
                     $config1['upload_path'] = './resources/images/apoderados/';
                     $config1['allowed_types'] = 'gif|jpeg|jpg|png';
-                    $config1['max_size'] = 200000;
-                    $config1['max_width'] = 2900;
-                    $config1['max_height'] = 2900;
+                    $config1['max_size'] = 0;
+                    /*$config1['max_width'] = 2900;
+                    $config1['max_height'] = 2900;*/
 
                     $new_name1 = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                     $config1['file_name'] = $new_name1; //.$extencion;

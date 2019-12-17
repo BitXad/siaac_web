@@ -86,9 +86,9 @@ class Docente extends CI_Controller{
                         $img_full_path = $config['upload_path'];
 
                         $config['allowed_types'] = 'gif|jpeg|jpg|png';
-                        $config['max_size'] = 200000;
-                        $config['max_width'] = 2900;
-                        $config['max_height'] = 2900;
+                        $config['max_size'] = 0;
+                        /*$config['max_width'] = 2900;
+                        $config['max_height'] = 2900;*/
                         
                         $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                         $config['file_name'] = $new_name; //.$extencion;
@@ -193,9 +193,9 @@ class Docente extends CI_Controller{
                     $this->load->library('image_lib');
                     $config['upload_path'] = './resources/images/docentes/';
                     $config['allowed_types'] = 'gif|jpeg|jpg|png';
-                    $config['max_size'] = 200000;
-                    $config['max_width'] = 2900;
-                    $config['max_height'] = 2900;
+                    $config['max_size'] = 0;
+                    /*$config['max_width'] = 2900;
+                    $config['max_height'] = 2900;*/
 
                     $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                     $config['file_name'] = $new_name; //.$extencion;
