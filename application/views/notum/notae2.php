@@ -18,8 +18,8 @@
 <div class="cuerpo">
                     <div class="columna_derecha">
                         
-                        <b>Nivel:</b> <br>
-                        <b>Turno:</b> <br>
+                        <b>Nivel:</b> NIVEL 1<br>
+                        <b>Turno:</b> TARDE<br>
                         <b>Fecha:</b> <?php echo date('d/m/Y'); ?>
                         
                     
@@ -27,21 +27,21 @@
                     <div class="columna_izquierda">
                      
                         <b>Docente:</b> <br>
-                        <b>Carrera:</b> <br>
-                        <b>Asignatura:</b> 
+                        <b>Carrera:</b> Sistemas<br>
+                        <b>Asignatura: </b> FISICA I
                        
                      </div>
                     <div class="columna_central">
                         <br>
-                        <b>Materia:</b> <br>
-                        <b>Sigla:</b> 
+                        <b>Materia:</b> FISICA I<br>
+                        <b>Sigla:</b> (FIS100) 
                         
                     </div>
 </div>
 <div class="box-body table-responsive" >
                 <table class="table table-striped" id="mitabla">
                     <tr>
-						<th rowspan="2">N</th>
+						<th rowspan="2">N°</th>
 						<th rowspan="2">APELLIDOS</th>
 						<th rowspan="2">NOMBRES</th>
 						<th>Pond1</th>

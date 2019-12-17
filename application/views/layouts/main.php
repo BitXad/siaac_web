@@ -264,15 +264,18 @@
                             </ul>
                         </li>
                         <?php } ?>
-                        <?php if($session_data['tipousuario_id'] == 2){ ?>
+                        <?php if($session_data['tipousuario_id'] == 2 || $session_data['tipousuario_id'] == 7){ ?>
                         <li>
-                            <a href="<?php echo site_url('grupo');?>"><i class="fa fa-users"></i> <span>Grupo</span></a>
+                            <a href="<?php echo site_url('docente/grupos');?>"><i class="fa fa-users"></i> <span>Grupos</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('notum');?>"><i class="fa fa-list-alt"></i>Notas</a>
+                            <a href="<?php echo site_url('docente/materias');?>"><i class="fa fa-database"></i> <span>Materias</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('horario');?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
+                            <a href="<?php echo site_url('docente/notas');?>"><i class="fa fa-list-alt"></i>Notas</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('docente/horarios');?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
                         </li>
                         <?php } ?>
                         <?php if($session_data['tipousuario_id'] == 3){ ?>

@@ -31,6 +31,46 @@ class Docente extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
 
+    function dashboard()
+    {
+        
+        
+        $data['_view'] = 'docente/dashboard';
+        $this->load->view('layouts/main',$data);
+    }
+
+    function grupos()
+    {
+        
+        $data['_view'] = 'docente/grupos';
+        $this->load->view('layouts/main',$data);
+    }
+    function materias()
+    {
+        
+        $data['_view'] = 'docente/materias';
+        $this->load->view('layouts/main',$data);
+    }
+    function horarios()
+    {
+        
+        $data['_view'] = 'docente/horarios';
+        $this->load->view('layouts/main',$data);
+    }
+    function notas()
+    {
+        
+        $data['_view'] = 'docente/notas';
+        $this->load->view('layouts/main',$data);
+    }
+
+    function nota($grupo)
+    {
+        $data['estudiante'] = $this->Docente_model->get_estudiantes($grupo);
+        $data['_view'] = 'docente/nota_grupo';
+        $this->load->view('layouts/main',$data);
+    }
+
     /*
      * Adding a new docente
      */
