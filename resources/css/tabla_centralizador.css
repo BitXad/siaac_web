@@ -1,0 +1,89 @@
+/* tabla-------------------*/
+.escala {
+    padding-top: -60px;
+    margin-top: -60px;
+    border-top: -60px;
+   transform: scale(.9);
+}
+ @media print{@page {size: landscape}}
+
+     .textvertical{
+    writing-mode: tb-rl;
+    transform: rotate(180deg);
+}
+
+#mitabla {
+    /*font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+    font-family: "Arial", Arial, Arial, arial;
+   
+    border: solid black !important;
+}
+
+#mitabla td {
+    border: 0.5px solid black !important;
+    padding-top: 2px;
+    padding-bottom: 0px;
+    font-size: 9pt;
+}
+
+
+#mitabla tr:nth-child(even){background-color: #f2f2f2;}
+
+#mitabla tr:hover {background-color: #ddd;}
+
+#mitabla th {
+    border: 0.5px solid black !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    background-color: #3c8dbc;
+    color: white;
+    font-size: 11pt;
+    font-weight: bold;
+}
+#div1 {
+     overflow:scroll;
+     height:200px;
+     width:500px;
+}
+#div1 table {
+    width:500px;
+    background-color:lightgray;
+}    
+/*Estilo de reportes---------------------------------*/
+
+
+.panel  {
+    font-family: "Arial", Arial, Arial, arial; 
+        font-size: 12pt;
+}
+
+#tutabla {
+    /*font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+    font-family: "Arial", Arial, Arial, arial;
+    border-collapse: collapse;
+    width: 100%;
+    border: 0 ;
+}
+
+#tutabla td {
+    border: 0 ;
+    padding: 5px;
+    font-size: 9pt;
+}
+
+
+#tutabla tr:nth-child(even){background-color: #f2f2f2;}
+
+#tutabla tr:hover {background-color: #ddd;}
+
+#tutabla th {
+    border: 0 ;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    background-color: #3c8dbc;
+    color: white;
+    font-size: 11pt;
+    font-weight: bold;
+}

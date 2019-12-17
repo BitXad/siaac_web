@@ -38,6 +38,14 @@ class Notum extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
 
+    function centralizador()
+    {
+        
+        $data['institucion'] = $this->Institucion_model->get_institucion(1);
+        $data['_view'] = 'notum/centralizador';
+        $this->load->view('layouts/main',$data);
+    }
+
     /*
      * Adding a new notum
      */
