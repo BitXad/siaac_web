@@ -9,6 +9,22 @@ $session_data = $this->session->userdata('logged_in');
 
   <!-- Content Wrapper. Contains page content -->
 <div class="container-wrapper">
+    <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-purple">
+            <div class="inner" >
+                <?php 
+                $interlineado = "";
+                echo $interlineado; ?>
+                <h4><b>DATOS</b></h4>
+                <p>&nbsp;</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-address-card"></i>              
+            </div>
+            <a href="<?php  echo site_url('estudiante/datos/'.$estudiante['estudiante_id']); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    
     <div class="col-md-5">
         <div class="info-box bg-red">
             <span class="info-box-icon"><i class="fa fa-address-card"></i></span>

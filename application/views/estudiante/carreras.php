@@ -32,13 +32,8 @@
                         <th>Carrera</th>
                         <th>Código</th>
                         <th>Nivel Formación</th>
-                        <th>Area</th>
                         <th>Plan</th>
                         <th>Modalidad</th>
-                        <th>Tiempo Estudio</th>
-                        <th>Carga Horaria</th>
-                        <th>Fecha Creación</th>
-                        <!--<th>Codaprod</th>-->
                         <th>Matr.</th>
                         <th>Mens.</th>
                         <th>Nro. Mens.</th>
@@ -53,13 +48,8 @@
                         <td><?php echo $c['carrera_nombre']; ?></td>
                         <td><?php echo $c['carrera_codigo']; ?></td>
                         <td><?php echo $c['carrera_nivel']; ?></td>
-                        <td><?php echo $c['areacarrera_nombre']; ?></td>
                         <td><?php echo $c['carrera_plan']; ?></td>
                         <td><?php echo $c['carrera_modalidad']; ?></td>
-                        <td><?php echo $c['carrera_tiempoestudio']; ?></td>
-                        <td><?php echo $c['carrera_cargahoraria']; ?></td>
-                        <td><?php echo date("d/m/Y", strtotime($c['carrera_fechacreacion'])); ?></td>
-                        <!--<td><?php //echo $c['carrera_codaprod']; ?></td>-->
                         <td><?php echo number_format($c['carrera_matricula'],2); ?></td>
                         <td><?php echo number_format($c['carrera_mensualidad'],2); ?></td>
                         <td><?php echo $c['carrera_nummeses']; ?></td>
