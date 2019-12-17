@@ -101,7 +101,7 @@ class Docente_model extends CI_Model
         return $this->db->delete('docente',array('docente_id'=>$docente_id));
     }
     
-    /*
+    /*  
      * Get all docente
      */
     function get_all_docente_activo()
@@ -119,5 +119,27 @@ class Docente_model extends CI_Model
         ")->result_array();
 
         return $docente;
+    }
+
+    function get_estudiantes($grupo)
+    {
+        $estudiante = $this->db->query("
+            SELECT
+                e.*
+            FROM
+                estudiante e
+            WHERE
+            e.estudiante_id = 8 || e.estudiante_id = 25 || e.estudiante_id = 50 || e.estudiante_id = 61 || e.estudiante_id = 78
+            || e.estudiante_id = 89 || e.estudiante_id = 100 || e.estudiante_id = 125 || e.estudiante_id = 150 || e.estudiante_id = 166
+            || e.estudiante_id = 222 || e.estudiante_id = 70 || e.estudiante_id = 22 || e.estudiante_id = 24 || e.estudiante_id = 266
+            || e.estudiante_id = 68 || e.estudiante_id = 30 || e.estudiante_id = 325 || e.estudiante_id = 350 || e.estudiante_id = 366
+            || e.estudiante_id = 50 || e.estudiante_id = 60 || e.estudiante_id = 62 || e.estudiante_id = 80 || e.estudiante_id = 366
+            || e.estudiante_id = 69 || e.estudiante_id = 75 || e.estudiante_id = 79 ||  e.estudiante_id = 886
+
+            ORDER BY e.estudiante_apellidos, e.estudiante_nombre
+            
+        ")->result_array();
+
+        return $estudiante;
     }
 }

@@ -1,6 +1,6 @@
   .cuerpo {
                     font-family: "Arial", Arial, Arial, arial;
-                    font-size: 11px;
+                    font-size: 11px !important;
                     overflow-x:hidden;
                     overflow-y:auto; /* Hace que se ajuste a la columna más alta en ff */
                     height:100%; /* Hace que se ajuste a la columna más alta  en ie6 */
