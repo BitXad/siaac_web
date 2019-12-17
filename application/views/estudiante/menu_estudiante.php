@@ -15,7 +15,7 @@ $session_data = $this->session->userdata('logged_in');
                 <?php 
                 $interlineado = "";
                 echo $interlineado; ?>
-                <h4><b>DATOS</b></h4>
+                <h4><b>PERFIL</b></h4>
                 <p>&nbsp;</p>
             </div>
             <div class="icon">
