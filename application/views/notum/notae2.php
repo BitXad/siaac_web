@@ -56,9 +56,9 @@
                     </tr>
                     <tr>
 						
-						<th>Pond1</th>
-						<th>Pond2</th>
-						<th>Pond3</th>
+						<th>30%</th>
+						<th>60$</th>
+						<th>10$</th>
 						<th>Pond4</th>
 						<th>Pond5</th>
 						<th>Pond6</th>
@@ -66,12 +66,36 @@
 						
 						
                     </tr>
+                    <!--  ESTA TABLA ES de ejempl-->
+                    <?php $cont = 0; $rep = 0; $apr = 0; foreach ($estudiante as $e) { $cont = $cont+1; ?>
+                     
+<tr>
+  <td><?php echo $cont; ?></td>
+  <td><?php echo $e["estudiante_apellidos"]; ?></td>
+  <td><?php echo $e["estudiante_nombre"]; ?></td>
+  <td align="center"><?php echo $r1 = rand (0 , 30 ); ?></td>
+  <td align="center"><?php echo $r2 =rand (0 , 60 ); ?></td>
+  <td align="center"><?php echo $r3 =rand (0 , 10 ); ?></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td align="center"><?php echo $r4 = $r1+$r2+$r3; ?></td>
+</tr>
+<?php if ($r4>51) {
+  $apr=$apr+1;
+}else{
+  $rep=$rep+1;
+}
+
+                 } ?>
+                </table>
               	</table>
               	<?php echo date('d/m/Y H:i:s'); ?>
               	<center>
               	<table class="table table-striped" id="mitabla" style="width: 50%">
               		<tr>
-              			<th colspan="5">ESTADISTICA DE (......)</th>
+              			<th colspan="5">ESTADISTICA DE FISICA I</th>
               		</tr>
               		<tr>
               			<th>ESTUDIANTES</th>
@@ -82,38 +106,38 @@
               		</tr>
               		<tr>
               			<th>Inscritos</th>
-              			<td>M</td>
-              			<td>V</td>
-              			<td>T</td>
-              			<td>%</td>
+              			<td>3</td>
+              			<td>18</td>
+              			<td>21</td>
+              			<td>100%</td>
               		</tr>
               		<tr>
               			<th>Efectivos</th>
-              			<td>M</td>
-              			<td>V</td>
-              			<td>T</td>
-              			<td>%</td>
+              			<td>3</td>
+                    <td>18</td>
+                    <td>21</td>
+                    <td>100%</td>
               		</tr>
               		<tr>
               			<th>Retirados</th>
-              			<td>M</td>
-              			<td>V</td>
-              			<td>T</td>
-              			<td>%</td>
+              			<td>0</td>
+              			<td>0</td>
+              			<td>0</td>
+              			<td>0%</td>
               		</tr>
               		<tr>
               			<th>Aprobados</th>
-              			<td>M</td>
-              			<td>V</td>
-              			<td>T</td>
-              			<td>%</td>
+              			<td><?php echo 2; ?></td>
+                    <td><?php echo $apr-2; ?></td>
+                    <td><?php echo $apr; ?></td>
+                    <td><?php echo round($apr/$cont*100, 2) ?> %</td>
               		</tr>
               		<tr>
               			<th>Reprobados</th>
-              			<td>M</td>
-              			<td>V</td>
-              			<td>T</td>
-              			<td>%</td>
+                    <td><?php echo 1; ?></td>
+                    <td><?php echo $rep-1; ?></td>
+              			<td><?php echo $rep; ?></td>
+              			<td><?php echo round($rep/$cont*100, 2) ?> %</td>
               		</tr>
               	</table>
               	</center>
