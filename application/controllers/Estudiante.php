@@ -16,8 +16,6 @@ class Estudiante extends CI_Controller{
      */
     function index()
     {
-        
-        
         $data['estudiante'] = $this->Estudiante_model->get_all_estudiante();
         
         $data['_view'] = 'estudiante/index';
@@ -52,9 +50,9 @@ class Estudiante extends CI_Controller{
                         $img_full_path = $config['upload_path'];
 
                         $config['allowed_types'] = 'gif|jpeg|jpg|png';
-                        $config['max_size'] = 200000;
-                        $config['max_width'] = 2900;
-                        $config['max_height'] = 2900;
+                        $config['max_size'] = 0;
+                        /*$config['max_width'] = 2900;
+                        $config['max_height'] = 2900;*/
                         
                         $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                         $config['file_name'] = $new_name; //.$extencion;
@@ -222,9 +220,9 @@ class Estudiante extends CI_Controller{
                         $img_full_path = $config['upload_path'];
 
                         $config['allowed_types'] = 'gif|jpeg|jpg|png';
-                        $config['max_size'] = 200000;
-                        $config['max_width'] = 2900;
-                        $config['max_height'] = 2900;
+                        $config['max_size'] = 0;
+                        /*$config['max_width'] = 2900;
+                        $config['max_height'] = 2900;*/
                         
                         $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                         $config['file_name'] = $new_name; //.$extencion;
@@ -274,9 +272,9 @@ class Estudiante extends CI_Controller{
                         $img_full_path1 = $config1['upload_path'];
 
                         $config1['allowed_types'] = 'gif|jpeg|jpg|png';
-                        $config1['max_size'] = 200000;
-                        $config1['max_width'] = 2900;
-                        $config1['max_height'] = 2900;
+                        $config1['max_size'] = 0;
+                        /*$config1['max_width'] = 2900;
+                        $config1['max_height'] = 2900;*/
                         
                         $new_name1 = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                         $config1['file_name'] = $new_name1; //.$extencion;
@@ -459,9 +457,9 @@ class Estudiante extends CI_Controller{
                     $this->load->library('image_lib');
                     $config1['upload_path'] = './resources/images/apoderados/';
                     $config1['allowed_types'] = 'gif|jpeg|jpg|png';
-                    $config1['max_size'] = 200000;
-                    $config1['max_width'] = 2900;
-                    $config1['max_height'] = 2900;
+                    $config1['max_size'] = 0;
+                    /*$config1['max_width'] = 2900;
+                    $config1['max_height'] = 2900;*/
 
                     $new_name1 = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                     $config1['file_name'] = $new_name1; //.$extencion;
@@ -585,5 +583,120 @@ class Estudiante extends CI_Controller{
         else
             show_error('The estudiante you are trying to delete does not exist.');
     }
+    function menu_estudiante($estudiante_id)
+    {
+        $data['estudiante'] = $this->Estudiante_model->get_estudiante($estudiante_id);
+        
+        $data['_view'] = 'estudiante/menu_estudiante';
+        $this->load->view('layouts/main',$data);
+    }
+    /* puede cambiar su información basica */
+    function datos($estudiante_id)
+    {
+        // check if the estudiante exists before trying to edit it
+        $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+        
+        if(isset($data['estudiante']['estudiante_id']))
+        {
+            $this->load->library('form_validation');
+
+            $this->form_validation->set_rules('estudiante_direccion','Dirección','required');
+            if($this->form_validation->run())
+            {
+            /* *********************FIN imagen***************************** */
+                $params = array(
+                    'estudiante_direccion' => $this->input->post('estudiante_direccion'),
+                    'estudiante_telefono' => $this->input->post('estudiante_telefono'),
+                    'estudiante_celular' => $this->input->post('estudiante_celular'),
+                    'estudiante_email' => $this->input->post('estudiante_email'),
+                    //'estudiante_login' => $this->input->post('estudiante_codigo'),
+                    //'estudiante_clave' => md5($this->input->post('estudiante_ci')),
+                );
+                $this->Estudiante_model->update_estudiante($estudiante_id,$params);            
+                redirect('estudiante/menu_estudiante/'.$estudiante_id);
+            }
+            else
+            {
+                $data['_view'] = 'estudiante/datos';
+                $this->load->view('layouts/main',$data);
+            }
+        }
+        else
+            show_error('The estudiante you are trying to edit does not exist.');
+    }
     
+    function carreras($estudiante_id)
+    {
+        $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+        if(isset($data['estudiante']['estudiante_id']))
+        {
+        $this->load->model('Carrera_model');
+        $data['carrera'] = $this->Carrera_model->get_carrera_porestudante($estudiante_id);
+        
+        $data['_view'] = 'estudiante/carreras';
+        $this->load->view('layouts/main',$data);
+        }
+        else
+            show_error('The estudiante you are trying to edit does not exist.');
+    }
+    function knotas($estudiante_id)
+    {
+        $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+        if(isset($data['estudiante']['estudiante_id']))
+        {
+        $this->load->model('Carrera_model');
+        $data['carrera'] = $this->Carrera_model->get_carrera_porestudante($estudiante_id);
+        
+        $data['_view'] = 'estudiante/knotas';
+        $this->load->view('layouts/main',$data);
+        }
+        else
+            show_error('The estudiante you are trying to edit does not exist.');
+    }
+    function mikardex_academico($carrera_id, $estudiante_id)
+    {
+        $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+        if(isset($data['estudiante']['estudiante_id']))
+        {
+            $this->load->model('Carrera_model');
+            $data['carrera'] = $this->Carrera_model->get_carrera($carrera_id);
+            
+            $data['kardex'] = $this->Estudiante_model->get_kardexcarrera_estudiante($carrera_id, $estudiante_id);
+            
+            $data['_view'] = 'estudiante/mikardex_academico';
+            $this->load->view('layouts/main',$data);
+        }
+        else
+            show_error('The estudiante you are trying to edit does not exist.');
+    }
+    /* borrar */
+    function mikardex_academco($carrera_id, $estudiante_id)
+    {
+        $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+        if(isset($data['estudiante']['estudiante_id']))
+        {
+            $this->load->model('Carrera_model');
+            $data['carrera'] = $this->Carrera_model->get_carrera($carrera_id);
+            
+            $data['kardex'] = $this->Estudiante_model->get_kardexcarrera_estudianteborrar($carrera_id, $estudiante_id);
+            
+            $data['_view'] = 'estudiante/mikardex_academco';
+            $this->load->view('layouts/main',$data);
+        }
+        else
+            show_error('The estudiante you are trying to edit does not exist.');
+    }
+    function keconomico($estudiante_id)
+    {
+        $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+        if(isset($data['estudiante']['estudiante_id']))
+        {
+            $data['mikardex'] = $this->Estudiante_model->get_estudiante_kardexecon($estudiante_id);
+            
+             $data['_view'] = 'estudiante/keconomico';
+             $this->load->view('layouts/main',$data);
+        }else
+            show_error('The estudiante you are trying to edit does not exist.');
+       
+    }
 }

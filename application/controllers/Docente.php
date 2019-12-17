@@ -31,6 +31,46 @@ class Docente extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
 
+    function dashboard()
+    {
+        
+        
+        $data['_view'] = 'docente/dashboard';
+        $this->load->view('layouts/main',$data);
+    }
+
+    function grupos()
+    {
+        
+        $data['_view'] = 'docente/grupos';
+        $this->load->view('layouts/main',$data);
+    }
+    function materias()
+    {
+        
+        $data['_view'] = 'docente/materias';
+        $this->load->view('layouts/main',$data);
+    }
+    function horarios()
+    {
+        
+        $data['_view'] = 'docente/horarios';
+        $this->load->view('layouts/main',$data);
+    }
+    function notas()
+    {
+        
+        $data['_view'] = 'docente/notas';
+        $this->load->view('layouts/main',$data);
+    }
+
+    function nota($grupo)
+    {
+        $data['estudiante'] = $this->Docente_model->get_estudiantes($grupo);
+        $data['_view'] = 'docente/nota_grupo';
+        $this->load->view('layouts/main',$data);
+    }
+
     /*
      * Adding a new docente
      */
@@ -46,9 +86,9 @@ class Docente extends CI_Controller{
                         $img_full_path = $config['upload_path'];
 
                         $config['allowed_types'] = 'gif|jpeg|jpg|png';
-                        $config['max_size'] = 200000;
-                        $config['max_width'] = 2900;
-                        $config['max_height'] = 2900;
+                        $config['max_size'] = 0;
+                        /*$config['max_width'] = 2900;
+                        $config['max_height'] = 2900;*/
                         
                         $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                         $config['file_name'] = $new_name; //.$extencion;
@@ -153,9 +193,9 @@ class Docente extends CI_Controller{
                     $this->load->library('image_lib');
                     $config['upload_path'] = './resources/images/docentes/';
                     $config['allowed_types'] = 'gif|jpeg|jpg|png';
-                    $config['max_size'] = 200000;
-                    $config['max_width'] = 2900;
-                    $config['max_height'] = 2900;
+                    $config['max_size'] = 0;
+                    /*$config['max_width'] = 2900;
+                    $config['max_height'] = 2900;*/
 
                     $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                     $config['file_name'] = $new_name; //.$extencion;

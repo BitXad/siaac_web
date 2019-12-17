@@ -163,4 +163,80 @@ class Estudiante_model extends CI_Model
     {
         return $this->db->delete('estudiante',array('estudiante_id'=>$estudiante_id));
     }
+    function get_esteestudiante($estudiante_id)
+    {
+        $estudiante = $this->db->query("
+            SELECT
+                e.*, g.genero_nombre, ec.estadocivil_descripcion 
+
+            FROM
+                estudiante e
+            LEFT JOIN genero g on e.genero_id = g.genero_id
+            LEFT JOIN estado_civil ec on e.estadocivil_id = ec.estadocivil_id
+
+            WHERE
+                e.estudiante_id = $estudiante_id ")->row_array();
+
+        return $estudiante;
+    }
+    function get_kardexcarrera_estudiante($carrera_id, $estudiante_id)
+    {
+        $mikardex = $this->db->query("
+            SELECT
+                ka.*, m.materia_nombre, m.materia_id
+
+            FROM
+                estudiante e
+            LEFT JOIN inscripcion i on e.estudiante_id = i.estudiante_id
+            LEFT JOIN carrera c on i.carrera_id = c.carrera_id
+            LEFT JOIN kardex_academico ka on i.inscripcion_id = ka.inscripcion_id
+            LEFT JOIN materia_asignada ma on ka.kardexacad_id = ma.kardexacad_id
+            LEFT JOIN materia m on ma.materia_id = m.materia_id
+            WHERE
+                e.estudiante_id = $estudiante_id
+                 and c.carrera_id = $carrera_id ")->result_array();
+
+        return $mikardex;
+    }
+    function get_kardexcarrera_estudianteborrar($carrera_id, $estudiante_id)
+    {
+        $mikardex = $this->db->query("
+            SELECT
+                m.materia_id, m.materia_nombre, m.materia_codigo, m.materia_horas,
+                c.carrera_modalidad,
+                pr.mat_materia_id, pr.materia_codigo as cod
+            FROM
+                materia m
+            LEFT JOIN materia pr on m.materia_id = pr.materia_id
+            LEFT JOIN nivel n on m.nivel_id = n.nivel_id
+            LEFT JOIN plan_academico pa on n.planacad_id = pa.planacad_id
+            LEFT JOIN carrera c on pa.carrera_id = c.carrera_id
+            where
+                 c.carrera_id = $carrera_id
+            
+            GROUP BY m.materia_id ")->result_array();
+
+        return $mikardex;
+    }
+    function get_estudiante_kardexecon($estudiante_id)
+    {
+        $kardex_economico = $this->db->query("
+            SELECT
+                i.*, ke.*, c.*, e.*
+
+            FROM
+                inscripcion i
+
+            LEFT JOIN kardex_economico ke ON i.inscripcion_id=ke.inscripcion_id
+            LEFT JOIN carrera c ON i.carrera_id=c.carrera_id
+            LEFT JOIN estudiante e ON i.estudiante_id=e.estudiante_id
+
+            WHERE
+                e.estudiante_id = $estudiante_id
+
+            ORDER BY `kardexeco_id` DESC
+        ")->result_array();
+
+        return $kardex_economico;
+    }
 }

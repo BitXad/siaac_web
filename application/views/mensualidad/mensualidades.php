@@ -25,7 +25,7 @@ function cerrar() {
                 </div>
 
             	<div class="box-tools">
-                    <a class="btn btn-success btn-xs" data-toggle="modal" data-target="#nuevamensu"><span class="fa fa-edit">Nueva Mensualidad</span></a>
+                    <a class="btn btn-success btn-xs" data-toggle="modal" data-target="#nuevamensu"><span class="fa fa-edit"></span> Nueva Mensualidad</a>
                     <!------------------------- modal  nueva mesualidad------------------->
                      <div class="modal fade" id="nuevamensu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
