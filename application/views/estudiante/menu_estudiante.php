@@ -9,64 +9,64 @@ $session_data = $this->session->userdata('logged_in');
 
   <!-- Content Wrapper. Contains page content -->
 <div class="container-wrapper">
-    <div class="col-md-5">
-        <div class="info-box bg-red">
-            <span class="info-box-icon"><i class="fa fa-address-card"></i></span>
-            <a href="<?php echo site_url('estudiante/datos/'.$estudiante['estudiante_id']) ?>" style="color: white;">
-                <div class="info-box-content">
-                    <span class="info-box-text">Datos</span>
-                    <span class="info-box-number"></span>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 100%"></div>
-                    </div>
-                    <span class="progress-description"></span>
-                </div>
-            </a>
+    <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-red">
+            <div class="inner" >
+                <?php 
+                $interlineado = "";
+                echo $interlineado; ?>
+                <h4><b>PERFIL</b></h4>
+                <p>&nbsp;</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-address-card"></i>              
+            </div>
+            <a href="<?php  echo site_url('estudiante/datos/'.$estudiante['estudiante_id']); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <div class="col-md-5">
-        <div class="info-box bg-aqua-gradient">
-            <span class="info-box-icon"><i class="fa fa-list"></i></span>
-            <a href="<?php echo site_url('estudiante/carreras/'.$estudiante['estudiante_id']) ?>" style="color: white;">
-                <div class="info-box-content">
-                    <span class="info-box-text">Carreras</span>
-                    <span class="info-box-number"></span>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 100%"></div>
-                    </div>
-                    <span class="progress-description"></span>
-                </div>
-            </a>
+    <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-aqua-gradient">
+            <div class="inner" >
+                <?php 
+                $interlineado = "";
+                echo $interlineado; ?>
+                <h4><b>CARRERAS</b></h4>
+                <p>&nbsp;</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-list"></i>              
+            </div>
+            <a href="<?php  echo site_url('estudiante/carreras/'.$estudiante['estudiante_id']); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <div class="col-md-5">
-        <div class="info-box bg-blue">
-            <span class="info-box-icon"><i class="fa fa-file-text"></i></span>
-            <a href="<?php echo site_url('estudiante/knotas/'.$estudiante['estudiante_id']) ?>" style="color: white;">
-                <div class="info-box-content">
-                    <span class="info-box-text">Kardex Notas</span>
-                    <span class="info-box-number"></span>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 100%"></div>
-                    </div>
-                    <span class="progress-description"></span>
-                </div>
-            </a>
+    <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-blue">
+            <div class="inner" >
+                <?php 
+                $interlineado = "";
+                echo $interlineado; ?>
+                <h4><b>KARDEX NOTAS</b></h4>
+                <p>&nbsp;</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-file-text"></i>              
+            </div>
+            <a href="<?php  echo site_url('estudiante/knotas/'.$estudiante['estudiante_id']); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <div class="col-md-5">
-        <div class="info-box bg-green">
-            <span class="info-box-icon"><i class="ion ion-cash"></i></span>
-            <a href="<?php echo site_url('estudiante/keconomico/'.$estudiante['estudiante_id']) ?>" style="color: white;">
-                <div class="info-box-content">
-                    <span class="info-box-text">Kardex Económico</span>
-                    <span class="info-box-number"></span>
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 100%"></div>
-                    </div>
-                    <span class="progress-description"></span>
-                </div>
-            </a>
+    <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-green">
+            <div class="inner" >
+                <?php 
+                $interlineado = "";
+                echo $interlineado; ?>
+                <h4><b>KARDEX ECONÓMICO</b></h4>
+                <p>&nbsp;</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-cash"></i>              
+            </div>
+            <a href="<?php  echo site_url('estudiante/keconomico/'.$estudiante['estudiante_id']); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-  </div>
+    
