@@ -19,7 +19,7 @@ function cerrar() {
                     <b>CARRERA: <?php echo $kardex_economico[0]['carrera_nombre']; ?></b>
                     </div>
                     <div class="columna_izquierda">
-                       <center>   <?php echo "<img src='/siaac_web/resources/images/institucion/".$institucion['institucion_logo']."';  style='width:90px;height:80px'>"; ?>
+                       <center>                      <img src="<?php echo base_url('resources/images/institucion/'.$institucion['institucion_logo']); ?>" width="100" height="60"><br>
                      </center></div>
                     <div class="columna_central">
                         <center>  <font size="3"><b><u><?php echo $institucion['institucion_nombre']; ?></u></b></font><br>
