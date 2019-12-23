@@ -32,11 +32,17 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">logueate para ingresar a la plataforma</p>
+        <p class="login-box-msg"></p>
+        
         <h2><?php  if(isset($msg)){ echo  $msg; }  ?> </h2>
 
         <?php echo form_open('verificar'); ?>
             <div class="form-group has-feedback">
+                <label><input type="radio" checked name="tipo" id="cbox1" value="1"> ADMINISTRATIVO </label>
+        <label><input type="radio" name="tipo" id="cbox2" value="2"> DOCENTE </label>
+        <label><input type="radio" name="tipo" id="cbox3" value="3"> ESTUDIANTE </label>
+        </div>
+        <div class="form-group has-feedback">
                 <label for="gestion">Gestión</label>
                 <select class="form-control input-lg" name="gestion" id="gestion">
                     <?php
@@ -65,7 +71,7 @@
         <?php echo form_close(); ?>
 
         <!-- /.social-auth-links -->
-        <a href="<?php echo site_url() ?>forgotpassword">Olvide mi contraseña</a><br>
+        <!--<a href="<?php echo site_url() ?>forgotpassword">Olvide mi contraseña</a><br>-->
 
 
     </div>

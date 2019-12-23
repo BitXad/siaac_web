@@ -31,33 +31,33 @@ class Docente extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
 
-    function dashboard()
+    function dashboard($docente_id)
     {
         
-        
+        $data['docente'] = $this->Docente_model->get_docente($docente_id);
         $data['_view'] = 'docente/dashboard';
         $this->load->view('layouts/main',$data);
     }
 
-    function grupos()
+    function grupos($docente_id)
     {
         
         $data['_view'] = 'docente/grupos';
         $this->load->view('layouts/main',$data);
     }
-    function materias()
+    function materias($docente_id)
     {
         
         $data['_view'] = 'docente/materias';
         $this->load->view('layouts/main',$data);
     }
-    function horarios()
+    function horarios($docente_id)
     {
         
         $data['_view'] = 'docente/horarios';
         $this->load->view('layouts/main',$data);
     }
-    function notas()
+    function notas($docente_id)
     {
         
         $data['_view'] = 'docente/notas';
