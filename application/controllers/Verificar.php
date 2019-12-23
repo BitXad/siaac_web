@@ -19,10 +19,23 @@ class Verificar extends CI_Controller
         $username = $this->input->post('username');
         $clave = $this->input->post('password');
         $gestion_id = $this->input->post('gestion');
+        $tipo = $this->input->post('tipo');
+        if ($tipo==1) {//admin
 
-        $result = $this->login_model->login2($username, $clave);
-        //print "<pre>"; print_r( $result); print "</pre>";
-        //var_dump($result);
+            redirect('verificar/index1/'.$username.'/'.$clave.'/'.$gestion_id);   
+        }elseif ($tipo==2) {// docente 
+
+                    redirect('verificar/index2/'.$username.'/'.$clave.'/'.$gestion_id);   
+        }elseif ($tipo==3) {// docente 
+            
+                    redirect('verificar/index3/'.$username.'/'.$clave.'/'.$gestion_id);   
+        }
+
+    }
+    function index1($username,$clave,$gestion_id)
+    {
+        
+        $result = $this->login_model->login1($username, $clave);
 
         if ($result) {
             if ($result->tipousuario_id <= 10) {
@@ -69,6 +82,52 @@ class Verificar extends CI_Controller
                 $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">USUARIO invalido' . $result . '</div>');
                 redirect('login');
             }
+
+        } else {
+            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">USER o PASSWORD invalidos' . $result . '</div>');
+            redirect('login');
+        }
+
+    }
+
+    function index2($username,$clave,$gestion_id)
+    {
+        
+        $result = $this->login_model->login2($username, $clave);
+
+        if ($result) {
+           
+                $thumb = "";
+                if ($result->docente_foto <> null) {
+                    $thumb = $this->foto_thumb($result->docente_foto);
+                }
+
+                $gestion = $this->Gestion_model->get_gestion2($gestion_id);
+
+                $sess_array = array(
+                    'usuario_login' => $result->docente_login,
+                    'usuario_id' => $result->docente_id,
+                    'usuario_nombre' => $result->docente_nombre,
+                    'estado_id' => $result->estado_id,
+                    'tipousuario_id' => 7,
+                    'usuario_imagen' => $result->docente_foto,
+                    'usuario_email' => $result->docente_email,
+                    'usuario_clave' => $result->docente_clave,
+                    'thumb' => $thumb,
+                    'rol' => $this->getTipo_usuario(7),
+                    'semestre' => $gestion->gestion_semestre,
+                    'gestion' => $gestion->gestion_descripcion,
+                    'gestion_id' => $gestion->gestion_id
+                );
+
+                $this->session->set_userdata('logged_in', $sess_array);
+                $session_data = $this->session->userdata('logged_in');
+
+     
+                    redirect('docente/dashboard/'.$result->docente_id);
+             
+                
+
 
         } else {
             $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">USER o PASSWORD invalidos' . $result . '</div>');

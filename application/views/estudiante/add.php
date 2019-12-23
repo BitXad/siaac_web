@@ -10,8 +10,21 @@
         var cad3 = Math.floor((Math.random(1001,9999) * pararand));
             var cad = cad1+cad3;
               $('#estudiante_codigo').val(cad);
+              $('#estudiante_login').val(cad);
           });
       });
+
+</script>
+
+<script type="text/javascript">
+
+      $(document).ready(function () {
+          $('#estudiante_ci').keyup(function () {
+            var value = $(this).val();
+              $('#estudiante_clave').val(value);
+          });
+      });
+
 
 </script>
 <div class="row">
@@ -38,7 +51,7 @@
 						</div>
 					</div>
 					
-					<div class="col-md-6">
+					<div class="col-md-2">
 						<label for="genero_id" class="control-label">Genero</label>
 						<div class="form-group">
 							<select name="genero_id" class="form-control">
@@ -54,7 +67,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-2">
 						<label for="estadocivil_id" class="control-label">Estado Civil</label>
 						<div class="form-group">
 							<select name="estadocivil_id" class="form-control">
@@ -71,7 +84,7 @@
 						</div>
 					</div>
 					
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_fechanac" class="control-label">Fecha de Nacimiento</label>
 						<div class="form-group">
 							<input type="date" name="estudiante_fechanac" value="<?php echo $this->input->post('estudiante_fechanac'); ?>" class="form-control" id="estudiante_fechanac" />
@@ -83,13 +96,13 @@
 							<input type="text" name="estudiante_edad" value="<?php echo $this->input->post('estudiante_edad'); ?>" class="form-control" id="estudiante_edad" />
 						</div>
 					</div>-->
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_ci" class="control-label">C.I.</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_ci" value="<?php echo $this->input->post('estudiante_ci'); ?>" class="form-control" id="estudiante_ci" required/>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-2">
 						<label for="estudiante_extci" class="control-label">Extension</label>
 						<div class="form-group">
 							<select name="estudiante_extci" class="form-control"  value="<?php echo $this->input->post('estudiante_extci'); ?>" id="estudiante_extci" required>
@@ -106,61 +119,75 @@
 							</select> 
 						</div>
 					</div>
-					<div class="col-md-6">
-						<label for="estudiante_codigo" class="control-label">Codigo</label>
-						<div class="form-group">
-							<input type="text" name="estudiante_codigo" value="<?php echo $this->input->post('estudiante_codigo'); ?>" class="form-control" id="estudiante_codigo" />
-						</div>
-					</div>
+					
 					<div class="col-md-6">
 						<label for="estudiante_direccion" class="control-label">Direccion</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_direccion" value="<?php echo $this->input->post('estudiante_direccion'); ?>" class="form-control" id="estudiante_direccion" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_telefono" class="control-label">Telefono</label>
 						<div class="form-group">
 							<input type="number" name="estudiante_telefono" value="<?php echo $this->input->post('estudiante_telefono'); ?>" class="form-control" id="estudiante_telefono" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_celular" class="control-label">Celular</label>
 						<div class="form-group">
 							<input type="number" name="estudiante_celular" value="<?php echo $this->input->post('estudiante_celular'); ?>" class="form-control" id="estudiante_celular" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_foto" class="control-label">Foto</label>
 						<div class="form-group">
 							<input type="file" name="estudiante_foto" value="<?php echo $this->input->post('estudiante_foto'); ?>" class="form-control" id="estudiante_foto" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_email" class="control-label">Email</label>
 						<div class="form-group">
 							<input type="email" name="estudiante_email" value="<?php echo $this->input->post('estudiante_email'); ?>" class="form-control" id="estudiante_email" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-2">
+						<label for="estudiante_codigo" class="control-label">Codigo</label>
+						<div class="form-group">
+							<input type="text" name="estudiante_codigo" value="<?php echo $this->input->post('estudiante_codigo'); ?>" class="form-control" id="estudiante_codigo" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<label for="estudiante_login" class="control-label">Login</label>
+						<div class="form-group">
+							<input type="text" name="estudiante_login" value="<?php echo $this->input->post('estudiante_login'); ?>" class="form-control" id="estudiante_login" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<label for="estudiante_clave" class="control-label">Clave</label>
+						<div class="form-group">
+							<input type="text" name="estudiante_clave" value="<?php echo $this->input->post('estudiante_clave'); ?>" class="form-control" id="estudiante_clave" />
+						</div>
+					</div>
+					
+					<div class="col-md-3">
 						<label for="estudiante_lugarnac" class="control-label">Lugar de Nacimiento</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_lugarnac" value="<?php echo $this->input->post('estudiante_lugarnac'); ?>" class="form-control" id="estudiante_lugarnac" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_nacionalidad" class="control-label">Nacionalidad</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_nacionalidad" value="<?php echo $this->input->post('estudiante_nacionalidad'); ?>" class="form-control" id="estudiante_nacionalidad" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_establecimiento" class="control-label">Establecimiento</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_establecimiento" value="<?php echo $this->input->post('estudiante_establecimiento'); ?>" class="form-control" id="estudiante_establecimiento" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_distrito" class="control-label">Distrito</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_distrito" value="<?php echo $this->input->post('estudiante_distrito'); ?>" class="form-control" id="estudiante_distrito" />
@@ -184,13 +211,13 @@
 							<input type="text" name="estudiante_apodireccion" value="<?php echo $this->input->post('estudiante_apodireccion'); ?>" class="form-control" id="estudiante_apodireccion" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_apoparentesco" class="control-label">Parentesco Apoderado</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_apoparentesco" value="<?php echo $this->input->post('estudiante_apoparentesco'); ?>" class="form-control" id="estudiante_apoparentesco" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="estudiante_apotelefono" class="control-label">Telefono Apoderado</label>
 						<div class="form-group">
 							<input type="number" name="estudiante_apotelefono" value="<?php echo $this->input->post('estudiante_apotelefono'); ?>" class="form-control" id="estudiante_apotelefono" />
