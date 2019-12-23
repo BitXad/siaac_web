@@ -26,10 +26,15 @@ class Verificar extends CI_Controller
 
         if ($result) {
             if ($result->tipousuario_id <= 10) {
-                $thumb = "";
+                $thumb = "default_thumb.jpg";
                 if ($result->usuario_imagen <> null) {
-                    $thumb = $this->foto_thumb($result->usuario_imagen);
+                    $thumb = "thumb_".$result->usuario_imagen;
+                    //$thumb = $this->foto_thumb($result->usuario_imagen);
                 }
+                $this->load->model('Rol_usuario_model');
+                $this->load->model('Tipo_usuario_model');
+                $rolusuario = $this->Rol_usuario_model->getall_rolusuario($result->tipousuario_id);
+                $tipousuario_nombre = $this->Tipo_usuario_model->get_tipousuario_nombre($result->tipousuario_id);
 
                 $gestion = $this->Gestion_model->get_gestion2($gestion_id);
 
@@ -43,7 +48,7 @@ class Verificar extends CI_Controller
                     'usuario_email' => $result->usuario_email,
                     'usuario_clave' => $result->usuario_clave,
                     'thumb' => $thumb,
-                    'rol' => $this->getTipo_usuario($result->tipousuario_id),
+                    'rol' => $rolusuario,
                     'semestre' => $gestion->gestion_semestre,
                     'gestion' => $gestion->gestion_descripcion,
                     'gestion_id' => $gestion->gestion_id
@@ -93,7 +98,7 @@ class Verificar extends CI_Controller
         $this->session->set_flashdata('msg', 'Successfully Logout');
         redirect('');
     }
-
+    /*
     public function getTipo_usuario($tipousuario_id)
     {
         $tipo_usuarios = $this->rol_model->get_tipousuarios();
@@ -107,7 +112,7 @@ class Verificar extends CI_Controller
         if (count($tipo_usuarios) == 0) {
             return '----';
         }
-    }
+    }*/
 
 
 }

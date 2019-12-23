@@ -150,7 +150,7 @@
     
 </center>   
 
-    <a  href="<?php echo site_url('venta'); ?>" class="btn btn-sq-lg btn-danger no-print" style="width: 120px !important; height: 120px !important;">
+    <a  href="javascript:close();" class="btn btn-sq-lg btn-danger no-print" style="width: 120px !important; height: 120px !important;">
         <i class="fa fa-sign-out fa-4x"></i><br><br>
        Salir <br>
     </a>

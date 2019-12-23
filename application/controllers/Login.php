@@ -18,5 +18,8 @@ Class Login extends CI_Controller
 
         $this->load->view('public/login',$data);
     }
+    public function mensajeacceso(){
+        redirect('login/mensajeacceso');
+    }
 }
 
