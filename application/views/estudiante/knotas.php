@@ -56,19 +56,8 @@
                         <td><?php echo number_format($c['carrera_mensualidad'],2); ?></td>
                         <td><?php echo $c['carrera_nummeses']; ?></td>
                         <td>
-                            <?php
-                            if($bool == true){
-                                $bool = false;
-                            ?>
                             <a href="<?php echo site_url('estudiante/mikardex_academico/'.$c['carrera_id']."/".$estudiante['estudiante_id']); ?>" class="btn btn-info btn-xs" title="Kardex académico"><span class="fa fa-file-text"></span></a>
                             <!--<a href="<?php //echo site_url('carrera/remove/'.$c['carrera_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->
-                            <?php
-                            }else{ ?>
-                                <a href="<?php echo site_url('estudiante/mikardex_academco/'.$c['carrera_id']."/".$estudiante['estudiante_id']); ?>" class="btn btn-info btn-xs" title="Kardex académico"><span class="fa fa-file-text"></span></a>
-                            <?php
-                                $bool = true;
-                            }
-                            ?>
                         </td>
                     </tr>
                     <?php $i++; } ?>
