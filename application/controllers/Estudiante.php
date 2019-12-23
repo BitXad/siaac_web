@@ -669,23 +669,6 @@ class Estudiante extends CI_Controller{
         else
             show_error('The estudiante you are trying to edit does not exist.');
     }
-    /* borrar */
-    function mikardex_academco($carrera_id, $estudiante_id)
-    {
-        $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
-        if(isset($data['estudiante']['estudiante_id']))
-        {
-            $this->load->model('Carrera_model');
-            $data['carrera'] = $this->Carrera_model->get_carrera($carrera_id);
-            
-            $data['kardex'] = $this->Estudiante_model->get_kardexcarrera_estudianteborrar($carrera_id, $estudiante_id);
-            
-            $data['_view'] = 'estudiante/mikardex_academco';
-            $this->load->view('layouts/main',$data);
-        }
-        else
-            show_error('The estudiante you are trying to edit does not exist.');
-    }
     function keconomico($estudiante_id)
     {
         $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);

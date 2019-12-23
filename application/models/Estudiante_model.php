@@ -198,26 +198,6 @@ class Estudiante_model extends CI_Model
 
         return $mikardex;
     }
-    function get_kardexcarrera_estudianteborrar($carrera_id, $estudiante_id)
-    {
-        $mikardex = $this->db->query("
-            SELECT
-                m.materia_id, m.materia_nombre, m.materia_codigo, m.materia_horas,
-                c.carrera_modalidad,
-                pr.mat_materia_id, pr.materia_codigo as cod
-            FROM
-                materia m
-            LEFT JOIN materia pr on m.materia_id = pr.materia_id
-            LEFT JOIN nivel n on m.nivel_id = n.nivel_id
-            LEFT JOIN plan_academico pa on n.planacad_id = pa.planacad_id
-            LEFT JOIN carrera c on pa.carrera_id = c.carrera_id
-            where
-                 c.carrera_id = $carrera_id
-            
-            GROUP BY m.materia_id ")->result_array();
-
-        return $mikardex;
-    }
     function get_estudiante_kardexecon($estudiante_id)
     {
         $kardex_economico = $this->db->query("

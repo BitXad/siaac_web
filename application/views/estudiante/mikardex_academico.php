@@ -48,34 +48,6 @@
                         <td><?php echo round(($nota1+$nota2)/2); ?></td>
                     </tr>
                     <?php $i++; } ?>
-                    <tr>
-                        <td><?php echo $i+1; ?></td>
-                        <td><?php echo "MATEMATICA APLICADA I"; ?></td>
-                        <td><?php $nota1 = rand(1,49); echo $nota1; ?></td>
-                        <td><?php $nota2 = rand(1,49); echo $nota2; ?></td>
-                        <td><?php echo round(($nota1+$nota2)/2); ?></td>
-                    </tr>
-                    <tr>
-                        <td><?php echo $i+2; ?></td>
-                        <td><?php echo "INGLES I"; ?></td>
-                        <td><?php $nota1 = rand(40,100); echo $nota1; ?></td>
-                        <td><?php $nota2 = rand(40,100); echo $nota2; ?></td>
-                        <td><?php echo round(($nota1+$nota2)/2); ?></td>
-                    </tr>
-                    <tr>
-                        <td><?php echo $i+3; ?></td>
-                        <td><?php echo "LITERATURA I"; ?></td>
-                        <td><?php $nota1 = rand(40,100); echo $nota1; ?></td>
-                        <td><?php $nota2 = rand(40,100); echo $nota2; ?></td>
-                        <td><?php echo round(($nota1+$nota2)/2); ?></td>
-                    </tr>
-                    <tr>
-                        <td><?php echo $i+4; ?></td>
-                        <td><?php echo "MATEMATICA APLICADA I"; ?></td>
-                        <td><?php $nota1 = rand(40,100); echo $nota1; ?></td>
-                        <td><?php $nota2 = rand(40,100); echo $nota2; ?></td>
-                        <td><?php echo round(($nota1+$nota2)/2); ?></td>
-                    </tr>
                     </tbody>
                 </table>
                                 
