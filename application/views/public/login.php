@@ -25,6 +25,19 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<style type="text/css">
+    .radio-btn {
+        position: absolute;
+    opacity: 0;
+    visibility: hidden;
+      
+}
+    .form-group  input:checked + label {
+    border: 3px solid #333;
+    background-color: #2fcc71;
+    color: #000000;
+}
+</style>
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
@@ -37,10 +50,10 @@
         <h2><?php  if(isset($msg)){ echo  $msg; }  ?> </h2>
 
         <?php echo form_open('verificar'); ?>
-            <div class="form-group has-feedback">
-                <label><input type="radio" checked name="tipo" id="cbox1" value="1"> ADMINISTRATIVO </label>
-        <label><input type="radio" name="tipo" id="cbox2" value="2"> DOCENTE </label>
-        <label><input type="radio" name="tipo" id="cbox3" value="3"> ESTUDIANTE </label>
+            <div class="form-group">
+                <input type="radio" class="radio-btn" checked name="tipo" id="cbox1" value="1"><label for="cbox1"><i class="fa fa-check-square-o"></i> ADMINISTRATIVO </label>
+        <input type="radio" class="radio-btn" name="tipo" id="cbox2" value="2"><label for="cbox2"><i class="fa fa-check-square-o"></i> DOCENTE </label>
+        <input type="radio" class="radio-btn" name="tipo" id="cbox3" value="3"><label for="cbox3"><i class="fa fa-check-square-o"></i> ESTUDIANTE </label>
         </div>
         <div class="form-group has-feedback">
                 <label for="gestion">Gestión</label>
