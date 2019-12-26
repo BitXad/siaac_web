@@ -15,8 +15,8 @@ $session_data = $this->session->userdata('logged_in');
                 <?php 
                 $interlineado = "";
                 echo $interlineado; ?>
-                <h4><b>PERFIL</b></h4>
-                <p>&nbsp;</p>
+                <h3><b><fa class="fa fa-address-card"></fa></b></h3>
+                <h5><b>PERFIL</b></h5>
             </div>
             <div class="icon">
                 <i class="fa fa-address-card"></i>              
@@ -30,8 +30,8 @@ $session_data = $this->session->userdata('logged_in');
                 <?php 
                 $interlineado = "";
                 echo $interlineado; ?>
-                <h4><b>CARRERAS</b></h4>
-                <p>&nbsp;</p>
+                <h3><b><fa class="fa fa-list"></fa></b></h3>
+                <h5><b>CARRERAS</b></h5>
             </div>
             <div class="icon">
                 <i class="fa fa-list"></i>              
@@ -45,8 +45,8 @@ $session_data = $this->session->userdata('logged_in');
                 <?php 
                 $interlineado = "";
                 echo $interlineado; ?>
-                <h4><b>KARDEX NOTAS</b></h4>
-                <p>&nbsp;</p>
+                <h3><b><fa class="fa fa-file-text"></fa></b></h3>
+                <h5><b>KARDEX NOTAS</b></h5>
             </div>
             <div class="icon">
                 <i class="fa fa-file-text"></i>              
@@ -60,8 +60,8 @@ $session_data = $this->session->userdata('logged_in');
                 <?php 
                 $interlineado = "";
                 echo $interlineado; ?>
-                <h4><b>KARDEX ECONÓMICO</b></h4>
-                <p>&nbsp;</p>
+                <h3><b><fa class="ion ion-cash"></fa></b></h3>
+                <h5><b>KARDEX ECONOMICO</b></h5>
             </div>
             <div class="icon">
                 <i class="ion ion-cash"></i>              

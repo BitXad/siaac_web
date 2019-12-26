@@ -50,29 +50,21 @@
       
       </div>
     </div>
+<BR></BR>
 
-
-<section class="content">
+<section class="container-wrapper">
       <!-- Info boxes -->
-      <div class="row">
+      
    <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
               <div class="inner" >
-                
-                
-                <?php 
-                    
-                    //$interlineado = "<script> document.write(interlineado);</script>";
+                    <?php
                     $interlineado = "";
-                    
-                ?>    
-
-                <?php echo $interlineado; ?>
-
+                    echo $interlineado; ?>
                 
-              <h4><b>GRUPOS</b></h4>
-              <p>8</p>
+              <h3><b><fa class="fa fa-group"></fa></b></h3>
+              <h5><b>GRUPOS</b></h5>
               
             </div>
               
@@ -88,19 +80,12 @@
           <div class="small-box bg-purple">
               <div class="inner" >
                 
-                
-                <?php 
-                    
-                    //$interlineado = "<script> document.write(interlineado);</script>";
+                    <?php
                     $interlineado = "";
-                    
-                ?>    
-
-                <?php echo $interlineado; ?>
+                    echo $interlineado; ?>
                 
-              <h4><b>MATERIAS</b></h4>
-              <p>6</p>
-              
+              <h3><b><fa class="fa fa-database"></fa></b></h3>
+              <h5><b>MATERIAS</b></h5>
             </div>
               
             <div class="icon">
@@ -115,18 +100,12 @@
           <div class="small-box bg-green">
               <div class="inner" >
                 
-                
-                <?php 
-                    
-                    //$interlineado = "<script> document.write(interlineado);</script>";
+                    <?php
                     $interlineado = "";
-                    
-                ?>    
-
-                <?php echo $interlineado; ?>
+                    echo $interlineado; ?>
                 
-              <h4><b>HORARIOS</b></h4>
-              <p>-</p>
+              <h3><b><fa class="fa fa-clock-o"></fa></b></h3>
+              <h5><b>HORARIOS</b></h5>
               
             </div>
               
@@ -141,19 +120,13 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
               <div class="inner" >
-                
-                
-                <?php 
-                    
-                    //$interlineado = "<script> document.write(interlineado);</script>";
+                 
+                    <?php
                     $interlineado = "";
-                    
-                ?>    
-
-                <?php echo $interlineado; ?>
+                    echo $interlineado; ?>
                 
-              <h4><b>NOTAS</b></h4>
-              <p>-</p>
+              <h3><b><fa class="fa fa-clipboard"></fa></b></h3>
+              <h5><b>NOTAS</b></h5>
               
             </div>
               

@@ -48,7 +48,6 @@ h4 {
 
 h5 {
   font-family:"Arial", Arial, Arial, arial;
-  color:grey;
   margin:0;
   display:inline;
 }
@@ -153,6 +152,10 @@ img.profile-pic:hover {
 .attributes, .values {
   font-size:14px;;
   float:left;
+}
+
+.title {
+  color: gray;
 }
 
 
