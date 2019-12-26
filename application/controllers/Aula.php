@@ -10,84 +10,99 @@ class Aula extends CI_Controller{
         parent::__construct();
         $this->load->model('Aula_model');
         $this->load->model('Tipo_aula_model');
-           
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of aula
      */
     function index()
     {
-        $data['aula'] = $this->Aula_model->get_all_aula();
-        
-        $data['_view'] = 'aula/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(27)){
+            $data['aula'] = $this->Aula_model->get_all_aula();
+
+            $data['_view'] = 'aula/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new aula
      */
     function add()
-    {   
-        $this->load->library('form_validation');
+    {
+        if($this->acceso(27)){
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('aula_nombre','Aula Nombre','required');
+            if($this->form_validation->run())     
+            {   
+                $params = array(
+                    'aula_nombre' => $this->input->post('aula_nombre'),
+                    'aula_descripcion' => $this->input->post('aula_descripcion'),
+                    'aula_capacidad' => $this->input->post('aula_capacidad'),
+                    'aula_tipo' => $this->input->post('aula_tipo'),
+                );
 
-		$this->form_validation->set_rules('aula_nombre','Aula Nombre','required');
-		
-		if($this->form_validation->run())     
-        {   
-            $params = array(
-				'aula_nombre' => $this->input->post('aula_nombre'),
-				'aula_descripcion' => $this->input->post('aula_descripcion'),
-				'aula_capacidad' => $this->input->post('aula_capacidad'),
-				'aula_tipo' => $this->input->post('aula_tipo'),
-            );
-            
-            $aula_id = $this->Aula_model->add_aula($params);
-            redirect('aula/index');
+                $aula_id = $this->Aula_model->add_aula($params);
+                redirect('aula/index');
+            }
+            else
+            {   
+                $data['all_tipo_aula'] = $this->Tipo_aula_model->get_all_tipo_aula();        
+                $data['_view'] = 'aula/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
-        else
-        {   
-            $data['all_tipo_aula'] = $this->Tipo_aula_model->get_all_tipo_aula();        
-            $data['_view'] = 'aula/add';
-            $this->load->view('layouts/main',$data);
-        }
-    }  
+    }
 
     /*
      * Editing a aula
      */
     function edit($aula_id)
-    {   
-        // check if the aula exists before trying to edit it
-        $data['aula'] = $this->Aula_model->get_aula($aula_id);
-        
-        if(isset($data['aula']['aula_id']))
-        {
-            $this->load->library('form_validation');
+    {
+        if($this->acceso(27)){
+            // check if the aula exists before trying to edit it
+            $data['aula'] = $this->Aula_model->get_aula($aula_id);
 
-			$this->form_validation->set_rules('aula_nombre','Aula Nombre','required');
-		
-			if($this->form_validation->run())     
-            {   
-                $params = array(
-					'aula_nombre' => $this->input->post('aula_nombre'),
-					'aula_descripcion' => $this->input->post('aula_descripcion'),
-					'aula_capacidad' => $this->input->post('aula_capacidad'),
-					'aula_tipo' => $this->input->post('aula_tipo'),
-                );
-
-                $this->Aula_model->update_aula($aula_id,$params);            
-                redirect('aula/index');
+            if(isset($data['aula']['aula_id']))
+            {
+                $this->load->library('form_validation');
+                $this->form_validation->set_rules('aula_nombre','Aula Nombre','required');
+                if($this->form_validation->run())     
+                {   
+                    $params = array(
+                        'aula_nombre' => $this->input->post('aula_nombre'),
+                        'aula_descripcion' => $this->input->post('aula_descripcion'),
+                        'aula_capacidad' => $this->input->post('aula_capacidad'),
+                        'aula_tipo' => $this->input->post('aula_tipo'),
+                    );
+                    $this->Aula_model->update_aula($aula_id,$params);            
+                    redirect('aula/index');
+                }
+                else
+                {
+                    $data['all_tipo_aula'] = $this->Tipo_aula_model->get_all_tipo_aula();
+                    $data['_view'] = 'aula/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-                $data['all_tipo_aula'] = $this->Tipo_aula_model->get_all_tipo_aula();
-                $data['_view'] = 'aula/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The aula you are trying to edit does not exist.');
         }
-        else
-            show_error('The aula you are trying to edit does not exist.');
     } 
 
     /*
@@ -95,16 +110,17 @@ class Aula extends CI_Controller{
      */
     function remove($aula_id)
     {
-        $aula = $this->Aula_model->get_aula($aula_id);
-
-        // check if the aula exists before trying to delete it
-        if(isset($aula['aula_id']))
-        {
-            $this->Aula_model->delete_aula($aula_id);
-            redirect('aula/index');
+        if($this->acceso(27)){
+            $aula = $this->Aula_model->get_aula($aula_id);
+            // check if the aula exists before trying to delete it
+            if(isset($aula['aula_id']))
+            {
+                $this->Aula_model->delete_aula($aula_id);
+                redirect('aula/index');
+            }
+            else
+                show_error('The aula you are trying to delete does not exist.');
         }
-        else
-            show_error('The aula you are trying to delete does not exist.');
     }
     
 }

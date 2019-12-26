@@ -9,43 +9,61 @@ class Materia_asignada extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Materia_asignada_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of materia_asignada
      */
     function index()
     {
-        $data['materia_asignada'] = $this->Materia_asignada_model->get_all_materia_asignada();
-        
-        $data['_view'] = 'materia_asignada/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(50)){
+            $data['materia_asignada'] = $this->Materia_asignada_model->get_all_materia_asignada();
+
+            $data['_view'] = 'materia_asignada/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new materia_asignada
      */
     function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'estado_id' => $this->input->post('estado_id'),
-				'kardexacad_id' => $this->input->post('kardexacad_id'),
-				'materiaasig_nombre' => $this->input->post('materiaasig_nombre'),
-				'materiaasig_codigo' => $this->input->post('materiaasig_codigo'),
-            );
-            
-            $materia_asignada_id = $this->Materia_asignada_model->add_materia_asignada($params);
-            redirect('materia_asignada/index');
-        }
-        else
-        {
-			$this->load->model('Estado_model');
-			$data['all_estado'] = $this->Estado_model->get_all_estado();
-            
-            $data['_view'] = 'materia_asignada/add';
-            $this->load->view('layouts/main',$data);
+    {
+        if($this->acceso(50)){
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+                    'estado_id' => $this->input->post('estado_id'),
+                    'kardexacad_id' => $this->input->post('kardexacad_id'),
+                    'materiaasig_nombre' => $this->input->post('materiaasig_nombre'),
+                    'materiaasig_codigo' => $this->input->post('materiaasig_codigo'),
+                );
+                $materia_asignada_id = $this->Materia_asignada_model->add_materia_asignada($params);
+                redirect('materia_asignada/index');
+            }
+            else
+            {
+                $this->load->model('Estado_model');
+                $data['all_estado'] = $this->Estado_model->get_all_estado();
+
+                $data['_view'] = 'materia_asignada/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
     }  
 
@@ -53,35 +71,36 @@ class Materia_asignada extends CI_Controller{
      * Editing a materia_asignada
      */
     function edit($materiaasig_id)
-    {   
-        // check if the materia_asignada exists before trying to edit it
-        $data['materia_asignada'] = $this->Materia_asignada_model->get_materia_asignada($materiaasig_id);
-        
-        if(isset($data['materia_asignada']['materiaasig_id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'estado_id' => $this->input->post('estado_id'),
-					'kardexacad_id' => $this->input->post('kardexacad_id'),
-					'materiaasig_nombre' => $this->input->post('materiaasig_nombre'),
-					'materiaasig_codigo' => $this->input->post('materiaasig_codigo'),
-                );
+    {
+        if($this->acceso(50)){
+            // check if the materia_asignada exists before trying to edit it
+            $data['materia_asignada'] = $this->Materia_asignada_model->get_materia_asignada($materiaasig_id);
+            if(isset($data['materia_asignada']['materiaasig_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                        'estado_id' => $this->input->post('estado_id'),
+                        'kardexacad_id' => $this->input->post('kardexacad_id'),
+                        'materiaasig_nombre' => $this->input->post('materiaasig_nombre'),
+                        'materiaasig_codigo' => $this->input->post('materiaasig_codigo'),
+                    );
 
-                $this->Materia_asignada_model->update_materia_asignada($materiaasig_id,$params);            
-                redirect('materia_asignada/index');
+                    $this->Materia_asignada_model->update_materia_asignada($materiaasig_id,$params);            
+                    redirect('materia_asignada/index');
+                }
+                else
+                {
+                    $this->load->model('Estado_model');
+                    $data['all_estado'] = $this->Estado_model->get_all_estado();
+
+                    $data['_view'] = 'materia_asignada/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-				$this->load->model('Estado_model');
-				$data['all_estado'] = $this->Estado_model->get_all_estado();
-
-                $data['_view'] = 'materia_asignada/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The materia_asignada you are trying to edit does not exist.');
         }
-        else
-            show_error('The materia_asignada you are trying to edit does not exist.');
     } 
 
     /*
@@ -89,16 +108,17 @@ class Materia_asignada extends CI_Controller{
      */
     function remove($materiaasig_id)
     {
-        $materia_asignada = $this->Materia_asignada_model->get_materia_asignada($materiaasig_id);
-
-        // check if the materia_asignada exists before trying to delete it
-        if(isset($materia_asignada['materiaasig_id']))
-        {
-            $this->Materia_asignada_model->delete_materia_asignada($materiaasig_id);
-            redirect('materia_asignada/index');
+        if($this->acceso(50)){
+            $materia_asignada = $this->Materia_asignada_model->get_materia_asignada($materiaasig_id);
+            // check if the materia_asignada exists before trying to delete it
+            if(isset($materia_asignada['materiaasig_id']))
+            {
+                $this->Materia_asignada_model->delete_materia_asignada($materiaasig_id);
+                redirect('materia_asignada/index');
+            }
+            else
+                show_error('The materia_asignada you are trying to delete does not exist.');
         }
-        else
-            show_error('The materia_asignada you are trying to delete does not exist.');
     }
     
 }

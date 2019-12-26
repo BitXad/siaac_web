@@ -9,79 +9,49 @@ class Carrera extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Carrera_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of carrera
      */
     function index()
     {
-        $data['carrera'] = $this->Carrera_model->get_all_carrera();
-        
-        $data['_view'] = 'carrera/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(29)){
+            $data['carrera'] = $this->Carrera_model->get_all_carrera();
+
+            $data['_view'] = 'carrera/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new carrera
      */
     function add()
-    {   
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('carrera_nombre','Carrera Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
-        $this->form_validation->set_rules('carrera_codigo','Carrera Código','trim|required', array('required' => 'Este Campo no debe ser vacio'));
-        $this->form_validation->set_rules('areacarrera_id','Area Carrera','trim|required', array('required' => 'Este Campo no debe ser vacio'));
-
-        if($this->form_validation->run())     
-        {   
-            $params = array(
-                'areacarrera_id' => $this->input->post('areacarrera_id'),
-                'carrera_nombre' => $this->input->post('carrera_nombre'),
-                'carrera_nombreinterno' => $this->input->post('carrera_nombreinterno'),
-                'carrera_codigo' => $this->input->post('carrera_codigo'),
-                'carrera_nivel' => $this->input->post('carrera_nivel'),
-                'carrera_modalidad' => $this->input->post('carrera_modalidad'),
-                'carrera_plan' => $this->input->post('carrera_plan'),
-                'carrera_fechacreacion' => $this->input->post('carrera_fechacreacion'),
-                'carrera_matricula' => $this->input->post('carrera_matricula'),
-                'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
-                'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
-                'carrera_cargahoraria' => $this->input->post('carrera_cargahoraria'),
-                'carrera_nummeses' => $this->input->post('carrera_nummeses'),
-            );
-            
-            $carrera_id = $this->Carrera_model->add_carrera($params);
-            redirect('carrera/index');
-        }
-        else
-        {
-            $this->load->model('Inscripcion_model');
-            $data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
-            $this->load->model('Area_carrera_model');
-            $data['all_areacarrera'] = $this->Area_carrera_model->get_all_area_carrera();
-            
-            $data['_view'] = 'carrera/add';
-            $this->load->view('layouts/main',$data);
-        }
-    }  
-
-    /*
-     * Editing a carrera
-     */
-    function edit($carrera_id)
     {
-        // check if the carrera exists before trying to edit it
-        $data['carrera'] = $this->Carrera_model->get_carrera($carrera_id);
-        
-        if(isset($data['carrera']['carrera_id']))
-        {
+        if($this->acceso(30)){
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('carrera_nombre','Carrera Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
             $this->form_validation->set_rules('carrera_codigo','Carrera Código','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('areacarrera_id','Area Carrera','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 
-            if($this->form_validation->run())
+            if($this->form_validation->run())     
             {   
                 $params = array(
                     'areacarrera_id' => $this->input->post('areacarrera_id'),
@@ -99,7 +69,7 @@ class Carrera extends CI_Controller{
                     'carrera_nummeses' => $this->input->post('carrera_nummeses'),
                 );
 
-                $this->Carrera_model->update_carrera($carrera_id,$params);            
+                $carrera_id = $this->Carrera_model->add_carrera($params);
                 redirect('carrera/index');
             }
             else
@@ -109,12 +79,63 @@ class Carrera extends CI_Controller{
                 $this->load->model('Area_carrera_model');
                 $data['all_areacarrera'] = $this->Area_carrera_model->get_all_area_carrera();
 
-                $data['_view'] = 'carrera/edit';
+                $data['_view'] = 'carrera/add';
                 $this->load->view('layouts/main',$data);
             }
         }
-        else
-            show_error('The carrera you are trying to edit does not exist.');
+    }  
+
+    /*
+     * Editing a carrera
+     */
+    function edit($carrera_id)
+    {
+        if($this->acceso(31)){
+            // check if the carrera exists before trying to edit it
+            $data['carrera'] = $this->Carrera_model->get_carrera($carrera_id);
+
+            if(isset($data['carrera']['carrera_id']))
+            {
+                $this->load->library('form_validation');
+
+                $this->form_validation->set_rules('carrera_nombre','Carrera Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+                $this->form_validation->set_rules('carrera_codigo','Carrera Código','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+
+                if($this->form_validation->run())
+                {   
+                    $params = array(
+                        'areacarrera_id' => $this->input->post('areacarrera_id'),
+                        'carrera_nombre' => $this->input->post('carrera_nombre'),
+                        'carrera_nombreinterno' => $this->input->post('carrera_nombreinterno'),
+                        'carrera_codigo' => $this->input->post('carrera_codigo'),
+                        'carrera_nivel' => $this->input->post('carrera_nivel'),
+                        'carrera_modalidad' => $this->input->post('carrera_modalidad'),
+                        'carrera_plan' => $this->input->post('carrera_plan'),
+                        'carrera_fechacreacion' => $this->input->post('carrera_fechacreacion'),
+                        'carrera_matricula' => $this->input->post('carrera_matricula'),
+                        'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
+                        'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
+                        'carrera_cargahoraria' => $this->input->post('carrera_cargahoraria'),
+                        'carrera_nummeses' => $this->input->post('carrera_nummeses'),
+                    );
+
+                    $this->Carrera_model->update_carrera($carrera_id,$params);            
+                    redirect('carrera/index');
+                }
+                else
+                {
+                    $this->load->model('Inscripcion_model');
+                    $data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
+                    $this->load->model('Area_carrera_model');
+                    $data['all_areacarrera'] = $this->Area_carrera_model->get_all_area_carrera();
+
+                    $data['_view'] = 'carrera/edit';
+                    $this->load->view('layouts/main',$data);
+                }
+            }
+            else
+                show_error('The carrera you are trying to edit does not exist.');
+        }
     } 
 
     /*
@@ -122,16 +143,17 @@ class Carrera extends CI_Controller{
      */
     function remove($carrera_id)
     {
-        $carrera = $this->Carrera_model->get_carrera($carrera_id);
-
-        // check if the carrera exists before trying to delete it
-        if(isset($carrera['carrera_id']))
-        {
-            $this->Carrera_model->delete_carrera($carrera_id);
-            redirect('carrera/index');
+        if($this->acceso(32)){
+            $carrera = $this->Carrera_model->get_carrera($carrera_id);
+            // check if the carrera exists before trying to delete it
+            if(isset($carrera['carrera_id']))
+            {
+                $this->Carrera_model->delete_carrera($carrera_id);
+                redirect('carrera/index');
+            }
+            else
+                show_error('The carrera you are trying to delete does not exist.');
         }
-        else
-            show_error('The carrera you are trying to delete does not exist.');
     }
     
 }

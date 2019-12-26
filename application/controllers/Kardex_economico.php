@@ -9,65 +9,74 @@ class Kardex_economico extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Kardex_economico_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of kardex_economico
      */
     function index()
     {
-        $data['kardex_economico'] = $this->Kardex_economico_model->get_all_kardex_economico();
-        
-        $data['_view'] = 'kardex_economico/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(47)){
+            $data['kardex_economico'] = $this->Kardex_economico_model->get_all_kardex_economico();
+
+            $data['_view'] = 'kardex_economico/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
 
     function busqueda()
     {
-
-        if ($this->input->is_ajax_request()) {
-            $estudiante = $this->input->post('dato');
-            if ($estudiante!="") {
-            
-           
-            $datos = $this->Kardex_economico_model->get_est_kardex($estudiante);
-            
-            echo json_encode($datos);
-       
+        if($this->acceso(47)){
+            if ($this->input->is_ajax_request()) {
+                $estudiante = $this->input->post('dato');
+                if ($estudiante!="") {
+                $datos = $this->Kardex_economico_model->get_est_kardex($estudiante);
+                echo json_encode($datos);
+                }
+                else{ echo json_encode(null);
+                }
             }
-            else{ echo json_encode(null);
+            else
+            {                 
+                $data['_view'] = 'kardex_economico/busqueda';
+                $this->load->view('layouts/main',$data);
             }
         }
-        else
-        {                 
-                     $data['_view'] = 'kardex_economico/busqueda';
-                     $this->load->view('layouts/main',$data);
-        } 
        
     }
 
      function carrera()
     {
-
         if ($this->input->is_ajax_request()) {
             $carrera = $this->input->post('dato');
-            if ($carrera!="") {
-            
-           
+            if ($carrera!="") {      
             $datos = $this->Kardex_economico_model->get_carrera_kardex($carrera);
-            
             echo json_encode($datos);
-       
             }
             else{ echo json_encode(null);
             }
         }
         else
         {                 
-                     $data['_view'] = 'kardex_economico/pensiones';
-                     $this->load->view('layouts/main',$data);
-        } 
+             $data['_view'] = 'kardex_economico/pensiones';
+             $this->load->view('layouts/main',$data);
+        }
        
     }
 
@@ -77,20 +86,16 @@ class Kardex_economico extends CI_Controller{
         if ($this->input->is_ajax_request()) {
             $estudiante = $this->input->post('dato');
             if ($estudiante!="") {
-            
-           
-            $datos = $this->Kardex_economico_model->get_est_kardex($estudiante);
-            
-            echo json_encode($datos);
-       
+                $datos = $this->Kardex_economico_model->get_est_kardex($estudiante);
+                echo json_encode($datos);
             }
             else{ echo json_encode(null);
             }
         }
         else
         {                 
-                     $data['_view'] = 'kardex_economico/busqueda';
-                     $this->load->view('layouts/main',$data);
+            $data['_view'] = 'kardex_economico/busqueda';
+            $this->load->view('layouts/main',$data);
         } 
        
     }
@@ -98,76 +103,78 @@ class Kardex_economico extends CI_Controller{
      * Adding a new kardex_economico
      */
     function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'inscripcion_id' => $this->input->post('inscripcion_id'),
-				'estado_id' => $this->input->post('estado_id'),
-				'kardexeco_matricula' => $this->input->post('kardexeco_matricula'),
-				'kardexeco_mensualidad' => $this->input->post('kardexeco_mensualidad'),
-				'kardexeco_nummens' => $this->input->post('kardexeco_nummens'),
-				'kardexeco_observacion' => $this->input->post('kardexeco_observacion'),
-				'kardexeco_fecha' => $this->input->post('kardexeco_fecha'),
-				'kardexeco_hora' => $this->input->post('kardexeco_hora'),
-            );
-            
-            $kardex_economico_id = $this->Kardex_economico_model->add_kardex_economico($params);
-            redirect('kardex_economico/index');
-        }
-        else
-        {
-			$this->load->model('Inscripcion_model');
-			$data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
+    {
+        if($this->acceso(47)){
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+                    'inscripcion_id' => $this->input->post('inscripcion_id'),
+                    'estado_id' => $this->input->post('estado_id'),
+                    'kardexeco_matricula' => $this->input->post('kardexeco_matricula'),
+                    'kardexeco_mensualidad' => $this->input->post('kardexeco_mensualidad'),
+                    'kardexeco_nummens' => $this->input->post('kardexeco_nummens'),
+                    'kardexeco_observacion' => $this->input->post('kardexeco_observacion'),
+                    'kardexeco_fecha' => $this->input->post('kardexeco_fecha'),
+                    'kardexeco_hora' => $this->input->post('kardexeco_hora'),
+                );
+                $kardex_economico_id = $this->Kardex_economico_model->add_kardex_economico($params);
+                redirect('kardex_economico/index');
+            }
+            else
+            {
+                $this->load->model('Inscripcion_model');
+                $data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
 
-			$this->load->model('Estado_model');
-			$data['all_estado'] = $this->Estado_model->get_all_estado();
-            
-            $data['_view'] = 'kardex_economico/add';
-            $this->load->view('layouts/main',$data);
+                $this->load->model('Estado_model');
+                $data['all_estado'] = $this->Estado_model->get_all_estado();
+
+                $data['_view'] = 'kardex_economico/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
-    }  
+    }
 
     /*
      * Editing a kardex_economico
      */
     function edit($kardexeco_id)
-    {   
-        // check if the kardex_economico exists before trying to edit it
-        $data['kardex_economico'] = $this->Kardex_economico_model->get_kardex_economico($kardexeco_id);
-        
-        if(isset($data['kardex_economico']['kardexeco_id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'inscripcion_id' => $this->input->post('inscripcion_id'),
-					'estado_id' => $this->input->post('estado_id'),
-					'kardexeco_matricula' => $this->input->post('kardexeco_matricula'),
-					'kardexeco_mensualidad' => $this->input->post('kardexeco_mensualidad'),
-					'kardexeco_nummens' => $this->input->post('kardexeco_nummens'),
-					'kardexeco_observacion' => $this->input->post('kardexeco_observacion'),
-					'kardexeco_fecha' => $this->input->post('kardexeco_fecha'),
-					'kardexeco_hora' => $this->input->post('kardexeco_hora'),
-                );
+    {
+        if($this->acceso(47)){
+            // check if the kardex_economico exists before trying to edit it
+            $data['kardex_economico'] = $this->Kardex_economico_model->get_kardex_economico($kardexeco_id);
+            if(isset($data['kardex_economico']['kardexeco_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                        'inscripcion_id' => $this->input->post('inscripcion_id'),
+                        'estado_id' => $this->input->post('estado_id'),
+                        'kardexeco_matricula' => $this->input->post('kardexeco_matricula'),
+                        'kardexeco_mensualidad' => $this->input->post('kardexeco_mensualidad'),
+                        'kardexeco_nummens' => $this->input->post('kardexeco_nummens'),
+                        'kardexeco_observacion' => $this->input->post('kardexeco_observacion'),
+                        'kardexeco_fecha' => $this->input->post('kardexeco_fecha'),
+                        'kardexeco_hora' => $this->input->post('kardexeco_hora'),
+                    );
 
-                $this->Kardex_economico_model->update_kardex_economico($kardexeco_id,$params);            
-                redirect('kardex_economico/index');
+                    $this->Kardex_economico_model->update_kardex_economico($kardexeco_id,$params);            
+                    redirect('kardex_economico/index');
+                }
+                else
+                {
+                    $this->load->model('Inscripcion_model');
+                    $data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
+
+                    $this->load->model('Estado_model');
+                    $data['all_estado'] = $this->Estado_model->get_all_estado();
+
+                    $data['_view'] = 'kardex_economico/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-				$this->load->model('Inscripcion_model');
-				$data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
-
-				$this->load->model('Estado_model');
-				$data['all_estado'] = $this->Estado_model->get_all_estado();
-
-                $data['_view'] = 'kardex_economico/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The kardex_economico you are trying to edit does not exist.');
         }
-        else
-            show_error('The kardex_economico you are trying to edit does not exist.');
     } 
 
     /*
@@ -175,16 +182,17 @@ class Kardex_economico extends CI_Controller{
      */
     function remove($kardexeco_id)
     {
-        $kardex_economico = $this->Kardex_economico_model->get_kardex_economico($kardexeco_id);
-
-        // check if the kardex_economico exists before trying to delete it
-        if(isset($kardex_economico['kardexeco_id']))
-        {
-            $this->Kardex_economico_model->delete_kardex_economico($kardexeco_id);
-            redirect('kardex_economico/index');
+        if($this->acceso(47)){
+            $kardex_economico = $this->Kardex_economico_model->get_kardex_economico($kardexeco_id);
+            // check if the kardex_economico exists before trying to delete it
+            if(isset($kardex_economico['kardexeco_id']))
+            {
+                $this->Kardex_economico_model->delete_kardex_economico($kardexeco_id);
+                redirect('kardex_economico/index');
+            }
+            else
+                show_error('The kardex_economico you are trying to delete does not exist.');
         }
-        else
-            show_error('The kardex_economico you are trying to delete does not exist.');
     }
     
 }

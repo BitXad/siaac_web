@@ -9,69 +9,89 @@ class Area_materium extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Area_materium_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of area_materia
      */
     function index()
     {
-        $data['area_materia'] = $this->Area_materium_model->get_all_area_materia();
-        
-        $data['_view'] = 'area_materium/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(15)){
+            $data['area_materia'] = $this->Area_materium_model->get_all_area_materia();
+
+            $data['_view'] = 'area_materium/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new area_materium
      */
     function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'area_nombre' => $this->input->post('area_nombre'),
-				'area_fechareg' => $this->input->post('area_fechareg'),
-            );
-            
-            $area_materium_id = $this->Area_materium_model->add_area_materium($params);
-            redirect('area_materium/index');
+    {
+        if($this->acceso(15)){
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+                    'area_nombre' => $this->input->post('area_nombre'),
+                    'area_fechareg' => $this->input->post('area_fechareg'),
+                );
+
+                $area_materium_id = $this->Area_materium_model->add_area_materium($params);
+                redirect('area_materium/index');
+            }
+            else
+            {            
+                $data['_view'] = 'area_materium/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
-        else
-        {            
-            $data['_view'] = 'area_materium/add';
-            $this->load->view('layouts/main',$data);
-        }
-    }  
+    }
 
     /*
      * Editing a area_materium
      */
     function edit($area_id)
-    {   
-        // check if the area_materium exists before trying to edit it
-        $data['area_materium'] = $this->Area_materium_model->get_area_materium($area_id);
-        
-        if(isset($data['area_materium']['area_id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'area_nombre' => $this->input->post('area_nombre'),
-					'area_fechareg' => $this->input->post('area_fechareg'),
-                );
+    {
+        if($this->acceso(15)){
+            // check if the area_materium exists before trying to edit it
+            $data['area_materium'] = $this->Area_materium_model->get_area_materium($area_id);
+            if(isset($data['area_materium']['area_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                        'area_nombre' => $this->input->post('area_nombre'),
+                        'area_fechareg' => $this->input->post('area_fechareg'),
+                    );
 
-                $this->Area_materium_model->update_area_materium($area_id,$params);            
-                redirect('area_materium/index');
+                    $this->Area_materium_model->update_area_materium($area_id,$params);            
+                    redirect('area_materium/index');
+                }
+                else
+                {
+                    $data['_view'] = 'area_materium/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-                $data['_view'] = 'area_materium/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The area_materium you are trying to edit does not exist.');
         }
-        else
-            show_error('The area_materium you are trying to edit does not exist.');
     } 
 
     /*
@@ -79,16 +99,17 @@ class Area_materium extends CI_Controller{
      */
     function remove($area_id)
     {
-        $area_materium = $this->Area_materium_model->get_area_materium($area_id);
-
-        // check if the area_materium exists before trying to delete it
-        if(isset($area_materium['area_id']))
-        {
-            $this->Area_materium_model->delete_area_materium($area_id);
-            redirect('area_materium/index');
+        if($this->acceso(15)){
+            $area_materium = $this->Area_materium_model->get_area_materium($area_id);
+            // check if the area_materium exists before trying to delete it
+            if(isset($area_materium['area_id']))
+            {
+                $this->Area_materium_model->delete_area_materium($area_id);
+                redirect('area_materium/index');
+            }
+            else
+                show_error('The area_materium you are trying to delete does not exist.');
         }
-        else
-            show_error('The area_materium you are trying to delete does not exist.');
     }
     
 }

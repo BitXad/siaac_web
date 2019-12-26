@@ -9,78 +9,99 @@ class Dia extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Dia_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of dia
      */
     function index()
     {
-        $data['dia'] = $this->Dia_model->get_all_dia();
-        
-        $data['_view'] = 'dia/index';
-        $this->load->view('layouts/main',$data);
-    }
+        if($this->acceso(67)){
+            $data['dia'] = $this->Dia_model->get_all_dia();
 
-    /*
-     * Adding a new dia
-     */
-    function add()
-    {   
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('dia_nombre','Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
-        if($this->form_validation->run())     
-        {
-            $estado_id = 1;
-            $params = array(
-                'estado_id' => $estado_id,
-                'dia_nombre' => $this->input->post('dia_nombre'),
-            );
-            
-            $dia_id = $this->Dia_model->add_dia($params);
-            redirect('dia/index');
-        }
-        else
-        {            
-            $data['_view'] = 'dia/add';
+            $data['_view'] = 'dia/index';
             $this->load->view('layouts/main',$data);
         }
+    }
+
+        /*
+         * Adding a new dia
+         */
+        function add()
+        {
+            if($this->acceso(67)){
+                $this->load->library('form_validation');
+                $this->form_validation->set_rules('dia_nombre','Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+                if($this->form_validation->run())     
+                {
+                    $estado_id = 1;
+                    $params = array(
+                        'estado_id' => $estado_id,
+                        'dia_nombre' => $this->input->post('dia_nombre'),
+                    );
+
+                    $dia_id = $this->Dia_model->add_dia($params);
+                    redirect('dia/index');
+                }
+                else
+                {            
+                    $data['_view'] = 'dia/add';
+                    $this->load->view('layouts/main',$data);
+                }
+            }
     }  
 
     /*
      * Editing a dia
      */
     function edit($dia_id)
-    {   
-        // check if the dia exists before trying to edit it
-        $data['dia'] = $this->Dia_model->get_dia($dia_id);
-        
-        if(isset($data['dia']['dia_id']))
-        {
-            $this->load->library('form_validation');
-            $this->form_validation->set_rules('dia_nombre','Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
-            if($this->form_validation->run())     
+    {
+        if($this->acceso(67)){
+            // check if the dia exists before trying to edit it
+            $data['dia'] = $this->Dia_model->get_dia($dia_id);
+            if(isset($data['dia']['dia_id']))
             {
-                $params = array(
-                    'estado_id' => $this->input->post('estado_id'),
-                    'dia_nombre' => $this->input->post('dia_nombre'),
-                );
+                $this->load->library('form_validation');
+                $this->form_validation->set_rules('dia_nombre','Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+                if($this->form_validation->run())     
+                {
+                    $params = array(
+                        'estado_id' => $this->input->post('estado_id'),
+                        'dia_nombre' => $this->input->post('dia_nombre'),
+                    );
 
-                $this->Dia_model->update_dia($dia_id,$params);            
-                redirect('dia/index');
+                    $this->Dia_model->update_dia($dia_id,$params);            
+                    redirect('dia/index');
+                }
+                else
+                {
+                    $this->load->model('Estado_model');
+                    $tipo = 1; //para que filtre los de tipo 1
+                    $data['all_estado'] = $this->Estado_model->get_all_estado_tipo($tipo);
+
+                    $data['_view'] = 'dia/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-                $this->load->model('Estado_model');
-                $tipo = 1; //para que filtre los de tipo 1
-                $data['all_estado'] = $this->Estado_model->get_all_estado_tipo($tipo);
-                
-                $data['_view'] = 'dia/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The dia you are trying to edit does not exist.');
+
         }
-        else
-            show_error('The dia you are trying to edit does not exist.');
     } 
 
     /*
@@ -88,16 +109,17 @@ class Dia extends CI_Controller{
      */
     function remove($dia_id)
     {
-        $dia = $this->Dia_model->get_dia($dia_id);
-
-        // check if the dia exists before trying to delete it
-        if(isset($dia['dia_id']))
-        {
-            $this->Dia_model->delete_dia($dia_id);
-            redirect('dia/index');
+        if($this->acceso(67)){
+            $dia = $this->Dia_model->get_dia($dia_id);
+            // check if the dia exists before trying to delete it
+            if(isset($dia['dia_id']))
+            {
+                $this->Dia_model->delete_dia($dia_id);
+                redirect('dia/index');
+            }
+            else
+                show_error('The dia you are trying to delete does not exist.');
         }
-        else
-            show_error('The dia you are trying to delete does not exist.');
     }
     
 }

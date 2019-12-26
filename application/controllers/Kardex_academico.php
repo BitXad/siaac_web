@@ -9,47 +9,66 @@ class Kardex_academico extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Kardex_academico_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of kardex_academico
      */
     function index()
     {
-        $data['kardex_academico'] = $this->Kardex_academico_model->get_all_kardex_academico();
-        
-        $data['_view'] = 'kardex_academico/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(46)){
+            $data['kardex_academico'] = $this->Kardex_academico_model->get_all_kardex_academico();
+
+            $data['_view'] = 'kardex_academico/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new kardex_academico
      */
     function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'inscripcion_id' => $this->input->post('inscripcion_id'),
-				'kardexacad_notfinal1' => $this->input->post('kardexacad_notfinal1'),
-				'kardexacad_notfinal2' => $this->input->post('kardexacad_notfinal2'),
-				'kardexacad_notfinal3' => $this->input->post('kardexacad_notfinal3'),
-				'kardexacad_notfinal4' => $this->input->post('kardexacad_notfinal4'),
-				'kardexacad_notfinal5' => $this->input->post('kardexacad_notfinal5'),
-				'kardexacad_notfinal' => $this->input->post('kardexacad_notfinal'),
-				'kardexacad_estado' => $this->input->post('kardexacad_estado'),
-            );
-            
-            $kardex_academico_id = $this->Kardex_academico_model->add_kardex_academico($params);
-            redirect('kardex_academico/index');
-        }
-        else
-        {
-			$this->load->model('Inscripcion_model');
-			$data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
-            
-            $data['_view'] = 'kardex_academico/add';
-            $this->load->view('layouts/main',$data);
+    {
+        if($this->acceso(46)){
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+                'inscripcion_id' => $this->input->post('inscripcion_id'),
+                'kardexacad_notfinal1' => $this->input->post('kardexacad_notfinal1'),
+                'kardexacad_notfinal2' => $this->input->post('kardexacad_notfinal2'),
+                'kardexacad_notfinal3' => $this->input->post('kardexacad_notfinal3'),
+                'kardexacad_notfinal4' => $this->input->post('kardexacad_notfinal4'),
+                'kardexacad_notfinal5' => $this->input->post('kardexacad_notfinal5'),
+                'kardexacad_notfinal' => $this->input->post('kardexacad_notfinal'),
+                'kardexacad_estado' => $this->input->post('kardexacad_estado'),
+                );
+
+                $kardex_academico_id = $this->Kardex_academico_model->add_kardex_academico($params);
+                redirect('kardex_academico/index');
+            }
+            else
+            {
+                $this->load->model('Inscripcion_model');
+                $data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
+
+                $data['_view'] = 'kardex_academico/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
     }  
 
@@ -57,39 +76,40 @@ class Kardex_academico extends CI_Controller{
      * Editing a kardex_academico
      */
     function edit($kardexacad_id)
-    {   
-        // check if the kardex_academico exists before trying to edit it
-        $data['kardex_academico'] = $this->Kardex_academico_model->get_kardex_academico($kardexacad_id);
-        
-        if(isset($data['kardex_academico']['kardexacad_id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'inscripcion_id' => $this->input->post('inscripcion_id'),
-					'kardexacad_notfinal1' => $this->input->post('kardexacad_notfinal1'),
-					'kardexacad_notfinal2' => $this->input->post('kardexacad_notfinal2'),
-					'kardexacad_notfinal3' => $this->input->post('kardexacad_notfinal3'),
-					'kardexacad_notfinal4' => $this->input->post('kardexacad_notfinal4'),
-					'kardexacad_notfinal5' => $this->input->post('kardexacad_notfinal5'),
-					'kardexacad_notfinal' => $this->input->post('kardexacad_notfinal'),
-					'kardexacad_estado' => $this->input->post('kardexacad_estado'),
-                );
+    {
+        if($this->acceso(46)){
+            // check if the kardex_academico exists before trying to edit it
+            $data['kardex_academico'] = $this->Kardex_academico_model->get_kardex_academico($kardexacad_id);
+            if(isset($data['kardex_academico']['kardexacad_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                        'inscripcion_id' => $this->input->post('inscripcion_id'),
+                        'kardexacad_notfinal1' => $this->input->post('kardexacad_notfinal1'),
+                        'kardexacad_notfinal2' => $this->input->post('kardexacad_notfinal2'),
+                        'kardexacad_notfinal3' => $this->input->post('kardexacad_notfinal3'),
+                        'kardexacad_notfinal4' => $this->input->post('kardexacad_notfinal4'),
+                        'kardexacad_notfinal5' => $this->input->post('kardexacad_notfinal5'),
+                        'kardexacad_notfinal' => $this->input->post('kardexacad_notfinal'),
+                        'kardexacad_estado' => $this->input->post('kardexacad_estado'),
+                    );
 
-                $this->Kardex_academico_model->update_kardex_academico($kardexacad_id,$params);            
-                redirect('kardex_academico/index');
+                    $this->Kardex_academico_model->update_kardex_academico($kardexacad_id,$params);            
+                    redirect('kardex_academico/index');
+                }
+                else
+                {
+                    $this->load->model('Inscripcion_model');
+                    $data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
+
+                    $data['_view'] = 'kardex_academico/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-				$this->load->model('Inscripcion_model');
-				$data['all_inscripcion'] = $this->Inscripcion_model->get_all_inscripcion();
-
-                $data['_view'] = 'kardex_academico/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The kardex_academico you are trying to edit does not exist.');
         }
-        else
-            show_error('The kardex_academico you are trying to edit does not exist.');
     } 
 
     /*
@@ -97,16 +117,17 @@ class Kardex_academico extends CI_Controller{
      */
     function remove($kardexacad_id)
     {
-        $kardex_academico = $this->Kardex_academico_model->get_kardex_academico($kardexacad_id);
-
-        // check if the kardex_academico exists before trying to delete it
-        if(isset($kardex_academico['kardexacad_id']))
-        {
-            $this->Kardex_academico_model->delete_kardex_academico($kardexacad_id);
-            redirect('kardex_academico/index');
+        if($this->acceso(46)){
+            $kardex_academico = $this->Kardex_academico_model->get_kardex_academico($kardexacad_id);
+            // check if the kardex_academico exists before trying to delete it
+            if(isset($kardex_academico['kardexacad_id']))
+            {
+                $this->Kardex_academico_model->delete_kardex_academico($kardexacad_id);
+                redirect('kardex_academico/index');
+            }
+            else
+                show_error('The kardex_academico you are trying to delete does not exist.');
         }
-        else
-            show_error('The kardex_academico you are trying to delete does not exist.');
     }
     
 }
