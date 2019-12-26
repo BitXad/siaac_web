@@ -114,12 +114,12 @@ class Verificar extends CI_Controller
                     'usuario_id' => $result->docente_id,
                     'usuario_nombre' => $result->docente_nombre,
                     'estado_id' => $result->estado_id,
-                    'tipousuario_id' => 7,
+                    'tipousuario_id' => 1,
                     'usuario_imagen' => $result->docente_foto,
                     'usuario_email' => $result->docente_email,
                     'usuario_clave' => $result->docente_clave,
                     'thumb' => $thumb,
-                    'rol' => $this->getTipo_usuario(7),
+                    //'rol' => $this->getTipo_usuario(1),
                     'semestre' => $gestion->gestion_semestre,
                     'gestion' => $gestion->gestion_descripcion,
                     'gestion_id' => $gestion->gestion_id
@@ -140,6 +140,53 @@ class Verificar extends CI_Controller
         }
 
     }
+
+     function index3($username,$clave,$gestion_id)
+    {
+        
+        $result = $this->login_model->login3($username, $clave);
+
+        if ($result) {
+           
+                $thumb = "";
+                if ($result->estudiante_foto <> null) {
+                    $thumb = $this->foto_thumb($result->estudiante_foto);
+                }
+
+                $gestion = $this->Gestion_model->get_gestion2($gestion_id);
+
+                $sess_array = array(
+                    'usuario_login' => $result->estudiante_login,
+                    'usuario_id' => $result->estudiante_id,
+                    'usuario_nombre' => $result->estudiante_nombre,
+                    'estado_id' => $result->estado_id,
+                    'tipousuario_id' => 1,
+                    'usuario_imagen' => $result->estudiante_foto,
+                    'usuario_email' => $result->estudiante_email,
+                    'usuario_clave' => $result->estudiante_clave,
+                    'thumb' => $thumb,
+                    //'rol' => $this->getTipo_usuario(1),
+                    'semestre' => $gestion->gestion_semestre,
+                    'gestion' => $gestion->gestion_descripcion,
+                    'gestion_id' => $gestion->gestion_id
+                );
+
+                $this->session->set_userdata('logged_in', $sess_array);
+                $session_data = $this->session->userdata('logged_in');
+
+     
+                    redirect('estudiante/menu_estudiante/'.$result->estudiante_id);
+             
+                
+
+
+        } else {
+            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">USER o PASSWORD invalidos' . $result . '</div>');
+            redirect('login');
+        }
+
+    }
+
 
     public function foto_thumb($foto)
     {
