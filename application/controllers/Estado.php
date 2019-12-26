@@ -9,39 +9,57 @@ class Estado extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Estado_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of estado
      */
     function index()
     {
-        $data['estado'] = $this->Estado_model->get_all_estado();
-        
-        $data['_view'] = 'estado/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(18)){
+            $data['estado'] = $this->Estado_model->get_all_estado();
+
+            $data['_view'] = 'estado/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new estado
      */
     function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'estado_descripcion' => $this->input->post('estado_descripcion'),
-				'estado_color' => $this->input->post('estado_color'),
-				'estado_tipo' => $this->input->post('estado_tipo'),
-            );
-            
-            $estado_id = $this->Estado_model->add_estado($params);
-            redirect('estado/index');
-        }
-        else
-        {            
-            $data['_view'] = 'estado/add';
-            $this->load->view('layouts/main',$data);
+    {
+        if($this->acceso(18)){
+            if(isset($_POST) && count($_POST) > 0)     
+            {
+                $params = array(
+                    'estado_descripcion' => $this->input->post('estado_descripcion'),
+                    'estado_color' => $this->input->post('estado_color'),
+                    'estado_tipo' => $this->input->post('estado_tipo'),
+                );
+                $estado_id = $this->Estado_model->add_estado($params);
+                redirect('estado/index');
+            }
+            else
+            {            
+                $data['_view'] = 'estado/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
     }  
 
@@ -49,31 +67,33 @@ class Estado extends CI_Controller{
      * Editing a estado
      */
     function edit($estado_id)
-    {   
-        // check if the estado exists before trying to edit it
-        $data['estado'] = $this->Estado_model->get_estado($estado_id);
-        
-        if(isset($data['estado']['estado_id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'estado_descripcion' => $this->input->post('estado_descripcion'),
-					'estado_color' => $this->input->post('estado_color'),
-					'estado_tipo' => $this->input->post('estado_tipo'),
-                );
+    {
+        if($this->acceso(18)){
+            // check if the estado exists before trying to edit it
+            $data['estado'] = $this->Estado_model->get_estado($estado_id);
 
-                $this->Estado_model->update_estado($estado_id,$params);            
-                redirect('estado/index');
+            if(isset($data['estado']['estado_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                        'estado_descripcion' => $this->input->post('estado_descripcion'),
+                        'estado_color' => $this->input->post('estado_color'),
+                        'estado_tipo' => $this->input->post('estado_tipo'),
+                    );
+
+                    $this->Estado_model->update_estado($estado_id,$params);            
+                    redirect('estado/index');
+                }
+                else
+                {
+                    $data['_view'] = 'estado/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-                $data['_view'] = 'estado/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The estado you are trying to edit does not exist.');
         }
-        else
-            show_error('The estado you are trying to edit does not exist.');
     } 
 
     /*
@@ -81,16 +101,17 @@ class Estado extends CI_Controller{
      */
     function remove($estado_id)
     {
-        $estado = $this->Estado_model->get_estado($estado_id);
-
-        // check if the estado exists before trying to delete it
-        if(isset($estado['estado_id']))
-        {
-            $this->Estado_model->delete_estado($estado_id);
-            redirect('estado/index');
+        if($this->acceso(18)){
+            $estado = $this->Estado_model->get_estado($estado_id);
+            // check if the estado exists before trying to delete it
+            if(isset($estado['estado_id']))
+            {
+                $this->Estado_model->delete_estado($estado_id);
+                redirect('estado/index');
+            }
+            else
+                show_error('The estado you are trying to delete does not exist.');
         }
-        else
-            show_error('The estado you are trying to delete does not exist.');
     }
     
 }

@@ -2,6 +2,26 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Estudiante.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Factura.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Estado_civil.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Alerta.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Categoria_egreso.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Estado.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Dashboard.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Administrativo.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Area_materium.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Docente.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Area_carrera.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Genero.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Carrera.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Dia.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Verificar.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Aula.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Categoria_ingreso.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Detalle_factura.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Egreso.php</file>
+        </group>
     </open-files>
 </project-private>
