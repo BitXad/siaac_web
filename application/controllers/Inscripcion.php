@@ -36,180 +36,186 @@ class Inscripcion extends CI_Controller{
      */
     function index()
     {
-        $params['limit'] = RECORDS_PER_PAGE; 
-        $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
-        
-        $config = $this->config->item('pagination');
-        $config['base_url'] = site_url('inscripcion/index?');
-        $config['total_rows'] = $this->Inscripcion_model->get_all_inscripcion_count();
-        $this->pagination->initialize($config);
+        if($this->acceso(45)){
+            $params['limit'] = RECORDS_PER_PAGE; 
+            $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
 
-        $data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($params);
-        
-        $data['_view'] = 'inscripcion/index';
-        $this->load->view('layouts/main',$data);
+            $config = $this->config->item('pagination');
+            $config['base_url'] = site_url('inscripcion/index?');
+            $config['total_rows'] = $this->Inscripcion_model->get_all_inscripcion_count();
+            $this->pagination->initialize($config);
+
+            $data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($params);
+
+            $data['_view'] = 'inscripcion/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new inscripcion
      */
     function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'usuario_id' => $this->input->post('usuario_id'),
-				'gestion_id' => $this->input->post('gestion_id'),
-				'estudiante_id' => $this->input->post('estudiante_id'),
-				'paralelo_id' => $this->input->post('paralelo_id'),
-				'nivel_id' => $this->input->post('nivel_id'),
-				'turno_id' => $this->input->post('turno_id'),
-				'inscripcion_fecha' => $this->input->post('inscripcion_fecha'),
-				'inscripcion_hora' => $this->input->post('inscripcion_hora'),
-				'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
-            );
-            
-            $inscripcion_id = $this->Inscripcion_model->add_inscripcion($params);
-            redirect('inscripcion/index');
+    {
+        if($this->acceso(45)){
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+                    'usuario_id' => $this->input->post('usuario_id'),
+                    'gestion_id' => $this->input->post('gestion_id'),
+                    'estudiante_id' => $this->input->post('estudiante_id'),
+                    'paralelo_id' => $this->input->post('paralelo_id'),
+                    'nivel_id' => $this->input->post('nivel_id'),
+                    'turno_id' => $this->input->post('turno_id'),
+                    'inscripcion_fecha' => $this->input->post('inscripcion_fecha'),
+                    'inscripcion_hora' => $this->input->post('inscripcion_hora'),
+                    'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
+                );
+
+                $inscripcion_id = $this->Inscripcion_model->add_inscripcion($params);
+                redirect('inscripcion/index');
+            }
+            else
+            {
+                $this->load->model('Usuario_model');
+                $data['all_usuario'] = $this->Usuario_model->get_all_usuario();
+
+                $this->load->model('Gestion_model');
+                $data['all_gestion'] = $this->Gestion_model->get_all_gestion();
+
+                $this->load->model('Estudiante_model');
+                $data['all_estudiante'] = $this->Estudiante_model->get_all_estudiante();
+
+                $this->load->model('Paralelo_model');
+                $data['all_paralelo'] = $this->Paralelo_model->get_all_paralelo();
+
+                $this->load->model('Nivel_model');
+                $data['all_nivel'] = $this->Nivel_model->get_all_nivel();
+
+                $this->load->model('Turno_model');
+                $data['all_turno'] = $this->Turno_model->get_all_turno();
+
+                $data['_view'] = 'inscripcion/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
-        else
-        {
-			$this->load->model('Usuario_model');
-			$data['all_usuario'] = $this->Usuario_model->get_all_usuario();
-
-			$this->load->model('Gestion_model');
-			$data['all_gestion'] = $this->Gestion_model->get_all_gestion();
-
-			$this->load->model('Estudiante_model');
-			$data['all_estudiante'] = $this->Estudiante_model->get_all_estudiante();
-
-			$this->load->model('Paralelo_model');
-			$data['all_paralelo'] = $this->Paralelo_model->get_all_paralelo();
-
-			$this->load->model('Nivel_model');
-			$data['all_nivel'] = $this->Nivel_model->get_all_nivel();
-
-			$this->load->model('Turno_model');
-			$data['all_turno'] = $this->Turno_model->get_all_turno();
-            
-            $data['_view'] = 'inscripcion/add';
-            $this->load->view('layouts/main',$data);
-        }
-    }  
+    }
 
     /*
      * Adding a new inscripcion
      */
     function inscribir($estudiante_id)
     {
-        //($this->acceso(145)){
-        if(isset($_POST) && count($_POST) > 0)     
-        {
-            $params = array(
-                'usuario_id' => $this->input->post('usuario_id'),
-                'gestion_id' => $this->input->post('gestion_id'),
-                'estudiante_id' => $this->input->post('estudiante_id'),
-                'paralelo_id' => $this->input->post('paralelo_id'),
-                'nivel_id' => $this->input->post('nivel_id'),
-                'turno_id' => $this->input->post('turno_id'),
-                'inscripcion_fecha' => $this->input->post('inscripcion_fecha'),
-                'inscripcion_hora' => $this->input->post('inscripcion_hora'),
-                'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
-            );
-            $inscripcion_id = $this->Inscripcion_model->add_inscripcion($params);
-            redirect('inscripcion/index');
-        }
-        else
-        {
-            $gestion_id = $this->session_data['gestion_id'];
-            $this->load->model('Carrera_model');
-            $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
-
-//			$this->load->model('Usuario_model');
-//			$data['all_usuario'] = $this->Usuario_model->get_all_usuario();
-
-            $this->load->model('Gestion_model');
-            $data['all_gestion'] = $this->Gestion_model->get_all_gestion();
-
-            $this->load->model('Estudiante_model');
-
-            if ($estudiante_id>0){
-                $data['estudiante'] = $this->Estudiante_model->get_estudiante_por_id($estudiante_id);
-                $this->load->model('Inscripcion_model');
-                $data['carrera_idinsc_est'] = $this->Inscripcion_model->get_carreraid_inscripcion($estudiante_id);
-            }else{
-                $data['estudiante'] = $this->Estudiante_model->get_estudiante_temporal();
-                $data['carrera_idinsc_est'] = 0;
+        if($this->acceso(45)){
+            if(isset($_POST) && count($_POST) > 0)     
+            {
+                $params = array(
+                    'usuario_id' => $this->input->post('usuario_id'),
+                    'gestion_id' => $this->input->post('gestion_id'),
+                    'estudiante_id' => $this->input->post('estudiante_id'),
+                    'paralelo_id' => $this->input->post('paralelo_id'),
+                    'nivel_id' => $this->input->post('nivel_id'),
+                    'turno_id' => $this->input->post('turno_id'),
+                    'inscripcion_fecha' => $this->input->post('inscripcion_fecha'),
+                    'inscripcion_hora' => $this->input->post('inscripcion_hora'),
+                    'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
+                );
+                $inscripcion_id = $this->Inscripcion_model->add_inscripcion($params);
+                redirect('inscripcion/index');
             }
+            else
+            {
+                $gestion_id = $this->session_data['gestion_id'];
+                $this->load->model('Carrera_model');
+                $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
 
-            $this->load->model('Paralelo_model');
-            $data['all_paralelo'] = $this->Paralelo_model->get_all_paralelo();
+    //			$this->load->model('Usuario_model');
+    //			$data['all_usuario'] = $this->Usuario_model->get_all_usuario();
 
-//			$this->load->model('Nivel_model');
-//			$data['all_nivel'] = $this->Nivel_model->get_all_nivel();
+                $this->load->model('Gestion_model');
+                $data['all_gestion'] = $this->Gestion_model->get_all_gestion();
 
-            $this->load->model('Turno_model');
-            $data['all_turno'] = $this->Turno_model->get_all_turno();
+                $this->load->model('Estudiante_model');
 
-            $data['_view'] = 'inscripcion/inscribir';
-            $this->load->view('layouts/main',$data);
+                if ($estudiante_id>0){
+                    $data['estudiante'] = $this->Estudiante_model->get_estudiante_por_id($estudiante_id);
+                    $this->load->model('Inscripcion_model');
+                    $data['carrera_idinsc_est'] = $this->Inscripcion_model->get_carreraid_inscripcion($estudiante_id);
+                }else{
+                    $data['estudiante'] = $this->Estudiante_model->get_estudiante_temporal();
+                    $data['carrera_idinsc_est'] = 0;
+                }
+
+                $this->load->model('Paralelo_model');
+                $data['all_paralelo'] = $this->Paralelo_model->get_all_paralelo();
+
+    //			$this->load->model('Nivel_model');
+    //			$data['all_nivel'] = $this->Nivel_model->get_all_nivel();
+
+                $this->load->model('Turno_model');
+                $data['all_turno'] = $this->Turno_model->get_all_turno();
+
+                $data['_view'] = 'inscripcion/inscribir';
+                $this->load->view('layouts/main',$data);
+            }
         }
-        //}
     }  
 
     /*
      * Editing a inscripcion
      */
     function edit($inscripcion_id)
-    {   
-        // check if the inscripcion exists before trying to edit it
-        $data['inscripcion'] = $this->Inscripcion_model->get_inscripcion($inscripcion_id);
-        
-        if(isset($data['inscripcion']['inscripcion_id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'usuario_id' => $this->input->post('usuario_id'),
-					'gestion_id' => $this->input->post('gestion_id'),
-					'estudiante_id' => $this->input->post('estudiante_id'),
-					'paralelo_id' => $this->input->post('paralelo_id'),
-					'nivel_id' => $this->input->post('nivel_id'),
-					'turno_id' => $this->input->post('turno_id'),
-					'inscripcion_fecha' => $this->input->post('inscripcion_fecha'),
-					'inscripcion_hora' => $this->input->post('inscripcion_hora'),
-					'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
-                );
+    {
+        if($this->acceso(45)){
+            // check if the inscripcion exists before trying to edit it
+            $data['inscripcion'] = $this->Inscripcion_model->get_inscripcion($inscripcion_id);
 
-                $this->Inscripcion_model->update_inscripcion($inscripcion_id,$params);            
-                redirect('inscripcion/index');
+            if(isset($data['inscripcion']['inscripcion_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                        'usuario_id' => $this->input->post('usuario_id'),
+                        'gestion_id' => $this->input->post('gestion_id'),
+                        'estudiante_id' => $this->input->post('estudiante_id'),
+                        'paralelo_id' => $this->input->post('paralelo_id'),
+                        'nivel_id' => $this->input->post('nivel_id'),
+                        'turno_id' => $this->input->post('turno_id'),
+                        'inscripcion_fecha' => $this->input->post('inscripcion_fecha'),
+                        'inscripcion_hora' => $this->input->post('inscripcion_hora'),
+                        'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
+                    );
+
+                    $this->Inscripcion_model->update_inscripcion($inscripcion_id,$params);            
+                    redirect('inscripcion/index');
+                }
+                else
+                {
+                    $this->load->model('Usuario_model');
+                    $data['all_usuario'] = $this->Usuario_model->get_all_usuario();
+
+                    $this->load->model('Gestion_model');
+                    $data['all_gestion'] = $this->Gestion_model->get_all_gestion();
+
+                    $this->load->model('Estudiante_model');
+                    $data['all_estudiante'] = $this->Estudiante_model->get_all_estudiante();
+
+                    $this->load->model('Paralelo_model');
+                    $data['all_paralelo'] = $this->Paralelo_model->get_all_paralelo();
+
+                    $this->load->model('Nivel_model');
+                    $data['all_nivel'] = $this->Nivel_model->get_all_nivel();
+
+                    $this->load->model('Turno_model');
+                    $data['all_turno'] = $this->Turno_model->get_all_turno();
+
+                    $data['_view'] = 'inscripcion/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-				$this->load->model('Usuario_model');
-				$data['all_usuario'] = $this->Usuario_model->get_all_usuario();
-
-				$this->load->model('Gestion_model');
-				$data['all_gestion'] = $this->Gestion_model->get_all_gestion();
-
-				$this->load->model('Estudiante_model');
-				$data['all_estudiante'] = $this->Estudiante_model->get_all_estudiante();
-
-				$this->load->model('Paralelo_model');
-				$data['all_paralelo'] = $this->Paralelo_model->get_all_paralelo();
-
-				$this->load->model('Nivel_model');
-				$data['all_nivel'] = $this->Nivel_model->get_all_nivel();
-
-				$this->load->model('Turno_model');
-				$data['all_turno'] = $this->Turno_model->get_all_turno();
-
-                $data['_view'] = 'inscripcion/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The inscripcion you are trying to edit does not exist.');
         }
-        else
-            show_error('The inscripcion you are trying to edit does not exist.');
     } 
 
     /*
@@ -217,16 +223,18 @@ class Inscripcion extends CI_Controller{
      */
     function remove($inscripcion_id)
     {
-        $inscripcion = $this->Inscripcion_model->get_inscripcion($inscripcion_id);
+        if($this->acceso(45)){
+            $inscripcion = $this->Inscripcion_model->get_inscripcion($inscripcion_id);
 
-        // check if the inscripcion exists before trying to delete it
-        if(isset($inscripcion['inscripcion_id']))
-        {
-            $this->Inscripcion_model->delete_inscripcion($inscripcion_id);
-            redirect('inscripcion/index');
+            // check if the inscripcion exists before trying to delete it
+            if(isset($inscripcion['inscripcion_id']))
+            {
+                $this->Inscripcion_model->delete_inscripcion($inscripcion_id);
+                redirect('inscripcion/index');
+            }
+            else
+                show_error('The inscripcion you are trying to delete does not exist.');
         }
-        else
-            show_error('The inscripcion you are trying to delete does not exist.');
     }
     
     function buscar_carrera(){
@@ -257,7 +265,6 @@ class Inscripcion extends CI_Controller{
         $nivel_id = $this->input->post('nivel_id');
         $materias = $this->Inscripcion_model->get_materias($nivel_id);
         echo json_encode($materias);
-        
     }
         
     function registrar_inscripcion(){
@@ -470,12 +477,13 @@ class Inscripcion extends CI_Controller{
     
     function ultima_inscripcion()
     {   
-        
-        $data['inscripcion'] = $this->Inscripcion_model->get_ultima_inscripcion();
-        $data['institucion'] = $this->Institucion_model->get_all_institucion();
-        
-        $data['_view'] = 'inscripcion/comprobante';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(45)){
+            $data['inscripcion'] = $this->Inscripcion_model->get_ultima_inscripcion();
+            $data['institucion'] = $this->Institucion_model->get_all_institucion();
+
+            $data['_view'] = 'inscripcion/comprobante';
+            $this->load->view('layouts/main',$data);
+        }
     }
     
     
