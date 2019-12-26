@@ -45,8 +45,8 @@
                         <label for="estudiante_fechanac" class="control-label">Fecha de Nacimiento</label>
                         <div class="form-group">
                             <?php
-                            if($estudiante['estudiante_fechanac'] != null){
-                                echo date("d/m/Y", time($estudiante['estudiante_fechanac']));
+                            if($estudiante['estudiante_fechanac'] != null && $estudiante['estudiante_fechanac'] != ''){
+                                echo date("d/m/Y", strtotime($estudiante['estudiante_fechanac']));
                             }else{
                                 
                             }
