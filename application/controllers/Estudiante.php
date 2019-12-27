@@ -173,7 +173,7 @@ class Estudiante extends CI_Controller{
                                     'estudiante_fechanac' => $this->input->post('estudiante_fechanac'),
                                     'estudiante_edad' => $this->input->post('estudiante_edad'),
                                     'estudiante_ci' => $this->input->post('estudiante_ci'),
-                    'estudiante_extci' => $this->input->post('estudiante_extci'),
+                                    'estudiante_extci' => $this->input->post('estudiante_extci'),
                                     'estudiante_codigo' => $this->input->post('estudiante_codigo'),
                                     'estudiante_direccion' => $this->input->post('estudiante_direccion'),
                                     'estudiante_telefono' => $this->input->post('estudiante_telefono'),
@@ -193,7 +193,7 @@ class Estudiante extends CI_Controller{
                     'estudiante_email' => $this->input->post('estudiante_email'),
                     'estudiante_login' => $this->input->post('estudiante_login'),
                     'estudiante_clave' => md5($this->input->post('estudiante_clave')),
-                    //'tipousuario_id' => 8,
+                    'tipousuario_id' => 3,
                 );
 
                 $estudiante_id = $this->Estudiante_model->add_estudiante($params);
@@ -364,7 +364,7 @@ class Estudiante extends CI_Controller{
                     'estudiante_email' => $this->input->post('estudiante_email'),
                     'estudiante_login' => $this->input->post('estudiante_codigo'),
                     'estudiante_clave' => md5($this->input->post('estudiante_ci')),
-                    //'tipousuario_id' => 8,
+                    'tipousuario_id' => 3,
                 );
 
                 $estudiante_id = $this->Estudiante_model->add_estudiante($params);
@@ -561,7 +561,7 @@ class Estudiante extends CI_Controller{
                         'estudiante_email' => $this->input->post('estudiante_email'),
                         //'estudiante_login' => $this->input->post('estudiante_codigo'),
                         //'estudiante_clave' => md5($this->input->post('estudiante_ci')),
-                        //'tipousuario_id' => 8,
+                        //'tipousuario_id' => 3,
                     );
 
                     $this->Estudiante_model->update_estudiante($estudiante_id,$params);            

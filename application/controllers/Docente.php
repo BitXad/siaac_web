@@ -175,7 +175,7 @@ class Docente extends CI_Controller{
                     'docente_email' => $this->input->post('docente_email'),
                     'docente_login' => $this->input->post('docente_login'),
                     'docente_clave' => md5($this->input->post('docente_clave')),
-                    //'tipousuario_id' => 9,
+                    'tipousuario_id' => 2,
                 );
 
                 $docente_id = $this->Docente_model->add_docente($params);
@@ -294,7 +294,7 @@ class Docente extends CI_Controller{
                         'docente_email' => $this->input->post('docente_email'),
                         //'docente_login' => $this->input->post('docente_login'),
                         //'docente_clave' => md5($this->input->post('docente_clave')),
-                        //'tipousuario_id' => 9,
+                        //'tipousuario_id' => 2,
                     );
 
                     $this->Docente_model->update_docente($docente_id,$params); 
