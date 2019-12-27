@@ -9,45 +9,61 @@ class Paralelo extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Paralelo_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of paralelo
      */
     function index()
     {
-        $data['paralelo'] = $this->Paralelo_model->get_all_paralelo();
-        
-        $data['_view'] = 'paralelo/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(26)){
+            $data['paralelo'] = $this->Paralelo_model->get_all_paralelo();
+
+            $data['_view'] = 'paralelo/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new paralelo
      */
     function add()
-    {   
-        $this->load->library('form_validation');
+    {
+        if($this->acceso(26)){
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('paralelo_descripcion','Paralelo Descripcion','required');
+            if($this->form_validation->run())     
+            {   
+                $params = array(
+                    'estado_id' => 1,
+                    'paralelo_descripcion' => $this->input->post('paralelo_descripcion'),
+                );
+                $paralelo_id = $this->Paralelo_model->add_paralelo($params);
+                redirect('paralelo/index');
+            }
+            else
+            {
+                $this->load->model('Estado_model');
+                $data['all_estado'] = $this->Estado_model->get_all_estado();
 
-		$this->form_validation->set_rules('paralelo_descripcion','Paralelo Descripcion','required');
-		
-		if($this->form_validation->run())     
-        {   
-            $params = array(
-				'estado_id' => 1,
-				'paralelo_descripcion' => $this->input->post('paralelo_descripcion'),
-            );
-            
-            $paralelo_id = $this->Paralelo_model->add_paralelo($params);
-            redirect('paralelo/index');
-        }
-        else
-        {
-			$this->load->model('Estado_model');
-			$data['all_estado'] = $this->Estado_model->get_all_estado();
-            
-            $data['_view'] = 'paralelo/add';
-            $this->load->view('layouts/main',$data);
+                $data['_view'] = 'paralelo/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
     }  
 
@@ -55,37 +71,36 @@ class Paralelo extends CI_Controller{
      * Editing a paralelo
      */
     function edit($paralelo_id)
-    {   
-        // check if the paralelo exists before trying to edit it
-        $data['paralelo'] = $this->Paralelo_model->get_paralelo($paralelo_id);
-        
-        if(isset($data['paralelo']['paralelo_id']))
-        {
-            $this->load->library('form_validation');
+    {
+        if($this->acceso(26)){
+            // check if the paralelo exists before trying to edit it
+            $data['paralelo'] = $this->Paralelo_model->get_paralelo($paralelo_id);
+            if(isset($data['paralelo']['paralelo_id']))
+            {
+                $this->load->library('form_validation');
+                $this->form_validation->set_rules('paralelo_descripcion','Paralelo Descripcion','required');
+                if($this->form_validation->run())     
+                {   
+                    $params = array(
+                        'estado_id' => $this->input->post('estado_id'),
+                        'paralelo_descripcion' => $this->input->post('paralelo_descripcion'),
+                    );
 
-			$this->form_validation->set_rules('paralelo_descripcion','Paralelo Descripcion','required');
-		
-			if($this->form_validation->run())     
-            {   
-                $params = array(
-					'estado_id' => $this->input->post('estado_id'),
-					'paralelo_descripcion' => $this->input->post('paralelo_descripcion'),
-                );
+                    $this->Paralelo_model->update_paralelo($paralelo_id,$params);            
+                    redirect('paralelo/index');
+                }
+                else
+                {
+                    $this->load->model('Estado_model');
+                    $data['all_estado'] = $this->Estado_model->get_all_estado();
 
-                $this->Paralelo_model->update_paralelo($paralelo_id,$params);            
-                redirect('paralelo/index');
+                    $data['_view'] = 'paralelo/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-				$this->load->model('Estado_model');
-				$data['all_estado'] = $this->Estado_model->get_all_estado();
-
-                $data['_view'] = 'paralelo/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The paralelo you are trying to edit does not exist.');
         }
-        else
-            show_error('The paralelo you are trying to edit does not exist.');
     } 
 
     /*
@@ -93,16 +108,17 @@ class Paralelo extends CI_Controller{
      */
     function remove($paralelo_id)
     {
-        $paralelo = $this->Paralelo_model->get_paralelo($paralelo_id);
-
-        // check if the paralelo exists before trying to delete it
-        if(isset($paralelo['paralelo_id']))
-        {
-            $this->Paralelo_model->delete_paralelo($paralelo_id);
-            redirect('paralelo/index');
+        if($this->acceso(26)){
+            $paralelo = $this->Paralelo_model->get_paralelo($paralelo_id);
+            // check if the paralelo exists before trying to delete it
+            if(isset($paralelo['paralelo_id']))
+            {
+                $this->Paralelo_model->delete_paralelo($paralelo_id);
+                redirect('paralelo/index');
+            }
+            else
+                show_error('The paralelo you are trying to delete does not exist.');
         }
-        else
-            show_error('The paralelo you are trying to delete does not exist.');
     }
     
 }

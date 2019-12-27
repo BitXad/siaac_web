@@ -3,25 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Estudiante.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Factura.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Estado_civil.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Alerta.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Categoria_egreso.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Estado.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Dashboard.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Administrativo.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Area_materium.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Docente.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Area_carrera.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Genero.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Carrera.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Dia.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Verificar.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Aula.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Categoria_ingreso.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Detalle_factura.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Egreso.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Rol.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Rol_usuario.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Turno.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Periodo.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Tipo_aula.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Tipo_usuario.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Plan_academico.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Paralelo.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Usuario.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Notum.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Parametro.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Nivel.php</file>
         </group>
     </open-files>
 </project-private>

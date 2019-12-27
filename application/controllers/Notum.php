@@ -12,85 +12,107 @@ class Notum extends CI_Controller{
         $this->load->model('Institucion_model');
         $this->load->model('Docente_model');
         $this->load->helper('notas');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of nota
      */
     function index()
     {
-        $data['nota'] = $this->Notum_model->get_all_nota();
-        
-        $data['_view'] = 'notum/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(54)){
+            $data['nota'] = $this->Notum_model->get_all_nota();
+
+            $data['_view'] = 'notum/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
     function notae2()
     {
-        
-        $data['estudiante'] = $this->Docente_model->get_estudiantes(1);
-        $data['institucion'] = $this->Institucion_model->get_institucion(1);
-        $data['_view'] = 'notum/notae2';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(54)){
+            $data['estudiante'] = $this->Docente_model->get_estudiantes(1);
+            $data['institucion'] = $this->Institucion_model->get_institucion(1);
+            $data['_view'] = 'notum/notae2';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     function notae3()
     {
-        $data['estudiante'] = $this->Docente_model->get_estudiantes(1);
-        $data['institucion'] = $this->Institucion_model->get_institucion(1);
-        $data['_view'] = 'notum/notae3';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(54)){
+            $data['estudiante'] = $this->Docente_model->get_estudiantes(1);
+            $data['institucion'] = $this->Institucion_model->get_institucion(1);
+            $data['_view'] = 'notum/notae3';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     function centralizador()
     {
-        
-        $data['institucion'] = $this->Institucion_model->get_institucion(1);
-        $data['_view'] = 'notum/centralizador';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(54)){
+            $data['institucion'] = $this->Institucion_model->get_institucion(1);
+            $data['_view'] = 'notum/centralizador';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new notum
      */
     function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'estado_id' => $this->input->post('estado_id'),
-				'materiaasig_id' => $this->input->post('materiaasig_id'),
-				'nota_aistencia' => $this->input->post('nota_aistencia'),
-				'nota_trabinv' => $this->input->post('nota_trabinv'),
-				'nota_dps' => $this->input->post('nota_dps'),
-				'nota_pruebprac' => $this->input->post('nota_pruebprac'),
-				'nota_pruebbim' => $this->input->post('nota_pruebbim'),
-				'nota_puntajetot' => $this->input->post('nota_puntajetot'),
-				'nota_numbimestre' => $this->input->post('nota_numbimestre'),
-				'nota_pond1_mat' => $this->input->post('nota_pond1_mat'),
-				'nota_pond2_mat' => $this->input->post('nota_pond2_mat'),
-				'nota_pond3_mat' => $this->input->post('nota_pond3_mat'),
-				'nota_pond4_mat' => $this->input->post('nota_pond4_mat'),
-				'nota_pond5_mat' => $this->input->post('nota_pond5_mat'),
-				'nota_pond6_mat' => $this->input->post('nota_pond6_mat'),
-				'nota_pond7_ma' => $this->input->post('nota_pond7_ma'),
-				'nota_fec_registrada' => $this->input->post('nota_fec_registrada'),
-				'nota_bimestre' => $this->input->post('nota_bimestre'),
-				'nota_notafinal' => $this->input->post('nota_notafinal'),
-            );
-            
-            $notum_id = $this->Notum_model->add_notum($params);
-            redirect('notum/index');
-        }
-        else
-        {
-			$this->load->model('Estado_model');
-			$data['all_estado'] = $this->Estado_model->get_all_estado();
+    {
+        if($this->acceso(54)){
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+                    'estado_id' => $this->input->post('estado_id'),
+                    'materiaasig_id' => $this->input->post('materiaasig_id'),
+                    'nota_aistencia' => $this->input->post('nota_aistencia'),
+                    'nota_trabinv' => $this->input->post('nota_trabinv'),
+                    'nota_dps' => $this->input->post('nota_dps'),
+                    'nota_pruebprac' => $this->input->post('nota_pruebprac'),
+                    'nota_pruebbim' => $this->input->post('nota_pruebbim'),
+                    'nota_puntajetot' => $this->input->post('nota_puntajetot'),
+                    'nota_numbimestre' => $this->input->post('nota_numbimestre'),
+                    'nota_pond1_mat' => $this->input->post('nota_pond1_mat'),
+                    'nota_pond2_mat' => $this->input->post('nota_pond2_mat'),
+                    'nota_pond3_mat' => $this->input->post('nota_pond3_mat'),
+                    'nota_pond4_mat' => $this->input->post('nota_pond4_mat'),
+                    'nota_pond5_mat' => $this->input->post('nota_pond5_mat'),
+                    'nota_pond6_mat' => $this->input->post('nota_pond6_mat'),
+                    'nota_pond7_ma' => $this->input->post('nota_pond7_ma'),
+                    'nota_fec_registrada' => $this->input->post('nota_fec_registrada'),
+                    'nota_bimestre' => $this->input->post('nota_bimestre'),
+                    'nota_notafinal' => $this->input->post('nota_notafinal'),
+                );
+                $notum_id = $this->Notum_model->add_notum($params);
+                redirect('notum/index');
+            }
+            else
+            {
+                $this->load->model('Estado_model');
+                $data['all_estado'] = $this->Estado_model->get_all_estado();
 
-			$this->load->model('Materia_asignada_model');
-			$data['all_materia_asignada'] = $this->Materia_asignada_model->get_all_materia_asignada();
-            
-            $data['_view'] = 'notum/add';
-            $this->load->view('layouts/main',$data);
+                $this->load->model('Materia_asignada_model');
+                $data['all_materia_asignada'] = $this->Materia_asignada_model->get_all_materia_asignada();
+
+                $data['_view'] = 'notum/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
     }  
 
@@ -98,53 +120,55 @@ class Notum extends CI_Controller{
      * Editing a notum
      */
     function edit($nota_id)
-    {   
-        // check if the notum exists before trying to edit it
-        $data['notum'] = $this->Notum_model->get_notum($nota_id);
-        
-        if(isset($data['notum']['nota_id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'estado_id' => $this->input->post('estado_id'),
-					'materiaasig_id' => $this->input->post('materiaasig_id'),
-					'nota_aistencia' => $this->input->post('nota_aistencia'),
-					'nota_trabinv' => $this->input->post('nota_trabinv'),
-					'nota_dps' => $this->input->post('nota_dps'),
-					'nota_pruebprac' => $this->input->post('nota_pruebprac'),
-					'nota_pruebbim' => $this->input->post('nota_pruebbim'),
-					'nota_puntajetot' => $this->input->post('nota_puntajetot'),
-					'nota_numbimestre' => $this->input->post('nota_numbimestre'),
-					'nota_pond1_mat' => $this->input->post('nota_pond1_mat'),
-					'nota_pond2_mat' => $this->input->post('nota_pond2_mat'),
-					'nota_pond3_mat' => $this->input->post('nota_pond3_mat'),
-					'nota_pond4_mat' => $this->input->post('nota_pond4_mat'),
-					'nota_pond5_mat' => $this->input->post('nota_pond5_mat'),
-					'nota_pond6_mat' => $this->input->post('nota_pond6_mat'),
-					'nota_pond7_ma' => $this->input->post('nota_pond7_ma'),
-					'nota_fec_registrada' => $this->input->post('nota_fec_registrada'),
-					'nota_bimestre' => $this->input->post('nota_bimestre'),
-					'nota_notafinal' => $this->input->post('nota_notafinal'),
-                );
+    {
+        if($this->acceso(54)){
+            // check if the notum exists before trying to edit it
+            $data['notum'] = $this->Notum_model->get_notum($nota_id);
 
-                $this->Notum_model->update_notum($nota_id,$params);            
-                redirect('notum/index');
+            if(isset($data['notum']['nota_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                        'estado_id' => $this->input->post('estado_id'),
+                        'materiaasig_id' => $this->input->post('materiaasig_id'),
+                        'nota_aistencia' => $this->input->post('nota_aistencia'),
+                        'nota_trabinv' => $this->input->post('nota_trabinv'),
+                        'nota_dps' => $this->input->post('nota_dps'),
+                        'nota_pruebprac' => $this->input->post('nota_pruebprac'),
+                        'nota_pruebbim' => $this->input->post('nota_pruebbim'),
+                        'nota_puntajetot' => $this->input->post('nota_puntajetot'),
+                        'nota_numbimestre' => $this->input->post('nota_numbimestre'),
+                        'nota_pond1_mat' => $this->input->post('nota_pond1_mat'),
+                        'nota_pond2_mat' => $this->input->post('nota_pond2_mat'),
+                        'nota_pond3_mat' => $this->input->post('nota_pond3_mat'),
+                        'nota_pond4_mat' => $this->input->post('nota_pond4_mat'),
+                        'nota_pond5_mat' => $this->input->post('nota_pond5_mat'),
+                        'nota_pond6_mat' => $this->input->post('nota_pond6_mat'),
+                        'nota_pond7_ma' => $this->input->post('nota_pond7_ma'),
+                        'nota_fec_registrada' => $this->input->post('nota_fec_registrada'),
+                        'nota_bimestre' => $this->input->post('nota_bimestre'),
+                        'nota_notafinal' => $this->input->post('nota_notafinal'),
+                    );
+
+                    $this->Notum_model->update_notum($nota_id,$params);            
+                    redirect('notum/index');
+                }
+                else
+                {
+                    $this->load->model('Estado_model');
+                    $data['all_estado'] = $this->Estado_model->get_all_estado();
+
+                    $this->load->model('Materia_asignada_model');
+                    $data['all_materia_asignada'] = $this->Materia_asignada_model->get_all_materia_asignada();
+
+                    $data['_view'] = 'notum/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-				$this->load->model('Estado_model');
-				$data['all_estado'] = $this->Estado_model->get_all_estado();
-
-				$this->load->model('Materia_asignada_model');
-				$data['all_materia_asignada'] = $this->Materia_asignada_model->get_all_materia_asignada();
-
-                $data['_view'] = 'notum/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The notum you are trying to edit does not exist.');
         }
-        else
-            show_error('The notum you are trying to edit does not exist.');
     } 
 
     /*
@@ -152,16 +176,18 @@ class Notum extends CI_Controller{
      */
     function remove($nota_id)
     {
-        $notum = $this->Notum_model->get_notum($nota_id);
+        if($this->acceso(54)){
+            $notum = $this->Notum_model->get_notum($nota_id);
 
-        // check if the notum exists before trying to delete it
-        if(isset($notum['nota_id']))
-        {
-            $this->Notum_model->delete_notum($nota_id);
-            redirect('notum/index');
+            // check if the notum exists before trying to delete it
+            if(isset($notum['nota_id']))
+            {
+                $this->Notum_model->delete_notum($nota_id);
+                redirect('notum/index');
+            }
+            else
+                show_error('The notum you are trying to delete does not exist.');
         }
-        else
-            show_error('The notum you are trying to delete does not exist.');
     }
     
 }

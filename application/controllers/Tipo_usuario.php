@@ -31,12 +31,12 @@ class Tipo_usuario extends CI_Controller{
      */
     function index()
     {
-        //if($this->acceso(147)){
+        if($this->acceso(70)){
             $data['tipo_usuario'] = $this->Tipo_usuario_model->get_all_tipo_usuario();
             $data['page_title'] = "Tipo Usuario";
             $data['_view'] = 'tipo_usuario/index';
             $this->load->view('layouts/main',$data);
-        //}
+        }
     }
 
     /*
@@ -44,7 +44,7 @@ class Tipo_usuario extends CI_Controller{
      */
     function add()
     {
-        //if($this->acceso(147)){
+        if($this->acceso(70)){
             if(isset($_POST) && count($_POST) > 0)     
             {
                 $this->load->model('Rol_usuario_model');
@@ -79,7 +79,7 @@ class Tipo_usuario extends CI_Controller{
                 $data['_view'] = 'tipo_usuario/add';
                 $this->load->view('layouts/main',$data);
             }
-        //}
+        }
     }  
 
     /*
@@ -87,7 +87,7 @@ class Tipo_usuario extends CI_Controller{
      */
     function edit($tipousuario_id)
     {
-        //if($this->acceso(147)){
+        if($this->acceso(70)){
             // check if the tipo_usuario exists before trying to edit it
             $data['tipo_usuario'] = $this->Tipo_usuario_model->get_tipo_usuario($tipousuario_id);
 
@@ -130,12 +130,12 @@ class Tipo_usuario extends CI_Controller{
             }
             else
                 show_error('The tipo_usuario you are trying to edit does not exist.');
-      // }
+       }
     }
 
     function inactivar($tipousuario_id)
     {
-        //if($this->acceso(147)){
+        if($this->acceso(70)){
             $tipo_usuario = $this->Unidad_model->get_unidad($tipousuario_id);
 
             // check if the programa exists before trying to delete it
@@ -146,12 +146,12 @@ class Tipo_usuario extends CI_Controller{
             }
             else
                 show_error('La Categoria que intentas dar de baja, no existe.');
-        //}
+        }
     }
     /* *********** Reasignar Roles *********** */
     function reasignarol($tipousuario_id)
     {
-        //if($this->acceso(147)){
+        if($this->acceso(70)){
             $this->load->model('Rol_usuario_model');
             $this->Rol_usuario_model->delete_rolusuario_fromtipous($tipousuario_id);
 
@@ -166,6 +166,6 @@ class Tipo_usuario extends CI_Controller{
                 $rol_usuario_id = $this->Rol_usuario_model->add_rol_usuario($param);
             }
             redirect('tipo_usuario/edit/'.$tipousuario_id);
-       //}
+       }
     }
 }

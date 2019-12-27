@@ -9,45 +9,64 @@ class Turno extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Turno_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of turno
      */
     function index()
     {
-        $data['turno'] = $this->Turno_model->get_all_turno();
-        
-        $data['_view'] = 'turno/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(25)){
+            $data['turno'] = $this->Turno_model->get_all_turno();
+
+            $data['_view'] = 'turno/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new turno
      */
     function add()
-    {   
-        $this->load->library('form_validation');
+    {
+        if($this->acceso(25)){
+            $this->load->library('form_validation');
 
-		$this->form_validation->set_rules('turno_nombre','Turno Nombre','required');
-		
-		if($this->form_validation->run())     
-        {   
-            $params = array(
-				'estado_id' => 1,
-				'turno_nombre' => $this->input->post('turno_nombre'),
-            );
-            
-            $turno_id = $this->Turno_model->add_turno($params);
-            redirect('turno/index');
-        }
-        else
-        {
-			$this->load->model('Estado_model');
-			$data['all_estado'] = $this->Estado_model->get_all_estado();
-            
-            $data['_view'] = 'turno/add';
-            $this->load->view('layouts/main',$data);
+                    $this->form_validation->set_rules('turno_nombre','Turno Nombre','required');
+
+                    if($this->form_validation->run())     
+            {   
+                $params = array(
+                                    'estado_id' => 1,
+                                    'turno_nombre' => $this->input->post('turno_nombre'),
+                );
+
+                $turno_id = $this->Turno_model->add_turno($params);
+                redirect('turno/index');
+            }
+            else
+            {
+                            $this->load->model('Estado_model');
+                            $data['all_estado'] = $this->Estado_model->get_all_estado();
+
+                $data['_view'] = 'turno/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
     }  
 
@@ -55,37 +74,39 @@ class Turno extends CI_Controller{
      * Editing a turno
      */
     function edit($turno_id)
-    {   
-        // check if the turno exists before trying to edit it
-        $data['turno'] = $this->Turno_model->get_turno($turno_id);
-        
-        if(isset($data['turno']['turno_id']))
-        {
-            $this->load->library('form_validation');
+    {
+        if($this->acceso(25)){
+            // check if the turno exists before trying to edit it
+            $data['turno'] = $this->Turno_model->get_turno($turno_id);
 
-			$this->form_validation->set_rules('turno_nombre','Turno Nombre','required');
-		
-			if($this->form_validation->run())     
-            {   
-                $params = array(
-					'estado_id' => $this->input->post('estado_id'),
-					'turno_nombre' => $this->input->post('turno_nombre'),
-                );
+            if(isset($data['turno']['turno_id']))
+            {
+                $this->load->library('form_validation');
 
-                $this->Turno_model->update_turno($turno_id,$params);            
-                redirect('turno/index');
+                            $this->form_validation->set_rules('turno_nombre','Turno Nombre','required');
+
+                            if($this->form_validation->run())     
+                {   
+                    $params = array(
+                                            'estado_id' => $this->input->post('estado_id'),
+                                            'turno_nombre' => $this->input->post('turno_nombre'),
+                    );
+
+                    $this->Turno_model->update_turno($turno_id,$params);            
+                    redirect('turno/index');
+                }
+                else
+                {
+                                    $this->load->model('Estado_model');
+                                    $data['all_estado'] = $this->Estado_model->get_all_estado();
+
+                    $data['_view'] = 'turno/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-				$this->load->model('Estado_model');
-				$data['all_estado'] = $this->Estado_model->get_all_estado();
-
-                $data['_view'] = 'turno/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The turno you are trying to edit does not exist.');
         }
-        else
-            show_error('The turno you are trying to edit does not exist.');
     } 
 
     /*
@@ -93,16 +114,17 @@ class Turno extends CI_Controller{
      */
     function remove($turno_id)
     {
-        $turno = $this->Turno_model->get_turno($turno_id);
-
-        // check if the turno exists before trying to delete it
-        if(isset($turno['turno_id']))
-        {
-            $this->Turno_model->delete_turno($turno_id);
-            redirect('turno/index');
+        if($this->acceso(25)){
+            $turno = $this->Turno_model->get_turno($turno_id);
+            // check if the turno exists before trying to delete it
+            if(isset($turno['turno_id']))
+            {
+                $this->Turno_model->delete_turno($turno_id);
+                redirect('turno/index');
+            }
+            else
+                show_error('The turno you are trying to delete does not exist.');
         }
-        else
-            show_error('The turno you are trying to delete does not exist.');
     }
     
 }

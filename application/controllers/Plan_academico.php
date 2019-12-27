@@ -9,32 +9,48 @@ class Plan_academico extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Plan_academico_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of plan_academico
      */
     function index()
     {
-        $data['plan_academico'] = $this->Plan_academico_model->get_all_plan_academico();
-        
-        $data['_view'] = 'plan_academico/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(55)){
+            $data['plan_academico'] = $this->Plan_academico_model->get_all_plan_academico();
+
+            $data['_view'] = 'plan_academico/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new plan_academico
      */
     function add()
-    {   
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('planacad_nombre','Plan Academico Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
-
-        if($this->form_validation->run())     
-        {   
-            $estado_id = 1;
-            $params = array(
+    {
+        if($this->acceso(55)){
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('planacad_nombre','Plan Academico Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            if($this->form_validation->run())     
+            {   
+                $estado_id = 1;
+                $params = array(
                     'estado_id' => $estado_id,
                     'carrera_id' => $this->input->post('carrera_id'),
                     'planacad_nombre' => $this->input->post('planacad_nombre'),
@@ -42,18 +58,19 @@ class Plan_academico extends CI_Controller{
                     'planacad_codigo' => $this->input->post('planacad_codigo'),
                     'planacad_titmodalidad' => $this->input->post('planacad_titmodalidad'),
                    // 'planacad_cantgestion' => $this->input->post('planacad_cantgestion'),
-            );
-            
-            $plan_academico_id = $this->Plan_academico_model->add_plan_academico($params);
-            redirect('plan_academico/index');
-        }
-        else
-        {
-			$this->load->model('Carrera_model');
-			$data['all_carrera'] = $this->Carrera_model->get_all_carrera();
-            
-            $data['_view'] = 'plan_academico/add';
-            $this->load->view('layouts/main',$data);
+                );
+
+                $plan_academico_id = $this->Plan_academico_model->add_plan_academico($params);
+                redirect('plan_academico/index');
+            }
+            else
+            {
+                $this->load->model('Carrera_model');
+                $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+
+                $data['_view'] = 'plan_academico/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
     }  
 
@@ -61,19 +78,17 @@ class Plan_academico extends CI_Controller{
      * Editing a plan_academico
      */
     function edit($plan_academico_id)
-    {   
-        // check if the plan_academico exists before trying to edit it
-        $data['planacad'] = $this->Plan_academico_model->get_plan_academico($plan_academico_id);
-        
-        if(isset($data['planacad']['planacad_id']))
-        {
-            $this->load->library('form_validation');
-
-            $this->form_validation->set_rules('planacad_nombre','Plan Academico Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
-
-            if($this->form_validation->run())     
-            {   
-                $params = array(
+    {
+        if($this->acceso(55)){
+            // check if the plan_academico exists before trying to edit it
+            $data['planacad'] = $this->Plan_academico_model->get_plan_academico($plan_academico_id);
+            if(isset($data['planacad']['planacad_id']))
+            {
+                $this->load->library('form_validation');
+                $this->form_validation->set_rules('planacad_nombre','Plan Academico Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+                if($this->form_validation->run())     
+                {   
+                    $params = array(
                         'estado_id' => $this->input->post('estado_id'),
                         'carrera_id' => $this->input->post('carrera_id'),
                         'planacad_nombre' => $this->input->post('planacad_nombre'),
@@ -81,25 +96,26 @@ class Plan_academico extends CI_Controller{
                         'planacad_codigo' => $this->input->post('planacad_codigo'),
                         'planacad_titmodalidad' => $this->input->post('planacad_titmodalidad'),
                         //'planacad_cantgestion' => $this->input->post('planacad_cantgestion'),
-                );
+                    );
 
-                $this->Plan_academico_model->update_plan_academico($plan_academico_id,$params);            
-                redirect('plan_academico/index');
+                    $this->Plan_academico_model->update_plan_academico($plan_academico_id,$params);            
+                    redirect('plan_academico/index');
+                }
+                else
+                {
+                    $this->load->model('Estado_model');
+                    $data['all_estado'] = $this->Estado_model->get_all_estado();
+
+                    $this->load->model('Carrera_model');
+                    $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+
+                    $data['_view'] = 'plan_academico/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-                $this->load->model('Estado_model');
-                $data['all_estado'] = $this->Estado_model->get_all_estado();
-
-                $this->load->model('Carrera_model');
-                $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
-
-                $data['_view'] = 'plan_academico/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The plan_academico you are trying to edit does not exist.');
         }
-        else
-            show_error('The plan_academico you are trying to edit does not exist.');
     } 
 
     /*
@@ -107,8 +123,8 @@ class Plan_academico extends CI_Controller{
      */
     function remove($plan_academico_id)
     {
+        if($this->acceso(55)){
         $plan_academico = $this->Plan_academico_model->get_plan_academico($plan_academico_id);
-
         // check if the plan_academico exists before trying to delete it
         if(isset($plan_academico['planacad_id']))
         {
@@ -117,23 +133,26 @@ class Plan_academico extends CI_Controller{
         }
         else
             show_error('The plan_academico you are trying to delete does not exist.');
+        }
     }
     /*
      * Creacion de Plan Academico
      */
     function planacad()
     {
-        $this->load->model('Institucion_model');
-        $data['all_institucion'] = $this->Institucion_model->get_all_institucion();
-        
-        $this->load->model('Area_carrera_model');
-        $data['all_areacarrera'] = $this->Area_carrera_model->get_all_area_carrera();
-        
-        $this->load->model('Area_materium_model');
-        $data['all_areas'] = $this->Area_materium_model->get_all_area_mat();
-        
-        $data['_view'] = 'plan_academico/planacad';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(55)){
+            $this->load->model('Institucion_model');
+            $data['all_institucion'] = $this->Institucion_model->get_all_institucion();
+
+            $this->load->model('Area_carrera_model');
+            $data['all_areacarrera'] = $this->Area_carrera_model->get_all_area_carrera();
+
+            $this->load->model('Area_materium_model');
+            $data['all_areas'] = $this->Area_materium_model->get_all_area_mat();
+
+            $data['_view'] = 'plan_academico/planacad';
+            $this->load->view('layouts/main',$data);
+        }
     }
     /****obtener plan academico de una carrera****/
     function get_plan_acadcarrera()
@@ -283,24 +302,24 @@ class Plan_academico extends CI_Controller{
                 $nivel_id = $this->input->post('nivel_id');
                 if($prerequisito == 1){
                     $params = array(
-                            'estado_id' => 1,
-                            'area_id' => $area_id,
-                            'nivel_id' => $nivel_id,
-                            'materia_nombre' => $materia_nombre,
-                            'materia_alias' => $materia_alias,
-                            'materia_codigo' => $materia_codigo,
-                            'materia_horas' => $materia_horas,
+                        'estado_id' => 1,
+                        'area_id' => $area_id,
+                        'nivel_id' => $nivel_id,
+                        'materia_nombre' => $materia_nombre,
+                        'materia_alias' => $materia_alias,
+                        'materia_codigo' => $materia_codigo,
+                        'materia_horas' => $materia_horas,
                     );
                 }else{
                     $params = array(
-                            'estado_id' => 1,
-                            'area_id' => $area_id,
-                            'nivel_id' => $nivel_id,
-                            'mat_materia_id' => $mat_materia_id,
-                            'materia_nombre' => $materia_nombre,
-                            'materia_alias' => $materia_alias,
-                            'materia_codigo' => $materia_codigo,
-                            'materia_horas' => $materia_horas,
+                        'estado_id' => 1,
+                        'area_id' => $area_id,
+                        'nivel_id' => $nivel_id,
+                        'mat_materia_id' => $mat_materia_id,
+                        'materia_nombre' => $materia_nombre,
+                        'materia_alias' => $materia_alias,
+                        'materia_codigo' => $materia_codigo,
+                        'materia_horas' => $materia_horas,
                     );
                 }
                 $this->load->model('Materia_model');
@@ -389,22 +408,24 @@ class Plan_academico extends CI_Controller{
     /* Imprimir plan_academico */
     function print_planacademico($planacad_id)
     {
-        $this->load->model('Institucion_model');
-        $data['all_institucion'] = $this->Institucion_model->get_all_institucion();
-        
-        $data['plan_academico'] = $this->Plan_academico_model->get_plan_academico($planacad_id);
-        
-        $this->load->model('Carrera_model');
-        $data['carrera'] = $this->Carrera_model->get_carrera($data['plan_academico']['carrera_id']);
-        
-        $this->load->model('Area_carrera_model');
-        $data['area'] = $this->Area_carrera_model->get_area_carrera($data['carrera']['areacarrera_id']);
-        
-        $this->load->model('Nivel_model');
-        $data['all_nivel'] = $this->Nivel_model->get_all_nivel_forplan($planacad_id);
-        
-        $data['_view'] = 'plan_academico/print_planacademico';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(55)){
+            $this->load->model('Institucion_model');
+            $data['all_institucion'] = $this->Institucion_model->get_all_institucion();
+
+            $data['plan_academico'] = $this->Plan_academico_model->get_plan_academico($planacad_id);
+
+            $this->load->model('Carrera_model');
+            $data['carrera'] = $this->Carrera_model->get_carrera($data['plan_academico']['carrera_id']);
+
+            $this->load->model('Area_carrera_model');
+            $data['area'] = $this->Area_carrera_model->get_area_carrera($data['carrera']['areacarrera_id']);
+
+            $this->load->model('Nivel_model');
+            $data['all_nivel'] = $this->Nivel_model->get_all_nivel_forplan($planacad_id);
+
+            $data['_view'] = 'plan_academico/print_planacademico';
+            $this->load->view('layouts/main',$data);
+        }
     }
     /***OBTIENE Prerequisitos de MATERIAS****/
     function get_prerequisito()

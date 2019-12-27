@@ -9,37 +9,56 @@ class Tipo_aula extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Tipo_aula_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of tipo_aula
      */
     function index()
     {
-        $data['tipo_aula'] = $this->Tipo_aula_model->get_all_tipo_aula();
-        
-        $data['_view'] = 'tipo_aula/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(24)){
+            $data['tipo_aula'] = $this->Tipo_aula_model->get_all_tipo_aula();
+
+            $data['_view'] = 'tipo_aula/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new tipo_aula
      */
     function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'tipoaula_descripcion' => $this->input->post('tipoaula_descripcion'),
-            );
-            
-            $tipo_aula_id = $this->Tipo_aula_model->add_tipo_aula($params);
-            redirect('tipo_aula/index');
-        }
-        else
-        {            
-            $data['_view'] = 'tipo_aula/add';
-            $this->load->view('layouts/main',$data);
+    {
+        if($this->acceso(24)){
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+                                    'tipoaula_descripcion' => $this->input->post('tipoaula_descripcion'),
+                );
+
+                $tipo_aula_id = $this->Tipo_aula_model->add_tipo_aula($params);
+                redirect('tipo_aula/index');
+            }
+            else
+            {            
+                $data['_view'] = 'tipo_aula/add';
+                $this->load->view('layouts/main',$data);
+            }
         }
     }  
 
@@ -47,29 +66,31 @@ class Tipo_aula extends CI_Controller{
      * Editing a tipo_aula
      */
     function edit($tipoaula_id)
-    {   
-        // check if the tipo_aula exists before trying to edit it
-        $data['tipo_aula'] = $this->Tipo_aula_model->get_tipo_aula($tipoaula_id);
-        
-        if(isset($data['tipo_aula']['tipoaula_id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'tipoaula_descripcion' => $this->input->post('tipoaula_descripcion'),
-                );
+    {
+        if($this->acceso(24)){
+            // check if the tipo_aula exists before trying to edit it
+            $data['tipo_aula'] = $this->Tipo_aula_model->get_tipo_aula($tipoaula_id);
 
-                $this->Tipo_aula_model->update_tipo_aula($tipoaula_id,$params);            
-                redirect('tipo_aula/index');
+            if(isset($data['tipo_aula']['tipoaula_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                                            'tipoaula_descripcion' => $this->input->post('tipoaula_descripcion'),
+                    );
+
+                    $this->Tipo_aula_model->update_tipo_aula($tipoaula_id,$params);            
+                    redirect('tipo_aula/index');
+                }
+                else
+                {
+                    $data['_view'] = 'tipo_aula/edit';
+                    $this->load->view('layouts/main',$data);
+                }
             }
             else
-            {
-                $data['_view'] = 'tipo_aula/edit';
-                $this->load->view('layouts/main',$data);
-            }
+                show_error('The tipo_aula you are trying to edit does not exist.');
         }
-        else
-            show_error('The tipo_aula you are trying to edit does not exist.');
     } 
 
     /*
@@ -77,16 +98,18 @@ class Tipo_aula extends CI_Controller{
      */
     function remove($tipoaula_id)
     {
-        $tipo_aula = $this->Tipo_aula_model->get_tipo_aula($tipoaula_id);
+        if($this->acceso(24)){
+            $tipo_aula = $this->Tipo_aula_model->get_tipo_aula($tipoaula_id);
 
-        // check if the tipo_aula exists before trying to delete it
-        if(isset($tipo_aula['tipoaula_id']))
-        {
-            $this->Tipo_aula_model->delete_tipo_aula($tipoaula_id);
-            redirect('tipo_aula/index');
+            // check if the tipo_aula exists before trying to delete it
+            if(isset($tipo_aula['tipoaula_id']))
+            {
+                $this->Tipo_aula_model->delete_tipo_aula($tipoaula_id);
+                redirect('tipo_aula/index');
+            }
+            else
+                show_error('The tipo_aula you are trying to delete does not exist.');
         }
-        else
-            show_error('The tipo_aula you are trying to delete does not exist.');
     }
     
 }

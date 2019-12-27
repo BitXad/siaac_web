@@ -9,67 +9,49 @@ class Parametro extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Parametro_model');
-    } 
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
+    }
+    /* *****Funcion que verifica el acceso al sistema**** */
+    private function acceso($id_rol){
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
+    }
 
     /*
      * Listing of parametros
      */
     function index()
     {
-        $data['parametros'] = $this->Parametro_model->get_all_parametro();
-        
-        $data['_view'] = 'parametro/index';
-        $this->load->view('layouts/main',$data);
+        if($this->acceso(22)){
+            $data['parametros'] = $this->Parametro_model->get_all_parametro();
+
+            $data['_view'] = 'parametro/index';
+            $this->load->view('layouts/main',$data);
+        }
     }
 
     /*
      * Adding a new parametro
      */
     function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'parametro_numrecegr' => $this->input->post('parametro_numrecegr'),
-				'parametro_numrecing' => $this->input->post('parametro_numrecing'),
-				'parametro_copiasfact' => $this->input->post('parametro_copiasfact'),
-                'parametro_tipoimpresora' => $this->input->post('parametro_tipoimpresora'),
-                'parametro_numcuotas' => $this->input->post('parametro_numcuotas'),
-                'parametro_montomax' => $this->input->post('parametro_montomax'),
-                'parametro_diasgracia' => $this->input->post('parametro_diasgracia'),
-                'parametro_diapago' => $this->input->post('parametro_diapago'),
-                'parametro_periododias' => $this->input->post('parametro_periododias'),
-                'parametro_interes' => $this->input->post('parametro_interes'),
-				'parametro_tituldoc' => $this->input->post('parametro_tituldoc'),
-            );
-            
-            $parametro_id = $this->Parametro_model->add_parametro($params);
-            redirect('parametro/index');
-        }
-        else
-        {            
-            $data['_view'] = 'parametro/add';
-            $this->load->view('layouts/main',$data);
-        }
-    }  
-
-    /*
-     * Editing a parametro
-     */
-    function edit($parametro_id)
-    {   
-        // check if the parametro exists before trying to edit it
-        $data['parametro'] = $this->Parametro_model->get_parametro($parametro_id);
-        
-        if(isset($data['parametro']['parametro_id']))
-        {
+    {
+        if($this->acceso(22)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
-					'parametro_numrecegr' => $this->input->post('parametro_numrecegr'),
-					'parametro_numrecing' => $this->input->post('parametro_numrecing'),
-					'parametro_copiasfact' => $this->input->post('parametro_copiasfact'),
-					'parametro_tipoimpresora' => $this->input->post('parametro_tipoimpresora'),
+                    'parametro_numrecegr' => $this->input->post('parametro_numrecegr'),
+                    'parametro_numrecing' => $this->input->post('parametro_numrecing'),
+                    'parametro_copiasfact' => $this->input->post('parametro_copiasfact'),
+                    'parametro_tipoimpresora' => $this->input->post('parametro_tipoimpresora'),
                     'parametro_numcuotas' => $this->input->post('parametro_numcuotas'),
                     'parametro_montomax' => $this->input->post('parametro_montomax'),
                     'parametro_diasgracia' => $this->input->post('parametro_diasgracia'),
@@ -78,18 +60,55 @@ class Parametro extends CI_Controller{
                     'parametro_interes' => $this->input->post('parametro_interes'),
                     'parametro_tituldoc' => $this->input->post('parametro_tituldoc'),
                 );
-
-                $this->Parametro_model->update_parametro($parametro_id,$params);            
+                $parametro_id = $this->Parametro_model->add_parametro($params);
                 redirect('parametro/index');
             }
             else
-            {
-                $data['_view'] = 'parametro/edit';
+            {            
+                $data['_view'] = 'parametro/add';
                 $this->load->view('layouts/main',$data);
             }
         }
-        else
-            show_error('The parametro you are trying to edit does not exist.');
+    }  
+
+    /*
+     * Editing a parametro
+     */
+    function edit($parametro_id)
+    {
+        if($this->acceso(22)){
+            // check if the parametro exists before trying to edit it
+            $data['parametro'] = $this->Parametro_model->get_parametro($parametro_id);
+            if(isset($data['parametro']['parametro_id']))
+            {
+                if(isset($_POST) && count($_POST) > 0)     
+                {   
+                    $params = array(
+                        'parametro_numrecegr' => $this->input->post('parametro_numrecegr'),
+                        'parametro_numrecing' => $this->input->post('parametro_numrecing'),
+                        'parametro_copiasfact' => $this->input->post('parametro_copiasfact'),
+                        'parametro_tipoimpresora' => $this->input->post('parametro_tipoimpresora'),
+                        'parametro_numcuotas' => $this->input->post('parametro_numcuotas'),
+                        'parametro_montomax' => $this->input->post('parametro_montomax'),
+                        'parametro_diasgracia' => $this->input->post('parametro_diasgracia'),
+                        'parametro_diapago' => $this->input->post('parametro_diapago'),
+                        'parametro_periododias' => $this->input->post('parametro_periododias'),
+                        'parametro_interes' => $this->input->post('parametro_interes'),
+                        'parametro_tituldoc' => $this->input->post('parametro_tituldoc'),
+                    );
+
+                    $this->Parametro_model->update_parametro($parametro_id,$params);            
+                    redirect('parametro/index');
+                }
+                else
+                {
+                    $data['_view'] = 'parametro/edit';
+                    $this->load->view('layouts/main',$data);
+                }
+            }
+            else
+                show_error('The parametro you are trying to edit does not exist.');
+        }
     } 
 
     /*
@@ -97,16 +116,17 @@ class Parametro extends CI_Controller{
      */
     function remove($parametro_id)
     {
-        $parametro = $this->Parametro_model->get_parametro($parametro_id);
-
-        // check if the parametro exists before trying to delete it
-        if(isset($parametro['parametro_id']))
-        {
-            $this->Parametro_model->delete_parametro($parametro_id);
-            redirect('parametro/index');
+        if($this->acceso(22)){
+            $parametro = $this->Parametro_model->get_parametro($parametro_id);
+            // check if the parametro exists before trying to delete it
+            if(isset($parametro['parametro_id']))
+            {
+                $this->Parametro_model->delete_parametro($parametro_id);
+                redirect('parametro/index');
+            }
+            else
+                show_error('The parametro you are trying to delete does not exist.');
         }
-        else
-            show_error('The parametro you are trying to delete does not exist.');
     }
     
 }
