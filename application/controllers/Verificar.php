@@ -12,6 +12,8 @@ class Verificar extends CI_Controller
         $this->load->model('login_model');
         $this->load->model('rol_model');
         $this->load->model('Gestion_model');
+        $this->load->model('Rol_usuario_model');
+        $this->load->model('Tipo_usuario_model');
     }
 
     function index()
@@ -44,8 +46,7 @@ class Verificar extends CI_Controller
                     $thumb = "thumb_".$result->usuario_imagen;
                     //$thumb = $this->foto_thumb($result->usuario_imagen);
                 }
-                $this->load->model('Rol_usuario_model');
-                $this->load->model('Tipo_usuario_model');
+                
                 $rolusuario = $this->Rol_usuario_model->getall_rolusuario($result->tipousuario_id);
                 $tipousuario_nombre = $this->Tipo_usuario_model->get_tipousuario_nombre($result->tipousuario_id);
 
@@ -108,6 +109,8 @@ class Verificar extends CI_Controller
                     $thumb = $this->foto_thumb($result->docente_foto);
                 }
 
+                $rolusuario = $this->Rol_usuario_model->getall_rolusuario($result->tipousuario_id);
+                $tipousuario_nombre = $this->Tipo_usuario_model->get_tipousuario_nombre($result->tipousuario_id);
                 $gestion = $this->Gestion_model->get_gestion2($gestion_id);
 
                 $sess_array = array(
@@ -115,12 +118,13 @@ class Verificar extends CI_Controller
                     'usuario_id' => $result->docente_id,
                     'usuario_nombre' => $result->docente_nombre,
                     'estado_id' => $result->estado_id,
-                    'tipousuario_id' => 1,
+                    'tipousuario_id' => $result->tipousuario_id,
+                    'tipousuario_descripcion' => $tipousuario_nombre,
                     'usuario_imagen' => $result->docente_foto,
                     'usuario_email' => $result->docente_email,
                     'usuario_clave' => $result->docente_clave,
                     'thumb' => $thumb,
-                    //'rol' => $this->getTipo_usuario(1),
+                    'rol' => $rolusuario,
                     'semestre' => $gestion->gestion_semestre,
                     'gestion' => $gestion->gestion_descripcion,
                     'gestion_id' => $gestion->gestion_id
@@ -154,6 +158,8 @@ class Verificar extends CI_Controller
                     $thumb = $this->foto_thumb($result->estudiante_foto);
                 }
 
+                $rolusuario = $this->Rol_usuario_model->getall_rolusuario($result->tipousuario_id);
+                $tipousuario_nombre = $this->Tipo_usuario_model->get_tipousuario_nombre($result->tipousuario_id);
                 $gestion = $this->Gestion_model->get_gestion2($gestion_id);
 
                 $sess_array = array(
@@ -161,12 +167,13 @@ class Verificar extends CI_Controller
                     'usuario_id' => $result->estudiante_id,
                     'usuario_nombre' => $result->estudiante_nombre,
                     'estado_id' => $result->estado_id,
-                    'tipousuario_id' => 1,
+                    'tipousuario_id' => $result->tipousuario_id,
+                    'tipousuario_descripcion' => $tipousuario_nombre,
                     'usuario_imagen' => $result->estudiante_foto,
                     'usuario_email' => $result->estudiante_email,
                     'usuario_clave' => $result->estudiante_clave,
                     'thumb' => $thumb,
-                    //'rol' => $this->getTipo_usuario(1),
+                    'rol' => $rolusuario,
                     'semestre' => $gestion->gestion_semestre,
                     'gestion' => $gestion->gestion_descripcion,
                     'gestion_id' => $gestion->gestion_id

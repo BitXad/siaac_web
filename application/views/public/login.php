@@ -67,11 +67,11 @@
                 <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" name="username" id="username" class="form-control input-lg" placeholder="usuario" autocomplete="off">
+                <input type="text" name="username" id="username" class="form-control input-lg" placeholder="usuario" autocomplete="off"  required>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password" id="password" class="form-control input-lg" placeholder="clave">
+                <input type="password" name="password" id="password" class="form-control input-lg" placeholder="clave" required>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
