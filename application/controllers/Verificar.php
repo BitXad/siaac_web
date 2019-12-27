@@ -57,6 +57,7 @@ class Verificar extends CI_Controller
                     'usuario_nombre' => $result->usuario_nombre,
                     'estado_id' => $result->estado_id,
                     'tipousuario_id' => $result->tipousuario_id,
+                    'tipousuario_descripcion' => $tipousuario_nombre,
                     'usuario_imagen' => $result->usuario_imagen,
                     'usuario_email' => $result->usuario_email,
                     'usuario_clave' => $result->usuario_clave,

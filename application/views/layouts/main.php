@@ -73,7 +73,7 @@
                                         <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['usuario_imagen']);?>" class="img-circle" alt="User Image">
 
                                     <p>
-                                        <?php echo $session_data['usuario_nombre']?> - <?php echo $session_data['rol']?>
+                                        <?php echo $session_data['usuario_nombre']?> - <?php echo $session_data['tipousuario_descripcion']?>
                                         <small><?php echo $session_data['usuario_email']?></small>
                                     </p>
                                     </li>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="pull-left info">
                             <p><?php echo $session_data['usuario_nombre']?></p>
-                            <a href="<?php echo site_url();?>admin/dashb"><i class="fa fa-circle text-success"></i> <?php echo $session_data['rol']?></a>
+                            <a href="<?php echo site_url();?>admin/dashb"><i class="fa fa-circle text-success"></i> <?php echo $session_data['tipousuario_descripcion']?></a>
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
