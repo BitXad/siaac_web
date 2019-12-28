@@ -28,6 +28,19 @@
 
         <!-- jQuery 2.2.3 -->
         <script src="<?php echo site_url('resources/js/jquery-2.2.3.min.js');?>"></script>
+
+          <!-- Bootstrap 3.3.6 -->
+        <script src="<?php echo site_url('resources/js/bootstrap.min.js');?>"></script>
+        <!-- FastClick -->
+        <script src="<?php echo site_url('resources/js/fastclick.js');?>"></script>
+        <!-- AdminLTE App -->
+        <script src="<?php echo site_url('resources/js/app.min.js');?>"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="<?php echo site_url('resources/js/demo.js');?>"></script>
+        <!-- DatePicker -->
+        <script src="<?php echo site_url('resources/js/moment.js');?>"></script>
+        <script src="<?php echo site_url('resources/js/bootstrap-datetimepicker.min.js');?>"></script>
+        <script src="<?php echo site_url('resources/js/global.js');?>"></script>
         <script type="text/javascript"> 
         function mueveReloj(){
             momentoActual = new Date();
@@ -63,15 +76,21 @@
                         <ul class="nav navbar-nav">
                         <!-- User Account: style can be found in dropdown.less -->
                             <li class="dropdown user user-menu">
+                                <?php if ($session_data['tipousuario_id']==1) {
+                                    $carpeta = 'usuarios';
+                                } elseif ($session_data['tipousuario_id']==2) {
+                                    $carpeta = 'docentes';
+                                } elseif ($session_data['tipousuario_id']==3) {
+                                    $carpeta = 'estudiantes';
+                                } ?>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['usuario_imagen']);?>" class="user-image" alt="Imagen de usuario">
+                                    <img src="<?php echo site_url('resources/images/'.$carpeta.'/'.$session_data['usuario_imagen']);?>" class="user-image" alt="Imagen de usuario">
                                     <span class="hidden-xs"><?php echo $session_data['usuario_nombre']?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
-                                        <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['usuario_imagen']);?>" class="img-circle" alt="User Image">
-
+                                        <img src="<?php echo site_url('resources/images/'.$carpeta.'/'.$session_data['usuario_imagen']);?>">
                                     <p>
                                         <?php echo $session_data['usuario_nombre']?> - <?php echo $session_data['tipousuario_descripcion']?>
                                         <small><?php echo $session_data['usuario_email']?></small>
@@ -104,7 +123,7 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['thumb']);?>" class="img-circle" alt="Imagen de usuario">
+                            <img src="<?php echo site_url('resources/images/'.$carpeta.'/'.$session_data['usuario_imagen']);?>" class="img-circle" alt="Imagen de usuario">
                         </div>
                         <div class="pull-left info">
                             <p><?php echo $session_data['usuario_nombre']?></p>
@@ -126,28 +145,28 @@
                             </a>
                             <ul class="treeview-menu">
                                 <?php
-                                if($rolusuario[12-1]['rolusuario_asignado'] == 2){
+                                if($rolusuario[2-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('administrativo');?>"><i class="fa fa-user-circle-o"></i> Administrativos</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 6){
+                                if($rolusuario[6-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('docente');?>"><i class="fa fa-user-circle"></i> Docentes</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 10){
+                                if($rolusuario[10-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('estudiante');?>"><i class="fa fa-user"></i> Estudiantes</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 27){
+                                if($rolusuario[27-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('aula');?>"><i class="fa fa-font"></i> <span>Aula</span></a>
@@ -163,91 +182,91 @@
                             </a>
                             <ul class="treeview-menu">
                                 <?php
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 14){
+                                if($rolusuario[14-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('area_carrera');?>"><i class="fa fa-university"></i>Area Carrera</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 15){
+                                if($rolusuario[15-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('area_materium');?>"><i class="fa fa-book"></i> Area Materia</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 16){
+                                if($rolusuario[16-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('categoria_egreso');?>"><i class="fa fa-list"></i>Categoria Egreso</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 17){
+                                if($rolusuario[17-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('categoria_ingreso');?>"><i class="fa fa-list-alt"></i>Categoria Ingreso</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 18){
+                                if($rolusuario[18-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('estado');?>"><i class="fa fa-etsy"></i>Estado</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 19){
+                                if($rolusuario[19-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('estado_civil');?>"><i class="fa fa-odnoklassniki"></i>Estado Civil</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 20){
+                                if($rolusuario[20-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('genero');?>"><i class="fa fa-venus-mars"></i>Genero</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 21){
+                                if($rolusuario[21-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('gestion');?>"><i class="fa fa-calendar"></i>Gestion</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 22){
+                                if($rolusuario[22-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('parametro');?>"><i class="fa fa-server"></i>Configuración</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 26){
+                                if($rolusuario[26-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('paralelo');?>"><i class="fa fa-server"></i> <span>Paralelo</span></a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 23){
+                                if($rolusuario[23-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('periodo');?>"><i class="fa fa-clock-o"></i>Periodo</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 24){
+                                if($rolusuario[24-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('tipo_aula');?>"><i class="fa fa-home"></i>Tipo Aula</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 25){
+                                if($rolusuario[25-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('turno');?>"><i class="fa fa-adjust"></i>Turno</a>
@@ -264,14 +283,14 @@
                             </a>
                             <ul class="treeview-menu">
                                 <?php
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 29){
+                                if($rolusuario[29-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('carrera');?>"><i class="fa fa-file-code-o"></i>Carrera</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 39){
+                                if($rolusuario[39-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <!--<li>
                                     <a href="<?php /*echo site_url('detalle_factura');?>"><i class="fa fa-file-text-o"></i>Detalle Factura</a>
@@ -287,49 +306,49 @@
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 28){
+                                if($rolusuario[28-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('grupo');?>"><i class="fa fa-users"></i> <span>Registrar Grupo-Horario</span></a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 33){
+                                if($rolusuario[33-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('ingreso');?>"><i class="fa fa-arrow-right"></i>Ingresos</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 45){
+                                if($rolusuario[45-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('inscripcion/inscribir/0');?>"><i class="fa fa-check-square-o"></i>Inscripción</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 46){
+                                if($rolusuario[46-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('kardex_academico');?>"><i class="fa fa-address-book-o"></i> Kardex Academico</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 47){
+                                if($rolusuario[47-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('kardex_economico/busqueda');?>"><i class="fa fa-address-book"></i>Kardex Economico</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 50){
+                                if($rolusuario[50-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('materia');?>"><i class="fa fa-maxcdn"></i>Materias</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 54){
+                                if($rolusuario[54-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <!--<li>
                                     <a href="<?php /*echo site_url('materia_asignada');?>"><i class="fa fa-navicon"></i>Materias Asignadas</a>
@@ -348,7 +367,7 @@
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 55){
+                                if($rolusuario[55-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('plan_academico/planacad');?>"><i class="fa fa-buysellads"></i>Plan Académico</a>
@@ -373,21 +392,21 @@
                             </a>
                             <ul class="treeview-menu">
                                 <?php
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 58){
+                                if($rolusuario[58-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('rol');?>"><i class="fa fa-retweet"></i>Roles</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 70){
+                                if($rolusuario[70-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('tipo_usuario');?>"><i class="fa fa-list-ul"></i>Tipo Usuario</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[1-1]['rolusuario_asignado'] == 71){
+                                if($rolusuario[71-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('usuario');?>"><i class="fa fa-users"></i>Usuarios</a>
@@ -400,30 +419,36 @@
                         <?php } ?>
                         <?php if($session_data['tipousuario_id'] == 2){ ?>
                         <li>
-                            <a href="<?php echo site_url('docente/grupos');?>"><i class="fa fa-users"></i> <span>Grupos</span></a>
+                            <a href="<?php echo site_url('docente/dashboard/'.$session_data['usuario_id']);?>"><i class="fa fa-home"></i>Inicio</a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('docente/materias');?>"><i class="fa fa-database"></i> <span>Materias</span></a>
+                            <a href="<?php echo site_url('docente/grupos/'.$session_data['usuario_id']);?>"><i class="fa fa-users"></i> <span>Grupos</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('docente/horarios');?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
+                            <a href="<?php echo site_url('docente/materias/'.$session_data['usuario_id']);?>"><i class="fa fa-database"></i> <span>Materias</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('docente/notas');?>"><i class="fa fa-list-alt"></i>Notas</a>
+                            <a href="<?php echo site_url('docente/horarios/'.$session_data['usuario_id']);?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('docente/notas/'.$session_data['usuario_id']);?>"><i class="fa fa-list-alt"></i>Notas</a>
                         </li>
                         <?php } ?>
                         <?php if($session_data['tipousuario_id'] == 3){ ?>
                         <li>
-                            <a href="<?php echo site_url('estudiante/datos');?>"><i class="fa fa-buysellads"></i>Perfil</a>
+                            <a href="<?php echo site_url('estudiante/menu_estudiante/'.$session_data['usuario_id']);?>"><i class="fa fa-home"></i>Inicio</a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/carreras');?>"><i class="fa fa-user-circle"></i>Carreras</a>
+                            <a href="<?php echo site_url('estudiante/datos/'.$session_data['usuario_id']);?>"><i class="fa fa-buysellads"></i>Perfil</a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/knotas');?>"><i class="fa fa-user"></i>Kardex Notas</a>
+                            <a href="<?php echo site_url('estudiante/carreras/'.$session_data['usuario_id']);?>"><i class="fa fa-user-circle"></i>Carreras</a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/keconomico');?>"><i class="fa fa-maxcdn"></i>Kardex Económico</a>
+                            <a href="<?php echo site_url('estudiante/knotas/'.$session_data['usuario_id']);?>"><i class="fa fa-user"></i>Kardex Notas</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('estudiante/keconomico/'.$session_data['usuario_id']);?>"><i class="fa fa-maxcdn"></i>Kardex Económico</a>
                         </li>
                         <?php } ?>
                     </ul>
@@ -474,17 +499,6 @@
         <!-- ./wrapper -->
 
 
-        <!-- Bootstrap 3.3.6 -->
-        <script src="<?php echo site_url('resources/js/bootstrap.min.js');?>"></script>
-        <!-- FastClick -->
-        <script src="<?php echo site_url('resources/js/fastclick.js');?>"></script>
-        <!-- AdminLTE App -->
-        <script src="<?php echo site_url('resources/js/app.min.js');?>"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="<?php echo site_url('resources/js/demo.js');?>"></script>
-        <!-- DatePicker -->
-        <script src="<?php echo site_url('resources/js/moment.js');?>"></script>
-        <script src="<?php echo site_url('resources/js/bootstrap-datetimepicker.min.js');?>"></script>
-        <script src="<?php echo site_url('resources/js/global.js');?>"></script>
+      
     </body>
 </html>

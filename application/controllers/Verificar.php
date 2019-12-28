@@ -28,7 +28,7 @@ class Verificar extends CI_Controller
         }elseif ($tipo==2) {// docente 
 
                     redirect('verificar/index2/'.$username.'/'.$clave.'/'.$gestion_id);   
-        }elseif ($tipo==3) {// docente 
+        }elseif ($tipo==3) {// estudiante 
             
                     redirect('verificar/index3/'.$username.'/'.$clave.'/'.$gestion_id);   
         }

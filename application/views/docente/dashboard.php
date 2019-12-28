@@ -1,7 +1,4 @@
 <link href="<?php echo base_url('resources/css/carnet.css'); ?>" rel="stylesheet">
- <html lang="en">
-
-
   
    
     <div class="profile-card">

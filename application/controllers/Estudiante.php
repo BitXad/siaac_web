@@ -606,9 +606,14 @@ class Estudiante extends CI_Controller{
     }
     function menu_estudiante($estudiante_id)
     {
+        $id=$this->session_data['usuario_id'];
         if($this->acceso(56)){
+
             $data['estudiante'] = $this->Estudiante_model->get_estudiante($estudiante_id);
             $data['_view'] = 'estudiante/menu_estudiante';
+            $this->load->view('layouts/main',$data);
+        }
+            $data['_view'] = 'login/mensajeacceso';
             $this->load->view('layouts/main',$data);
         }
     }
