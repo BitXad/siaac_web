@@ -2,19 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Rol.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Rol_usuario.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Turno.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Periodo.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Tipo_aula.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Tipo_usuario.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Plan_academico.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Paralelo.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Usuario.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Notum.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Parametro.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Nivel.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

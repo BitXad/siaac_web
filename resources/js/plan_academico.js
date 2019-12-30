@@ -427,9 +427,10 @@ function materiasnivel(nivel_id){
                var res = "";
                var res2 = 0;
                var registros =  JSON.parse(respuesta);
-               var res3 = registros[0]['carrera_modalidad'];
+               var res3 = "";
 
                if (registros != null){
+                    
                     var n = registros.length; //tamaño del arreglo de la consulta
                     for (var i = 0; i < n ; i++){
                         res += "<div class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
@@ -440,6 +441,7 @@ function materiasnivel(nivel_id){
                         processPrerequisito(registros[i]['mat_materia_id'], registros[i]['materia_id']);
                         res += "</div>";
                         res2 += Number(registros[i]['materia_horas']);
+                        res3 = registros[i]['carrera_modalidad'];
                         /*res += "-"+registros[i]['producto_nombre']+" ("+registros[i]['producto_codigobarra']+")";
                         res += " <b>Cant.: </b>"+registros[i]['detalleven_cantidad'];
                         res += " <b>Prec.: </b>"+numberFormat(Number(registros[i]['detalleven_total']).toFixed(2))+"<br>";
@@ -683,8 +685,8 @@ function borrardatosmodal(){
 
 /* ********************************************** */
 /*Array Asociativo en el que se indica para cada materia cuales materias se deben tomar despues*/
-var PREREQUISITOS = '{'+document.getElementById('prerequisito').value+'}';
-/*var PREREQUISITOS = {
+//var PREREQUISITOS = '{'+document.getElementById('prerequisito').value+'}';
+var PREREQUISITOS = {
            '30':['31'],
            'CB0260':['CB0236'],
            'ST0242':['ST0245','ST0244'],
@@ -713,7 +715,7 @@ var PREREQUISITOS = '{'+document.getElementById('prerequisito').value+'}';
 'CB0245':['PT0131'],
 'ST0258':['PT0131'],
 'ST0257':['PT0131']
-           }; */
+           }; 
 
 //Array Asociativo en el que se indican los correquisitos de una materia
 var CORREQUISITOS = {'CB0260':['CB0246'],
