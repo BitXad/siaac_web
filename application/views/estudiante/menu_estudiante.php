@@ -1,13 +1,4 @@
-<?php
-$session_data = $this->session->userdata('logged_in'); 
-?>
-
-  <!-- Left side column. contains the logo and sidebar -->
-<script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
-
-<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <link href="<?php echo base_url('resources/css/carnet.css'); ?>" rel="stylesheet">
-  
    
     <div class="profile-card">
       <div class="col-md-3">
@@ -15,7 +6,7 @@ $session_data = $this->session->userdata('logged_in');
           <?php if ($estudiante['estudiante_foto']!=NULL && $estudiante['estudiante_foto']!="") { ?>
         <a href="#"><img class="profile-pic"src="<?php echo base_url('resources/images/estudiantes/').$estudiante['estudiante_foto']; ?>" /></a>
       <?php }else{ ?>
-        <a href="#"><img class="profile-pic"src="<?php echo base_url('resources/images/estudiantes/default.jpg') ?>" /></a>
+        <a href="#"><img class="profile-pic"src="<?php echo base_url('resources/images/docentes/default.jpg') ?>" /></a>
       <?php } ?>
        </center>
       </div>
@@ -57,7 +48,7 @@ $session_data = $this->session->userdata('logged_in');
     </div>
 <BR></BR>
   <!-- Content Wrapper. Contains page content -->
-<div class="container-wrapper"> 
+<section class="container-wrapper"> 
     <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-red">
             <div class="inner" >
@@ -118,4 +109,5 @@ $session_data = $this->session->userdata('logged_in');
             <a href="<?php  echo site_url('estudiante/keconomico/'.$estudiante['estudiante_id']); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
+</section>
     

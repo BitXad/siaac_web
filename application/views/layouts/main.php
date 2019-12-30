@@ -26,7 +26,8 @@
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="<?php echo site_url('resources/css/_all-skins.min.css');?>">
 
-       
+        <!-- jQuery 2.2.3 -->
+        <script src="<?php echo site_url('resources/js/jquery-2.2.3.min.js');?>"></script>
         <script type="text/javascript"> 
         function mueveReloj(){
             momentoActual = new Date();
@@ -155,7 +156,7 @@
                                 if($rolusuario[27-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
-                                    <a href="<?php echo site_url('aula');?>"><i class="fa fa-font"></i> <span>Aula</span></a>
+                                    <a href="<?php echo site_url('aula');?>"><i class="fa fa-font"></i> Aula</a>
                                 </li>
                                 <?php
                                 }
@@ -234,7 +235,7 @@
                                 if($rolusuario[26-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
-                                    <a href="<?php echo site_url('paralelo');?>"><i class="fa fa-server"></i> <span>Paralelo</span></a>
+                                    <a href="<?php echo site_url('paralelo');?>"><i class="fa fa-server"></i> Paralelo</a>
                                 </li>
                                 <?php
                                 }
@@ -295,7 +296,7 @@
                                 if($rolusuario[28-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
-                                    <a href="<?php echo site_url('grupo');?>"><i class="fa fa-users"></i> <span>Registrar Grupo-Horario</span></a>
+                                    <a href="<?php echo site_url('grupo');?>"><i class="fa fa-users"></i> Registrar Grupo-Horario</a>
                                 </li>
                                 <?php
                                 }
@@ -402,10 +403,10 @@
                                 ?>
                             </ul>
                         </li>
-                        <?php } ?>
-                        <?php if($session_data['tipousuario_id'] == 2){ ?>
+                        <?php  ?>
+                        <?php }elseif($session_data['tipousuario_id'] == 2){ ?>
                         <li>
-                            <a href="<?php echo site_url('docente/dashboard/'.$session_data['usuario_id']);?>"><i class="fa fa-home"></i>Inicio</a>
+                            <a href="<?php echo site_url('docente/dashboard/'.$session_data['usuario_id']);?>"><i class="fa fa-home"></i> <span>Inicio</span></a>
                         </li>
                         <li>
                             <a href="<?php echo site_url('docente/grupos/'.$session_data['usuario_id']);?>"><i class="fa fa-users"></i> <span>Grupos</span></a>
@@ -414,27 +415,27 @@
                             <a href="<?php echo site_url('docente/materias/'.$session_data['usuario_id']);?>"><i class="fa fa-database"></i> <span>Materias</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('docente/horarios/'.$session_data['usuario_id']);?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
+                            <a href="<?php echo site_url('docente/horarios/'.$session_data['usuario_id']);?>"><i class="fa fa-calendar-check-o"></i> <span>Horarios</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('docente/notas/'.$session_data['usuario_id']);?>"><i class="fa fa-list-alt"></i>Notas</a>
+                            <a href="<?php echo site_url('docente/notas/'.$session_data['usuario_id']);?>"><i class="fa fa-list-alt"></i> <span>Notas</span></a>
                         </li>
-                        <?php } ?>
-                        <?php if($session_data['tipousuario_id'] == 3){ ?>
+                        <?php  ?>
+                        <?php }elseif($session_data['tipousuario_id'] == 3){ ?>
                         <li>
-                            <a href="<?php echo site_url('estudiante/menu_estudiante/'.$session_data['usuario_id']);?>"><i class="fa fa-home"></i>Inicio</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo site_url('estudiante/datos/'.$session_data['usuario_id']);?>"><i class="fa fa-buysellads"></i>Perfil</a>
+                            <a href="<?php echo site_url('estudiante/menu_estudiante/'.$session_data['usuario_id']);?>"><i class="fa fa-home"></i> <span>Inicio</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/carreras/'.$session_data['usuario_id']);?>"><i class="fa fa-user-circle"></i>Carreras</a>
+                            <a href="<?php echo site_url('estudiante/datos/'.$session_data['usuario_id']);?>"><i class="fa fa-buysellads"></i> <span>Perfil</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/knotas/'.$session_data['usuario_id']);?>"><i class="fa fa-user"></i>Kardex Notas</a>
+                            <a href="<?php echo site_url('estudiante/carreras/'.$session_data['usuario_id']);?>"><i class="fa fa-user-circle"></i> <span>Carreras</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/keconomico/'.$session_data['usuario_id']);?>"><i class="fa fa-maxcdn"></i>Kardex Económico</a>
+                            <a href="<?php echo site_url('estudiante/knotas/'.$session_data['usuario_id']);?>"><i class="fa fa-user"></i> <span>Kardex Notas</span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('estudiante/keconomico/'.$session_data['usuario_id']);?>"><i class="fa fa-maxcdn"></i> <span>Kardex Económico</span></a>
                         </li>
                         <?php } ?>
                     </ul>
@@ -483,8 +484,7 @@
             <div class="control-sidebar-bg"></div>
         </div>
         <!-- ./wrapper -->
- <!-- jQuery 2.2.3 -->
-        <script src="<?php echo site_url('resources/js/jquery-2.2.3.min.js');?>"></script>
+ 
 
           <!-- Bootstrap 3.3.6 -->
         <script src="<?php echo site_url('resources/js/bootstrap.min.js');?>"></script>
