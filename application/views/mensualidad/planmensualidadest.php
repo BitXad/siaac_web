@@ -133,7 +133,7 @@ function cerrar() {
 
             </div>
         </div>
-             <a href="javascript:cerrar();" class="btn btn-danger no-print">Cerrar</a>
-        </div>
+         <a href="javascript:cerrar();" class="btn btn-danger no-print"><i class="fa fa-times"></i> Cerrar</a>
+    </div>
     </div>
 </div>

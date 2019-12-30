@@ -295,5 +295,22 @@ class Mensualidad extends CI_Controller{
                 show_error('The mensualidad you are trying to delete does not exist.');
         }
     }
+    function planmensualidadest($kardexeco_id, $estudiante_id)
+    {
+        if($this->acceso(60)){
+            //usuario_id ===>id de estudiante
+            $usuario_id = $this->session_data['usuario_id'];
+            if($estudiante_id == $usuario_id){
+                $data['mensualidad'] = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
+                $data['kardex_economico'] = $this->Kardex_economico_model->get_datos_kardex($kardexeco_id);
+                $data['institucion'] = $this->Institucion_model->get_institucion(1);
+                $data['_view'] = 'mensualidad/planmensualidadest';
+                $this->load->view('layouts/main',$data);
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
+                $this->load->view('layouts/main',$data);
+            }
+        }
+    }
     
 }

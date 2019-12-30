@@ -1,5 +1,5 @@
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo base_url('resources/js/kardexeconomico.js'); ?>"></script>
+<!--<script src="<?php //echo base_url('resources/js/kardexeconomico.js'); ?>"></script>-->
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
@@ -39,7 +39,7 @@
                     <td align='right'><b><?php echo number_format($kardex["kardexeco_mensualidad"], 2, '.', ','); ?></b></td>
                     <td align='center'><b><?php echo $kardex["kardexeco_nummens"]; ?></b></td>
                     <td class="no-print">
-                        <a href="<?php echo site_url('mensualidad/planmensualidad//'.$kardex['kardexeco_id']) ?>" target="_blank" class="btn btn-info btn-xs" title="VER PLAN DE PAGOS"><i class="fa fa-print"></i></a>
+                        <a href="<?php echo site_url('mensualidad/planmensualidadest/'.$kardex['kardexeco_id'].'/'.$kardex["estudiante_id"]) ?>" target="_blank" class="btn btn-info btn-xs" title="VER PLAN DE PAGOS"><i class="fa fa-print"></i></a>
                     </td>
                 </tr>
                 <?php

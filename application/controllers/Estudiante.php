@@ -608,10 +608,16 @@ class Estudiante extends CI_Controller{
     {
         
         if($this->acceso(56)){
-  
+            //usuario_id ===>id de estudiante
+            $usuario_id = $this->session_data['usuario_id'];
+            if($estudiante_id == $usuario_id){
             $data['estudiante'] = $this->Estudiante_model->get_estudiante($estudiante_id);
             $data['_view'] = 'estudiante/menu_estudiante';
             $this->load->view('layouts/main',$data);
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
+                $this->load->view('layouts/main',$data);
+            }
        }
          
     }
@@ -619,6 +625,9 @@ class Estudiante extends CI_Controller{
     function datos($estudiante_id)
     {
         if($this->acceso(57)){
+            //usuario_id ===>id de estudiante
+            $usuario_id = $this->session_data['usuario_id'];
+            if($estudiante_id == $usuario_id){
             // check if the estudiante exists before trying to edit it
             $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
 
@@ -649,71 +658,102 @@ class Estudiante extends CI_Controller{
             }
             else
                 show_error('The estudiante you are trying to edit does not exist.');
+        }else{
+                $data['_view'] = 'login/mensajeacceso';
+                $this->load->view('layouts/main',$data);
+            }
         }
     }
     
     function carreras($estudiante_id)
     {
         if($this->acceso(58)){
-            $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
-            if(isset($data['estudiante']['estudiante_id']))
-            {
-                $this->load->model('Carrera_model');
-                $data['carrera'] = $this->Carrera_model->get_carrera_porestudante($estudiante_id);
+            $usuario_id = $this->session_data['usuario_id'];
+            if($estudiante_id == $usuario_id){
+                $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+                if(isset($data['estudiante']['estudiante_id']))
+                {
+                    $this->load->model('Carrera_model');
+                    $data['carrera'] = $this->Carrera_model->get_carrera_porestudante($estudiante_id);
 
-                $data['_view'] = 'estudiante/carreras';
+                    $data['_view'] = 'estudiante/carreras';
+                    $this->load->view('layouts/main',$data);
+                }
+                else
+                    show_error('The estudiante you are trying to edit does not exist.');
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
                 $this->load->view('layouts/main',$data);
             }
-            else
-                show_error('The estudiante you are trying to edit does not exist.');
         }
     }
     function knotas($estudiante_id)
     {
         if($this->acceso(59)){
-            $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
-            if(isset($data['estudiante']['estudiante_id']))
-            {
-                $this->load->model('Carrera_model');
-                $data['carrera'] = $this->Carrera_model->get_carrera_porestudante($estudiante_id);
+            //usuario_id ===>id de estudiante
+            $usuario_id = $this->session_data['usuario_id'];
+            if($estudiante_id == $usuario_id){
+                $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+                if(isset($data['estudiante']['estudiante_id']))
+                {
+                    $this->load->model('Carrera_model');
+                    $data['carrera'] = $this->Carrera_model->get_carrera_porestudante($estudiante_id);
 
-                $data['_view'] = 'estudiante/knotas';
+                    $data['_view'] = 'estudiante/knotas';
+                    $this->load->view('layouts/main',$data);
+                }
+                else
+                    show_error('The estudiante you are trying to edit does not exist.');
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
                 $this->load->view('layouts/main',$data);
             }
-            else
-                show_error('The estudiante you are trying to edit does not exist.');
         }
     }
     function mikardex_academico($carrera_id, $estudiante_id)
     {
         if($this->acceso(59)){
-            $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
-            if(isset($data['estudiante']['estudiante_id']))
-            {
-                $this->load->model('Carrera_model');
-                $data['carrera'] = $this->Carrera_model->get_carrera($carrera_id);
+            //usuario_id ===>id de estudiante
+            $usuario_id = $this->session_data['usuario_id'];
+            if($estudiante_id == $usuario_id){
+                $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+                if(isset($data['estudiante']['estudiante_id']))
+                {
+                    $this->load->model('Carrera_model');
+                    $data['carrera'] = $this->Carrera_model->get_carrera($carrera_id);
 
-                $data['kardex'] = $this->Estudiante_model->get_kardexcarrera_estudiante($carrera_id, $estudiante_id);
+                    $data['kardex'] = $this->Estudiante_model->get_kardexcarrera_estudiante($carrera_id, $estudiante_id);
 
-                $data['_view'] = 'estudiante/mikardex_academico';
+                    $data['_view'] = 'estudiante/mikardex_academico';
+                    $this->load->view('layouts/main',$data);
+                }
+                else
+                    show_error('The estudiante you are trying to edit does not exist.');
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
                 $this->load->view('layouts/main',$data);
             }
-            else
-                show_error('The estudiante you are trying to edit does not exist.');
         }
     }
     function keconomico($estudiante_id)
     {
         if($this->acceso(60)){
-            $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
-            if(isset($data['estudiante']['estudiante_id']))
-            {
-                $data['mikardex'] = $this->Estudiante_model->get_estudiante_kardexecon($estudiante_id);
+            //usuario_id ===>id de estudiante
+            $usuario_id = $this->session_data['usuario_id'];
+            if($estudiante_id == $usuario_id){
+                $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+                if(isset($data['estudiante']['estudiante_id']))
+                {
+                    $data['mikardex'] = $this->Estudiante_model->get_estudiante_kardexecon($estudiante_id);
 
-                 $data['_view'] = 'estudiante/keconomico';
-                 $this->load->view('layouts/main',$data);
-            }else
-                show_error('The estudiante you are trying to edit does not exist.');
+                     $data['_view'] = 'estudiante/keconomico';
+                     $this->load->view('layouts/main',$data);
+                }else
+                    show_error('The estudiante you are trying to edit does not exist.');
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
+                $this->load->view('layouts/main',$data);
+            }
         }
        
     }
