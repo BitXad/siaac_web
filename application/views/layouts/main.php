@@ -26,21 +26,7 @@
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="<?php echo site_url('resources/css/_all-skins.min.css');?>">
 
-        <!-- jQuery 2.2.3 -->
-        <script src="<?php echo site_url('resources/js/jquery-2.2.3.min.js');?>"></script>
-
-          <!-- Bootstrap 3.3.6 -->
-        <script src="<?php echo site_url('resources/js/bootstrap.min.js');?>"></script>
-        <!-- FastClick -->
-        <script src="<?php echo site_url('resources/js/fastclick.js');?>"></script>
-        <!-- AdminLTE App -->
-        <script src="<?php echo site_url('resources/js/app.min.js');?>"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="<?php echo site_url('resources/js/demo.js');?>"></script>
-        <!-- DatePicker -->
-        <script src="<?php echo site_url('resources/js/moment.js');?>"></script>
-        <script src="<?php echo site_url('resources/js/bootstrap-datetimepicker.min.js');?>"></script>
-        <script src="<?php echo site_url('resources/js/global.js');?>"></script>
+       
         <script type="text/javascript"> 
         function mueveReloj(){
             momentoActual = new Date();
@@ -497,7 +483,21 @@
             <div class="control-sidebar-bg"></div>
         </div>
         <!-- ./wrapper -->
+ <!-- jQuery 2.2.3 -->
+        <script src="<?php echo site_url('resources/js/jquery-2.2.3.min.js');?>"></script>
 
+          <!-- Bootstrap 3.3.6 -->
+        <script src="<?php echo site_url('resources/js/bootstrap.min.js');?>"></script>
+        <!-- FastClick -->
+        <script src="<?php echo site_url('resources/js/fastclick.js');?>"></script>
+        <!-- AdminLTE App -->
+        <script src="<?php echo site_url('resources/js/app.min.js');?>"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="<?php echo site_url('resources/js/demo.js');?>"></script>
+        <!-- DatePicker -->
+        <script src="<?php echo site_url('resources/js/moment.js');?>"></script>
+        <script src="<?php echo site_url('resources/js/bootstrap-datetimepicker.min.js');?>"></script>
+        <script src="<?php echo site_url('resources/js/global.js');?>"></script>
 
       
     </body>
