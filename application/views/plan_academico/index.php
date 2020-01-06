@@ -57,9 +57,9 @@
                         <td>
                             <a href="<?php echo site_url('plan_academico/edit/'.$p['planacad_id']); ?>" class="btn btn-info btn-xs" title="Editar" ><span class="fa fa-pencil"></span></a> 
                             <?php if ($p['estado_id']==1) { ?>
-                            <a href="<?php echo site_url('plan_academico/inactivar/'.$p['planacad_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-ban"></span></a>
+                            <a href="<?php echo site_url('plan_academico/inactivar/'.$p['planacad_id']); ?>" class="btn btn-danger btn-xs" title="Inactivar"><span class="fa fa-ban"></span></a>
                             <?php } else { ?>
-                            <a href="<?php echo site_url('plan_academico/activar/'.$p['planacad_id']); ?>" class="btn btn-facebook btn-xs"><span class="fa fa-repeat"></span></a>    
+                            <a href="<?php echo site_url('plan_academico/activar/'.$p['planacad_id']); ?>" class="btn btn-facebook btn-xs" title="Activar"><span class="fa fa-repeat"></span></a>    
                             <?php } ?>
                             
                             <!--<a href="<?php //echo site_url('plan_academico/remove/'.$p['planacad_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->

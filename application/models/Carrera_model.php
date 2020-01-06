@@ -44,13 +44,14 @@ class Carrera_model extends CI_Model
     {
         $carrera = $this->db->query("
             SELECT
-                c.*, ac.areacarrera_nombre
+                c.*, ac.areacarrera_nombre, e.*
 
             FROM
-                carrera c, area_carrera ac
+                carrera c, area_carrera ac, estado e
 
             WHERE
                 c.areacarrera_id = ac.areacarrera_id
+                and c.estado_id = e.estado_id
 
             ORDER BY `carrera_nombre` ASC
         ")->result_array();
@@ -122,5 +123,18 @@ class Carrera_model extends CI_Model
         ")->result_array();
 
         return $carrera;
+    }
+
+    function inactivar_carrera($carrera_id)
+    {
+        $sql = "update carrera set estado_id = 2 where carrera_id = ".$carrera_id;
+        
+        return $this->db->query($sql);
+    }
+    function activar_carrera($carrera_id)
+    {
+        $sql = "update carrera set estado_id = 1 where carrera_id = ".$carrera_id;
+        
+        return $this->db->query($sql);
     }
 }
