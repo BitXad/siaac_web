@@ -112,4 +112,16 @@ class Plan_academico_model extends CI_Model
 
         return $plan_academico;
     }
+    function inactivar_plan($planacad_id)
+    {
+        $sql = "update plan_academico set estado_id = 2 where planacad_id = ".$planacad_id;
+        
+        return $this->db->query($sql);
+    }
+    function activar_plan($planacad_id)
+    {
+        $sql = "update plan_academico set estado_id = 1 where planacad_id = ".$planacad_id;
+        
+        return $this->db->query($sql);
+    }
 }

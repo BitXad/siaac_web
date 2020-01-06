@@ -46,6 +46,7 @@
                         <th>Matr.</th>
                         <th>Mens.</th>
                         <th>Nro. Mens.</th>
+                        <th>Estado</th>
                         <th></th>
                     </tr>
                     <tbody class="buscar">
@@ -68,9 +69,14 @@
                         <td><?php echo number_format($c['carrera_matricula'],2); ?></td>
                         <td><?php echo number_format($c['carrera_mensualidad'],2); ?></td>
                         <td><?php echo $c['carrera_nummeses']; ?></td>
+                        <td style="background-color: #<?php echo $c['estado_color']; ?>"><?php echo $c['estado_descripcion']; ?></td>
                         <td>
                             <a href="<?php echo site_url('carrera/edit/'.$c['carrera_id']); ?>" class="btn btn-info btn-xs" title="Editar"><span class="fa fa-pencil"></span></a> 
-                            <!--<a href="<?php //echo site_url('carrera/remove/'.$c['carrera_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->
+                            <?php if ($c['estado_id']==1) { ?>
+                            <a href="<?php echo site_url('carrera/inactivar/'.$c['carrera_id']); ?>" class="btn btn-danger btn-xs" title="Inactivar"><span class="fa fa-ban"></span></a>
+                            <?php } else { ?>
+                            <a href="<?php echo site_url('carrera/activar/'.$c['carrera_id']); ?>" class="btn btn-facebook btn-xs" title="Activar"><span class="fa fa-repeat"></span></a>    
+                            <?php } ?>
                         </td>
                     </tr>
                     <?php $i++; } ?>

@@ -155,5 +155,19 @@ class Carrera extends CI_Controller{
                 show_error('The carrera you are trying to delete does not exist.');
         }
     }
+
+    function inactivar($carrera_id)
+    {
+        
+                $this->Carrera_model->inactivar_carrera($carrera_id);
+                redirect('carrera');
+            
+    }
+    function activar($carrera_id)
+    {
+         $this->Carrera_model->activar_carrera($carrera_id);
+                redirect('carrera');
+           
+    }
     
 }

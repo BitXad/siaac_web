@@ -446,5 +446,19 @@ class Plan_academico extends CI_Controller{
             show_404();
         }
     }
+
+    function inactivar($planacad_id)
+    {
+        
+                $this->Plan_academico_model->inactivar_plan($planacad_id);
+                redirect('plan_academico');
+            
+    }
+    function activar($planacad_id)
+    {
+         $this->Plan_academico_model->activar_plan($planacad_id);
+                redirect('plan_academico');
+           
+    }
 }
 
