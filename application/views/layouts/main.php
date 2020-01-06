@@ -197,6 +197,13 @@
                                 </li>
                                 <?php
                                 }
+                                if($rolusuario[22-1]['rolusuario_asignado'] == 1){
+                                ?>
+                                <li>
+                                    <a href="<?php echo site_url('parametro');?>"><i class="fa fa-server"></i>Configuración</a>
+                                </li>
+                                <?php
+                                }
                                 if($rolusuario[18-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
@@ -225,10 +232,10 @@
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[22-1]['rolusuario_asignado'] == 1){
+                                if($rolusuario[72-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
-                                    <a href="<?php echo site_url('parametro');?>"><i class="fa fa-server"></i>Configuración</a>
+                                    <a href="<?php echo site_url('nivel');?>"><i class="fa fa-calendar"></i>Nivel</a>
                                 </li>
                                 <?php
                                 }
