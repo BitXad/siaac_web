@@ -150,12 +150,12 @@
 						<div class="form-group">
 							<select name="administrativo_cargo" class="form-control" id="administrativo_cargo" required>
 								<option value="">- CARGO -</option>
-								<option value="1">- DIR. GENERAL -</option>
-								<option value="2">- DIR. ACADEMICO -</option>
+								<option value="1">- ADMINISTRATIVO -</option>
+								<!--<option value="2">- DIR. ACADEMICO -</option>
 								<option value="3">- DIR. ADMINISTRATIVO -</option>
 								<option value="4">- SECRETARIA -</option>
 								<option value="5">- JEFE CARRERA -</option>
-								<option value="6">- COBRANZA -</option>
+								<option value="6">- COBRANZA -</option>-->
 								
 								
 							</select>

@@ -1,7 +1,7 @@
 <script type="text/javascript">
         $(document).ready(function () {
             (function ($) {
-                $('#nombre').keyup(function () {
+                $('#filtrar').keyup(function () {
                     var rex = new RegExp($(this).val(), 'i');
                     $('.buscar tr').hide();
                     $('.buscar tr').filter(function () {
@@ -15,15 +15,20 @@
 <link href="<?php echo base_url('resources/css/alejo.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
 
+
+<div class="box-header">
+    <h3 class="box-title">Administrativo</h3>
+	<div class="box-tools">
+        <a href="<?php echo site_url('administrativo/add'); ?>" class="btn btn-success btn-sm">Registrar Administrativo</a> 
+    </div>
+</div>
+<div class="input-group">
+    <span class="input-group-addon">Buscar</span>
+    <input id="filtrar" type="text" class="form-control" placeholder="Ingrese nombre, código, nivel formación"  autofocus autocomplete="off">
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">Administrativo</h3>
-            	<div class="box-tools">
-                    <a href="<?php echo site_url('administrativo/add'); ?>" class="btn btn-success btn-sm">Registrar Administrativo</a> 
-                </div>
-            </div>
             <div class="box-body table-responsive">
                 <table class="table table-striped" id="mitabla">
                     <tr>
@@ -39,6 +44,7 @@
 						<th>Estado</th>
 						<th></th>
                     </tr>
+                    <tbody class="buscar">
                     <?php $cont = 0;
                      $i = 0;
                     foreach($administrativo as $a){ 
@@ -66,14 +72,14 @@
                                     <?php }  ?>
                                 <div style="padding-left: 4px">
                                     <?php echo "<b>".$a['administrativo_nombre']."</b><br>";
-                                          echo "<b>".$a['administrativo_apellidos']."</b><br>";
+                                          echo "<b>".$a['administrativo_apellidos']."</b></br>";
                                           echo "<b>Cod.:</b> [".$a['administrativo_codigo']." ]";
                                     ?>
                                 </div>
                              </div>
                             
                         </td>	
-                        <td><?php echo $a['genero_nombre']; ?></br>
+                        <td><?php echo $a['genero_nombre']; ?><br>
 						<?php echo $a['estadocivil_descripcion']; ?></br>
                         <?php echo "<b>C.I.:</b> ".$a['administrativo_ci']; ?>
                         <?php echo $a['administrativo_extci']; ?></td>
@@ -115,6 +121,7 @@
                         </td>
                     </tr>
                    <?php $i++; } ?>
+               </tbody>
                 </table>
                                 
             </div>
