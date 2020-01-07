@@ -88,8 +88,8 @@ class Materia_model extends CI_Model
         $materia = $this->db->query("
             SELECT
                 m.materia_id, m.materia_nombre, m.materia_codigo, m.materia_horas,
-                c.carrera_modalidad,
-                pr.mat_materia_id, pr.materia_codigo as cod
+                m.materia_alias, c.carrera_modalidad, n.nivel_descripcion,
+                pr.mat_materia_id, pr.materia_codigo as cod, m.area_id
             FROM
                 materia m
             LEFT JOIN materia pr on m.materia_id = pr.materia_id
