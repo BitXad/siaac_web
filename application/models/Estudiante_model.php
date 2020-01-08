@@ -29,6 +29,24 @@ class Estudiante_model extends CI_Model
 
         return $estudiante;
     }
+
+    function get_student($estudiante_id)
+    {
+        $estudiante = $this->db->query("
+            SELECT
+                e.*, g.*, ec.*
+
+            FROM
+                estudiante e, genero g, estado_civil ec
+
+            WHERE
+                e.estudiante_id = ".$estudiante_id."
+                and e.genero_id = g.genero_id
+                and e.estadocivil_id = ec.estadocivil_id
+        ",array($estudiante_id))->row_array();
+
+        return $estudiante;
+    }
     
     /*
      * Get all estudiante count

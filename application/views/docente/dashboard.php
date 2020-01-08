@@ -26,8 +26,8 @@
           <ul class="values">
             <li><?php echo $docente["docente_ci"]; ?> <?php echo $docente["docente_extci"]; ?></li>
             <li><?php echo date("d/m/Y", strtotime($docente['docente_fechanac'])); ?></li>
-            <li><?php echo $docente["genero_id"]; ?></li>
-            <li><?php echo $docente["estado_id"]; ?></li>
+            <li><?php echo $docente["genero_nombre"]; ?></li>
+            <li><?php echo $docente["estadocivil_descripcion"]; ?></li>
           </ul>
         </div>
         <div class="col-md-6"><br>

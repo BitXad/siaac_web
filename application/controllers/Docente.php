@@ -26,6 +26,16 @@ class Docente extends CI_Controller{
         }
     }
 
+    private function privado($docente_id){
+        $docente = $this->session_data['usuario_id'];
+        if($docente == $docente_id){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeprivado';
+            $this->load->view('layouts/main',$data);
+        }
+    }
+
     /*
      * Listing of docente
      */
@@ -50,8 +60,8 @@ class Docente extends CI_Controller{
     function dashboard($docente_id)
     {
         //menu docentes
-        if($this->acceso(61)){
-            $data['docente'] = $this->Docente_model->get_docente($docente_id);
+        if($this->acceso(61)&&$this->privado($docente_id)){
+            $data['docente'] = $this->Docente_model->get_docent($docente_id);
             $data['_view'] = 'docente/dashboard';
             $this->load->view('layouts/main',$data);
         }
@@ -59,28 +69,28 @@ class Docente extends CI_Controller{
 
     function grupos($docente_id)
     {
-        if($this->acceso(62)){
+        if($this->acceso(62)&&$this->privado($docente_id)){
             $data['_view'] = 'docente/grupos';
             $this->load->view('layouts/main',$data);
         }
     }
     function materias($docente_id)
     {
-        if($this->acceso(63)){
+        if($this->acceso(63)&&$this->privado($docente_id)){
             $data['_view'] = 'docente/materias';
             $this->load->view('layouts/main',$data);
         }
     }
     function horarios($docente_id)
     {
-        if($this->acceso(64)){
+        if($this->acceso(64)&&$this->privado($docente_id)){
             $data['_view'] = 'docente/horarios';
             $this->load->view('layouts/main',$data);
         }
     }
     function notas($docente_id)
     {
-        if($this->acceso(65)){
+        if($this->acceso(65)&&$this->privado($docente_id)){
             $data['_view'] = 'docente/notas';
             $this->load->view('layouts/main',$data);
         }
