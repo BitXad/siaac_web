@@ -419,8 +419,6 @@ function materiasnivel(nivel_id){
     const promise = new Promise(function (resolve, reject) {
     //var html = "";
     var base_url = document.getElementById('base_url').value;
-    var planacad_id = document.getElementById('planacad_id').value;
-    var all_area = JSON.parse(document.getElementById('lasareas').value);
     var controlador = base_url+'plan_academico/get_materiasnivel';
     $.ajax({url: controlador,
            type:"POST",
@@ -432,72 +430,87 @@ function materiasnivel(nivel_id){
                var res3 = "";
 
                if (registros != null){
-                    var canta = all_area.length;
+                    
                     var n = registros.length; //tamaño del arreglo de la consulta
                     for (var i = 0; i < n ; i++){
-                        //html += "<a  style='width: 100%' class='btn cont_titulo' data-toggle='modal' data-target='#modalnuevamateria"+registros[i]['nivel_id']+"' title='Crear Nueva Materia'>"+registros[i]["nivel_descripcion"]+"</a>";
-                        res += "<div data-toggle='modal' data-target='#modalmodificar_materia"+registros[i]["materia_id"]+"'  class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
+                        res += "<div class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
                         res += "<b>"+registros[i]['materia_nombre']+"</b><br>";
                         res += registros[i]['materia_codigo']+"<br>";
                         res += registros[i]['materia_horas']+" Hrs.<br>";
                         res += "<div id='isprerequisito"+registros[i]["materia_id"]+"'></div>"
                         processPrerequisito(registros[i]['mat_materia_id'], registros[i]['materia_id']);
                         res += "</div>";
+                        
+                        
                         res += "<!-- ---------------------- INICIO modal para Registrar Nueva Materia ----------------- -->";
                             res += "<div class='modal fade' id='modalmodificar_materia"+registros[i]["materia_id"]+"' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>";
                             res += "<div class='modal-dialog' role='document'>";
                             res += "<br><br>";
                             res += "<div class='modal-content'>";
                             res += "<div class='modal-header'>";
-                            res += "<label>Nueva Materia para el Nivel: &nbsp;"+nivel_id+"</label>";
+                            res += "<label>Modificar Materia para el Nivel: &nbsp;"+registros[i]["nivel_descripcion"]+"</label>";
                             res += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
                             //html += "<span id='mensajetec_detalleserv"+registros[i]["detalleserv_id"]+"' class='text-danger'></span>";
-                            res += "<label class='alinearizq'><input type='checkbox' onclick='mostrarcheck("+nivel_id+")' class='checkbox' name='prerequisito"+nivel_id+"' id='prerequisito"+nivel_id+"' />Sin Pre-requisito</label>";
+                            var escheckedm = "";
+                            if( registros[i]["mat_materia_id"] != null || registros[i]["mat_materia_id"] != ""){
+                                escheckedm = "checked";
+                            }else{
+                                escheckedm = "";
+                            }
+                            res += "<label class='alinearizq'><input "+escheckedm+" type='checkbox' onclick='mostrarcheckm("+registros[i]["materia_id"]+")' class='checkbox' name='prerequisitom"+registros[i]["materia_id"]+"' id='prerequisitom"+registros[i]["materia_id"]+"' />Sin Pre-requisito</label>";
                             res += "</div>";
                             //html += "form_open('detalle_serv/registrartec/"+servicio_id+"/"+registros[i]["detalleserv_id"]+"')";
                             res += "<div class='modal-body textizq'>";
                             res += "<!------------------------------------------------------------------->";
                             res += "<div class='col-md-6'>";
-                            res += "<label for='materia_nombre"+nivel_id+"' class='control-label'><span class='text-danger'>*</span>Nombre</label>";
+                            res += "<label for='materia_nombrem"+registros[i]["materia_id"]+"' class='control-label'><span class='text-danger'>*</span>Nombre</label>";
                             res += "<div class='form-group'>";
-                            res += "<input type='text' name='materia_nombre"+nivel_id+"' onchange='replicar_a_alias("+nivel_id+")' class='form-control' id='materia_nombre"+nivel_id+"' required />";
+                            res += "<input type='text' name='materia_nombrem"+registros[i]["materia_id"]+"' class='form-control' id='materia_nombrem"+registros[i]["materia_id"]+"' value='"+registros[i]["materia_nombre"]+"' onkeyup='var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);' required />";
                             res += "</div>";
                             res += "</div>";
                             
                             res += "<div class='col-md-6'>";
-                            res += "<label for='materia_alias"+nivel_id+"' class='control-label'><span class='text-danger'>*</span>Alias</label>";
+                            res += "<label for='materia_aliasm"+registros[i]["materia_id"]+"' class='control-label'><span class='text-danger'>*</span>Alias</label>";
                             res += "<div class='form-group'>";
-                            res += "<input type='text' name='materia_alias"+nivel_id+"' class='form-control' id='materia_alias"+nivel_id+"' />";
+                            res += "<input type='text' name='materia_aliasm"+registros[i]["materia_id"]+"' class='form-control' id='materia_aliasm"+registros[i]["materia_id"]+"' value='"+registros[i]["materia_alias"]+"' onkeyup='var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);' />";
                             res += "</div>";
                             res += "</div>";
                             res += "<div class='col-md-6'>";
-                            res += "<label for='materia_codigo"+nivel_id+"' class='control-label'><span class='text-danger'>*</span>Codigo</label>";
+                            res += "<label for='materia_codigom"+registros[i]["materia_id"]+"' class='control-label'><span class='text-danger'>*</span>Codigo</label>";
                             res += "<div class='form-group'>";
-                            res += "<input type='text' name='materia_codigo"+nivel_id+"' class='form-control' id='materia_codigo"+nivel_id+"' />";
+                            res += "<input type='text' name='materia_codigom"+registros[i]["materia_id"]+"' class='form-control' id='materia_codigom"+registros[i]["materia_id"]+"' value='"+registros[i]["materia_codigo"]+"' onkeyup='var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);' />";
                             res += "</div>";
                             res += "</div>";
                             res += "<div class='col-md-6'>";
-                            res += "<label for='area_id"+nivel_id+"' class='control-label'><span class='text-danger'>*</span>Area</label>";
+                            res += "<label for='area_idm"+registros[i]["materia_id"]+"' class='control-label'><span class='text-danger'>*</span>Area</label>";
                             res += "<div class='form-group'>";
-                            res += "<select name='area_id"+nivel_id+"' class='form-control' id='area_id"+nivel_id+"' required>";
+                            res += "<select name='area_idm"+registros[i]["materia_id"]+"' class='form-control' id='area_idm"+registros[i]["materia_id"]+"' required>";
                             res += "<option value=''>- AREA -</option>";
-                            for (var a = 0; a < canta ; a++){
-                                res += "<option value='"+all_area[a]["area_id"]+"'>"+all_area[a]["area_nombre"]+"</option>"; 
-                            }
+                            var selectedm= "";
+                            /*for (var a = 0; a < canta ; a++){
+                                if(all_area[a]["area_id"] == registros[i]["area_id"]){
+                                    selectedm= "selected";
+                                }else{
+                                    selectedm = "";
+                                }
+                                res += "<option value='"+all_area[a]["area_id"]+"' "+selectedm+" >"+all_area[a]["area_nombre"]+"</option>"; 
+                            }*/
                             res += "</select>";
                             res += "</div>";
                             res += "</div>";
                             res += "<div class='col-md-6'>";
-                            res += "<label for='materia_horas"+nivel_id+"' class='control-label'><span class='text-danger'>*</span>Horas</label>";
+                            res += "<label for='materia_horasm"+registros[i]["materia_id"]+"' class='control-label'><span class='text-danger'>*</span>Horas</label>";
                             res += "<div class='form-group'>";
-                            res += "<input type='number' step='any' min='0' name='materia_horas"+nivel_id+"' class='form-control' id='materia_horas"+nivel_id+"' />";
+                            res += "<input type='number' step='any' min='0' name='materia_horasm"+registros[i]["materia_id"]+"' class='form-control' id='materia_horasm"+registros[i]["materia_id"]+"' value='"+registros[i]["materia_horas"]+"' />";
                             res += "</div>";
                             res += "</div>";
                             
-                            res += "<div class='col-md-6' style='display:block' id='mosmaterias"+nivel_id+"' >";
-                            res += "<label for='mat_materia_id"+nivel_id+"' class='control-label'><span class='text-danger'>*</span>Pre-Requisito</label>";
-                            res += "<div class='form-group' id='dibmaterias"+nivel_id+"'>";
-                            get_materia(nivel_id, planacad_id);
+                            res += "<div class='col-md-6' style='display:block' id='mosmateriasm"+registros[i]["materia_id"]+"' >";
+                            res += "<label for='mat_materia_idm"+registros[i]["materia_id"]+"' class='control-label'><span class='text-danger'>*</span>Pre-Requisito</label>";
+                            res += "<div class='form-group' id='dibmateriasm"+registros[i]["materia_id"]+"'>";
+                            if(registros[i]["mat_materia_id"] != null || registros[i]["mat_materia_id"] != ""){
+                               // get_materia_premod(planacad_id, registros[i]["mat_materia_id"], registros[i]["materia_id"]);
+                            }
                             res += "</div>";
                             res += "</div>";
                             res += "<!------------------------------------------------------------------->";
@@ -514,7 +527,11 @@ function materiasnivel(nivel_id){
                             res += "</div>";
                             res += "</div>";
                             res += "<!-- ---------------------- FIN modal para Registrar Nueva Materia ----------------- -->";
-                            
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
