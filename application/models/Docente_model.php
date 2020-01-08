@@ -29,6 +29,24 @@ class Docente_model extends CI_Model
 
         return $docente;
     }
+
+    function get_docent($docente_id)
+    {
+        $estudiante = $this->db->query("
+            SELECT
+                e.*, g.*, ec.*
+
+            FROM
+                docente e, genero g, estado_civil ec
+
+            WHERE
+                e.docente_id = ".$docente_id."
+                and e.genero_id = g.genero_id
+                and e.estadocivil_id = ec.estadocivil_id
+        ",array($docente_id))->row_array();
+
+        return $estudiante;
+    }
     
     /*
      * Get all docente count

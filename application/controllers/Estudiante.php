@@ -26,6 +26,16 @@ class Estudiante extends CI_Controller{
         }
     }
 
+     private function privado($estudiante_id){
+        $estudiante = $this->session_data['usuario_id'];
+        if($estudiante == $estudiante_id){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeprivado';
+            $this->load->view('layouts/main',$data);
+        }
+    }
+
     /*
      * Listing of estudiante
      */
@@ -607,11 +617,11 @@ class Estudiante extends CI_Controller{
     function menu_estudiante($estudiante_id)
     {
         
-        if($this->acceso(56)){
+        if($this->acceso(56)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
-            $data['estudiante'] = $this->Estudiante_model->get_estudiante($estudiante_id);
+            $data['estudiante'] = $this->Estudiante_model->get_student($estudiante_id);
             $data['_view'] = 'estudiante/menu_estudiante';
             $this->load->view('layouts/main',$data);
             }else{
@@ -624,7 +634,7 @@ class Estudiante extends CI_Controller{
     /* puede cambiar su información basica */
     function datos($estudiante_id)
     {
-        if($this->acceso(57)){
+        if($this->acceso(57)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
@@ -667,7 +677,7 @@ class Estudiante extends CI_Controller{
     
     function carreras($estudiante_id)
     {
-        if($this->acceso(58)){
+        if($this->acceso(58)&&$this->privado($estudiante_id)){
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
                 $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
@@ -689,7 +699,7 @@ class Estudiante extends CI_Controller{
     }
     function knotas($estudiante_id)
     {
-        if($this->acceso(59)){
+        if($this->acceso(59)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
@@ -712,7 +722,7 @@ class Estudiante extends CI_Controller{
     }
     function mikardex_academico($carrera_id, $estudiante_id)
     {
-        if($this->acceso(59)){
+        if($this->acceso(59)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
@@ -737,7 +747,7 @@ class Estudiante extends CI_Controller{
     }
     function keconomico($estudiante_id)
     {
-        if($this->acceso(60)){
+        if($this->acceso(60)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
