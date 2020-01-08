@@ -418,6 +418,8 @@ async function processPrerequisito(mat_materia_id, materia_id){
 function materiasnivel(nivel_id){
     const promise = new Promise(function (resolve, reject) {
     //var html = "";
+    var all_area = JSON.parse(document.getElementById('lasareas').value);
+    var planacad_id = document.getElementById('planacad_id').value;
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+'plan_academico/get_materiasnivel';
     $.ajax({url: controlador,
@@ -430,12 +432,16 @@ function materiasnivel(nivel_id){
                var res3 = "";
 
                if (registros != null){
-                    
+                   var canta = all_area.length;
+                    var escheckedm = "";
                     var n = registros.length; //tamaño del arreglo de la consulta
                     for (var i = 0; i < n ; i++){
-                        res += "<div class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
+                        res += "<div onclick='mostrarcheckm("+registros[i]["materia_id"]+")' data-toggle='modal' data-target='#modalmodificar_materia"+registros[i]["materia_id"]+"'  class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
+                        //res += "<div class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
                         res += "<b>"+registros[i]['materia_nombre']+"</b><br>";
+                        //res += "<a href='"+base_url+"materia/edit/"+registros[i]["materia_id"]+"' class='btn btn-xs btn-xs btn-info' title='Modificar materias'>";
                         res += registros[i]['materia_codigo']+"<br>";
+                        //res += "</a>";
                         res += registros[i]['materia_horas']+" Hrs.<br>";
                         res += "<div id='isprerequisito"+registros[i]["materia_id"]+"'></div>"
                         processPrerequisito(registros[i]['mat_materia_id'], registros[i]['materia_id']);
@@ -451,12 +457,12 @@ function materiasnivel(nivel_id){
                             res += "<label>Modificar Materia para el Nivel: &nbsp;"+registros[i]["nivel_descripcion"]+"</label>";
                             res += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
                             //html += "<span id='mensajetec_detalleserv"+registros[i]["detalleserv_id"]+"' class='text-danger'></span>";
-                            var escheckedm = "";
-                            if( registros[i]["mat_materia_id"] != null || registros[i]["mat_materia_id"] != ""){
+                            if( registros[i]["mat_materia_id"] == null || registros[i]["mat_materia_id"] == "" || registros[i]["mat_materia_id"] == 0){
                                 escheckedm = "checked";
                             }else{
                                 escheckedm = "";
                             }
+                            //alert (registros[i]["mat_materia_id"]);
                             res += "<label class='alinearizq'><input "+escheckedm+" type='checkbox' onclick='mostrarcheckm("+registros[i]["materia_id"]+")' class='checkbox' name='prerequisitom"+registros[i]["materia_id"]+"' id='prerequisitom"+registros[i]["materia_id"]+"' />Sin Pre-requisito</label>";
                             res += "</div>";
                             //html += "form_open('detalle_serv/registrartec/"+servicio_id+"/"+registros[i]["detalleserv_id"]+"')";
@@ -487,14 +493,14 @@ function materiasnivel(nivel_id){
                             res += "<select name='area_idm"+registros[i]["materia_id"]+"' class='form-control' id='area_idm"+registros[i]["materia_id"]+"' required>";
                             res += "<option value=''>- AREA -</option>";
                             var selectedm= "";
-                            /*for (var a = 0; a < canta ; a++){
+                            for (var a = 0; a < canta ; a++){
                                 if(all_area[a]["area_id"] == registros[i]["area_id"]){
                                     selectedm= "selected";
                                 }else{
                                     selectedm = "";
                                 }
                                 res += "<option value='"+all_area[a]["area_id"]+"' "+selectedm+" >"+all_area[a]["area_nombre"]+"</option>"; 
-                            }*/
+                            }
                             res += "</select>";
                             res += "</div>";
                             res += "</div>";
@@ -508,15 +514,16 @@ function materiasnivel(nivel_id){
                             res += "<div class='col-md-6' style='display:block' id='mosmateriasm"+registros[i]["materia_id"]+"' >";
                             res += "<label for='mat_materia_idm"+registros[i]["materia_id"]+"' class='control-label'><span class='text-danger'>*</span>Pre-Requisito</label>";
                             res += "<div class='form-group' id='dibmateriasm"+registros[i]["materia_id"]+"'>";
-                            if(registros[i]["mat_materia_id"] != null || registros[i]["mat_materia_id"] != ""){
+                            /*if(registros[i]["mat_materia_id"] != null || registros[i]["mat_materia_id"] != ""){
                                // get_materia_premod(planacad_id, registros[i]["mat_materia_id"], registros[i]["materia_id"]);
-                            }
+                            }*/
+                            get_materia_formodif(registros[i]["materia_id"], registros[i]["mat_materia_id"], planacad_id);
                             res += "</div>";
                             res += "</div>";
                             res += "<!------------------------------------------------------------------->";
                             res += "</div>";
                             res += "<div class='modal-footer aligncenter'>";
-                            res += "<button onclick='registro_newmateria("+nivel_id+", "+planacad_id+")' class='btn btn-success' data-dismiss='modal'>";
+                            res += "<button onclick='modificar_materia("+registros[i]["materia_id"]+", "+nivel_id+", "+planacad_id+")' class='btn btn-success' data-dismiss='modal'>";
                             res += "<i class='fa fa-check'></i> Guardar";
                             res += "</button>";
                             res += "<a href='#' class='btn btn-danger' data-dismiss='modal'>";
@@ -632,7 +639,46 @@ function registro_newmateria(nivel_id, planacad_id){
     });   
    
 }
-
+/* **************Modificar MATERIA en un NIVEL***************** */
+function modificar_materia(materia_id, nivel_id, planacad_id){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'plan_academico/modificar_materia';
+    var prereq         = document.getElementById('prerequisitom'+materia_id).checked;
+    var materia_nombre = document.getElementById('materia_nombrem'+materia_id).value;
+    var materia_alias  = document.getElementById('materia_aliasm'+materia_id).value;
+    var mat_materia_id = document.getElementById('mat_materia_idm'+materia_id).value;
+    var area_id        = document.getElementById('area_idm'+materia_id).value;
+    var materia_codigo = document.getElementById('materia_codigom'+materia_id).value;
+    var materia_horas = document.getElementById('materia_horasm'+materia_id).value;
+    var prerequisito = 0;
+    if(prereq){
+        prerequisito = 1;
+    }
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{materia_id:materia_id, prerequisito:prerequisito, materia_nombre:materia_nombre, materia_alias:materia_alias, mat_materia_id:mat_materia_id, area_id:area_id, materia_codigo:materia_codigo, nivel_id:nivel_id, materia_horas:materia_horas},
+           success:function(respuesta){
+               
+               var registros =  JSON.parse(respuesta);
+                
+               if (registros != null){
+                   $('#modalmodificar_materia'+materia_id).modal('hide');
+                  dibujar_nivel(planacad_id);   
+                    
+                }else{
+                    $('#modalmodificar_materia'+materia_id).modal('show');
+                    alert("Todos Los Campos son Obligados");
+                }
+                
+        },
+        error:function(respuesta){
+           // alert("Algo salio mal...!!!");
+           html = "";
+        }
+        
+    });   
+   
+}
 /* **************Mostrar MATERIAS de un plan academico***************** */
 function get_materia(nivel_id, planacad_id){
     var base_url = document.getElementById('base_url').value;
@@ -664,7 +710,43 @@ function get_materia(nivel_id, planacad_id){
         
     });
 }
-
+/* **************Mostrar MATERIAS de un plan academico***************** */
+function get_materia_formodif(materia_id, mat_materia_id, planacad_id){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'plan_academico/get_materias_activas_plan';
+    var html ="";
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{planacad_id:planacad_id},
+           success:function(respuesta){
+               
+               var registros =  JSON.parse(respuesta);
+               if (registros != null){
+                   var cantmat = registros.length;
+                   html += "<select name='mat_materia_idm"+materia_id+"' class='form-control' id='mat_materia_idm"+materia_id+"' >";
+                   html += "<option value=''>- MATERIA -</option>";
+                   var paraselected = "";
+                   for (var m = 0; m < cantmat ; m++){
+                       if(registros[m]["materia_id"] == mat_materia_id){
+                           paraselected = "selected";
+                       }else{
+                           paraselected = "";
+                       }
+                       html += "<option "+paraselected+" value='"+registros[m]["materia_id"]+"'>"+registros[m]["materia_nombre"]+"&nbsp;&nbsp;["+registros[m]["materia_codigo"]+"]</option>"; 
+                   }
+                   
+                   html += "</select>";
+                   $('#dibmateriasm'+materia_id).html(html);
+                    
+                }
+        },
+        error:function(respuesta){
+           // alert("Algo salio mal...!!!");
+           html = "";
+        }
+        
+    });
+}
 function mostrarcheck(nivel_id){
     var prereq         = document.getElementById('prerequisito'+nivel_id).checked;
     if(prereq){
@@ -673,7 +755,14 @@ function mostrarcheck(nivel_id){
         document.getElementById('mosmaterias'+nivel_id).style.display = 'block';
     }
 }
-
+function mostrarcheckm(materia_id){
+    var prereq         = document.getElementById('prerequisitom'+materia_id).checked;
+    if(prereq){
+        document.getElementById('mosmateriasm'+materia_id).style.display = 'none';
+    }else{
+        document.getElementById('mosmateriasm'+materia_id).style.display = 'block';
+    }
+}
 /* ************** Mostrar MATERIAS ***************** */
 function get_all_carrera(){
     var base_url = document.getElementById('base_url').value;

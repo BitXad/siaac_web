@@ -137,4 +137,24 @@ class Carrera_model extends CI_Model
         
         return $this->db->query($sql);
     }
+    /*
+     * Get all carrera
+     */
+    function get_all_carrerasok()
+    {
+        $carrera = $this->db->query("
+            SELECT
+                c.*
+
+            FROM
+                carrera c
+
+            WHERE
+                c.estado_id = 1
+
+            ORDER BY `carrera_id` DESC
+        ")->result_array();
+
+        return $carrera;
+    }
 }
