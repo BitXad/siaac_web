@@ -61,11 +61,15 @@
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <label for="carrera_id" class="control-label">Carrera</label>
+                    <label for="carrera_id" class="control-label">Carrera
+                        <a href="<?php echo site_url('carrera'); ?>" class="btn btn-xs btn-xs btn-info" title="Modificar carreras"><i class="fa fa-file-text"></i></a>
+                    </label>
                     <div class="form-group" id="sonlascarreras"></div>
                 </div>
                 <div class="col-md-5">
-                    <label for=´planacad_id" class="control-label">Plan Academico</label>
+                    <label for=´planacad_id" class="control-label">Plan Academico
+                        <a href="<?php echo site_url('plan_academico'); ?>" class="btn btn-xs btn-xs btn-info" title="Modificar planes academicos"><i class="fa fa-file-text"></i></a>
+                    </label>
                     <div class="form-group" id="elegirplanacad">
                         <select name="planacad_id" class="form-control">
                             <option value="">- PLAN ACADEMICO -</option>

@@ -89,6 +89,7 @@ class Plan_academico_model extends CI_Model
                 plan_academico pa
             WHERE
                 pa.carrera_id = $carrera_id
+                and pa.estado_id = 1
             order by pa.planacad_id desc
         ")->result_array();
 

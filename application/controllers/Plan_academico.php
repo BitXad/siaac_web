@@ -333,6 +333,64 @@ class Plan_academico extends CI_Controller{
             show_404();
         }
     }
+    /*** Modificar Materia desde plan academico ****/
+    function modificar_materia()
+    {
+        if ($this->input->is_ajax_request()){
+            $this->load->library('form_validation');
+            $prerequisito = $this->input->post('prerequisito');
+            if($prerequisito == 0){
+                $this->form_validation->set_rules('mat_materia_id','Materia','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            }
+            $this->form_validation->set_rules('materia_nombre','Materia Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('materia_alias','Materia Alias','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('materia_codigo','Materia Codigo','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('area_id','Area','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+            $this->form_validation->set_rules('materia_horas','Materia Horas','trim|required', array('required' => 'Este Campo no debe ser vacio'));
+
+            if($this->form_validation->run())     
+            {
+                
+                $materia_id = $this->input->post('materia_id');
+                $materia_nombre = $this->input->post('materia_nombre');
+                $materia_alias = $this->input->post('materia_alias');
+                $mat_materia_id = $this->input->post('mat_materia_id');
+                $area_id = $this->input->post('area_id');
+                $materia_codigo = $this->input->post('materia_codigo');
+                $materia_horas = $this->input->post('materia_horas');
+                $nivel_id = $this->input->post('nivel_id');
+                if($prerequisito == 1){
+                    $params = array(
+                        'area_id' => $area_id,
+                        'nivel_id' => $nivel_id,
+                        'mat_materia_id' => 0,
+                        'materia_nombre' => $materia_nombre,
+                        'materia_alias' => $materia_alias,
+                        'materia_codigo' => $materia_codigo,
+                        'materia_horas' => $materia_horas,
+                    );
+                }else{
+                    $params = array(
+                        'area_id' => $area_id,
+                        'nivel_id' => $nivel_id,
+                        'mat_materia_id' => $mat_materia_id,
+                        'materia_nombre' => $materia_nombre,
+                        'materia_alias' => $materia_alias,
+                        'materia_codigo' => $materia_codigo,
+                        'materia_horas' => $materia_horas,
+                    );
+                }
+                $this->load->model('Materia_model');
+                $this->Materia_model->update_materia($materia_id, $params);
+                //$datos = $this->Materia_model->get_all_materias_activo($nivel_id);
+                echo json_encode("ok");
+            }else echo json_encode(null);
+        }
+        else
+        {                 
+            show_404();
+        }
+    }
     
     /***OBTIENE MATERIAS activas  de un nivel****/
     function get_materias_activas_plan()
@@ -356,7 +414,7 @@ class Plan_academico extends CI_Controller{
             //$planacad_id = $this->input->post('planacad_id');
 
             $this->load->model('Carrera_model');
-            $datos = $this->Carrera_model->get_all_carreras();
+            $datos = $this->Carrera_model->get_all_carrerasok();
             echo json_encode($datos);
         }
         else
