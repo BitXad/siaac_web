@@ -34,7 +34,6 @@ class Rol extends CI_Controller{
         if($this->acceso(68)){
             $data['all_rolpadre'] = $this->Rol_model->get_allrol_padre();
             $data['all_rolhijo'] = $this->Rol_model->get_allrol_hijo();
-            $data['page_title'] = "Rol";
             $data['_view'] = 'rol/index';
             $this->load->view('layouts/main',$data);
         }
