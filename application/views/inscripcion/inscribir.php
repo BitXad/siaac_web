@@ -354,9 +354,10 @@ $session_data = $this->session->userdata('logged_in'); ?>
             <center>
                 <font size="5"><b>DETALLE INSCRIPCIÓN</b></font>
                 <br><br>
-                <?php if(true){ ?>
+                <?php if(count($dosificacion) >0){ ?>
                 <input type="checkbox" name="escheck" id="escheck" style="display: flex" onclick="mostrar_ocultar()" />
-                <?php }else{ echo "<span class='text-danger'>Dosificación no activa</span>"; } ?>
+                <?php }else{ echo "<span class='text-bold text-red'>Dosificación no activa</span>"; } ?>
+                
                 <table class="table table-condensed" style="display: none" id="nitraz">
                     <tr>
                         <td style="font-weight: bold; text-align: right; border: 0px; padding: 0px; padding-top: 3px; padding-right: 4px">
