@@ -288,13 +288,13 @@ class Mensualidad extends CI_Controller{
                 $factura_fechaventa    = $this->input->post('mensualidad_fecha');
                 $factura_fecha         = "date(now())";
                 $factura_hora          = "time(now())";
-                $factura_subtotal      = $total-$descontar;
+                $factura_subtotal      = $total;
                 $factura_nit           = $this->input->post('mensualidad_ci');
                 $factura_razonsocial   = $this->input->post('mensualidad_nombre');
                 $factura_ice           = 0;
                 $factura_exento        = 0;
                 $factura_descuento     = $descontar;
-                $factura_total         = $total;
+                $factura_total         = $total-$descontar;
                 $factura_numero        = $dosificacion[0]['dosificacion_numfact']+1;
                 $factura_autorizacion  = $dosificacion[0]['dosificacion_autorizacion'];
                 $factura_llave         = $dosificacion[0]['dosificacion_llave'];

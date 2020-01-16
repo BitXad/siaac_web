@@ -51,6 +51,12 @@ class Factura_model extends CI_Model
         return $factura;
     }
 
+    function ejecutar($sql)
+    {       
+        $this->db->query($sql);     
+        return $true;
+    }
+
     function get_detalle_factura_id($factura_id)
     {
         $sql = "select * from detalle_factura d where d.factura_id = ".$factura_id;

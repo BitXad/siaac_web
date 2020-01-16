@@ -173,6 +173,59 @@ class Factura extends CI_Controller{
         }
     }
 
+
+        function anular_factura($factura_id,$factura_numero){
+        if($this->acceso(47)){
+        //**************** inicio contenido ***************   
+                
+//        if($factura_id>0)
+//        {
+//            
+        $sql = "update factura set ".                
+                "factura_subtotal = 0".
+                ",factura_nit = 0".
+                ",factura_razonsocial   = 'ANULADO'".
+                ",factura_ice           = 0".
+                ",factura_exento        = 0".
+                ",factura_descuento     = 0".
+                ",factura_total         = 0".
+                ",factura_codigocontrol     = '0'".
+                ",estado_id     = 3".
+                " where factura_id = ".$factura_id;
+        
+        //echo $sql;
+        // check if the factura exists before trying to delete it
+        $this->Factura_model->ejecutar($sql);
+            
+            redirect('factura/mensaje/'.$factura_id."/".$factura_numero);
+//        }
+//        else
+//            show_error('The factura you are trying to delete does not exist.');
+                
+        //**************** fin contenido ***************
+        }      
+        
+    }
+
+        function mensaje($factura_id,$factura_numero)
+    {
+        if($this->acceso(17)){
+        //**************** inicio contenido ***************            
+        
+
+            $data['factura_id'] = $factura_id;
+            $data['factura_numero'] = $factura_numero;
+            $data['page_title'] = "Facturada Anulada";
+            $data['_view'] = 'factura/mensaje';
+
+            $data['page_title'] = "Verificador";            
+            $this->load->view('layouts/main',$data);
+            
+        //**************** fin contenido ***************
+        }   
+            
+    }  
+
    
 
     public function generar_excel(){
