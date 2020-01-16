@@ -12,6 +12,8 @@ class Inscripcion extends CI_Controller{
         $this->load->model('Institucion_model');
         $this->load->model('Carrera_model');
         $this->load->model('Nivel_model');
+        $this->load->helper('numeros');
+        $this->load->library('ControlCode');
         $this->load->model('Kardex_economico_model');
         $this->load->model('Kardex_academico_model');
         if ($this->session->userdata('logged_in')) {
@@ -268,9 +270,10 @@ class Inscripcion extends CI_Controller{
     }
         
     function registrar_inscripcion(){
-        $session_data = $this->session->userdata('logged_in');
-        $usuario_id = $session_data['usuario_id'];
-        $gestion_id = $session_data['gestion_id'];
+        //$session_data = $this->session->userdata('logged_in');
+        $usuario_id = $this->session_data['usuario_id'];
+        $gestion_id = $this->session_data['gestion_id'];
+        $this->load->model('Mensualidad_model');
         
         $estudiante_id = $this->input->post('estudiante_id');
         $paralelo_id = $this->input->post('paralelo_id');
@@ -331,6 +334,9 @@ class Inscripcion extends CI_Controller{
         //$kardexeco_hora = $this->input->post('inscripcion_fechainicio');
         $kardexeco_fecha = date("Y-m-d");
         $kardexeco_hora  = date("H:i:s");
+        /*if($pagar_matricula !=1){
+            $kardexeco_matricula = 0;
+        }*/
         $paramseco = array(
             'inscripcion_id' => $inscripcion_id,
             'estado_id' => $estado_id,
@@ -423,12 +429,14 @@ class Inscripcion extends CI_Controller{
                 'matricula_total' => $kardexeco_matricula,
             );
             $matricula_id = $this->Matricula_model->add_matricula($paramspm);
+        }elseif($pagar_matricula == 2){
+            //$kardexeco_id
         }
         if($pagar_mensualidad >0){
             $estadomen_id = 4; //cancelado
             $this->load->model('Estudiante_model');
             $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
-            $this->load->model('Mensualidad_model');
+            
             $thismensualidad = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
             $cont = 0;
             for($i = 1; $i <= $pagar_mensualidad; $i++){
@@ -446,7 +454,129 @@ class Inscripcion extends CI_Controller{
             }
         }
         
-        echo json_encode($kardexacad_id);
+        $esfacturado = $this->input->post('esfactura');
+        $esfactura_id = "";
+        if($esfacturado=="si"){ //si la inscripcion es es facturada
+            //$this->load->library('ControlCode');
+            $this->load->model('Dosificacion_model');
+            $dosificacion = $this->Dosificacion_model->get_dosificacion_activa();
+
+            if (sizeof($dosificacion)>0){ //si existe una dosificacion activa
+                
+                $estado_id = 1;
+                $fechahoy = date("Y-m-d");
+                $total = $this->input->post('total_final');
+                $descontar = $this->input->post('descuento');
+                $venta_efectivo        = $this->input->post('total_final');
+                $factura_fechaventa    = $fechahoy; //$this->input->post('mensualidad_fecha');
+                $factura_fecha         = "date(now())";
+                $factura_hora          = "time(now())";
+                $factura_subtotal      = $total-$descontar;
+                $factura_nit           = $this->input->post('nit');
+                $factura_razonsocial   = $this->input->post('razon');
+                $factura_ice           = 0;
+                $factura_exento        = 0;
+                $factura_descuento     = $descontar;
+                $factura_total         = $total;
+                $factura_numero        = $dosificacion[0]['dosificacion_numfact']+1;
+                $factura_autorizacion  = $dosificacion[0]['dosificacion_autorizacion'];
+                $factura_llave         = $dosificacion[0]['dosificacion_llave'];
+                $factura_fechalimite   = $dosificacion[0]['dosificacion_fechalimite'];
+                $factura_codigocontrol = $this->codigo_control($factura_llave, $factura_autorizacion, $factura_numero, $factura_nit, $factura_fechaventa, $factura_total);
+                $factura_leyenda1       = $dosificacion[0]['dosificacion_leyenda1'];
+                $factura_leyenda2       = $dosificacion[0]['dosificacion_leyenda2'];
+                $factura_nitemisor     = $dosificacion[0]['dosificacion_nitemisor'];
+                $factura_sucursal      = $dosificacion[0]['dosificacion_sucursal'];
+                $factura_sfc           = $dosificacion[0]['dosificacion_sfc'];
+                $factura_actividad     = $dosificacion[0]['dosificacion_actividad'];
+
+                $sql = "update dosificacion set dosificacion_numfact = ".$factura_numero;
+                $this->Mensualidad_model->ejecutar($sql);
+                             
+                $sql = "insert into factura(estado_id, servicio_id, factura_fechaventa, 
+                    factura_fecha, factura_hora, factura_subtotal, 
+                    factura_ice, factura_exento, factura_descuento, factura_total, 
+                    factura_numero, factura_autorizacion, factura_llave, 
+                    factura_fechalimite, factura_codigocontrol, factura_leyenda1, factura_leyenda2,
+                    factura_nit, factura_razonsocial, factura_nitemisor, factura_sucursal, factura_sfc, factura_actividad,
+                    usuario_id, tipotrans_id, factura_efectivo, factura_cambio) value(".
+                    $estado_id.",".$inscripcion_id.",'".$factura_fechaventa."',".
+                    $factura_fecha.",".$factura_hora.",".$factura_subtotal.",".
+                    $factura_ice.",".$factura_exento.",".$factura_descuento.",".$factura_total.",".
+                    $factura_numero.",".$factura_autorizacion.",'".$factura_llave."','".
+                    $factura_fechalimite."','".$factura_codigocontrol."','".$factura_leyenda1."','".$factura_leyenda2."',".
+                    $factura_nit.",'".$factura_razonsocial."','".$factura_nitemisor."','".
+                    $factura_sucursal."','".$factura_sfc."','".$factura_actividad."',".
+                    $usuario_id.",1,".$venta_efectivo.",0)";
+
+                $factura_id = $this->Mensualidad_model->ejecutar($sql);
+                $esfactura_id = $factura_id;
+            
+            $producto_id = 0;
+            $cantidad = 1;
+            $detallefact_codigo = "-";
+            $detallefact_cantidad = $cantidad;
+            $cadena = "";
+            if($pagar_mensualidad >0){
+                if($pagar_mensualidad == 1){
+                    $cadena = "MENSUALIDAD ".$pagar_mensualidad;
+                }else{
+                    $cadena = "MENSUALIDADES ".$pagar_mensualidad;
+                }
+            }
+            $this->load->model('Carrera_model');
+            $carrera = $this->Carrera_model->get_carrera($carrera_id);
+            $this->load->model('Estudiante_model');
+            $elestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
+            $masdetalle = "INSCRIPCION, ".$cadena.", ".$carrera["carrera_nombre"].", ".$elestudiante["estudiante_nombre"]." ".$elestudiante["estudiante_apellidos"];
+            $eslaglosa = $this->input->post('inscripcion_glosa');
+            if($eslaglosa == ""){
+                $eslaglosa = "";
+            }else{ $eslaglosa = ", ".$eslaglosa; }
+            $detallefact_descripcion = $masdetalle.$eslaglosa;
+            $unidad = "";
+            
+            $precio = $total-$descontar;
+            $detallefact_precio = $precio;
+            $detallefact_subtotal =  $precio;
+            $detallefact_descuento = 0;
+            $detallefact_total = $factura_subtotal;
+            $detallefact_preferencia =  "";
+            $detallefact_caracteristicas = "";
+            
+            $sql =  "insert into detalle_factura(
+            producto_id,
+            factura_id,
+            detallefact_codigo,
+            detallefact_unidad,
+            detallefact_cantidad,            
+            detallefact_descripcion,
+            detallefact_precio,
+            detallefact_subtotal,
+            detallefact_descuento,
+            detallefact_total,                
+            detallefact_preferencia,
+            detallefact_caracteristicas)
+            
+            value(
+            ".$producto_id.",
+            ".$factura_id.",
+            '".$detallefact_codigo."',
+            '".$unidad."',
+            ".$detallefact_cantidad.",            
+            '".$detallefact_descripcion."',
+            ".$detallefact_precio.",
+            ".$detallefact_subtotal.",
+            ".$detallefact_descuento.",
+            ".$detallefact_total.",                
+            '".$detallefact_preferencia."',
+            '".$detallefact_caracteristicas."')";
+
+            $this->Mensualidad_model->ejecutar($sql);           
+            }
+        }
+        $datos= array($kardexacad_id, $esfactura_id);
+        echo json_encode($datos);
     }
     
     function getname_grupo(){
@@ -485,7 +615,18 @@ class Inscripcion extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }
-    
+    function codigo_control($dosificacion_llave, $dosificacion_autorizacion, $dosificacion_numfact, $nit,$fecha_trans, $monto)
+    {
+        //include 'ControlCode.php';
+        $code = $this->controlcode->generate($dosificacion_autorizacion,//Numero de autorizacion
+                                           $dosificacion_numfact,//Numero de factura
+                                           $nit,//Número de Identificación Tributaria o Carnet de Identidad
+                                           str_replace('-','',$fecha_trans),//fecha de transaccion de la forma AAAAMMDD
+                                           $monto,//Monto de la transacción
+                                           $dosificacion_llave//Llave de dosificación
+                                    );
+         return $code;
+    }
     
     
 }

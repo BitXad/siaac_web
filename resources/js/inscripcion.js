@@ -226,6 +226,15 @@ function seleccionar_efectivo(){
 
 function registrar_inscripcion(){
 
+    var eschecked = document.getElementById('escheck').checked;
+    var esfactura = "";
+    var nit = "";
+    var razon = "";
+    if(eschecked == true){
+        esfactura = "si";
+        var nit   = document.getElementById('nit').value;
+        var razon = document.getElementById('razon').value;
+    }else{ esfactura = "no"; }
     var estudiante_id = document.getElementById('estudiante_id').value;
     var paralelo_id = document.getElementById('paralelo_id').value;
     var nivel_id = document.getElementById('nivel_id').value;
@@ -239,6 +248,8 @@ function registrar_inscripcion(){
     var carrera_nummeses = document.getElementById('carrera_nummeses').value;
     var pagar_matricula = document.getElementById('pagar_matricula').value;
     var pagar_mensualidad = document.getElementById('pagar_mensualidad').value;
+    var total_final = document.getElementById('total_final').value;
+    var descuento = document.getElementById('descuento').value;
 
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/registrar_inscripcion";
@@ -261,7 +272,8 @@ function registrar_inscripcion(){
                     turno_id:turno_id,inscripcion_fechainicio:inscripcion_fechainicio, 
                     carrera_id:carrera_id, inscripcion_glosa:inscripcion_glosa,inscripcion_matricula:inscripcion_matricula,
                     inscripcion_mensualidad:inscripcion_mensualidad,carrera_nummeses:carrera_nummeses,
-                    pagar_matricula:pagar_matricula, pagar_mensualidad:pagar_mensualidad
+                    pagar_matricula:pagar_matricula, pagar_mensualidad:pagar_mensualidad, esfactura:esfactura,
+                    total_final:total_final, nit:nit, razon:razon, descuento:descuento
                 },
             success:function(respuesta){
                 var kardexacad_id =  JSON.parse(respuesta);
@@ -270,7 +282,7 @@ function registrar_inscripcion(){
                         var thismateria_id = materias[i].value;
                         var thisgrupo_id = document.getElementById('selgrupo'+thismateria_id).value;
                         if(thisgrupo_id >0){
-                            registrar_materiagrupo(kardexacad_id, thismateria_id, thisgrupo_id);
+                            registrar_materiagrupo(kardexacad_id[0], thismateria_id, thisgrupo_id);
                         }
                         //res = materias[i].value;
                        //cons += cons + ""
@@ -278,8 +290,11 @@ function registrar_inscripcion(){
                 }
                 $("#boton_imprimir").click();
                 location.href = base_url+"inscripcion/inscribir/0";
-                alert("Inscripcion realizada con éxito..!!");
-                
+                if(kardexacad_id[1] > 0){
+                    window.open( base_url+"factura/factura_carta_id/"+kardexacad_id[1], "_blank");
+                }else{
+                    alert("Inscripcion realizada con éxito..!!");
+                }
             },
             error:function(respuesta){
                 alert("proceso erroneo");

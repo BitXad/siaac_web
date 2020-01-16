@@ -49,9 +49,9 @@
         </td>
         <td width="300">
 
-<!--                <h5><b>Tipo: </b><?php echo $inscripcion[0]['tipotrans_nombre']; ?> <br>
+<!--                <h5><b>Tipo: </b><?php /*echo $inscripcion[0]['tipotrans_nombre']; ?> <br>
                 <b>Cred. Nº: </b><?php echo $inscripcion[0]['cliente_codigo']; ?> <br>
-                <b>Limite: </b><?php echo $inscripcion[0]['venta_fecha']; ?></h5>       -->
+                <b>Limite: </b><?php echo $inscripcion[0]['venta_fecha'];*/ ?></h5>       -->
         
         </td>            
     </tr>    
