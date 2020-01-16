@@ -11,7 +11,9 @@ class Mensualidad extends CI_Controller{
         $this->load->model('Mensualidad_model');
         $this->load->model('Institucion_model');
         $this->load->model('Kardex_economico_model');
+        $this->load->model('Dosificacion_model');
         $this->load->helper('numeros');
+        $this->load->library('ControlCode');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -226,6 +228,21 @@ class Mensualidad extends CI_Controller{
         }
     } 
 
+    function codigo_control($dosificacion_llave, $dosificacion_autorizacion, $dosificacion_numfact, $nit,$fecha_trans, $monto)
+    {
+
+        //include 'ControlCode.php';
+
+        $code = $this->controlcode->generate($dosificacion_autorizacion,//Numero de autorizacion
+                                                   $dosificacion_numfact,//Numero de factura
+                                                   $nit,//Número de Identificación Tributaria o Carnet de Identidad
+                                                   str_replace('-','',$fecha_trans),//fecha de transaccion de la forma AAAAMMDD
+                                                   $monto,//Monto de la transacción
+                                                   $dosificacion_llave//Llave de dosificación
+                        );        
+         return $code;
+    }
+
      function pagar($mensualidad_id)
     {
         if($this->acceso(48)){
@@ -243,7 +260,7 @@ class Mensualidad extends CI_Controller{
             $mensualidad_numero = $this->input->post('mensualidad_numero');
             $total = $this->input->post('mensualidad_montototal');
             $descontar = $this->input->post('mensualidad_descuento');
-             $params = array(
+            $params = array(
                 'usuario_id' => $usuario_id,
                 'estado_id' => 4,
                 'mensualidad_mora' => $this->input->post('mensualidad_mora'),
@@ -258,6 +275,108 @@ class Mensualidad extends CI_Controller{
                 'mensualidad_saldo' => $this->input->post('mensualidad_saldo'),
             );
             $this->Mensualidad_model->update_mensualidad($mensualidad_id,$params);
+            $facturado = $this->input->post('factura'.$mensualidad_id);
+            if($facturado=="on"){ //si la venta es facturada
+
+            $dosificacion = $this->Dosificacion_model->get_dosificacion_activa();
+
+  //          if (sizeof($dosificacion)>0){ //si existe una dosificacion activa
+                
+                $estado_id = 1; 
+                
+                $venta_efectivo    = $this->input->post('mensualidad_montocancelado');
+                $factura_fechaventa    = $this->input->post('mensualidad_fecha');
+                $factura_fecha         = "date(now())";
+                $factura_hora          = "time(now())";
+                $factura_subtotal      = $total-$descontar;
+                $factura_nit           = $this->input->post('mensualidad_ci');
+                $factura_razonsocial   = $this->input->post('mensualidad_nombre');
+                $factura_ice           = 0;
+                $factura_exento        = 0;
+                $factura_descuento     = $descontar;
+                $factura_total         = $total;
+                $factura_numero        = $dosificacion[0]['dosificacion_numfact']+1;
+                $factura_autorizacion  = $dosificacion[0]['dosificacion_autorizacion'];
+                $factura_llave         = $dosificacion[0]['dosificacion_llave'];
+                $factura_fechalimite   = $dosificacion[0]['dosificacion_fechalimite'];
+                $factura_codigocontrol = $this->codigo_control($factura_llave, $factura_autorizacion, $factura_numero, $factura_nit, $factura_fechaventa, $factura_total);
+                $factura_leyenda1       = $dosificacion[0]['dosificacion_leyenda1'];
+                $factura_leyenda2       = $dosificacion[0]['dosificacion_leyenda2'];
+                $factura_nitemisor     = $dosificacion[0]['dosificacion_nitemisor'];
+                $factura_sucursal      = $dosificacion[0]['dosificacion_sucursal'];
+                $factura_sfc           = $dosificacion[0]['dosificacion_sfc'];
+                $factura_actividad     = $dosificacion[0]['dosificacion_actividad'];
+
+                $sql = "update dosificacion set dosificacion_numfact = ".$factura_numero;
+                $this->Mensualidad_model->ejecutar($sql);
+                             
+                $sql = "insert into factura(estado_id, venta_id, factura_fechaventa, 
+                    factura_fecha, factura_hora, factura_subtotal, 
+                    factura_ice, factura_exento, factura_descuento, factura_total, 
+                    factura_numero, factura_autorizacion, factura_llave, 
+                    factura_fechalimite, factura_codigocontrol, factura_leyenda1, factura_leyenda2,
+                    factura_nit, factura_razonsocial, factura_nitemisor, factura_sucursal, factura_sfc, factura_actividad,
+                    usuario_id, tipotrans_id, factura_efectivo, factura_cambio) value(".
+                    $estado_id.",".$mensualidad_id.",'".$factura_fechaventa."',".
+                    $factura_fecha.",".$factura_hora.",".$factura_subtotal.",".
+                    $factura_ice.",".$factura_exento.",".$factura_descuento.",".$factura_total.",".
+                    $factura_numero.",".$factura_autorizacion.",'".$factura_llave."','".
+                    $factura_fechalimite."','".$factura_codigocontrol."','".$factura_leyenda1."','".$factura_leyenda2."',".
+                    $factura_nit.",'".$factura_razonsocial."','".$factura_nitemisor."','".
+                    $factura_sucursal."','".$factura_sfc."','".$factura_actividad."',".
+                    $usuario_id.",1,".$venta_efectivo.",0)";
+
+                $factura_id = $this->Mensualidad_model->ejecutar($sql);
+               
+            
+            $producto_id = 0;
+            $cantidad = 1;
+            $detallefact_codigo = "-";
+            $detallefact_cantidad = $cantidad;
+            $detallefact_descripcion = $this->input->post('factura_detalle'.$mensualidad_id);
+            $unidad = "";
+            
+            $precio = $total-$descontar;
+            $detallefact_precio = $precio;
+            $detallefact_subtotal =  $precio;
+            $detallefact_descuento = 0;
+            $detallefact_total = $factura_subtotal;
+            $detallefact_preferencia =  "";
+            $detallefact_caracteristicas = "";
+            
+            $sql =  "insert into detalle_factura(
+            producto_id,
+            venta_id,
+            factura_id,
+            detallefact_codigo,
+            detallefact_unidad,
+            detallefact_cantidad,            
+            detallefact_descripcion,
+            detallefact_precio,
+            detallefact_subtotal,
+            detallefact_descuento,
+            detallefact_total,                
+            detallefact_preferencia,
+            detallefact_caracteristicas)
+            
+            value(
+            ".$producto_id.",
+            ".$mensualidad_id.",
+            ".$factura_id.",
+            '".$detallefact_codigo."',
+            '".$unidad."',
+            ".$detallefact_cantidad.",            
+            '".$detallefact_descripcion."',
+            ".$detallefact_precio.",
+            ".$detallefact_subtotal.",
+            ".$detallefact_descuento.",
+            ".$detallefact_total.",                
+            '".$detallefact_preferencia."',
+            '".$detallefact_caracteristicas."')";
+
+            $this->Mensualidad_model->ejecutar($sql);           
+       //     }
+        }
 
             if($mensualidad_saldo>0){ 
                 $this->Mensualidad_model->parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id,$mes); 

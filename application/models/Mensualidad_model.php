@@ -29,6 +29,12 @@ class Mensualidad_model extends CI_Model
 
         return $mensualidad;
     }
+
+    function ejecutar($sql){
+         
+        $this->db->query($sql);
+        return $this->db->insert_id();
+    }
         
     /*
      * Get all mensualidad

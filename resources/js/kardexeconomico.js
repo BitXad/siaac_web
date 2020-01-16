@@ -15,9 +15,15 @@ if (tecla==13){
 
         if (opcion==2){   //si la pulsacion proviene del nombre  
             var nombre = document.getElementById('nombre').value;
+            
+            sql = "e.estudiante_nombre like '%"+nombre+"%'";
+            buscarestudiante(sql);
+        }
+
+        if (opcion==3){   //si la pulsacion proviene del apellido  
             var apellidos = document.getElementById('apellidos').value;
 
-            sql = "e.estudiante_nombre='"+nombre+"' or e.estudiante_apellidos='"+apellidos+"'";
+            sql = "e.estudiante_apellidos like '%"+apellidos+"%'";
             buscarestudiante(sql);
         }
     }
