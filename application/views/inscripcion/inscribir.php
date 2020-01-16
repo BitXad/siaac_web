@@ -52,6 +52,14 @@
 //
 //$(document).ready(localize());
 
+function mostrar_ocultar(){
+    var x = document.getElementById('escheck').checked;
+    if (x== true){
+        document.getElementById('nitraz').style.display = 'block';}
+    else{
+        document.getElementById('nitraz').style.display = 'none';}
+}
+
 </script>
 <script src="<?php echo base_url('resources/js/inscripcion.js'); ?>" type="text/javascript"></script>
 <input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
@@ -340,59 +348,87 @@ $session_data = $this->session->userdata('logged_in'); ?>
       	</div>
     </div>
     
- <div class="col-md-3">
-      	<div class="box box-info">
-           
-          	<div class="box-body table-responsive table-condensed">
-                                
-          		
-                            <center>
-                                <font size="5"><b>DETALLE INSCRIPCIÓN</b></font>
-                                <br><br>
-                            <table class="table table-condensed">
-                                <tr>
-                                    <td style="padding: 0" align="right">
-                                        <b>TOTAL FINAL Bs</b>
-                                    </td>
-                                    <td></td>
-                                    <td style="padding: 0">
-                                            
-                                        <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" style="font-size: 15px; font-weight: bolder; text-align:right;" size="5" name="total_final" value="0.00" id="total_final" readonly/>
-                                        
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td  style="padding: 0" align="right">                           
-                                        <b>DESC. Bs </b>
-                                    </td>
-                                    <td></td>
-                                    <td style="padding: 0">                                        
-                                            <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" size="5"  style="font-size: 15px; font-weight: bolder; text-align:right;" name="descuento" value="0.00" id="descuento" readonly/>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td   style="padding: 0" align="right">                   
-                                        <b>EFECTIVO Bs </b>
-                                    </td>
-                                    <td></td>
-                                    <td style="padding: 0">                                        
-                                        <input type="number" class="btn btn-sm btn-warning btn-foursquarexs" style="width: 94px;  font-size: 15px; font-weight: bolder; text-align:right;" name="efectivo" value="0.00" id="efectivo" onkeyup="calcular()" onclick="seleccionar_efectivo()"/>
-                                    </td>                                    
-                                </tr>
+<div class="col-md-3">
+    <div class="box box-info">
+        <div class="box-body table-responsive table-condensed">
+            <center>
+                <font size="5"><b>DETALLE INSCRIPCIÓN</b></font>
+                <br><br>
+                <!--<div>
+                    <div style="display: flex; white-space: nowrap">
+                        NIT:
+                    </div>
+                    <div>
+                        <input type="text" name="nit" value="0.00" id="nit"/>
+                    </div>
+                    <div>
+                        RAZON:
+                    </div>
+                    <div>
+                        <input type="text" name="razon" value="0.00" id="razon"/>
+                    </div>
+                </div>-->
+                <input type="checkbox" name="escheck" id="escheck" style="display: flex" onclick="mostrar_ocultar()" />
+                <table class="table table-condensed" style="display: none" id="nitraz">
+                    <tr>
+                        <td style="font-weight: bold; text-align: right; border: 0px; padding: 0px; padding-top: 3px; padding-right: 4px">
+                            
+                            NIT:
+                        </td>
+                        <td style="border: 0px; padding: 0px">
+                            <input type="text" name="nit" value="<?php echo $estudiante[0]["estudiante_nit"]; ?>" id="nit"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; text-align: right; border: 0px; padding: 0px; padding-top: 3px; padding-right: 4px">
+                            RAZON:
+                        </td>
+                        <td style="border: 0px; padding: 0px">
+                            <input type="text" name="razon" value="<?php echo $estudiante[0]["estudiante_razon"]; ?>" id="razon"/>
+                        </td>
+                    </tr>
+                </table>
+                <table class="table table-condensed">
+                    <tr>
+                        <td style="padding: 0" align="right">
+                            <b>TOTAL FINAL Bs</b>
+                        </td>
+                        <td></td>
+                        <td style="padding: 0">
+                            <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" style="font-size: 15px; font-weight: bolder; text-align:right;" size="5" name="total_final" value="0.00" id="total_final" readonly/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  style="padding: 0" align="right">                           
+                            <b>DESC. Bs </b>
+                        </td>
+                        <td></td>
+                        <td style="padding: 0">                                        
+                                <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" size="5"  style="font-size: 15px; font-weight: bolder; text-align:right;" name="descuento" value="0.00" id="descuento" readonly/>
+                        </td>
+                    </tr>
 
-                                <tr>
-                                    <td  style="padding: 0" align="right">
-                                        <b>CAMBIO Bs </b>
-                                    </td>
-                                    <td></td>
-                                    <td style="padding: 0">
-                                        <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" size="5"  style="font-size: 15px; font-weight: bolder; text-align:right;" name="inscripcion_glosa" value="0.00" id="cambio" readonly/>
-                                    </td>
-                                </tr>                            
-                            </table>
-                            </center>
+                    <tr>
+                        <td   style="padding: 0" align="right">                   
+                            <b>EFECTIVO Bs </b>
+                        </td>
+                        <td></td>
+                        <td style="padding: 0">                                        
+                            <input type="number" class="btn btn-sm btn-warning btn-foursquarexs" style="width: 94px;  font-size: 15px; font-weight: bolder; text-align:right;" name="efectivo" value="0.00" id="efectivo" onkeyup="calcular()" onclick="seleccionar_efectivo()"/>
+                        </td>                                    
+                    </tr>
+
+                    <tr>
+                        <td  style="padding: 0" align="right">
+                            <b>CAMBIO Bs </b>
+                        </td>
+                        <td></td>
+                        <td style="padding: 0">
+                            <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" size="5"  style="font-size: 15px; font-weight: bolder; text-align:right;" name="inscripcion_glosa" value="0.00" id="cambio" readonly/>
+                        </td>
+                    </tr>                            
+                </table>
+            </center>
                      
                     
                     
