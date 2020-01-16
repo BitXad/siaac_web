@@ -45,7 +45,7 @@ class Nivel_model extends CI_Model
             WHERE
                 n.planacad_id = pa.planacad_id
 
-            ORDER BY `nivel_id` DESC
+            ORDER BY planacad_id,nivel_descripcion ASC
         ")->result_array();
 
         return $nivel;

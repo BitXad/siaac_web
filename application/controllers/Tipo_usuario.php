@@ -33,7 +33,6 @@ class Tipo_usuario extends CI_Controller{
     {
         if($this->acceso(70)){
             $data['tipo_usuario'] = $this->Tipo_usuario_model->get_all_tipo_usuario();
-            $data['page_title'] = "Tipo Usuario";
             $data['_view'] = 'tipo_usuario/index';
             $this->load->view('layouts/main',$data);
         }

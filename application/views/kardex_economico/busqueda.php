@@ -24,7 +24,7 @@
         <div class="col-md-3">
             <label for="apellidos" class="control-label">Apellidos</label>
             <div class="form-group">
-                <input type="text" name="apellidos" class="form-control" id="apellidos"  autocomplete="off" onkeypress="validar(event,2)"  />
+                <input type="text" name="apellidos" class="form-control" id="apellidos"  autocomplete="off" onkeypress="validar(event,3)"  />
             </div>
         </div>
         
