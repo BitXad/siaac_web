@@ -48,6 +48,7 @@ class Mensualidad extends CI_Controller{
         if($this->acceso(47)){
             $data['mensualidad'] = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
             $data['kardex_economico'] = $this->Kardex_economico_model->get_datos_kardex($kardexeco_id);
+            $data['dosificacion'] = $this->Dosificacion_model->get_dosificacion_activa();
             $data['_view'] = 'mensualidad/mensualidades';
             $this->load->view('layouts/main',$data);
         }

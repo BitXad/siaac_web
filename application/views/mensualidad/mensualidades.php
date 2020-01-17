@@ -254,9 +254,11 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
                <h2><b> <span class="mail-box" >Cancelar mensualidad<br><i class="fa fa-money"></i>
                     <?php echo $m['mensualidad_montototal']; ?></span>
               </b></h2>
+              <?php if(count($dosificacion) >0){ ?>
               <button class="btn btn-info btn-xs" type="button">
               <input type="checkbox" name="factura<?php echo $m['mensualidad_id']; ?>" id="factura<?php echo $m['mensualidad_id']; ?>"  onclick="facturar(<?php echo $m['mensualidad_id'] ?>)"  />
               <label for="factura<?php echo $m['mensualidad_id']; ?>"> Generar Factura</label></button>
+              <?php  }else{ echo "<span class='text-bold text-red'>Dosificación no activa</span>"; } ?>
           </div>
           <div class="col-md-12">
             <input type="hidden" name="mensualidad_id" value="<?php echo $m['mensualidad_id']; ?>" class="form-control" id="mensualidad_id" />
