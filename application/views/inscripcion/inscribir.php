@@ -305,7 +305,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                                     <select id="pagar_matricula" name="pagar_matricula"  class="form-control" onchange="calcular()">
                                                         <option value="1">PAGAR MATRICULA</option>
                                                         <option value="0">- NO - PAGAR MATRICULA</option>
-                                                        <option value="0">PAGAR MATRICULA DESPUES</option>
+                                                        <option value="2">PAGAR MATRICULA DESPUES</option>
                                                     </select>
                                                 </div>
 					</div>
@@ -354,21 +354,10 @@ $session_data = $this->session->userdata('logged_in'); ?>
             <center>
                 <font size="5"><b>DETALLE INSCRIPCIÓN</b></font>
                 <br><br>
-                <!--<div>
-                    <div style="display: flex; white-space: nowrap">
-                        NIT:
-                    </div>
-                    <div>
-                        <input type="text" name="nit" value="0.00" id="nit"/>
-                    </div>
-                    <div>
-                        RAZON:
-                    </div>
-                    <div>
-                        <input type="text" name="razon" value="0.00" id="razon"/>
-                    </div>
-                </div>-->
+                <?php if(count($dosificacion) >0){ ?>
                 <input type="checkbox" name="escheck" id="escheck" style="display: flex" onclick="mostrar_ocultar()" />
+                <?php }else{ echo "<span class='text-bold text-red'>Dosificación no activa</span>"; } ?>
+                
                 <table class="table table-condensed" style="display: none" id="nitraz">
                     <tr>
                         <td style="font-weight: bold; text-align: right; border: 0px; padding: 0px; padding-top: 3px; padding-right: 4px">

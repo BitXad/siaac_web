@@ -38,6 +38,18 @@
     }
 </script>
 <script type="text/javascript">
+    $(document).ready(function(){
+    $("#carrera_nombre").change(function(){
+        var nombre = $("#carrera_nombre").val();
+        var cad1 = nombre.substring(0,2);
+        var cad2 = nombre.substring(nombre.length-1,nombre.length);
+        var cad = cad1+cad2;
+        $('#carrera_codigo').val(cad);
+    });
+  });
+    
+</script>
+<script type="text/javascript">
     /*function cambiarprereq(nivel_id){
         var res = document.getElementById('prerequisito'+nivel_id).checked;
         if(res){
@@ -62,13 +74,13 @@
                 </div>
                 <div class="col-md-5">
                     <label for="carrera_id" class="control-label">Carrera
-                        <a href="<?php echo site_url('carrera'); ?>" class="btn btn-xs btn-xs btn-info" title="Modificar carreras"><i class="fa fa-file-text"></i></a>
+                        <a href="<?php echo site_url('carrera'); ?>" class="btn btn-xs btn-xs btn-info no-print" title="Modificar carreras"><i class="fa fa-file-text"></i></a>
                     </label>
                     <div class="form-group" id="sonlascarreras"></div>
                 </div>
                 <div class="col-md-5">
-                    <label for=´planacad_id" class="control-label">Plan Academico
-                        <a href="<?php echo site_url('plan_academico'); ?>" class="btn btn-xs btn-xs btn-info" title="Modificar planes academicos"><i class="fa fa-file-text"></i></a>
+                    <label for="planacad_id" class="control-label">Plan Academico
+                        <a href="<?php echo site_url('plan_academico'); ?>" class="btn btn-xs btn-xs btn-info no-print" title="Modificar planes academicos"><i class="fa fa-file-text"></i></a>
                     </label>
                     <div class="form-group" id="elegirplanacad">
                         <select name="planacad_id" class="form-control">
@@ -122,7 +134,7 @@
                 <div class='col-md-6'>
                     <label for='nivel_id' class='control-label'><span class="text-danger">*</span>Nivel</label>
                     <div class='form-group'>
-                        <input type='text' name='nivel_descripcion' class='form-control' id='nivel_descripcion' required autocomplete="off" />
+                        <input type='text' name='nivel_descripcion' class='form-control' id='nivel_descripcion' required autocomplete="off" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                     </div>
                     <input type='hidden' name='hplanacad_id' class='form-control' id='hplanacad_id'/>
                 </div>
@@ -176,12 +188,11 @@
                     <label for="areacarrera_id" class="control-label"><span class="text-danger">*</span>Area</label>
                     <div class="form-group">
                         <select name="areacarrera_id" class="form-control" id="areacarrera_id" required>
-                            <option value="">- AREA -</option>
+                            <!--<option value="">- AREA -</option>-->
                             <?php 
                             foreach($all_areacarrera as $areacarrera)
                             {
                                 $selected = ($areacarrera['areacarrera_id'] == $this->input->post('areacarrera_id')) ? ' selected="selected"' : "";
-
                                 echo '<option value="'.$areacarrera['areacarrera_id'].'" '.$selected.'>'.$areacarrera['areacarrera_nombre'].'</option>';
                             } 
                             ?>

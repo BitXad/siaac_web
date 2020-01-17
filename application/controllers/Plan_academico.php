@@ -434,9 +434,9 @@ class Plan_academico extends CI_Controller{
             if($this->form_validation->run())     
             {
                 //por ser Nueva Carrera
-                //$estado_id = 1;
+                $estado_id = 1;
                 $params = array(
-                        //'estado_id' => $estado_id,
+                        'estado_id' => $estado_id,
                         'areacarrera_id' => $this->input->post('areacarrera_id'),
                         'carrera_nombre' => $this->input->post('carrera_nombre'),
                         'carrera_nombreinterno' => $this->input->post('carrera_nombre'),

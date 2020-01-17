@@ -97,22 +97,21 @@ function new_planacademico(carrera_id){
     html += "<div class='col-md-6'>";
     html += "<label for='planacad_nombre' class='control-label'><span class='text-danger'>*</span>Nombre</label>";
     html += "<div class='form-group'>";
-    html += "<input type='text' name='planacad_nombre' class='form-control' id='planacad_nombre' required />";
+    html += "<input type='text' name='planacad_nombre' class='form-control' id='planacad_nombre' onchange='generar_codigoplan()' required onkeyup='var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);' />";
     html += "</div>";
     html += "</div>";
 
     html += "<div class='col-md-6'>";
     html += "<label for='planacad_codigo' class='control-label'>Código&nbsp;&nbsp;";
-
     html += "</label>";
     html += "<div class='form-group'>";
-    html += "<input type='text' name='planacad_codigo' class='form-control' id='planacad_codigo' required />";
+    html += "<input type='text' name='planacad_codigo' class='form-control' id='planacad_codigo' required onkeyup='var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);' />";
     html += "</div>";
     html += "</div>";
     html += "<div class='col-md-6'>";
     html += "<label for='planacad_titmodalidad' class='control-label'>Titulo/Modalidad</label>";
     html += "<div class='form-group'>";
-    html += "<input type='text' name='planacad_titmodalidad' class='form-control' id='planacad_titmodalidad' required />";
+    html += "<input type='text' name='planacad_titmodalidad' class='form-control' id='planacad_titmodalidad' required onkeyup='var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);' />";
     html += "</div>";
     html += "</div>";
     html += "<!------------------------------------------------------------------->";
@@ -148,7 +147,8 @@ function elegir_planiveles(planacad_id){
         html += "</div>";
         
         //var html1 = "<a href='"+base_url+"plan_academico/print_planacademico/"+planacad_id+"' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
-        var html1 = "<a href='javascript:window.print(); void 0;' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
+        //var html1 = "<a href='javascript:window.print(); void 0;' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
+        var html1 = "<a onclick='imprimir_plan()' id='imprimir' class='btn btn-sq-lg btn-success no-print' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
         //$('#bnewnivel').attr("disabled", false);
         //$("#nuevonivel").css('visibility', 'visible');
         $("#imprimirplanacademico").html(html1);
@@ -307,27 +307,27 @@ function dibujar_nivel(planacad_id){
                             html += "<div class='col-md-6'>";
                             html += "<label for='materia_nombre"+registros[i]['nivel_id']+"' class='control-label'><span class='text-danger'>*</span>Nombre</label>";
                             html += "<div class='form-group'>";
-                            html += "<input type='text' name='materia_nombre"+registros[i]['nivel_id']+"' onchange='replicar_a_alias("+registros[i]['nivel_id']+")' class='form-control' id='materia_nombre"+registros[i]['nivel_id']+"' required />";
+                            html += "<input type='text' name='materia_nombre"+registros[i]['nivel_id']+"' onchange='replicar_a_alias("+registros[i]['nivel_id']+")' class='form-control' id='materia_nombre"+registros[i]['nivel_id']+"' required onkeyup='var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);' />";
                             html += "</div>";
                             html += "</div>";
                             
                             html += "<div class='col-md-6'>";
                             html += "<label for='materia_alias"+registros[i]['nivel_id']+"' class='control-label'><span class='text-danger'>*</span>Alias</label>";
                             html += "<div class='form-group'>";
-                            html += "<input type='text' name='materia_alias"+registros[i]['nivel_id']+"' class='form-control' id='materia_alias"+registros[i]['nivel_id']+"' />";
+                            html += "<input type='text' name='materia_alias"+registros[i]['nivel_id']+"' class='form-control' id='materia_alias"+registros[i]['nivel_id']+"' onkeyup='var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);' />";
                             html += "</div>";
                             html += "</div>";
                             html += "<div class='col-md-6'>";
                             html += "<label for='materia_codigo"+registros[i]["nivel_id"]+"' class='control-label'><span class='text-danger'>*</span>Codigo</label>";
                             html += "<div class='form-group'>";
-                            html += "<input type='text' name='materia_codigo"+registros[i]["nivel_id"]+"' class='form-control' id='materia_codigo"+registros[i]["nivel_id"]+"' />";
+                            html += "<input type='text' name='materia_codigo"+registros[i]["nivel_id"]+"' class='form-control' id='materia_codigo"+registros[i]["nivel_id"]+"' onkeyup='var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);' />";
                             html += "</div>";
                             html += "</div>";
                             html += "<div class='col-md-6'>";
                             html += "<label for='area_id"+registros[i]["nivel_id"]+"' class='control-label'><span class='text-danger'>*</span>Area</label>";
                             html += "<div class='form-group'>";
                             html += "<select name='area_id"+registros[i]["nivel_id"]+"' class='form-control' id='area_id"+registros[i]["nivel_id"]+"' required>";
-                            html += "<option value=''>- AREA -</option>";
+                            //html += "<option value=''>- AREA -</option>";
                             for (var a = 0; a < canta ; a++){
                                 html += "<option value='"+all_area[a]["area_id"]+"'>"+all_area[a]["area_nombre"]+"</option>"; 
                             }
@@ -598,6 +598,12 @@ function getprerequisito(mat_materia_id){
 function replicar_a_alias(nivel_id){
     var res = $('#materia_nombre'+nivel_id).val();
     $('#materia_alias'+nivel_id).val(res);
+    
+    var cad1 = res.substring(0,2);
+    var cad2 = res.substring(res.length-1,res.length);
+    var cad = cad1+cad2;
+    $('#materia_codigo'+nivel_id).val(cad);
+    
 }
 /* **************Registrar nueva MATERIA en un NIVEL***************** */
 function registro_newmateria(nivel_id, planacad_id){
@@ -837,7 +843,8 @@ function borrardatosmodal(){
     document.getElementById('carrera_nombre').value = "";
     document.getElementById('carrera_codigo').value = "";
     document.getElementById('carrera_nivel').value = "";
-    document.getElementById('areacarrera_id').value = "";
+    $('#areacarrera_id').find('option:first').attr('selected', 'selected').parent('select');
+    //document.getElementById('areacarrera_id').value = "";
     document.getElementById('carrera_modalidad').value = "";
     //document.getElementById('carrera_plan').value = "";
     document.getElementById('carrera_tiempoestudio').value = "";
@@ -847,7 +854,20 @@ function borrardatosmodal(){
     document.getElementById('carrera_mensualidad').value = "";
    
 }
-
+function generar_codigoplan(){
+    //var base_url = document.getElementById('planacad_nombre').value;
+    var nombre = $("#planacad_nombre").val();
+        var cad1 = nombre.substring(0,2);
+        var cad2 = nombre.substring(nombre.length-1,nombre.length);
+        var cad = cad1+cad2;
+        $('#planacad_codigo').val(cad);
+   
+}
+function imprimir_plan(){
+    /*var estafh = new Date();
+    $('#fhimpresion').html(formatofecha_hora_ampm(estafh));*/
+    window.print();
+}
 
 
 
