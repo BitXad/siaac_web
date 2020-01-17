@@ -2,6 +2,11 @@
     function reflejarnombre(){
         var estenombre = $('#carrera_nombre').val();
         $('#carrera_nombreinterno').val(estenombre);
+        
+        var cad1 = estenombre.substring(0,2);
+        var cad2 = estenombre.substring(estenombre.length-1,estenombre.length);
+        var cad = cad1+cad2;
+        $('#carrera_codigo').val(cad);
     }
 </script>
 <div class="row">
@@ -41,7 +46,7 @@
                         <label for="areacarrera_id" class="control-label"><span class="text-danger">*</span>Area</label>
                         <div class="form-group">
                             <select name="areacarrera_id" class="form-control" id="areacarrera_id" required>
-                                <option value="">- AREA -</option>
+                                <!--<option value="">- AREA -</option>-->
                                 <?php 
                                 foreach($all_areacarrera as $areacarrera)
                                 {

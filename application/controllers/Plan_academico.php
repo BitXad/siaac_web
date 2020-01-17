@@ -103,11 +103,12 @@ class Plan_academico extends CI_Controller{
                 }
                 else
                 {
+                    $tipo = 1;
                     $this->load->model('Estado_model');
-                    $data['all_estado'] = $this->Estado_model->get_all_estado();
+                    $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
 
                     $this->load->model('Carrera_model');
-                    $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+                    $data['all_carrera'] = $this->Carrera_model->get_all_carrerasok();
 
                     $data['_view'] = 'plan_academico/edit';
                     $this->load->view('layouts/main',$data);

@@ -26,6 +26,15 @@
         $('#planacad_codigo').val(anio+mes+dia+hora+min+seg);
     }
 </script>
+<script type="text/javascript">
+    function nombre_codigo(){
+        var estenombre = $('#planacad_nombre').val();
+        var cad1 = estenombre.substring(0,2);
+        var cad2 = estenombre.substring(estenombre.length-1,estenombre.length);
+        var cad = cad1+cad2;
+        $('#planacad_codigo').val(cad);
+    }
+</script>
 <div class="row">
     <div class="col-md-12">
       	<div class="box box-info">
@@ -41,7 +50,7 @@
 					<div class="col-md-6">
 						<label for="planacad_nombre" class="control-label"><span class="text-danger">*</span>Nombre</label>
 						<div class="form-group">
-                                                    <input type="text" name="planacad_nombre" value="<?php echo $this->input->post('planacad_nombre'); ?>" class="form-control" id="planacad_nombre" required />
+                                                    <input type="text" name="planacad_nombre" value="<?php echo $this->input->post('planacad_nombre'); ?>" onchange="nombre_codigo()" class="form-control" id="planacad_nombre" required onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
 							<span class="text-danger"><?php echo form_error('planacad_nombre');?></span>
 						</div>
 					</div>
@@ -54,7 +63,7 @@
 					<div class="col-md-6">
 						<label for="planacad_codigo" class="control-label">Código</label>
 						<div class="form-group">
-							<input type="text" name="planacad_codigo" value="<?php echo $this->input->post('planacad_codigo'); ?>" class="form-control" id="planacad_codigo" />
+							<input type="text" name="planacad_codigo" value="<?php echo $this->input->post('planacad_codigo'); ?>" class="form-control" id="planacad_codigo" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
 						</div>
 					</div>
                                         <div class="col-md-6">
@@ -76,7 +85,7 @@
 					<div class="col-md-6">
 						<label for="planacad_titmodalidad" class="control-label">Titulo/Modalidad</label>
 						<div class="form-group">
-							<input type="text" name="planacad_titmodalidad" value="<?php echo $this->input->post('planacad_titmodalidad'); ?>" class="form-control" id="planacad_titmodalidad" />
+							<input type="text" name="planacad_titmodalidad" value="<?php echo $this->input->post('planacad_titmodalidad'); ?>" class="form-control" id="planacad_titmodalidad" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
 						</div>
 					</div>
 					<!--<div class="col-md-6">

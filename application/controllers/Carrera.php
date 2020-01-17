@@ -52,8 +52,10 @@ class Carrera extends CI_Controller{
             $this->form_validation->set_rules('areacarrera_id','Area Carrera','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 
             if($this->form_validation->run())     
-            {   
+            {
+                $estado_id = 1;
                 $params = array(
+                    'estado_id' => $estado_id,
                     'areacarrera_id' => $this->input->post('areacarrera_id'),
                     'carrera_nombre' => $this->input->post('carrera_nombre'),
                     'carrera_nombreinterno' => $this->input->post('carrera_nombreinterno'),
