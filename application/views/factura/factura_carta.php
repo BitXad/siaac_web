@@ -42,13 +42,13 @@
   </div>-->
 
 
-<!--<script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function()
     {
         window.onload = window.print();
 
     });
-</script>-->
+</script>
 <!----------------------------- script buscador --------------------------------------->
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
 
@@ -248,7 +248,7 @@ border-bottom : 1px solid #aaa;
                             ____________________________________________________
                             <font size="1px" face="arial narrow">
                                 <small>
-                                        <?php echo $factura[0]['factura_actividad']?>
+                                    <br> <?php echo $factura[0]['factura_actividad']?>
                                 </small>
                             </font>
                     

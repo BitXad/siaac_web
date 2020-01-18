@@ -12,18 +12,31 @@ function cerrar() {
 <div class="row">
     <div class="col-md-12">
         <div class="box">
+                <h3 class="box-title"><center><b>KARDEX ECONOMICO</b></center> </h3>
             <div class="box-header">
-                <h3 class="box-title">Plan de Pagos Mensualidades</h3>
-                <div class="col-md-12">
-                <div class="col-md-6">
-                <h5>Estudiante: <?php echo $kardex_economico[0]['estudiante_nombre']." ". $kardex_economico[0]['estudiante_apellidos']; ?></h5>
-                <h5>Carrera: <?php echo $kardex_economico[0]['carrera_nombre']; ?></h5>
+                <div class="col-md-12 ">
+                <div class="panel col-md-2" style="padding:0;"> 
+                    <center>
+                        <?php
+                        if($kardex_economico[0]["estudiante_id"] >0){
+                            $direcimagen = base_url("resources/images/estudiantes/").$kardex_economico[0]["estudiante_foto"];
+                        }else{
+                            $direcimagen ="";
+                        }
+                        ?>
+                    <img src="<?php echo $direcimagen; ?>" width="80" height="100" class="img-bordered-sm">                                
+                    </center>
                 </div>
-                <div class="col-md-6">
-                <h5>Matricula: <?php echo number_format($kardex_economico[0]['kardexeco_matricula'], 2, ".", ","); ?></h5>
-                <h5>No. Mensualidades: <?php echo $kardex_economico[0]['kardexeco_nummens']; ?></h5>
+                <div class="col-md-5">
+                    <h5><b>Estudiante:</b> <?php echo $kardex_economico[0]['estudiante_nombre']." ". $kardex_economico[0]['estudiante_apellidos']; ?></h5>
+                <h5><b>Carrera:</b> <?php echo $kardex_economico[0]['carrera_nombre']; ?></h5>
+                </div>
+                <div class="col-md-5">
+                <h5><b>Matricula:</b> <?php echo number_format($kardex_economico[0]['kardexeco_matricula'], 2, ".", ","); ?></h5>
+                <h5><b>No. Mensualidades:</b> <?php echo $kardex_economico[0]['kardexeco_nummens']; ?></h5>
                 </div>
                 </div>
+                
 
             	<div class="box-tools">
                     <a class="btn btn-success btn-xs" data-toggle="modal" data-target="#nuevamensu"><span class="fa fa-edit"></span> Nueva Mensualidad</a>
@@ -233,6 +246,10 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
                           <?php }else { ?>
                              <a href="<?php echo site_url("mensualidad/pendiente/".$m['mensualidad_id']."/".$m['kardexeco_id']."/".$m['mensualidad_descuento']."/".$m['mensualidad_numero']); ?>" title="REESTABLECER" class="btn btn-info btn-xs"><span class="fa fa-undo"></span></a>
                              <a href="<?php echo site_url('mensualidad/boucher/'.$m['mensualidad_id']); ?>" target="_blank" class="btn btn-success btn-xs"><span class="fa fa-print"></span></a>
+                             <?php if ($m['factura_id']>0) {
+                              ?>
+                             <a href="<?php echo site_url('factura/factura_boucher_id/'.$m['factura_id']); ?>" target="_blank" class="btn btn-warning btn-xs"><span class="fa fa-list"></span></a>
+                           <?php } ?>
                         </td>  
                        <?php } ?>
                     
