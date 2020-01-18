@@ -88,7 +88,7 @@ class Factura_model extends CI_Model
                 and factura_fechaventa <= '".$fin."'
                 
 
-            ORDER BY `factura_id` DESC
+            ORDER BY `factura_numero` ASC
         ")->result_array();
 
         return $factura;
@@ -108,7 +108,7 @@ class Factura_model extends CI_Model
                 and factura_fecha <= '".$fin."' 
                 
 
-            ORDER BY `factura_id` DESC
+            ORDER BY `factura_id` ASC
         ")->result_array();
 
         return $factura;
