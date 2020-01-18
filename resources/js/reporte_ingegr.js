@@ -151,6 +151,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                         
                        html += "<td>"+formatofecha_hora(registros[i]["fecha"])+"</td>";
                        html += "<td>"+registros[i]["detalle"]+"</td>";
+                       html += "<td></td>";
                        //html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
                        html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["egreso"]).toFixed(2))+"</td>";
                        /*if(registros[i]['tipo'] == 3 || registros[i]['tipo'] == 2){
@@ -230,9 +231,9 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                    //para mostrar saldo en caja
                     saldoencaja = "<table style='width:100%;' class='table table-striped table-condensed' id='tablasinespacio'><tr style='font-size: 12px'><td style='width:5%;'> </td><td style='width:61%;' id='alinearder'><b>SALDO EFECTIVO EN CAJA: </b></td><td style='width:17%;'></td><td style='width:17%;' id='alinearder'><b>"+numberFormat(Number((totalingreso1+totalingreso2+totalingreso3)-totalegreso).toFixed(2))+"</b></td></tr></table>";
                     /* *****************INICIO para reporte TOTAL****************** */
-                    cabecerahtmlt= "<label  class='control-label'><a href='#' class='btn btn-success btn-sm no-print' id='mostotal' onclick='mostrartotal(); return false'>REPORTE TOTAL</a></label>";
+                    //cabecerahtmlt= "<label  class='control-label'><a href='#' class='btn btn-success btn-sm no-print' id='mostotal' onclick='mostrartotal(); return false'>REPORTE TOTAL</a></label>";
                     
-                    cabecerahtmlt += "<table class='table table-striped table-condensed' id='mitabladetimpresion' style='width: 100%'>";
+                    cabecerahtmlt = "<table class='table table-striped table-condensed' id='mitabladetimpresion' style='width: 100%'>";
                     cabecerahtmlt += "<tr>";
                     cabecerahtmlt += "<th style='width: 2%'>N°</th>";
                     cabecerahtmlt += "<th style='width: 15%'>Fecha</th>";
