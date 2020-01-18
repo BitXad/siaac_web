@@ -46,7 +46,7 @@
                 <label class="control-label">Empresa</label>
             </div>
             <div class="col-md-3">
-                <?php echo $dosificacion['empresa_nombre']; ?>
+                <?php echo $dosificacion['institucion_nombre']; ?>
             </div>
             <div class="col-md-1">
                 <label class="control-label">Fecha Limite</label>

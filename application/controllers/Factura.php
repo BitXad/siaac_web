@@ -11,6 +11,10 @@ class Factura extends CI_Controller{
         $this->load->model('Factura_model');
         $this->load->model('Institucion_model');    
         $this->load->model('Parametro_model');
+        
+       // $this->load->model('Preferencia_model');
+        $this->load->library('ControlCode');
+        
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -522,5 +526,134 @@ class Factura extends CI_Controller{
         else
             show_error('The factura you are trying to delete does not exist.');
     }
+
+    function verificador()
+    {
+        if($this->acceso(47)){
+//        if ($this->session->userdata('logged_in')) {
+//            $this->session_data = $this->session->userdata('logged_in');
+//            if($this->session_data['tipousuario_id']==1 or $this->session_data['tipousuario_id']==4) {
+//                $data = array(
+//                    'page_title' => 'Admin >> Mi Cuenta'
+//                );
+        //**************** inicio contenido ***************            
+        
+            
+
+            $data['page_title'] = "Verificador";
+            $data['_view'] = 'factura/verificador';
+            $this->load->view('layouts/main',$data);
+        }
+    }
+
+    function codigo_control($dosificacion_llave, $dosificacion_autorizacion, $dosificacion_numfact, $nit,$fecha_trans, $monto)
+    {
+
+        //include 'ControlCode.php';
+
+        $code = $this->controlcode->generate($dosificacion_autorizacion,//Numero de autorizacion
+                                                   $dosificacion_numfact,//Numero de factura
+                                                   $nit,//Número de Identificación Tributaria o Carnet de Identidad
+                                                   str_replace('-','',$fecha_trans),//fecha de transaccion de la forma AAAAMMDD
+                                                   $monto,//Monto de la transacción
+                                                   $dosificacion_llave//Llave de dosificación
+                        );        
+         return $code;
+    }
+        
+    
+    function codigocontrol(){
+        
+        
+        
+        $llave = $this->input->post('llave');
+        $autorizacion = $this->input->post('autorizacion');
+        $numero = $this->input->post('numero');
+        $nit = $this->input->post('nit');
+        $fecha = $this->input->post('fecha');
+        $monto = $this->input->post('monto');
+        $bandera = $this->input->post('bandera');
+        
+        
+        
+        $codigo = $this->codigo_control($llave, $autorizacion, $numero, $nit,$fecha, $monto);
+
+        echo '[{codigocontrol:"'.$codigo.'"}]';
+
+    }    
+        
+    function factura_compra()
+    {
+        if($this->acceso(73-1)){
+        //**************** inicio contenido ***************            
+        
+        $params['limit'] = RECORDS_PER_PAGE; 
+        $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+        
+        $config = $this->config->item('pagination');
+        $config['base_url'] = site_url('factura/index?');
+        $config['total_rows'] = $this->Factura_model->get_all_factura_count();
+        $this->pagination->initialize($config);
+
+        $data['factura'] = $this->Factura_model->get_all_factura($params);
+        
+        $data['_view'] = 'factura/factura_compra';
+        $this->load->view('layouts/main',$data);
+                
+        //**************** fin contenido ***************
+        }
+    }    
+    
+  
+    function mostrar_facturas()
+    {
+        $usuario_id = $this->session_data['usuario_id'];
+
+        if ($this->input->is_ajax_request()) {
+            
+            $desde = $this->input->post("desde");
+            $hasta = $this->input->post("hasta");            
+            $opcion = $this->input->post('opcion');   
+            
+            if ($opcion==1){
+                $datos = $this->Factura_model->get_factura_ventas($desde,$hasta);
+            }
+            else{
+                $datos = $this->Factura_model->get_factura_compras($desde,$hasta);
+            }
+            
+            echo json_encode($datos);
+            
+        }
+        else
+        {                 
+            show_404();
+        }
+    }    
+    
+    /*
+     * Realizado por: Roberto Carlos Soto Sierra
+     * Fecha: 05.05.2019
+     */
+    function imprimir_factura_id($factura_id)
+    {
+        if($this->acceso(73-1)){
+        //**************** inicio contenido ***************            
+                
+            $parametros = $this->Parametro_model->get_parametros();
+
+            if (sizeof($parametros)>0){
+                
+                if ($parametros[0]['parametro_tipoimpresora']=="FACTURADORA")
+                    $this->factura_boucher_id($factura_id);
+                else
+                    $this->factura_carta_id($factura_id);
+            }
+
+        //**************** fin contenido ***************
+        } 
+            
+    }        
+    
     
 }

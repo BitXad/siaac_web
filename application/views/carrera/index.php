@@ -28,7 +28,7 @@
     <div class="col-md-12">
         <div class="box">
             
-            <div class="box-body">
+            <div class="box-body table-responsive">
                 <table class="table table-striped" id="mitabla">
                     <tr>
                         <th>#</th>
@@ -41,7 +41,7 @@
                         <th>Modalidad</th>
                         <th>Tiempo Estudio</th>
                         <th>Carga Horaria</th>
-                        <th>Fecha Creación</th>
+                        <th>Fechas</th>
                         <!--<th>Codaprod</th>-->
                         <th>Matr.</th>
                         <th>Mens.</th>
@@ -64,7 +64,13 @@
                         <td><?php echo $c['carrera_modalidad']; ?></td>
                         <td><?php echo $c['carrera_tiempoestudio']; ?></td>
                         <td><?php echo $c['carrera_cargahoraria']; ?></td>
-                        <td><?php echo date("d/m/Y", strtotime($c['carrera_fechacreacion'])); ?></td>
+                        <td><?php
+                                 if($c['carrera_fechacreacion']){
+                                     echo "Creacion: ".date("d/m/Y", strtotime($c['carrera_fechacreacion']));
+                                 }
+                                 if($c['carrera_fechainicio']){
+                                     echo "<br>Inicio: ".date("d/m/Y", strtotime($c['carrera_fechainicio']));
+                                 }?></td>
                         <!--<td><?php //echo $c['carrera_codaprod']; ?></td>-->
                         <td><?php echo number_format($c['carrera_matricula'],2); ?></td>
                         <td><?php echo number_format($c['carrera_mensualidad'],2); ?></td>

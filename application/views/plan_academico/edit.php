@@ -41,7 +41,7 @@
 					<div class="col-md-6">
 						<label for="planacad_nombre" class="control-label"><span class="text-danger">*</span>Nombre</label>
 						<div class="form-group">
-                                                    <input type="text" name="planacad_nombre" value="<?php echo ($this->input->post('planacad_nombre') ? $this->input->post('planacad_nombre') : $planacad['planacad_nombre']); ?>" class="form-control" id="planacad_nombre" required />
+                                                    <input type="text" name="planacad_nombre" value="<?php echo ($this->input->post('planacad_nombre') ? $this->input->post('planacad_nombre') : $planacad['planacad_nombre']); ?>" class="form-control" id="planacad_nombre" required onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
 							<span class="text-danger"><?php echo form_error('planacad_nombre');?></span>
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 					<div class="col-md-6">
 						<label for="planacad_codigo" class="control-label">Código</label>
 						<div class="form-group">
-							<input type="text" name="planacad_codigo" value="<?php echo ($this->input->post('planacad_codigo') ? $this->input->post('planacad_codigo') : $planacad['planacad_codigo']); ?>" class="form-control" id="planacad_codigo" />
+							<input type="text" name="planacad_codigo" value="<?php echo ($this->input->post('planacad_codigo') ? $this->input->post('planacad_codigo') : $planacad['planacad_codigo']); ?>" class="form-control" id="planacad_codigo" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
 						</div>
 					</div>
                                         <div class="col-md-6">
@@ -76,7 +76,7 @@
 					<div class="col-md-6">
 						<label for="planacad_titmodalidad" class="control-label">Titulo/Modalidad</label>
 						<div class="form-group">
-							<input type="text" name="planacad_titmodalidad" value="<?php echo ($this->input->post('planacad_titmodalidad') ? $this->input->post('planacad_titmodalidad') : $planacad['planacad_titmodalidad']); ?>" class="form-control" id="planacad_titmodalidad" />
+							<input type="text" name="planacad_titmodalidad" value="<?php echo ($this->input->post('planacad_titmodalidad') ? $this->input->post('planacad_titmodalidad') : $planacad['planacad_titmodalidad']); ?>" class="form-control" id="planacad_titmodalidad" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
 						</div>
 					</div>
 					<!--<div class="col-md-6">

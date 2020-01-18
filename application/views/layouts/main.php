@@ -380,6 +380,46 @@
                         <?php
                         }
                         ?>
+                        
+                <li>
+                    <a href="#"><i class="fa fa-calculator"></i> <span>Contabilidad</span></a>
+                    <ul class="treeview-menu">
+                        <?php
+                        if($rolusuario[1-1]['rolusuario_asignado'] == 1){
+                        ?>
+                        <li>
+                            <a href="<?php echo site_url('dosificacion');?>"><i class="fa fa-list-alt"></i>Dosificación</a>
+                        </li>
+                        <?php
+                        }
+                        if($rolusuario[1-1]['rolusuario_asignado'] == 1){
+                        ?>
+                        <li>
+                            <a href="<?php echo site_url('factura');?>"><i class="fa fa-shopping-cart"></i> <span>Libro de Ventas</span></a>
+                        </li>
+                        <?php
+                        }
+                        if($rolusuario[1-1]['rolusuario_asignado'] == 1){
+                        ?>
+                        <li>
+                            <a href="<?php echo site_url('factura/factura_compra');?>"><i class="fa fa-shopping-basket"></i> <span>Libro de Compras</span></a>
+                        </li>
+                        <?php
+                        }
+                        if($rolusuario[1-1]['rolusuario_asignado'] == 1){
+                        ?>
+                        <li>
+                            <a href="<?php echo site_url('factura/verificador');?>"><i class="fa fa-paperclip"></i>Verificador de facturas</a>
+                        </li>
+                        <?php
+                        }
+                        ?>
+                    </ul>
+                   
+                </li>       
+                        
+                        
+                        
                         <li>
                             <a href="#">
                                 <i class="fa fa-lock"></i> <span>Seguridad</span>
@@ -410,6 +450,9 @@
                                 ?>
                             </ul>
                         </li>
+                        
+                                 
+                        
                         <?php  ?>
                         <?php }elseif($session_data['tipousuario_id'] == 2){ ?>
                         <li>
@@ -445,6 +488,10 @@
                             <a href="<?php echo site_url('estudiante/keconomico/'.$session_data['usuario_id']);?>"><i class="fa fa-maxcdn"></i> <span>Kardex Económico</span></a>
                         </li>
                         <?php } ?>
+                        
+                        
+                        
+                        
                     </ul>
                 </section>
                 <!-- /.sidebar -->

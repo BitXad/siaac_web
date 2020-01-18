@@ -66,16 +66,22 @@
                                     <input type="text" name="carrera_tiempoestudio" value="<?php echo ($this->input->post('carrera_tiempoestudio') ? $this->input->post('carrera_tiempoestudio') : $carrera['carrera_tiempoestudio']); ?>" class="form-control" id="carrera_tiempoestudio" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
                             </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                             <label for="carrera_cargahoraria" class="control-label">Carga Horaria</label>
                             <div class="form-group">
                                     <input type="number" step="any" min="0" name="carrera_cargahoraria" value="<?php echo ($this->input->post('carrera_cargahoraria') ? $this->input->post('carrera_cargahoraria') : $carrera['carrera_cargahoraria']); ?>" class="form-control" id="carrera_cargahoraria" />
                             </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                             <label for="carrera_fechacreacion" class="control-label">Fecha Creación</label>
                             <div class="form-group">
                                     <input type="date" name="carrera_fechacreacion" value="<?php echo ($this->input->post('carrera_fechacreacion') ? $this->input->post('carrera_fechacreacion') : $carrera['carrera_fechacreacion']); ?>" class="form-control" id="carrera_fechacreacion" />
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                            <label for="carrera_fechainicio" class="control-label">Fecha Inicio</label>
+                            <div class="form-group">
+                                    <input type="date" name="carrera_fechainicio" value="<?php echo ($this->input->post('carrera_fechainicio') ? $this->input->post('carrera_fechainicio') : $carrera['carrera_fechainicio']); ?>" class="form-control" id="carrera_fechainicio" />
                             </div>
                     </div>
                     <!--<div class="col-md-6">

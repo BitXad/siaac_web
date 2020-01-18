@@ -111,4 +111,26 @@ class Estado_model extends CI_Model
 
         return $estado;
     }
+
+    /* **************************funcion que devuelve estados de activo, inactivo************************** */
+    function get_all_estado_activo_inactivo()
+    {
+        $estado = $this->db->query("
+            SELECT
+                *
+
+            FROM
+                `estado`
+
+            WHERE
+                estado_tipo = 1
+
+            ORDER BY `estado_id` DESC
+
+        ")->result_array();
+
+        return $estado;
+    }
+    
+    
 }

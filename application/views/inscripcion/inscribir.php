@@ -268,6 +268,9 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         <div class="col-md-3">
                             <label for="inscripcion_fechainicio" class="control-label">Fecha Inicio</label>
                             <div class="form-group">
+                                <?php  
+                                    $fecha_inicio = $all_gestion[0]["gestion_inicio"];
+                                ?>
                                 <input type="date" name="inscripcion_fechainicio" value="<?php echo date("Y-m-d"); ?>" class="form-control" id="inscripcion_fechainicio" />
                             </div>
                         </div>

@@ -52,8 +52,10 @@ class Carrera extends CI_Controller{
             $this->form_validation->set_rules('areacarrera_id','Area Carrera','trim|required', array('required' => 'Este Campo no debe ser vacio'));
 
             if($this->form_validation->run())     
-            {   
+            {
+                $estado_id = 1;
                 $params = array(
+                    'estado_id' => $estado_id,
                     'areacarrera_id' => $this->input->post('areacarrera_id'),
                     'carrera_nombre' => $this->input->post('carrera_nombre'),
                     'carrera_nombreinterno' => $this->input->post('carrera_nombreinterno'),
@@ -62,6 +64,7 @@ class Carrera extends CI_Controller{
                     'carrera_modalidad' => $this->input->post('carrera_modalidad'),
                     'carrera_plan' => $this->input->post('carrera_plan'),
                     'carrera_fechacreacion' => $this->input->post('carrera_fechacreacion'),
+                    'carrera_fechainicio' => $this->input->post('carrera_fechainicio'),
                     'carrera_matricula' => $this->input->post('carrera_matricula'),
                     'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
                     'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
@@ -112,6 +115,7 @@ class Carrera extends CI_Controller{
                         'carrera_modalidad' => $this->input->post('carrera_modalidad'),
                         'carrera_plan' => $this->input->post('carrera_plan'),
                         'carrera_fechacreacion' => $this->input->post('carrera_fechacreacion'),
+                        'carrera_fechainicio' => $this->input->post('carrera_fechainicio'),
                         'carrera_matricula' => $this->input->post('carrera_matricula'),
                         'carrera_mensualidad' => $this->input->post('carrera_mensualidad'),
                         'carrera_tiempoestudio' => $this->input->post('carrera_tiempoestudio'),
