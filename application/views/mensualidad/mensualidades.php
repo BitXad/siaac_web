@@ -233,6 +233,10 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
                           <?php }else { ?>
                              <a href="<?php echo site_url("mensualidad/pendiente/".$m['mensualidad_id']."/".$m['kardexeco_id']."/".$m['mensualidad_descuento']."/".$m['mensualidad_numero']); ?>" title="REESTABLECER" class="btn btn-info btn-xs"><span class="fa fa-undo"></span></a>
                              <a href="<?php echo site_url('mensualidad/boucher/'.$m['mensualidad_id']); ?>" target="_blank" class="btn btn-success btn-xs"><span class="fa fa-print"></span></a>
+                             <?php if ($m['factura_id']>0) {
+                              ?>
+                             <a href="<?php echo site_url('factura/factura_boucher_id/'.$m['factura_id']); ?>" target="_blank" class="btn btn-success btn-xs"><span class="fa fa-print"></span></a>
+                           <?php } ?>
                         </td>  
                        <?php } ?>
                     
