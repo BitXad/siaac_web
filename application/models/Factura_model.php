@@ -73,6 +73,7 @@ class Factura_model extends CI_Model
         return $factura;
         
     }
+    
     function get_factura_ventas($inicio, $fin)
     {
         $factura = $this->db->query("
@@ -83,9 +84,9 @@ class Factura_model extends CI_Model
                 `factura`
 
             WHERE
-                factura_fecha >= '".$inicio."'
-                and factura_fecha <= '".$fin."'
-                and venta_id <> 0 
+                factura_fechaventa >= '".$inicio."'
+                and factura_fechaventa <= '".$fin."'
+                
 
             ORDER BY `factura_id` DESC
         ")->result_array();
@@ -138,4 +139,19 @@ class Factura_model extends CI_Model
     {
         return $this->db->delete('factura',array('factura_id'=>$factura_id));
     }
+    
+    function get_all_factura_count()
+    {
+        $factura = $this->db->query("
+            SELECT
+                count(*) as count
+
+            FROM
+                `factura`
+        ")->row_array();
+
+        return $factura['count'];
+    }
+        
+    
 }

@@ -187,21 +187,21 @@ class Dosificacion_model extends CI_Model
      */
     function get_this_dosificacion()
     {
-        $dosificacion = $this->db->query("
-            SELECT
-                d.*, e.`estado_descripcion`,
-                em.`empresa_nombre`
-                
-            FROM
-                dosificacion d, estado e, empresa em
-
-            WHERE
-                d.estado_id = e.estado_id
-                and d.empresa_id = em.empresa_id
-
-            ORDER BY `dosificacion_id` DESC
-            
-        ")->row_array();
+        $sql= "SELECT 
+                d.*,
+                e.estado_descripcion,
+                em.institucion_nombre
+              FROM
+                dosificacion d,
+                estado e,
+                institucion em
+              WHERE
+                d.estado_id = e.estado_id AND 
+                d.institucion_id = em.institucion_id
+              ORDER BY
+                dosificacion_id DESC";
+        
+        $dosificacion = $this->db->query($sql)->row_array();
 
         return $dosificacion;
     }
