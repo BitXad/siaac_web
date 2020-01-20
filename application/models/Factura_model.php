@@ -76,7 +76,7 @@ class Factura_model extends CI_Model
     
     function get_factura_ventas($inicio, $fin)
     {
-        $factura = $this->db->query("
+        $sql = "
             SELECT
                 *
 
@@ -84,13 +84,14 @@ class Factura_model extends CI_Model
                 `factura`
 
             WHERE
-                factura_fechaventa >= '".$inicio."'
-                and factura_fechaventa <= '".$fin."'
+                factura_fecha >= '".$inicio."'
+                and factura_fecha <= '".$fin."'
                 
 
-            ORDER BY `factura_id` DESC
-        ")->result_array();
-
+            ORDER BY `factura_id` ASC";
+        
+        $factura = $this->db->query($sql)->result_array();
+       
         return $factura;
     }
 
