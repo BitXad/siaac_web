@@ -132,18 +132,23 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                     $("#resingegr").val("- "+n+" -");
                    
                     html = "";
-                    
-                    
                     var cont1 = 1;
                     var cont2 = 1;
                     var cont3 = 1;
                     var cont4 = 1;
-                    
+                    var tituloingreso =1;
+                    var tituloegreso  =1;
                     for (var i = 0; i < n ; i++){
                       totalingreso  += parseFloat(registros[i]['ingreso']);
                       totalegreso   += parseFloat(registros[i]['egreso']);
                      // totalutilidad += parseFloat(registros[i]['utilidad']);
                         if(registros[i]['tipo'] == 4){
+                            if(tituloegreso == 1){
+                                html += "<tr class='cabeceratabla' style='background: #5bc0de;'>";
+                                html += "<th colspan='5' class='text-center'> - EGRESOS - </th>";
+                                html += "</tr>";
+                                tituloegreso = 0;
+                            }
                             html += "<tr>";
                       
                         html += "<td>"+(i+1)+"</td>";
@@ -164,6 +169,13 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                        
                         html += "</tr>";
                         }else{
+                            if(tituloingreso == 1){
+                                html += "<tr class='cabeceratabla' style='background: #5bc0de;'>";
+                                html += "<th colspan='5' class='text-center'> - INGRESOS - </th>";
+                                
+                                html += "</tr>";
+                                tituloingreso = 0;
+                            }
                         html += "<tr>";
                       
                         html += "<td>"+(i+1)+"</td>";
@@ -211,11 +223,9 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                    htmls += "</tr>";*/
                    
                    
-                   
-                   htmls += "<tr>";
+                   htmls += "<tr class='cabeceratabla' style='background: #5bc0de;'>";
                    htmls += "<td></td>";
                    htmls += "<td colspan='3' class='text-bold' style='font-family: Arial; font-size: 12px'>SALDO EFECTIVO EN CAJA Bs.</td>";
-                   //htmls += "<td colspan='2'></td>";
                    htmls += "<td class='text-bold' id='alinearder' style='font-family: Arial; font-size: 12px'>"+numberFormat(Number((totalingreso)-totalegreso).toFixed(2))+"</td>";
                    htmls += "</tr>";
                    
@@ -237,9 +247,9 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                     cabecerahtmlt += "<tr>";
                     cabecerahtmlt += "<th style='width: 2%'>N°</th>";
                     cabecerahtmlt += "<th style='width: 15%'>Fecha</th>";
-                    cabecerahtmlt += "<th style='width: 43%'>Detalle</th>";
-                    cabecerahtmlt += "<th style='width: 15%'>Ingreso</th>";
-                    cabecerahtmlt += "<th style='width: 15%'>Egreso</th>";
+                    cabecerahtmlt += "<th style='width: 58%'>Detalle</th>";
+                    cabecerahtmlt += "<th style='width: 10%'>Ingreso</th>";
+                    cabecerahtmlt += "<th style='width: 10%'>Egreso</th>";
                     cabecerahtmlt += "</tr>";
                     cabecerahtmlt += "<tbody>";
                     
