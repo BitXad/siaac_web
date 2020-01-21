@@ -42,15 +42,9 @@ class Docente extends CI_Controller{
     function index()
     {
         if($this->acceso(6)){
-            $params['limit'] = RECORDS_PER_PAGE; 
-            $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+            
 
-            $config = $this->config->item('pagination');
-            $config['base_url'] = site_url('docente/index?');
-            $config['total_rows'] = $this->Docente_model->get_all_docente_count();
-            $this->pagination->initialize($config);
-
-            $data['docente'] = $this->Docente_model->get_all_docente($params);
+            $data['docente'] = $this->Docente_model->get_all_docente();
 
             $data['_view'] = 'docente/index';
             $this->load->view('layouts/main',$data);
