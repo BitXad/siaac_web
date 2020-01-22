@@ -17,14 +17,14 @@
           				<td>FISICA I (FIS100)</td>
           				<td align="right">21</td>
           				<td align="center">II-2019</td>
-                              <td align="center"><a href="nota/1" class="btn btn-warning btn-xs">Notas</a></td>
+                              <td align="center"><a href="../nota/1" class="btn btn-warning btn-xs">Notas</a></td>
           			</tr>
           			<tr>
           				<td>GRUPO 1</td>
           				<td>CALCULO I (CAL100)</td>
           				<td align="right">18</td>
           				<td align="center">II-2019</td>
-                              <td align="center"><a href="nota/1" class="btn btn-warning btn-xs">Notas</a></td>
+                              <td align="center"><a href="../nota/1" class="btn btn-warning btn-xs">Notas</a></td>
           			</tr>
 
           			<tr>
@@ -32,21 +32,21 @@
           				<td>CALCULO II (CAL200)</td>
           				<td align="right">26</td>
           				<td align="center">II-2019</td>
-                              <td align="center"><a href="nota/1" class="btn btn-warning btn-xs">Notas</a></td>
+                              <td align="center"><a href="../nota/1" class="btn btn-warning btn-xs">Notas</a></td>
           			</tr>
           			<tr>
           				<td>GRUPO 4</td>
           				<td>CALCULO II (CAL200)</td>
           				<td align="right">18</td>
           				<td align="center">II-2019</td>
-                              <td align="center"><a href="nota/1" class="btn btn-warning btn-xs">Notas</a></td>
+                              <td align="center"><a href="../nota/1" class="btn btn-warning btn-xs">Notas</a></td>
           			</tr>
           			<tr>
           				<td>GRUPO 1</td>
           				<td>ALGEBRA II (ALG200)</td>
           				<td align="right">19</td>
           				<td align="center">II-2019</td>
-                              <td align="center"><a href="nota/1" class="btn btn-warning btn-xs">Notas</a></td>
+                              <td align="center"><a href="../nota/1" class="btn btn-warning btn-xs">Notas</a></td>
           			</tr>
           			<tr>
           				<td>GRUPO 3</td>

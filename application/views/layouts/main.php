@@ -380,6 +380,15 @@
                         <?php
                         }
                         ?>
+                        <?php
+                        //if($rolusuario[1-1]['rolusuario_asignado'] == 1){
+                        ?>
+                        <li>
+                            <a href="<?php echo site_url('reportes');?>"><i class="fa fa-exchange"></i> <span>Movimiento Diario</span></a>
+                        </li>
+                        <?php
+                        //}
+                        ?>
                         
                 <li>
                     <a href="#"><i class="fa fa-calculator"></i> <span>Contabilidad</span></a>

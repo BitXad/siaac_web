@@ -61,14 +61,16 @@ class Mensualidad_model extends CI_Model
     {
         $mensualidad = $this->db->query("
             SELECT
-                m.*, e.*
+                m.*, e.*, f.factura_id
 
             FROM
-                mensualidad m, estado e
+                mensualidad m
 
+            LEFT JOIN estado e on m.estado_id=e.estado_id
+            LEFT JOIN factura f on m.mensualidad_id = f.venta_id
             WHERE
-                m.estado_id=e.estado_id
-                and m.kardexeco_id = ".$kardex_id."
+              
+                 m.kardexeco_id = ".$kardex_id."
 
             ORDER BY m.mensualidad_numero, m.mensualidad_id  ASC
         ")->result_array();

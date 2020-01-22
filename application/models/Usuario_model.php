@@ -122,4 +122,21 @@ class Usuario_model extends CI_Model
         
         return $this->db->query($sql);
     }
+    function get_usuariosok()
+    {
+        $usuario = $this->db->query("
+            SELECT
+                u.*
+
+            FROM
+                usuario u
+
+            WHERE
+                u.estado_id = 1
+
+            ORDER BY u.usuario_id 
+        ")->result_array();
+
+        return $usuario;
+    }
 }

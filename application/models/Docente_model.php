@@ -67,11 +67,8 @@ class Docente_model extends CI_Model
     /*
      * Get all docente
      */
-    function get_all_docente($params = array())
+    function get_all_docente()
     {
-        $limit_condition = "";
-        if(isset($params) && !empty($params))
-            $limit_condition = " LIMIT " . $params['offset'] . "," . $params['limit'];
         
         $docente = $this->db->query("
             SELECT
@@ -87,7 +84,6 @@ class Docente_model extends CI_Model
 
             ORDER BY `docente_id` DESC
 
-            " . $limit_condition . "
         ")->result_array();
 
         return $docente;
