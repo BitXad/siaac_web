@@ -494,7 +494,7 @@ class Inscripcion extends CI_Controller{
                 $sql = "update dosificacion set dosificacion_numfact = ".$factura_numero;
                 $this->Mensualidad_model->ejecutar($sql);
                              
-                $sql = "insert into factura(estado_id, servicio_id, factura_fechaventa, 
+                $sql = "insert into factura(estado_id, inscripcion_id, factura_fechaventa, 
                     factura_fecha, factura_hora, factura_subtotal, 
                     factura_ice, factura_exento, factura_descuento, factura_total, 
                     factura_numero, factura_autorizacion, factura_llave, 

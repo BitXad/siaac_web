@@ -1,8 +1,6 @@
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('resources/js/funciones.js'); ?>"></script>
 <input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
-<input type="text" value="<?php $usuario_id=1; ?>" id="usuario_id" hidden>
-
 <div class="row">
     <div class="col-md-12">
       	<div class="box box-info">

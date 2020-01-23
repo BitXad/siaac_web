@@ -29,41 +29,24 @@ class Factura_model extends CI_Model
 
         return $factura;
     }
-        
+    
     /*
-     * Get all factura
+     * Get factura by factura_id
      */
-    function get_all_factura()
+    function get_factura_venta($venta_id)
     {
-        $factura = $this->db->query("
-            SELECT
-                *
-
-            FROM
-                `factura`
-
-            WHERE
-                1 = 1
-
-            ORDER BY `factura_id` DESC
-        ")->result_array();
-
+        $sql = "select f.*,t.tipotrans_nombre, u.usuario_nombre from factura f
+                left join tipo_transaccion t on t.tipotrans_id = f.tipotrans_id
+                left join usuario u on u.usuario_id = f.usuario_id
+                where f.venta_id = ".$venta_id;
+        $factura = $this->db->query($sql)->result_array();
         return $factura;
+        
     }
-
-    function ejecutar($sql)
-    {       
-        $this->db->query($sql);     
-        return $true;
-    }
-
-    function get_detalle_factura_id($factura_id)
-    {
-        $sql = "select * from detalle_factura d where d.factura_id = ".$factura_id;
-        $detalle_venta = $this->db->query($sql)->result_array();        
-        return $detalle_venta;
-    }
-
+    
+    /*
+     * Get factura by factura_id
+     */
     function get_factura_id($factura_id)
     {
         $sql = "select f.*,u.* from factura f 
@@ -74,41 +57,61 @@ class Factura_model extends CI_Model
         
     }
     
-    function get_factura_ventas($inicio, $fin)
+    /*
+     * Get all factura count
+     */
+    function codigo_control($dosificacion_llave, $dosificacion_autorizacion, $dosificacion_numfact, $nit,$fecha_trans, $monto)
     {
-        $sql = "
+        
+        $factura = $this->db->query("
             SELECT
-                *
+                count(*) as count
 
             FROM
                 `factura`
+        ")->row_array();
 
-            WHERE
-                factura_fecha >= '".$inicio."'
-                and factura_fecha <= '".$fin."'
-                ORDER BY `factura_numero` ASC
-            ";
-        
-        $factura = $this->db->query($sql)->result_array();
-
-        return $factura;
+        return $factura['count'];
     }
-
-    function get_factura_compras($inicio, $fin)
+        /*
+     * Get all factura count
+     */
+    function get_all_factura_count()
     {
+        $factura = $this->db->query("
+            SELECT
+                count(*) as count
+
+            FROM
+                `factura`
+        ")->row_array();
+
+        return $factura['count'];
+    }
+        
+    /*
+     * Get all factura
+     */
+    function get_all_factura($params = array())
+    {
+        $limit_condition = "";
+        if(isset($params) && !empty($params))
+            $limit_condition = " LIMIT " . $params['offset'] . "," . $params['limit'];
+        
         $factura = $this->db->query("
             SELECT
                 *
 
             FROM
-                `factura`
+                factura f, estado e, venta v
 
             WHERE
-                factura_fecha >= '".$inicio."'
-                and factura_fecha <= '".$fin."' 
-                
+                f.estado_id = e.estado_id
+                and f.venta_id = v.venta_id
 
-            ORDER BY `factura_id` ASC
+            ORDER BY `factura_id` DESC
+
+            " . $limit_condition . "
         ")->result_array();
 
         return $factura;
@@ -140,18 +143,64 @@ class Factura_model extends CI_Model
         return $this->db->delete('factura',array('factura_id'=>$factura_id));
     }
     
-    function get_all_factura_count()
+
+    function get_factura_ventas($inicio, $fin)
     {
-        $factura = $this->db->query("
+        $sql = "
             SELECT
-                count(*) as count
+                *
 
             FROM
                 `factura`
-        ")->row_array();
 
-        return $factura['count'];
-    }
+            WHERE
+                factura_fecha >= '".$inicio."'
+                and factura_fecha <= '".$fin."'
+                
+
+            ORDER BY `factura_id` ASC";
         
+        $factura = $this->db->query($sql)->result_array();
+       
+        return $factura;
+    }
+
+    function get_factura_compras($inicio, $fin)
+    {
+        $sql = "
+            SELECT
+                *
+
+            FROM
+                `factura_compra`
+
+            WHERE
+                factura_fecha >= '".$inicio."'
+                and factura_fecha <= '".$fin."'
+                and compra_id <> 0 
+                
+            ORDER BY `factura_id` ASC";
+        
+        $factura = $this->db->query($sql)->result_array();
+      
+        return $factura;
+    }
+
+    function ejecutar($sql)
+    {       
+        $this->db->query($sql);     
+        return $true;
+    }
+
+
+    function get_detalle_factura_aux($usuario_id)
+    {
+        $sql = "select * from detalle_factura_aux where usuario_id = ".$usuario_id;
+        
+        $factura = $this->db->query($sql)->result_array();
+       
+        return $factura;
+    }
+
     
 }

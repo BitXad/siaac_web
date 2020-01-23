@@ -42,13 +42,13 @@
   </div>-->
 
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
     $(document).ready(function()
     {
         window.onload = window.print();
 
     });
-</script>
+</script>-->
 <!----------------------------- script buscador --------------------------------------->
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
 
@@ -178,30 +178,30 @@ border-bottom : 1px solid #aaa;
                     <td style="width: <?php echo $ancho / 3;?>cm;  padding: 0; line-height: 9px;" colspan="3">
 
                         <center>
-                                <font size="2" face="Arial black"><b><?php echo $institucion['institucion_nombre']; ?></b></font><br>
-                                <?php if (($institucion['institucion_slogan'])>0){ ?>
+                                <font size="2" face="Arial black"><b><?php echo $empresa[0]['empresa_nombre']; ?></b></font><br>
+                                <?php if (isset($empresa[0]['empresa_eslogan'])){ ?>
                                 <small>
-                                        <font size="1" face="Arial narrow"><b><?php echo $institucion['institucion_slogan']; ?></b></font><br>                                    
+                                        <font size="1" face="Arial narrow"><b><?php echo $empresa[0]['empresa_eslogan']; ?></b></font><br>                                    
                                 </small> 
                                 <?php } ?>
                                 
-                                <!--<?php if (($institucion['institucion_propietario'])>0){ ?>
+                                <?php if (isset($empresa[0]['empresa_propietario'])){ ?>
                                 <font size="1" face="Arial narrow"><b><small>
                                     
                                 
-                                    <?php  echo "<b> DE: ".$institucion['institucion_propietario'] ; ?>
+                                    <?php  echo "<b> DE: ".$empresa[0]['empresa_propietario'] ; ?>
                                     
                                     </small>
                                     </b></font><br>
-                                <?php } ?>-->
+                                <?php } ?>
                                     
                                         
                                 <font size="1" face="Arial narrow">
                                 <small>
                                     <?php echo $factura[0]['factura_sucursal'];?><br>
-                                    <?php echo $institucion['institucion_direccion']; ?><br>
-                                    <?php echo $institucion['institucion_telefono']; ?><br>
-                                    <?php echo $institucion['institucion_ubicacion']; ?>
+                                    <?php echo $empresa[0]['empresa_direccion']; ?><br>
+                                    <?php echo $empresa[0]['empresa_telefono']; ?><br>
+                                    <?php echo $empresa[0]['empresa_ubicacion']; ?>
                                 </small>                                
                                 </font>                
                                     
@@ -219,11 +219,11 @@ border-bottom : 1px solid #aaa;
                     </td>
                     
                     <td style="width: <?php echo $ancho / 3;?>cm;  padding: 0; line-height: 10px;">
-                            <table style="width: 6cm; padding:0; border-bottom: #0000eb !important; -webkit-print-color-adjust: exact;">
+                            <table style="width: 6cm; padding:0; border-bottom: #0000eb">
 <!--                                <tr>
                                     <td colspan="2">
                                         <center>
-                                            <img src="<?php echo base_url('resources/images/institucions/').$institucion['institucion_imagen']; ?>" width="100" height="70"><br>
+                                            <img src="<?php echo base_url('resources/images/empresas/').$empresa[0]['empresa_imagen']; ?>" width="100" height="70"><br>
                                         </center>
                                         
                                     </td>
@@ -248,7 +248,7 @@ border-bottom : 1px solid #aaa;
                             ____________________________________________________
                             <font size="1px" face="arial narrow">
                                 <small>
-                                    <br> <?php echo $factura[0]['factura_actividad']?>
+                                        <?php echo $factura[0]['factura_actividad']?>
                                 </small>
                             </font>
                     
@@ -269,7 +269,7 @@ border-bottom : 1px solid #aaa;
                                 
                             <tr>
                                 <td style="width: 2cm;"></td> 
-                                <td style="width: 4cm; text-align: right; background-color: #aaa !important; -webkit-print-color-adjust: exact;" nowrap ><b>LUGAR Y FECHA: </b></td><td></td> <td style="width: 10cm; background-color: #ddd !important; -webkit-print-color-adjust: exact;"><?php echo $institucion['institucion_departamento'].", ".$fecha_d_m_a." ".$factura[0]['factura_hora']; ?></td>
+                                <td style="width: 4cm; text-align: right; background-color: #aaa !important; -webkit-print-color-adjust: exact;" nowrap ><b>LUGAR Y FECHA: </b></td><td></td> <td style="width: 10cm; background-color: #ddd !important; -webkit-print-color-adjust: exact;"><?php echo $empresa[0]['empresa_departamento'].", ".$fecha_d_m_a." ".$factura[0]['factura_hora']; ?></td>
                                 <td style="width: 2cm;"></td> 
                             </tr>
                             <tr>
@@ -325,10 +325,10 @@ border-bottom : 1px solid #aaa;
                            <td align="center" style="padding: 0;"><font style="size:7px; font-family: arial"> <?php echo $d['detallefact_cantidad']; ?></font></td>
                             <td colspan="2" style="padding: 0; line-height: 10px;"><font style="size:7px; font-family: arial;"> 
                                 <?php echo $d['detallefact_descripcion']; ?>
-                                <?php if($d['detallefact_preferencia']!='null' && $d['detallefact_preferencia']!='-' ) {
+                                <?php if(isset($d['detallefact_preferencia']) && $d['detallefact_preferencia']!='null' && $d['detallefact_preferencia']!='-' ) {
                                     echo  $d['detallefact_preferencia']; }
                                 ?>
-                                <?php if($d['detallefact_caracteristicas']!='null' && $d['detallefact_caracteristicas']!='-' ) {
+                                <?php if(isset($d['detallefact_caracteristicas']) && $d['detallefact_caracteristicas']!='null' && $d['detallefact_caracteristicas']!='-' ) {
                                     echo  "<br>".nl2br($d['detallefact_caracteristicas']); }
                                     //echo  "<br><textarea rows='5' cols='100%' readonly='true'>".$d['detallefact_caracteristicas']."</textarea>"; }
                                     
