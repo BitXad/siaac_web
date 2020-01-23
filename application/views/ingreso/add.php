@@ -111,8 +111,7 @@ function facturar(mensualidad){
 									<label for="ingreso_moneda" class="control-label">Moneda</label>
 									<div class="form-group">
 										<select name="ingreso_moneda" class="form-control" required>
-											<option value="Bs">- Bs -</option>
-											
+											<option value="Bs">- Bs -</option>		
 										</select>
 									</div>
 								</div>
