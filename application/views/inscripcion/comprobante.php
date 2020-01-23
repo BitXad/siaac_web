@@ -27,128 +27,143 @@
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
 <input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
-<?php $padding = "style='padding:0; '"; ?>
-<div class="container">
+<?php $padding = "style='padding:0; '"; 
+    $ancho = "18cm";
+?>
+
+<?php //$fecha = date();
+    $fecha_d_m_a =  date('d/m/Y H:t:s')
+?> 
+<!--<div class="container">-->
     
-<table>
+    <table style="width: <?php echo $ancho; ?>; font-family: Arial;">
     <tr>
-        <td width="300">
+        <td width="300" style="line-height: 10px; ">
                      <center>                        
-                        <font size="3" face="Arial"><b><?php echo $institucion[0]['institucion_nombre']; ?></b></font><br>
-                        <font size="2" face="Arial"><b><?php echo $institucion[0]['institucion_slogan']; ?></b></font><br>
+                         <img src="<?php echo base_url("resources/images/institucion/").$institucion[0]['institucion_logo']; ?>" width="80" height="60"><br>
+                        <font size="2" face="Arial"><b><?php echo $institucion[0]['institucion_nombre']; ?></b></font><br>
+                        <?php if(sizeof($institucion[0]['institucion_slogan'])>1){ ?>
+                            <font size="2" face="Arial"><b><?php echo $institucion[0]['institucion_slogan']; ?></b></font><br>
+                        <?php } ?>
+                        
                         <font size="1" face="Arial"><?php echo $institucion[0]['institucion_direccion']; ?><br>
                         <font size="1" face="Arial"><?php echo $institucion[0]['institucion_telefono']; ?></font><br>
+                        <font size="1" face="Arial"><?php echo $institucion[0]['institucion_departamento']." - BOLIVIA"; ?></font><br>
                     </center>           
         </td>
-        <td width="300">
+        <td width="400" style="line-height: 14px; ">
             <center>
-                <font size="3" face="arial"><b>COMPROBANTE DE INSCRIPCION</b></font><br>
-                <font size="2" face="arial"><b>Nº: 00<?php echo $inscripcion[0]['inscripcion_id']; ?></b></font>
+                <font size="3" face="Arial"><b>COMPROBANTE DE INSCRIPCION</b></font><br>
+                <font size="3" face="Arial"><b>Nº: 00<?php echo $inscripcion[0]['inscripcion_id']; ?></b></font><br>
+                <font size="1" face="Arial"><b><?php echo $fecha_d_m_a; ?></b></font>
+                
             </center>
-            
         </td>
-        <td width="300">
-
+        <td width="300" style="text-align: center;">
+            --------------------------<br>
+            <b>Gestión: </b><?php echo $inscripcion[0]['gestion_descripcion']; ?><br>
+            --------------------------
 <!--                <h5><b>Tipo: </b><?php /*echo $inscripcion[0]['tipotrans_nombre']; ?> <br>
                 <b>Cred. Nº: </b><?php echo $inscripcion[0]['cliente_codigo']; ?> <br>
                 <b>Limite: </b><?php echo $inscripcion[0]['venta_fecha'];*/ ?></h5>       -->
         
         </td>            
     </tr>    
+    
+    <tr style=" border-style: solid; border-width: thin; padding: 0; line-height: 14px; font-family: Arial; font-size: 10px; background-color: #d2d6de !important; -webkit-print-color-adjust: exact;">
+        <td width="300" style="padding: 0;">
+        </td>
+        <td colspan="2" style="padding: 0;">
+            <!--<font face="Arial" size="2">-->
+                <b>ESTUDIANTE: </b><?php echo $inscripcion[0]['estudiante_apellidos'].", ".$inscripcion[0]['estudiante_nombre']; ?> <br>
+                <b>CÓDIGO: </b><?php echo $inscripcion[0]['estudiante_codigo']; ?> <br>
+                
+                <?php $fecha = new DateTime($inscripcion[0]['inscripcion_fecha']); 
+                    $fecha_d_m_a = $fecha->format('d/m/Y');
+                ?>     
+                
+                <b>FECHA: </b><?php echo $fecha_d_m_a." - ".$inscripcion[0]['inscripcion_hora']; ?>
+            <!--</font>-->            
+        </td>
+    </tr>
+    
+    
 </table>
-</div>
+<br>
 
+<table  class="table table-striped table-condensed" style="width: <?php echo $ancho; ?>; font-family: Arial; font-size: 10px; border-top: solid; border-bottom: solid;">
     
-<div class="container">
-    <div class="panel panel-primary col-md-8">
-        <h5><b>Estudiante: </b><?php echo $inscripcion[0]['estudiante_apellidos'].", ".$inscripcion[0]['estudiante_nombre']; ?> <br>
-        <b>Código: </b><?php echo $inscripcion[0]['estudiante_codigo']; ?> <br>
-        <b>Fecha/Hora: </b><?php echo $inscripcion[0]['inscripcion_fecha']; ?></h5>       
-    </div>
-</div>
-
-
-
-<div >
-    <div class="col-md-12">
-        <!--------------------- parametro de buscador --------------------->
-<!--                  <div class="input-group  no-print"> <span class="input-group-addon">Buscar</span>
-                    <input id="filtrar" type="text" class="form-control" placeholder="Ingrese el codigo, venta, precio">
-                  </div>-->
-            <!--------------------- fin parametro de buscador --------------------->
-        <div class="box">
-            
-            <div class="box-body table-responsive">
-                <table class="table table-striped table-condensed" >
-                    <tr >
-                        <td <?php echo $padding; ?>><b>CARRERA:</b></td>
-                        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['carrera_nombre']; ?></td>
-                    </tr>
-                    
-                    <tr>
-                        <td <?php echo $padding; ?>><b>NIVEL:</b></td>
-                        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['nivel_id']; ?></td>
-                    </tr>
-                    
-                    <tr>
-                        <td <?php echo $padding; ?>><b>MATRICULA:</b></td>
-                        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['kardexeco_matricula']; ?></td>
-                    </tr>
-                    
-                    <tr>
-                        <td <?php echo $padding; ?>><b>MENSUALIDAD:</b></td>
-                        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['kardexeco_mensualidad']; ?></td>
-                    </tr>
-                    
-                    
-                    <tr>
-                        <td <?php echo $padding; ?>><b>INICIO DE CLASES:</b></td>
-                        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['inscripcion_fechainicio']; ?></td>
-                    </tr>
-                    
-                    
-                    <tr>
-                        
-                        
-                    </tr>                 
-                </table>
-                
-            </div>
-            
-        </div>
-    </div>
-</div>
-<b>Usuario: </b><?php echo $inscripcion[0]['usuario_nombre']; ?>
-
-<center>
-    <div class="col-md-12">
-        <table>
-            <tr>
-                <td> <center>
-                
-                        <?php echo "-----------------------------------------------------"; ?><br>
-                        <?php echo "RECIBI CONFORME"; ?><br>
-                    
-                    </center>
-                </td>
-                <td width="100">
-                    <?php echo "     "; ?><br>
-                    <?php echo "     "; ?><br>
-                </td>
-                <td>
-                    <center>
-
-                        <?php echo "-----------------------------------------------------"; ?><br>
-                        <?php echo "ENTREGUE CONFORME"; ?><br>   
-
-                    </center>
-                </td>
-            </tr>
-        </table>
         
-    </div>
+    <tr>
+        <td style="width: 2cm;"></td>
+        <td <?php echo $padding; ?>><b>CARRERA:</b></td>
+        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['carrera_nombre']; ?></td>
+    </tr>
+
+    <tr>
+        <td style="width: 2cm;"></td>
+        <td <?php echo $padding; ?>><b>NIVEL:</b></td>
+        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['nivel_descripcion']; ?></td>
+    </tr>
+
+    <tr>
+        <td style="width: 2cm;"></td>
+        <td <?php echo $padding; ?>><b>MATRICULA Bs:</b></td>
+        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['kardexeco_matricula']; ?></td>
+    </tr>
+
+    <tr>
+        <td style="width: 2cm;"></td>
+        <td <?php echo $padding; ?>><b>MENSUALIDAD Bs:</b></td>
+        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['kardexeco_mensualidad']; ?></td>
+    </tr>
+
+
+    <tr>
+        <td style="width: 2cm;"></td>
+        <td <?php echo $padding; ?>><b>INICIO DE CLASES:</b></td>
+                        
+                <?php $fecha = new DateTime($inscripcion[0]['inscripcion_fechainicio']); 
+                    $fecha_d_m_a = $fecha->format('d/m/Y');
+                ?>     
+
+        
+        <td <?php echo $padding; ?>><?php echo $fecha_d_m_a; ?></td>
+    </tr>
+</table>   
+
+<table  class="table table-striped table-condensed" style="width: <?php echo $ancho; ?>; font-family: Arial; font-size:10px;">
+    <tr><br>
+    </tr>
     
-</center>   
+    <tr>
+        <td> <center>
+
+                <?php echo "-----------------------------------------------------"; ?><br>
+                <?php echo "RECIBI CONFORME"; ?><br>
+
+            </center>
+        </td>
+        <td width="100">
+            <?php echo "     "; ?><br>
+            <?php echo "     "; ?><br>
+        </td>
+        <td>
+            <center>
+
+                <?php echo "-----------------------------------------------------"; ?><br>
+                <?php echo "ENTREGUE CONFORME"; ?><br>   
+
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <b>USUARIO: </b><?php echo $inscripcion[0]['usuario_nombre']; ?><br>
+        </td>
+    </tr>
+</table>
+
 
     <a  href="javascript:close();" class="btn btn-sq-lg btn-danger no-print" style="width: 120px !important; height: 120px !important;">
         <i class="fa fa-sign-out fa-4x"></i><br><br>

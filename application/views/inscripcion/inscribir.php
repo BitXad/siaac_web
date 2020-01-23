@@ -359,7 +359,12 @@ $session_data = $this->session->userdata('logged_in'); ?>
                 <br><br>
                 <?php if(count($dosificacion) >0){ ?>
                 <input type="checkbox" name="escheck" id="escheck" style="display: flex" onclick="mostrar_ocultar()" />
-                <?php }else{ echo "<span class='text-bold text-red'>Dosificación no activa</span>"; } ?>
+                <?php }else{ echo "<span class='text-bold text-red'>Dosificación no activa</span>"; ?>
+                <div hidden="true">
+                    <input type="checkbox" name="escheck" id="escheck" style="display: flex"  />
+                </div>
+                
+                    <?php } ?>
                 
                 <table class="table table-condensed" style="display: none" id="nitraz">
                     <tr>
@@ -380,8 +385,11 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         </td>
                     </tr>
                 </table>
+                
                 <table class="table table-condensed">
+                                        
                     <tr>
+
                         <td style="padding: 0" align="right">
                             <b>TOTAL FINAL Bs</b>
                         </td>
@@ -390,6 +398,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                             <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" style="font-size: 15px; font-weight: bolder; text-align:right;" size="5" name="total_final" value="0.00" id="total_final" readonly/>
                         </td>
                     </tr>
+                    
                     <tr>
                         <td  style="padding: 0" align="right">                           
                             <b>DESC. Bs </b>
@@ -418,7 +427,8 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         <td style="padding: 0">
                             <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" size="5"  style="font-size: 15px; font-weight: bolder; text-align:right;" name="inscripcion_glosa" value="0.00" id="cambio" readonly/>
                         </td>
-                    </tr>                            
+                    </tr>
+                    
                 </table>
             </center>
                      
