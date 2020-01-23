@@ -347,7 +347,7 @@ class Mensualidad extends CI_Controller{
             
             $sql =  "insert into detalle_factura(
             producto_id,
-            venta_id,
+            mensualidad_id,
             factura_id,
             detallefact_codigo,
             detallefact_unidad,
