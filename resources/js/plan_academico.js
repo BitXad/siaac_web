@@ -299,7 +299,7 @@ function dibujar_nivel(planacad_id){
                             html += "<label>Nueva Materia para el Nivel: &nbsp;"+registros[i]["nivel_descripcion"]+"</label>";
                             html += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
                             //html += "<span id='mensajetec_detalleserv"+registros[i]["detalleserv_id"]+"' class='text-danger'></span>";
-                            html += "<label class='alinearizq'><input type='checkbox' onclick='mostrarcheck("+registros[i]["nivel_id"]+")' class='checkbox' name='prerequisito"+registros[i]["nivel_id"]+"' id='prerequisito"+registros[i]["nivel_id"]+"' />Sin Pre-requisito</label>";
+                            
                             html += "</div>";
                             //html += "form_open('detalle_serv/registrartec/"+servicio_id+"/"+registros[i]["detalleserv_id"]+"')";
                             html += "<div class='modal-body textizq'>";
@@ -340,11 +340,13 @@ function dibujar_nivel(planacad_id){
                             html += "<input type='number' step='any' min='0' name='materia_horas"+registros[i]['nivel_id']+"' class='form-control' id='materia_horas"+registros[i]['nivel_id']+"' />";
                             html += "</div>";
                             html += "</div>";
-                            
-                            html += "<div class='col-md-6' style='display:block' id='mosmaterias"+registros[i]["nivel_id"]+"' >";
-                            html += "<label for='mat_materia_id"+registros[i]["nivel_id"]+"' class='control-label'><span class='text-danger'>*</span>Pre-Requisito</label>";
+                            //html += "<label class='alinearizq'><input type='checkbox' onclick='mostrarcheck("+registros[i]["nivel_id"]+")' class='checkbox' name='prerequisito"+registros[i]["nivel_id"]+"' id='prerequisito"+registros[i]["nivel_id"]+"' />Sin Pre-requisito</label>";
+                            html += "<div class='col-md-6'>";
+                            html += "<label class='control-label'><input type='checkbox' onclick='mostrarcheck("+registros[i]["nivel_id"]+")' class='checkbox' style='display: inline' name='prerequisito"+registros[i]["nivel_id"]+"' id='prerequisito"+registros[i]["nivel_id"]+"' />Sin Pre-requisito</label>";
+                            html += "<div style='display:block' id='mosmaterias"+registros[i]["nivel_id"]+"'>";
                             html += "<div class='form-group' id='dibmaterias"+registros[i]["nivel_id"]+"'>";
                             get_materia(registros[i]["nivel_id"], planacad_id);
+                            html += "</div>";
                             html += "</div>";
                             html += "</div>";
                             html += "<!------------------------------------------------------------------->";
