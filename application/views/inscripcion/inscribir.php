@@ -101,7 +101,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
     <div class="box-tools">
         <center>            
             <a href="<?php echo base_url('estudiante/registrar/'); ?>" class="btn btn-success btn-foursquarexs"><font size="5"><span class="fa fa-user-plus"></span></font><br><small>Reg. Estudiante</small></a>
-            <a href="#" data-toggle="modal" data-target="#modalbuscar" class="btn btn-warning btn-foursquarexs"><font size="5"><span class="fa fa-search"></span></font><br><small>Buscar Estud.</small></a>
+            <a href="#" data-toggle="modal" data-target="#modalbuscar" id="modalbuscarclie" class="btn btn-warning btn-foursquarexs"><font size="5"><span class="fa fa-search"></span></font><br><small>Buscar Estud.</small></a>
             <!--<a href="" class="btn btn-info btn-foursquarexs"><font size="5"><span class="fa fa-cubes"></span></font><br><small>Productos</small></a>-->            
         </center>            
     </div>
