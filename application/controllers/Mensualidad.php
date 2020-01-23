@@ -9,6 +9,7 @@ class Mensualidad extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Mensualidad_model');
+        $this->load->model('Parametro_model');
         $this->load->model('Institucion_model');
         $this->load->model('Kardex_economico_model');
         $this->load->model('Dosificacion_model');
@@ -65,12 +66,33 @@ class Mensualidad extends CI_Controller{
         }
     }
 
+    function comprobante($mensualidad_id)
+    {
+        $tipo_facturadora = $this->Parametro_model->get_parametro_impresora(1);
+        if ($tipo_facturadora['parametro_tipoimpresora']=='NORMAL') {
+            redirect('mensualidad/carta/'.$mensualidad_id);
+        }else{
+            redirect('mensualidad/boucher/'.$mensualidad_id);
+        }
+    }
+
     function boucher($mensualidad_id)
     {
         if($this->acceso(49)){
             $data['mensualidad'] = $this->Mensualidad_model->boucher_mensualidad($mensualidad_id);
             $data['institucion'] = $this->Institucion_model->get_institucion(1);
             $data['_view'] = 'mensualidad/boucher';
+            $this->load->view('layouts/main',$data);
+        }
+    }
+
+    function carta($mensualidad_id)
+    {   
+        if($this->acceso(45)){
+            $data['mensualidad'] = $this->Mensualidad_model->boucher_mensualidad($mensualidad_id);
+            $data['institucion'] = $this->Institucion_model->get_institucion(1);
+
+            $data['_view'] = 'mensualidad/carta';
             $this->load->view('layouts/main',$data);
         }
     }

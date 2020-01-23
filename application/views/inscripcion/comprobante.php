@@ -45,7 +45,7 @@
                      <center>                        
                          <img src="<?php echo $logo; ?>" width="80" height="60"><br>
                         <font size="2" face="Arial"><b><?php echo $institucion[0]['institucion_nombre']; ?></b></font><br>
-                        <?php if(sizeof($institucion[0]['institucion_slogan'])>1){ ?>
+                        <?php if(isset($institucion[0]['institucion_slogan'])){ ?>
                             <font size="2" face="Arial"><b><?php echo $institucion[0]['institucion_slogan']; ?></b></font><br>
                         <?php } ?>
                         
@@ -118,13 +118,13 @@
     <tr>
         <td style="width: 2cm;"></td>
         <td <?php echo $padding; ?>><b>MATRICULA Bs:</b></td>
-        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_matricula'],2,",","."); ?></td>
+        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_matricula'],2,".",","); ?></td>
     </tr>
 
     <tr>
         <td style="width: 2cm;"></td>
         <td <?php echo $padding; ?>><b>MENSUALIDAD Bs:</b></td>
-        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_mensualidad'],2,",","."); ?></td>
+        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_mensualidad'],2,".",","); ?></td>
     </tr>
 
 
@@ -149,7 +149,7 @@
         <td>
             <font face="Arial" size="3"><b>TOTAL FINAL Bs</b></font>
         </td>
-        <td><font face="Arial" size="3"><b><?php echo number_format($inscripcion[0]['kardexeco_mensualidad']+$inscripcion[0]['kardexeco_matricula'],2,",","."); ?></b></font></td>
+        <td><font face="Arial" size="3"><b><?php echo number_format($inscripcion[0]['kardexeco_mensualidad']+$inscripcion[0]['kardexeco_matricula'],2,".",","); ?></b></font></td>
     </tr>
     <!--</tbody>-->
 </table>   

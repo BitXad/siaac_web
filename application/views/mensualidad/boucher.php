@@ -125,7 +125,7 @@ border-bottom : 1px solid #aaa;
                             
                             <?php echo $mensualidad[0]['estudiante_razon']; ?> <br>
                             <?php echo $mensualidad[0]['estudiante_razon']; ?>  <br>   
-                            <?php echo $mensualidad[0]['mensualidad_numrec']; ?> hi  
+                            <?php echo $mensualidad[0]['mensualidad_numrec']; ?>  
                         </td>
                     </tr>
                 </table>
