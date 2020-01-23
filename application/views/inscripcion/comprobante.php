@@ -28,7 +28,10 @@
 <!-------------------------------------------------------->
 <input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
 <?php $padding = "style='padding:0; '"; 
-    $ancho = "18cm";
+    $ancho = "16cm";
+    
+    $logo = base_url("resources/images/institucion/").$institucion[0]['institucion_logo'];
+    $logo_thumb = base_url("resources/images/institucion/")."thumb_".$institucion[0]['institucion_logo'];
 ?>
 
 <?php //$fecha = date();
@@ -40,7 +43,7 @@
     <tr>
         <td width="300" style="line-height: 10px; ">
                      <center>                        
-                         <img src="<?php echo base_url("resources/images/institucion/").$institucion[0]['institucion_logo']; ?>" width="80" height="60"><br>
+                         <img src="<?php echo $logo; ?>" width="80" height="60"><br>
                         <font size="2" face="Arial"><b><?php echo $institucion[0]['institucion_nombre']; ?></b></font><br>
                         <?php if(sizeof($institucion[0]['institucion_slogan'])>1){ ?>
                             <font size="2" face="Arial"><b><?php echo $institucion[0]['institucion_slogan']; ?></b></font><br>
@@ -53,7 +56,8 @@
         </td>
         <td width="400" style="line-height: 14px; ">
             <center>
-                <font size="3" face="Arial"><b>COMPROBANTE DE INSCRIPCION</b></font><br>
+                <font size="3" face="Arial"><b>COMPROBANTE</b></font><br>
+                <font size="2" face="Arial"><b>DE INSCRIPCION</b></font><br>
                 <font size="3" face="Arial"><b>Nº: 00<?php echo $inscripcion[0]['inscripcion_id']; ?></b></font><br>
                 <font size="1" face="Arial"><b><?php echo $fecha_d_m_a; ?></b></font>
                 
@@ -91,9 +95,14 @@
 </table>
 <br>
 
-<table  class="table table-striped table-condensed" style="width: <?php echo $ancho; ?>; font-family: Arial; font-size: 10px; border-top: solid; border-bottom: solid;">
-    
+<table  class="table table-condensed" style="width: <?php echo $ancho; ?>; font-family: Arial; font-size: 10px; border-top: solid; border-bottom: solid; ">
+    <!--<tbody background="<?php echo $logo; ?>">-->
         
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
     <tr>
         <td style="width: 2cm;"></td>
         <td <?php echo $padding; ?>><b>CARRERA:</b></td>
@@ -109,13 +118,13 @@
     <tr>
         <td style="width: 2cm;"></td>
         <td <?php echo $padding; ?>><b>MATRICULA Bs:</b></td>
-        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['kardexeco_matricula']; ?></td>
+        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_matricula'],2,",","."); ?></td>
     </tr>
 
     <tr>
         <td style="width: 2cm;"></td>
         <td <?php echo $padding; ?>><b>MENSUALIDAD Bs:</b></td>
-        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['kardexeco_mensualidad']; ?></td>
+        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_mensualidad'],2,",","."); ?></td>
     </tr>
 
 
@@ -130,6 +139,19 @@
         
         <td <?php echo $padding; ?>><?php echo $fecha_d_m_a; ?></td>
     </tr>
+    <tr>
+        <td style="padding: 0;"></td>
+        <td colspan="2" style="padding: 0;">__________________________________________________________</td>
+            
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <font face="Arial" size="3"><b>TOTAL FINAL Bs</b></font>
+        </td>
+        <td><font face="Arial" size="3"><b><?php echo number_format($inscripcion[0]['kardexeco_mensualidad']+$inscripcion[0]['kardexeco_matricula'],2,",","."); ?></b></font></td>
+    </tr>
+    <!--</tbody>-->
 </table>   
 
 <table  class="table table-striped table-condensed" style="width: <?php echo $ancho; ?>; font-family: Arial; font-size:10px;">
