@@ -72,9 +72,17 @@ function buscarestudiante(parametro){
 
 
 function seleccionar_carrera(){
+    
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/buscar_carrera";
     var carrera_id = document.getElementById('carrera_id').value;
+    var estudiante_id = document.getElementById('estudiante_id').value;
+    
+    
+   
+    if(estudiante_id>0){
+    
+    
     
     //alert(controlador);
         $.ajax({
@@ -139,10 +147,14 @@ function seleccionar_carrera(){
 
             }, 
         }); 
-        
-  
+    
     calcular(); 
     
+    }
+    else{
+        $("#modalbuscarclie").click();
+        //alert("ERROR: Debe seleccionar/registrar un estudiante...!!");
+    }
   
 }
 

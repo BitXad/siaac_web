@@ -202,12 +202,32 @@ class Inscripcion_model extends CI_Model
     function get_ultima_inscripcion()
     {
         $sql = "select * 
-                from inscripcion i, estudiante e, kardex_economico ke, usuario u, carrera c
+                from inscripcion i, estudiante e, kardex_economico ke, usuario u, carrera c, gestion g, nivel n
                 where i.estudiante_id = e.estudiante_id and 
                 i.inscripcion_id = ke.inscripcion_id and 
+                i.gestion_id = g.gestion_id and
                 c.carrera_id = i.carrera_id and
                 i.usuario_id = u.usuario_id and
+                i.nivel_id = n.nivel_id and
                 i.inscripcion_id = (select max(inscripcion_id) from inscripcion)";
+        $grupo = $this->db->query($sql)->result_array();
+        return $grupo;
+    }
+
+    function get_inscritos($desde,$hasta)
+    {
+        $sql = "select 
+                e.estudiante_apellidos,e.estudiante_nombre,e.estudiante_id,
+                ke.*, c.*, g.*, n.nivel_descripcion, u.usuario_nombre
+                from inscripcion i, estudiante e, kardex_economico ke, usuario u, carrera c, gestion g, nivel n
+                where i.estudiante_id = e.estudiante_id and 
+                i.inscripcion_id = ke.inscripcion_id and 
+                i.gestion_id = g.gestion_id and
+                c.carrera_id = i.carrera_id and
+                i.usuario_id = u.usuario_id and
+                i.nivel_id = n.nivel_id and
+                i.inscripcion_fecha >= '".$desde."' and
+                i.inscripcion_fecha <= '".$hasta."'";
         $grupo = $this->db->query($sql)->result_array();
         return $grupo;
     }
