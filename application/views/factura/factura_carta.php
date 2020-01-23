@@ -219,7 +219,7 @@ border-bottom : 1px solid #aaa;
                     </td>
                     
                     <td style="width: <?php echo $ancho / 3;?>cm;  padding: 0; line-height: 10px;">
-                            <table style="width: 6cm; padding:0; border-bottom: #0000eb">
+                            <table style="width: 6cm; padding:0; border-bottom: #0000eb !important; -webkit-print-color-adjust: exact;">
 <!--                                <tr>
                                     <td colspan="2">
                                         <center>

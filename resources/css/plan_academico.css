@@ -61,11 +61,11 @@ body{
 
 .contenedor{
   clear: both;
-  //Con inline block el contenedor crece a medida que crecen los items
+  /*Con inline block el contenedor crece a medida que crecen los items*/
   display: inline-block;
   /*display:block;*/
   /*display:flex;*/
-//   width:100%; 
+/*  width:100%; */
   /*overflow: visible;*/
   border:green 1px solid;
   

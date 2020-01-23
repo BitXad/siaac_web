@@ -616,6 +616,22 @@ class Inscripcion extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }
+    
+    
+    function inscripciones()
+    {   
+        if($this->acceso(45)){
+            $desde = date("Y-m-d");
+            $hasta = date("Y-m-d");
+            
+            $data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($desde,$hasta);
+            $data['institucion'] = $this->Institucion_model->get_all_institucion();
+
+            $data['_view'] = 'inscripcion/reporte_inscritos';
+            $this->load->view('layouts/main',$data);
+        }
+    }
+    
     function codigo_control($dosificacion_llave, $dosificacion_autorizacion, $dosificacion_numfact, $nit,$fecha_trans, $monto)
     {
         //include 'ControlCode.php';
