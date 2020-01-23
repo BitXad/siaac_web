@@ -67,7 +67,7 @@ class Mensualidad_model extends CI_Model
                 mensualidad m
 
             LEFT JOIN estado e on m.estado_id=e.estado_id
-            LEFT JOIN factura f on m.mensualidad_id = f.venta_id
+            LEFT JOIN factura f on m.mensualidad_id = f.mensualidad_id
             WHERE
               
                  m.kardexeco_id = ".$kardex_id."

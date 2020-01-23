@@ -5,34 +5,32 @@
  */
  
 class Factura extends CI_Controller{
+    private $session_data = "";
     function __construct()
     {
         parent::__construct();
         $this->load->model('Factura_model');
-        $this->load->model('Institucion_model');    
+        $this->load->model('Empresa_model');
+        $this->load->model('Detalle_venta_model');
         $this->load->model('Parametro_model');
-        
-       // $this->load->model('Preferencia_model');
+        //$this->load->model('Tipo_servicio_model');
+        $this->load->model('Dosificacion_model');
+       // $this->load->model('Pedido_model');
+        //$this->load->model('Venta_model');
+        //$this->load->model('Tipo_transaccion_model');
+       // $this->load->model('Forma_pago_model');
+        //$this->load->model('Tipo_cliente_model');
+        $this->load->model('Usuario_model');
+        //$this->load->model('Preferencia_model');
         $this->load->library('ControlCode');
-        
+       
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
             redirect('', 'refresh');
         }
-    } 
-
-    /*
-     * Listing of factura
-     */
-    function index()
-    {
-        $data['factura'] = $this->Factura_model->get_all_factura();
-        
-        $data['_view'] = 'factura/index';
-        $this->load->view('layouts/main',$data);
     }
-
+    /* *****Funcion que verifica el acceso al sistema**** */
     private function acceso($id_rol){
         $rolusuario = $this->session_data['rol'];
         if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
@@ -42,22 +40,208 @@ class Factura extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }
-
-
-        function factura_boucher_id($factura_id)
+    /*
+     * Listing of factura
+     */
+    function index()
     {
-        if($this->acceso(47)){
+        if($this->acceso(152)){
+        //**************** inicio contenido ***************            
+        
+        $params['limit'] = RECORDS_PER_PAGE; 
+        $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+        
+        $config = $this->config->item('pagination');
+        $config['base_url'] = site_url('factura/index?');
+        $config['total_rows'] = $this->Factura_model->get_all_factura_count();
+        $this->pagination->initialize($config);
+
+        $data['page_title'] = "Libro de Ventas";
+        $data['factura'] = $this->Factura_model->get_all_factura($params);
+        
+        $data['_view'] = 'factura/index';
+        $this->load->view('layouts/main',$data);
+        		
+        //**************** fin contenido ***************
+        }
+    }
+
+
+    /*
+     * Listing of factura
+     */
+    
+    
+//     public function random($num){
+// $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+// $string = '';
+// for ($i = 0; $i < $num; $i++) {
+//      $string .= $characters[rand(0, strlen($characters) - 1)];
+// }
+// return $string;
+// }
+
+    function factura_compra()
+    {
+        if($this->acceso(153)){
+        //**************** inicio contenido ***************            
+        
+        $params['limit'] = RECORDS_PER_PAGE; 
+        $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+        
+        $config = $this->config->item('pagination');
+        $config['base_url'] = site_url('factura/index?');
+        $config['total_rows'] = $this->Factura_model->get_all_factura_count();
+        $this->pagination->initialize($config);
+
+        $data['factura'] = $this->Factura_model->get_all_factura($params);
+        
+        $data['_view'] = 'factura/factura_compra';
+        $this->load->view('layouts/main',$data);
+                
+        //**************** fin contenido ***************
+        }
+    }
+
+    function factura_carta($venta_id)
+    {
+        
+        if($this->acceso(17)){
+        //**************** inicio contenido ***************   
+        $usuario_id = $this->session_data['usuario_id'];
+        
+        $data['tipousuario_id'] = $this->session_data['tipousuario_id'];
+        $data['venta'] = $this->Detalle_venta_model->get_venta($venta_id);
+        $data['detalle_factura'] = $this->Detalle_venta_model->get_detalle_factura($venta_id);        
+        $data['empresa'] = $this->Empresa_model->get_empresa(1);        
+        $data['page_title'] = "Factura";
+        $factura = $this->Factura_model->get_factura_venta($venta_id);
+        $data['factura'] = $factura;
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+                
+        if(sizeof($factura)>=1){
+        
+        $nit_emisor    = $factura[0]['factura_nitemisor'];
+        $num_fact      = $factura[0]['factura_numero'];
+        $autorizacion  = $factura[0]['factura_autorizacion'];
+        $fecha_factura = $factura[0]['factura_fechaventa'];
+        $total         = $factura[0]['factura_total'];
+        $codcontrol    = $factura[0]['factura_codigocontrol'];
+        $nit           = $factura[0]['factura_nit'];
+        
+        $cadenaQR = $nit_emisor.'|'.$num_fact.'|'.$autorizacion.'|'.$fecha_factura.'|'.$total.'|'.$total.'|'.$codcontrol.'|'.$nit.'|0|0|0|0';
+               
+        $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
+        //Generador de Codigo QR
+                //cargamos la librería	
+         $this->load->library('ciqrcode');
+                 
+         //hacemos configuraciones
+         $params['data'] = $cadenaQR;//$this->random(30);
+         $params['level'] = 'H';
+         $params['size'] = 5;
+         //decimos el directorio a guardar el codigo qr, en este 
+         //caso una carpeta en la raíz llamada qr_code
+         $params['savename'] = FCPATH.'resources\images\qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png'; 
+         //generamos el código qr
+         $this->ciqrcode->generate($params); 
+         //echo '<img src="'.base_url().'resources/images/qrcode.png" />';
+        //fin generador de codigo QR        
+        
+        $data['codigoqr'] = base_url('resources/images/qrcode'.$usuario_id.'.png');
+        
+        $data['_view'] = 'factura/factura_carta';
+        $this->load->view('layouts/main',$data);        
+        
+        }
+        else
+        {
+            echo "<script type='text/javascript>alert('La venta no contiene una factura asociada...!'); </script>'";
+            redirect('venta');
+        }
+        		
+        //**************** fin contenido ***************
+        }
+    }    
+    
+    function factura_boucher($venta_id)
+    {
+        if($this->acceso(17)){
+        //**************** inicio contenido ***************           
+    
+        $usuario_id = $this->session_data['usuario_id'];
+        
+        $data['tipousuario_id'] = $this->session_data['tipousuario_id'];
+        //$data['venta'] = $this->Detalle_venta_model->get_venta($venta_id);
+       // $data['venta'] = $this->Detalle_venta_model->get_venta_id($venta_id);
+        $data['detalle_factura'] = $this->Detalle_venta_model->get_detalle_factura($venta_id);        
+        $data['empresa'] = $this->Empresa_model->get_empresa(1);        
+        $data['page_title'] = "Factura";
+        $factura = $this->Factura_model->get_factura_venta($venta_id);
+        $data['factura'] = $factura;
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+        
+        if(sizeof($factura)>=1){
+        
+        $nit_emisor    = $factura[0]['factura_nitemisor'];
+        $num_fact      = $factura[0]['factura_numero'];
+        $autorizacion  = $factura[0]['factura_autorizacion'];
+        $fecha_factura = $factura[0]['factura_fechaventa'];
+        $total         = $factura[0]['factura_total'];
+        $codcontrol    = $factura[0]['factura_codigocontrol'];
+        $nit           = $factura[0]['factura_nit'];
+        
+        $cadenaQR = $nit_emisor.'|'.$num_fact.'|'.$autorizacion.'|'.$fecha_factura.'|'.$total.'|'.$total.'|'.$codcontrol.'|'.$nit.'|0|0|0|0';
+               
+        $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
+        //Generador de Codigo QR
+                //cargamos la librería	
+         $this->load->library('ciqrcode');
+                  
+         //hacemos configuraciones
+         $params['data'] = $cadenaQR;//$this->random(30);
+         $params['level'] = 'H';
+         $params['size'] = 5;
+         //decimos el directorio a guardar el codigo qr, en este 
+         //caso una carpeta en la raíz llamada qr_code
+         $params['savename'] = FCPATH.'resources/images/qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png'; 
+         //generamos el código qr
+         $this->ciqrcode->generate($params); 
+         //echo '<img src="'.base_url().'resources/images/qrcode.png" />';
+        //fin generador de codigo QR
+         
+        
+        $data['codigoqr'] = base_url('resources/images/qrcode'.$usuario_id.'.png');
+        
+        $data['_view'] = 'factura/factura_boucher';
+        $this->load->view('layouts/main',$data);
+        
+        
+        }
+        else
+        {
+            echo "<script type='text/javascript>alert('La venta no contiene una factura asociada...!'); </script>'";
+            redirect('venta');
+        }
+        		
+        //**************** fin contenido ***************
+        }
+    }
+    
+    function factura_boucher_id($factura_id)
+    {
+        if($this->acceso(17)){
         //**************** inicio contenido ***************           
     
         $usuario_id = $this->session_data['usuario_id'];
         
         $data['tipousuario_id'] = $this->session_data['tipousuario_id'];
         
-//        $data['venta'] = $this->Factura_model->get_venta($venta_id);
+//        $data['venta'] = $this->Detalle_venta_model->get_venta($venta_id);
 //        
         // se usa detalle_venta para no modifcar el detalle de factura que ya estaba echo
-        $data['detalle_factura'] = $this->Factura_model->get_detalle_factura_id($factura_id);
-        $data['institucion'] = $this->Institucion_model->get_institucion(1);
+        $data['detalle_factura'] = $this->Detalle_venta_model->get_detalle_factura_id($factura_id);
+        $data['empresa'] = $this->Empresa_model->get_empresa(1);
         $data['page_title'] = "Factura";
         $factura = $this->Factura_model->get_factura_id($factura_id);
         $data['factura'] = $factura;
@@ -77,7 +261,7 @@ class Factura extends CI_Controller{
                
         $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
         //Generador de Codigo QR
-                //cargamos la librería  
+                //cargamos la librería	
          $this->load->library('ciqrcode');
                   
          //hacemos configuraciones
@@ -104,7 +288,7 @@ class Factura extends CI_Controller{
             echo "<script type='text/javascript>alert('La venta no contiene una factura asociada...!'); </script>'";
             redirect('venta');
         }
-                
+        		
         //**************** fin contenido ***************
         }
     }
@@ -112,7 +296,7 @@ class Factura extends CI_Controller{
     
     function factura_carta_id($factura_id)
     {
-        if($this->acceso(47)){
+        if($this->acceso(17)){
         //**************** inicio contenido ***************           
     
         $usuario_id = $this->session_data['usuario_id'];
@@ -121,11 +305,11 @@ class Factura extends CI_Controller{
         
         //$data['venta'] = array(array('venta_id'  => 0,'venta_tipodoc' => 1));
         
-//        $data['venta'] = $this->Factura_model->get_venta($venta_id);
+//        $data['venta'] = $this->Detalle_venta_model->get_venta($venta_id);
 //        
         // se usa detalle_venta para no modifcar el detalle de factura que ya estaba echo
-        $data['detalle_factura'] = $this->Factura_model->get_detalle_factura_id($factura_id);
-        $data['institucion'] = $this->Institucion_model->get_institucion(1);
+        $data['detalle_factura'] = $this->Detalle_venta_model->get_detalle_factura_id($factura_id);
+        $data['empresa'] = $this->Empresa_model->get_empresa(1);
         $data['page_title'] = "Factura";
         $factura = $this->Factura_model->get_factura_id($factura_id);
         $data['factura'] = $factura;
@@ -145,7 +329,7 @@ class Factura extends CI_Controller{
                
         $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
         //Generador de Codigo QR
-                //cargamos la librería  
+                //cargamos la librería	
          $this->load->library('ciqrcode');
                   
          //hacemos configuraciones
@@ -172,65 +356,243 @@ class Factura extends CI_Controller{
             echo "<script type='text/javascript>alert('La venta no contiene una factura asociada...!'); </script>'";
             redirect('venta');
         }
+        		
+        //**************** fin contenido ***************
+        }
+    }
+
+    function recibo_boucher($venta_id)
+    {
+        if($this->acceso(21)){
+        //**************** inicio contenido ***************           
+    
+        $usuario_id = $this->session_data['usuario_id'];
+        
+        $data['tipousuario_id'] = $this->session_data['tipousuario_id'];
+        $data['venta'] = $this->Detalle_venta_model->get_venta($venta_id);
+        $data['detalle_venta'] = $this->Detalle_venta_model->get_detalle_venta($venta_id);        
+        $data['empresa'] = $this->Empresa_model->get_empresa(1);        
+        $data['page_title'] = "Recibo";
+
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+   
+        $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
+  
+        $data['_view'] = 'factura/recibo_boucher';
+        $this->load->view('layouts/main',$data);       
+
+        		
+        //**************** fin contenido ***************
+        }
+    }
+
+    function comanda_boucher($venta_id)
+    {
+        if($this->acceso(154)){
+        //**************** inicio contenido ***************           
+    
+        $usuario_id = $this->session_data['usuario_id'];
+        
+        $data['tipousuario_id'] = $this->session_data['tipousuario_id'];
+        $data['venta'] = $this->Detalle_venta_model->get_venta_comanda($venta_id);
+        $data['detalle_venta'] = $this->Detalle_venta_model->get_detalle_venta($venta_id);        
+        $data['empresa'] = $this->Empresa_model->get_empresa(1);  
+        
+        $data['tipo_servicio'] = $this->Tipo_servicio_model->get_tipo_servicios();        
+        $data['page_title'] = "Recibo";
+
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+   
+        $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
+  
+        $data['_view'] = 'factura/comanda_boucher';
+        $this->load->view('layouts/main',$data);       
+
+        		
+        //**************** fin contenido ***************
+        }
+    }
+    
+    
+    function recibo_carta($venta_id)
+    {
+        if($this->acceso(21)){
+        //**************** inicio contenido ***************           
+    
+        $usuario_id = $this->session_data['usuario_id'];
+        
+        $data['tipousuario_id'] = $this->session_data['tipousuario_id'];
+        $data['venta'] = $this->Detalle_venta_model->get_venta($venta_id);
+        $data['detalle_venta'] = $this->Detalle_venta_model->get_detalle_venta($venta_id);        
+        $data['empresa'] = $this->Empresa_model->get_empresa(1);        
+        $data['page_title'] = "Recibo";
+
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+   
+        $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
+  
+        $data['_view'] = 'factura/recibo_carta';
+        $this->load->view('layouts/main',$data);       
+
+        		
+        //**************** fin contenido ***************
+        }
+    }
+    
+    
+    function nota_garantia($venta_id)
+    {
+        if($this->acceso(21)){
+        //**************** inicio contenido ***************           
+    
+        $usuario_id = $this->session_data['usuario_id'];
+        
+        $data['tipousuario_id'] = $this->session_data['tipousuario_id'];
+        $data['venta'] = $this->Detalle_venta_model->get_venta($venta_id);
+        $data['detalle_venta'] = $this->Detalle_venta_model->get_detalle_venta($venta_id);        
+        $data['empresa'] = $this->Empresa_model->get_empresa(1);        
+        $data['page_title'] = "Recibo";
+
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+   
+        $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
+  
+        $data['_view'] = 'venta/nota_garantia';
+        $this->load->view('layouts/main',$data);       
+
+        		
+        //**************** fin contenido ***************
+        }
+    }
+
+    /*
+     * Adding a new factura
+     */
+    function add()
+    {   
+        if($this->acceso(154)){
+        //**************** inicio contenido ***************   
                 
+        if(isset($_POST) && count($_POST) > 0)     
+        {   
+            $params = array(
+				'estado_id' => $this->input->post('estado_id'),
+				'venta_id' => $this->input->post('venta_id'),
+				'factura_fecha' => $this->input->post('factura_fecha'),
+				'factura_hora' => $this->input->post('factura_hora'),
+				'factura_subtotaltotal' => $this->input->post('factura_subtotaltotal'),
+				'factura_ice' => $this->input->post('factura_ice'),
+				'factura_exento' => $this->input->post('factura_exento'),
+				'factura_descuento' => $this->input->post('factura_descuento'),
+				'factura_total' => $this->input->post('factura_total'),
+				'factura_numero' => $this->input->post('factura_numero'),
+				'factura_autorizacion' => $this->input->post('factura_autorizacion'),
+				'factura_llave' => $this->input->post('factura_llave'),
+				'factura_fechalimite' => $this->input->post('factura_fechalimite'),
+				'factura_codigocontrol' => $this->input->post('factura_codigocontrol'),
+				'factura_leyenda' => $this->input->post('factura_leyenda'),
+            );
+            
+            $factura_id = $this->Factura_model->add_factura($params);
+            redirect('factura/index');
+        }
+        else
+        {
+			$this->load->model('Estado_model');
+			$data['all_estado'] = $this->Estado_model->get_all_estado();
+
+			$this->load->model('Venta_model');
+			$data['all_venta'] = $this->Venta_model->get_all_venta();
+            
+            $data['_view'] = 'factura/add';
+            $this->load->view('layouts/main',$data);
+        }
+        		
         //**************** fin contenido ***************
         }
     }
 
 
-        function anular_factura($factura_id,$factura_numero){
-        if($this->acceso(47)){
+    /*
+     * Editing a factura
+     */
+    function edit($factura_id)
+    {   
+        if($this->acceso(154)){
         //**************** inicio contenido ***************   
-                
-//        if($factura_id>0)
-//        {
-//            
-        $sql = "update factura set ".                
-                "factura_subtotal = 0".
-                ",factura_nit = 0".
-                ",factura_razonsocial   = 'ANULADO'".
-                ",factura_ice           = 0".
-                ",factura_exento        = 0".
-                ",factura_descuento     = 0".
-                ",factura_total         = 0".
-                ",factura_codigocontrol     = '0'".
-                ",estado_id     = 3".
-                " where factura_id = ".$factura_id;
         
-        //echo $sql;
-        // check if the factura exists before trying to delete it
-        $this->Factura_model->ejecutar($sql);
-            
-            redirect('factura/mensaje/'.$factura_id."/".$factura_numero);
-//        }
-//        else
-//            show_error('The factura you are trying to delete does not exist.');
-                
+        // check if the factura exists before trying to edit it
+        $data['factura'] = $this->Factura_model->get_factura($factura_id);
+        
+        if(isset($data['factura']['factura_id']))
+        {
+            if(isset($_POST) && count($_POST) > 0)     
+            {   
+                $params = array(
+					'estado_id' => $this->input->post('estado_id'),
+					'venta_id' => $this->input->post('venta_id'),
+					'factura_fecha' => $this->input->post('factura_fecha'),
+					'factura_hora' => $this->input->post('factura_hora'),
+					'factura_subtotaltotal' => $this->input->post('factura_subtotaltotal'),
+					'factura_ice' => $this->input->post('factura_ice'),
+					'factura_exento' => $this->input->post('factura_exento'),
+					'factura_descuento' => $this->input->post('factura_descuento'),
+					'factura_total' => $this->input->post('factura_total'),
+					'factura_numero' => $this->input->post('factura_numero'),
+					'factura_autorizacion' => $this->input->post('factura_autorizacion'),
+					'factura_llave' => $this->input->post('factura_llave'),
+					'factura_fechalimite' => $this->input->post('factura_fechalimite'),
+					'factura_codigocontrol' => $this->input->post('factura_codigocontrol'),
+					'factura_leyenda' => $this->input->post('factura_leyenda'),
+                );
+
+                $this->Factura_model->update_factura($factura_id,$params);            
+                redirect('factura/index');
+            }
+            else
+            {
+				$this->load->model('Estado_model');
+				$data['all_estado'] = $this->Estado_model->get_all_estado();
+
+				$this->load->model('Venta_model');
+				$data['all_venta'] = $this->Venta_model->get_all_venta();
+
+                $data['_view'] = 'factura/edit';
+                $this->load->view('layouts/main',$data);
+            }
+        }
+        else
+            show_error('The factura you are trying to edit does not exist.');
+        		
         //**************** fin contenido ***************
-        }      
-        
+        }
     }
 
-        function mensaje($factura_id,$factura_numero)
+    /*
+     * Deleting factura
+     */
+    function remove($factura_id)
     {
-        if($this->acceso(17)){
-        //**************** inicio contenido ***************            
-        
+        if($this->acceso(154)){
+        //**************** inicio contenido ***************   
+                
+        $factura = $this->Factura_model->get_factura($factura_id);
 
-            $data['factura_id'] = $factura_id;
-            $data['factura_numero'] = $factura_numero;
-            $data['page_title'] = "Facturada Anulada";
-            $data['_view'] = 'factura/mensaje';
-
-            $data['page_title'] = "Verificador";            
-            $this->load->view('layouts/main',$data);
-            
+        // check if the factura exists before trying to delete it
+        if(isset($factura['factura_id']))
+        {
+            $this->Factura_model->delete_factura($factura_id);
+            redirect('factura/index');
+        }
+        else
+            show_error('The factura you are trying to delete does not exist.');
+        		
         //**************** fin contenido ***************
-        }   
-            
-    }  
+        }
+    }
 
-   public function generar_excel(){
+
+    public function generar_excel(){
 
     $fecha_desde = $this->input->post('fecha_desde');
     $fecha_hasta = $this->input->post('fecha_hasta');
@@ -439,91 +801,39 @@ class Factura extends CI_Controller{
     }
   }
   
-    /*
-     * Adding a new factura
-     */
-
-    function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'matricula_id' => $this->input->post('matricula_id'),
-				'mensualidad_id' => $this->input->post('mensualidad_id'),
-            );
-            
-            $factura_id = $this->Factura_model->add_factura($params);
-            redirect('factura/index');
-        }
-        else
-        {
-			$this->load->model('Matricula_model');
-			$data['all_matricula'] = $this->Matricula_model->get_all_matricula();
-
-			$this->load->model('Mensualidad_model');
-			$data['all_mensualidad'] = $this->Mensualidad_model->get_all_mensualidad();
-            
-            $data['_view'] = 'factura/add';
-            $this->load->view('layouts/main',$data);
-        }
-    }  
-
-    /*
-     * Editing a factura
-     */
-    function edit($factura_id)
-    {   
-        // check if the factura exists before trying to edit it
-        $data['factura'] = $this->Factura_model->get_factura($factura_id);
-        
-        if(isset($data['factura']['factura_id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'matricula_id' => $this->input->post('matricula_id'),
-					'mensualidad_id' => $this->input->post('mensualidad_id'),
-                );
-
-                $this->Factura_model->update_factura($factura_id,$params);            
-                redirect('factura/index');
-            }
-            else
-            {
-				$this->load->model('Matricula_model');
-				$data['all_matricula'] = $this->Matricula_model->get_all_matricula();
-
-				$this->load->model('Mensualidad_model');
-				$data['all_mensualidad'] = $this->Mensualidad_model->get_all_mensualidad();
-
-                $data['_view'] = 'factura/edit';
-                $this->load->view('layouts/main',$data);
-            }
-        }
-        else
-            show_error('The factura you are trying to edit does not exist.');
-    } 
-
-    /*
-     * Deleting factura
-     */
-    function remove($factura_id)
+    function mostrar_facturas()
     {
-        $factura = $this->Factura_model->get_factura($factura_id);
+        $usuario_id = $this->session_data['usuario_id'];
 
-        // check if the factura exists before trying to delete it
-        if(isset($factura['factura_id']))
-        {
-            $this->Factura_model->delete_factura($factura_id);
-            redirect('factura/index');
+        if ($this->input->is_ajax_request()) {
+            
+            $desde = $this->input->post("desde");
+            $hasta = $this->input->post("hasta");            
+            $opcion = $this->input->post('opcion');   
+            
+            if ($opcion==1){
+                $datos = $this->Factura_model->get_factura_ventas($desde,$hasta);
+            }
+            else{
+                $datos = $this->Factura_model->get_factura_compras($desde,$hasta);
+            }
+            
+            echo json_encode($datos);
+            
         }
         else
-            show_error('The factura you are trying to delete does not exist.');
-    }
-
+        {                 
+            show_404();
+        }
+    } 
+    
+    /*
+     * Realizado por: Roberto Carlos Soto Sierra
+     * Fecha: 05.03.2019
+     */
     function verificador()
     {
-        if($this->acceso(47)){
+        if($this->acceso(154)){
 //        if ($this->session->userdata('logged_in')) {
 //            $this->session_data = $this->session->userdata('logged_in');
 //            if($this->session_data['tipousuario_id']==1 or $this->session_data['tipousuario_id']==4) {
@@ -540,6 +850,7 @@ class Factura extends CI_Controller{
         }
     }
 
+    
     function codigo_control($dosificacion_llave, $dosificacion_autorizacion, $dosificacion_numfact, $nit,$fecha_trans, $monto)
     {
 
@@ -574,64 +885,101 @@ class Factura extends CI_Controller{
 
         echo '[{codigocontrol:"'.$codigo.'"}]';
 
-    }    
+    }
+
+
+
+        //**************** fin contenido ***************
+//        			}
+//        			else{ redirect('alerta'); }
+//        } else { redirect('', 'refresh'); }
+
+    function anular_factura($factura_id,$factura_numero){
+        if($this->acceso(154)){
+        //**************** inicio contenido ***************   
+                
+//        if($factura_id>0)
+//        {
+//            
+        $sql = "update factura set ".                
+                "factura_subtotal = 0".
+                ",factura_nit = 0".
+                ",factura_razonsocial   = 'ANULADO'".
+                ",factura_ice           = 0".
+                ",factura_exento        = 0".
+                ",factura_descuento     = 0".
+                ",factura_total         = 0".
+                ",factura_codigocontrol     = '0'".
+                ",estado_id     = 3".
+                " where factura_id = ".$factura_id;
         
-    function factura_compra()
+        //echo $sql;
+        // check if the factura exists before trying to delete it
+        $this->Factura_model->ejecutar($sql);
+            
+            redirect('factura/mensaje/'.$factura_id."/".$factura_numero);
+//        }
+//        else
+//            show_error('The factura you are trying to delete does not exist.');
+        		
+        //**************** fin contenido ***************
+        }      
+        
+    }
+    /*
+     * Realizado por: Roberto Carlos Soto Sierra
+     * Fecha: 05.03.2019
+     */
+    function mensaje($factura_id,$factura_numero)
     {
-        if($this->acceso(73-1)){
+        if($this->acceso(17)){
         //**************** inicio contenido ***************            
         
-        $params['limit'] = RECORDS_PER_PAGE; 
-        $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
-        
-        $config = $this->config->item('pagination');
-        $config['base_url'] = site_url('factura/index?');
-        $config['total_rows'] = $this->Factura_model->get_all_factura_count();
-        $this->pagination->initialize($config);
 
-        $data['factura'] = $this->Factura_model->get_all_factura($params);
-        
-        $data['_view'] = 'factura/factura_compra';
-        $this->load->view('layouts/main',$data);
-                
+            $data['factura_id'] = $factura_id;
+            $data['factura_numero'] = $factura_numero;
+            $data['page_title'] = "Facturada Anulada";
+            $data['_view'] = 'factura/mensaje';
+
+            $data['page_title'] = "Verificador";            
+            $this->load->view('layouts/main',$data);
+            
         //**************** fin contenido ***************
-        }
+        }   
+            
     }    
-    
-  
-    function mostrar_facturas()
-    {
-        $usuario_id = $this->session_data['usuario_id'];
 
-        if ($this->input->is_ajax_request()) {
-            
-            $desde = $this->input->post("desde");
-            $hasta = $this->input->post("hasta");            
-            $opcion = $this->input->post('opcion');   
-            
-            if ($opcion==1){
-                $datos = $this->Factura_model->get_factura_ventas($desde,$hasta);
+    /*
+     * Realizado por: Roberto Carlos Soto Sierra
+     * Fecha: 05.05.2019
+     */
+    function imprimir_factura($venta_id)
+    {
+        if($this->acceso(17)){
+        //**************** inicio contenido ***************            
+                
+            $parametros = $this->Parametro_model->get_parametros();
+
+            if (sizeof($parametros)>0){
+                
+                if ($parametros[0]['parametro_tipoimpresora']=="FACTURADORA")
+                    $this->factura_boucher($venta_id);
+                else
+                    $this->factura_carta($venta_id);
             }
-            else{
-                $datos = $this->Factura_model->get_factura_compras($desde,$hasta);
-            }
+
+        //**************** fin contenido ***************
+        } 
             
-            echo json_encode($datos);
-            
-        }
-        else
-        {                 
-            show_404();
-        }
     }    
-    
+
     /*
      * Realizado por: Roberto Carlos Soto Sierra
      * Fecha: 05.05.2019
      */
     function imprimir_factura_id($factura_id)
     {
-        if($this->acceso(73-1)){
+        if($this->acceso(17)){
         //**************** inicio contenido ***************            
                 
             $parametros = $this->Parametro_model->get_parametros();
@@ -647,7 +995,79 @@ class Factura extends CI_Controller{
         //**************** fin contenido ***************
         } 
             
-    }        
+    }    
+
+    function imprimir_recibo($venta_id)
+    {
+        if($this->acceso(21)){
+        //**************** inicio contenido ***************            
+                
+            $parametros = $this->Parametro_model->get_parametros();
+
+            if (sizeof($parametros)>0){
+                
+                if ($parametros[0]['parametro_tipoimpresora']=="FACTURADORA")
+                    $this->recibo_boucher($venta_id);
+                else
+                    $this->recibo_carta($venta_id);
+            }
+
+        //**************** fin contenido ***************
+        }   
+            
+    }   
+    
+    /*
+     * emitir factura   
+     */
+    function emisor()
+    {    
+        
+        if($this->acceso(12)){
+        //**************** inicio contenido ***************        
+        $data['rolusuario'] = $this->session_data['rol'];
+        $usuario_id = $this->session_data['usuario_id'];
+        $tipousuario_id = $this->session_data['tipousuario_id'];        
+        
+        $factura_id = 1;
+        
+        $data['page_title'] = "Emisor";
+        
+        $venta_id = 1889;
+        $data['empresa'] = $this->Empresa_model->get_empresa(1);        
+        $data['dosificacion'] = $this->Dosificacion_model->get_dosificacion(1);        
+        
+        //$data['venta'] = $this->Detalle_venta_model->get_venta($venta_id);
+        $data['factura'] = $this->Factura_model->get_factura($factura_id);
+        $data['detalle_factura'] = $this->Factura_model->get_detalle_factura_aux($usuario_id);
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+                        
+        
+//        
+//        $data['dosificacion'] = $this->Dosificacion_model->get_all_dosificacion();
+//        $data['pedidos'] = $this->Pedido_model->get_pedidos_activos();
+//        $data['cliente'] = $this->Venta_model->get_cliente_inicial();
+//        $data['categoria_producto'] = $this->Venta_model->get_categoria_producto();
+//        $data['tipo_transaccion'] = $this->Tipo_transaccion_model->get_all_tipo();
+//        $data['forma_pago'] = $this->Forma_pago_model->get_all_forma();
+//        $data['tipo_cliente'] = $this->Tipo_cliente_model->get_all_tipo_cliente();
+//        $data['tipo_servicio'] = $this->Tipo_servicio_model->get_all_tipo_servicio();
+//        $data['parametro'] = $this->Parametro_model->get_parametros();
+//        $data['usuario'] = $this->Usuario_model->get_all_usuario_activo();
+//        $data['preferencia'] = $this->Preferencia_model->get_all_preferencia();
+//        $data['usuario_id'] = $usuario_id;
+//        $data['tipousuario_id'] = $tipousuario_id;
+//        
+        //$data['venta'] = $this->Venta_model->get_all_venta($usuario_id);
+        
+        $data['_view'] = 'factura/emisor';
+        $this->load->view('layouts/main',$data);
+        		
+        //**************** fin contenido ***************
+        }    
+        
+    }
+    
     
     
 }
