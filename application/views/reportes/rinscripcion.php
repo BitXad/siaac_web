@@ -5,23 +5,29 @@
 <script type="text/javascript">
     $(document).ready(function()
     {
+        var estafecha = new Date();
+        $('#fechaimpresion').html(moment(estafecha).format("DD/MM/YYYY HH:mm:ss"));
         //window.onload = window.print();
     });
 </script>
-
 <script type="text/javascript">
-        $(document).ready(function () {
-            (function ($) {
-                $('#filtrar').keyup(function () {
-                    var rex = new RegExp($(this).val(), 'i');
-                    $('.buscar tr').hide();
-                    $('.buscar tr').filter(function () {
-                        return rex.test($(this).text());
-                    }).show();
-                })
-            }(jQuery));
-        });
-</script>   
+    function imprimirdetalle(){
+        var estafecha = new Date();
+        $('#fechaimpresion').html(moment(estafecha).format("DD/MM/YYYY HH:mm:ss"));
+        window.print();
+    }
+
+</script>
+<style type="text/css">
+    @media print {
+        .cabeceratabla th {
+            background-color: rgba(127,127,127,0.5) !important;
+            color: black !important;
+            -webkit-print-color-adjust: exact;
+        }
+    }
+</style>
+ 
 <!----------------------------- fin script buscador --------------------------------------->
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
@@ -34,11 +40,6 @@
     $logo = base_url("resources/images/institucion/").$institucion[0]['institucion_logo'];
     $logo_thumb = base_url("resources/images/institucion/")."thumb_".$institucion[0]['institucion_logo'];
 ?>
-
-<?php //$fecha = date();
-    $fecha_d_m_a =  date('d/m/Y H:t:s')
-?> 
-
     <table style="width: <?php echo $ancho; ?>; font-family: Arial;">
     <tr>
         <td width="300" style="line-height: 10px; ">
@@ -59,7 +60,7 @@
                 <font size="3" face="Arial"><b>INSCRIPCIONES</b></font><br>
                 <!--<font size="2" face="Arial"><b>DE INSCRIPCION</b></font><br>
                 <font size="3" face="Arial"><b>Nº: 00<?php //echo $inscripcion[0]['inscripcion_id']; ?></b></font><br>-->
-                <font size="1" face="Arial"><b><?php echo $fecha_d_m_a; ?></b></font>
+                <font size="1" face="Arial"><b><span id="fechaimpresion"></span></b></font>
                 
             </center>
         </td>
@@ -77,27 +78,27 @@
 <div class="box-header no-print" style="padding: 10px 0px 0px">
         <div class="container" style="margin: 0px; padding: 0px">  
         <div class="box-tools">
-            <div class=" col-md-12" style="padding: 0px;">
+            <div class=" col-md-11" style="padding: 0px;">
                     <div class="col-md-2" style="padding: 0px 10px 0px 0px;">
                         Usuario:
                         <?php if($tipousuario_id == 1){ ?>
                         <select  class="btn btn-primary btn-sm form-control" id="buscarusuario_id" required>
                             <option value="0"> TODOS </option>
-                            <?php /*foreach($all_usuario as $usuario){?>
+                            <?php foreach($all_usuario as $usuario){?>
                             <option value="<?php echo $usuario['usuario_id']; ?>"><?php echo $usuario['usuario_nombre']; ?></option>
-                            <?php }*/ ?>
+                            <?php } ?>
                         </select>
                         <?php }else{ ?>
                         <select  class="btn btn-primary btn-sm form-control" id="buscarusuario_id" required>
                             <?php
-                           /* $ischequed = "";
+                            $ischequed = "";
                             foreach($all_usuario as $usuario){
                                 if($usuario_id == $usuario['usuario_id']){
                                     $ischequed = "selected";
                             ?>
                             <option <?php echo $ischequed; ?> value="<?php echo $usuario['usuario_id']; ?>"><?php echo $usuario['usuario_nombre']; ?></option>
                             <?php }    
-                                }*/ ?>
+                                } ?>
                         </select>
                         <?php } ?>
                     </div>
@@ -108,6 +109,17 @@
                     Hasta: <input type="date" value="<?php echo date('Y-m-d')?>" class="btn btn-primary btn-sm form-control" id="fecha_hasta" name="fecha_hasta" required="true">
                 </div>
                 <div class="col-md-2" style="padding: 0px 10px 0px 0px">
+                    &nbsp;
+                    <select  class="btn btn-facebook btn-sm form-control" id="select_inscripcion" onchange="buscar_inscritos()">
+<!--                        <option value="1">-- SELECCIONE UNA OPCION --</option>-->
+                        <option value="1">Inscripciones de Hoy</option>
+                        <option value="2">Inscripciones de Ayer</option>
+                        <option value="3">Inscripciones de la semana</option>
+                        <option value="4">Todos las Inscripciones</option>
+                        <!--<option value="5">Inscripciones por fecha</option>-->
+                    </select>
+                </div>
+                <div class="col-md-2" style="padding: 0px 10px 0px 0px">
                     <br>
                     <button class="btn btn-sm btn-warning btn-sm btn-block"  type="submit" onclick="buscar_por_fecha()" style="height: 34px;">
                         <span class="fa fa-search"></span> Buscar
@@ -115,22 +127,29 @@
                     <br>
                 </div>
                 <div class="col-md-1" style="padding: 0px 10px 0px 0px">
-                    <br>
-                    <span class="badge btn-primary" style="height: 34px; padding-top: 5px;">Inscritos: <span class="badge btn-primary"><input style="border-width: 0; width: 60px" id="resinscritos" type="text" value="0" readonly="true"> </span></span>
+                    &nbsp;
+                    <span class="badge btn-primary" style="height: 34px; padding-top: 5px;">Inscritos: <span class="badge btn-primary"><input style="border-width: 0; width: 90px" id="resinscritos" type="text" value="0" readonly="true"> </span></span>
                 </div>
+                
+            </div>
+            <div class=" col-md-11" style="padding: 0px;">
                 <div class="col-md-2" style="padding: 0px 10px 0px 0px; text-align: center">
-                    <br>
+                    &nbsp;
                     <a id="imprimirestedetalle" class="btn btn-sq-lg btn-success" onclick="imprimirdetalle()" ><span class="fa fa-print"></span>&nbsp;Imprimir</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<div class="box-body table-responsive" id="cabizquierdafechas" style="font-family: Arial; font-size: 10px; padding-bottom: 0px !important; padding-left: 0px" >
+    <label id="elusuario" style="margin: 0px"></label><br>
+    <label id="fecha1impresion" style="margin: 0px"></label>
+    <label id="fecha2impresion" style="margin: 0px"></label>
+</div>
 <div class="row" id='loader'  style='display:none; text-align: center'>
     <img src="<?php echo base_url("resources/images/loader.gif"); ?>">
 </div>
-<br>
+
 <div class="table-responsive">
 <table  class="table table-condensed" style="width: <?php echo $ancho; ?>; font-family: Arial; font-size: 10px; border-top: solid; border-bottom: solid; ">
     <!--<table class="table table-striped" id="mitabla">-->

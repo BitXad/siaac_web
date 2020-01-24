@@ -308,7 +308,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                                     <select id="pagar_matricula" name="pagar_matricula"  class="form-control" onchange="calcular()">
                                                         <option value="1">PAGAR MATRICULA</option>
                                                         <option value="0">- NO - PAGAR MATRICULA</option>
-                                                        <option value="2">PAGAR MATRICULA DESPUES</option>
+                                                        <option value="0">PAGAR MATRICULA DESPUES</option>
                                                     </select>
                                                 </div>
 					</div>
