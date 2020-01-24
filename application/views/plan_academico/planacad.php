@@ -66,20 +66,23 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-body">
-                <div class="col-md-2">
+                
+<!--                <div class="col-md-2">
                     <label for="carrera_id" class="control-label">&nbsp;</label>
                     <div class="form-group no-print">
                         <a class="btn btn-success" data-toggle="modal" data-target="#modalnuevacarrera" onclick="borrardatosmodal()" title="Nueva Carrera" id="bnewcarrera">+ Nueva Carrera</a>
                     </div>
-                </div>
+                </div>-->
+                
                 <div class="col-md-5">
-                    <label for="carrera_id" class="control-label">Carrera
+                    <label for="carrera_id" class="control-label">Carrera <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalnuevacarrera" onclick="borrardatosmodal()" title="Nueva Carrera" id="bnewcarrera">+ Nueva Carrera</a>
                         <a href="<?php echo site_url('carrera'); ?>" class="btn btn-xs btn-xs btn-info no-print" title="Modificar carreras"><i class="fa fa-file-text"></i></a>
                     </label>
                     <div class="form-group" id="sonlascarreras"></div>
                 </div>
+
                 <div class="col-md-5">
-                    <label for="planacad_id" class="control-label">Plan Academico
+                    <label for="planacad_id" class="control-label">Plan Academico <a class='btn btn-warning btn-xs' data-toggle='modal' data-target='#modalnuevoplanacad' title='Nuevo Plan Académico' id="nuevo_plan" style="display:none;">+ Nuevo Plan</a>
                         <a href="<?php echo site_url('plan_academico'); ?>" class="btn btn-xs btn-xs btn-info no-print" title="Modificar planes academicos"><i class="fa fa-file-text"></i></a>
                     </label>
                     <div class="form-group" id="elegirplanacad">
@@ -89,8 +92,14 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <div id="nuevonivel"></div>
+                    <div id="imprimirplanacademico" class="no-print"></div>
+                </div>
+
+                
                 <div id="isnuevoplan"></div>
-                <div id="nuevonivel"></div>
+                <!--<div id="nuevonivel"></div>-->
                 <!--<div class="col-md-6">
                     <div class="form-group" id="nuevonivel" style="visibility: hidden;">
                         <a class="btn btn-success" data-toggle="modal" onclick="getnombreplan()" data-target="#modalnuevonivel" title="Nuevo Nivel" disabled="false" id="bnewnivel">+ Nuevo Nivel</a>
@@ -100,8 +109,7 @@
         </div>
     </div>
 </div>
-<div id="imprimirplanacademico" class="no-print">
-</div>
+
 <div class="row" id='loader'  style='display:none; text-align: center'>
     <img src="<?php echo base_url("resources/images/loader.gif"); ?>"  >
 </div>
