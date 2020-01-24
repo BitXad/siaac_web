@@ -58,6 +58,7 @@ function get_planacademico(carrera_id){
         htmln += "<option value=''>- PLAN ACADEMICO -</option>";
         htmln += "</select>";
         
+        document.getElementById('nuevo_plan').style.display = 'none';
         $("#isnuevoplan").html("");
         $("#elegirplanacad").html(htmln);
         $("#imprimirplanacademico").html("");
@@ -69,10 +70,11 @@ function get_planacademico(carrera_id){
 }
 
 function new_planacademico(carrera_id){
+   
     var html = "";
     html += "<div class='col-md-2 no-print'>";
     html += "<div class='form-group' id='newplanacad'>";
-    html += "<a class='btn btn-success' data-toggle='modal' data-target='#modalnuevoplanacad' title='Nuevo Plan Academico'>Nuevo Plan Academico</a>";
+    //html += "<a class='btn btn-success' data-toggle='modal' data-target='#modalnuevoplanacad' title='Nuevo Plan Academico'>Nuevo Plan Academico</a>";
     html += "</div>";
     html += "</div>";
 
@@ -132,6 +134,9 @@ function new_planacademico(carrera_id){
 
 
 
+    //$("#nuevo_plan").html("style='display:inline'");
+    document.getElementById('nuevo_plan').style.display = 'inline';
+    
     $("#isnuevoplan").html(html);
 }
 
@@ -140,15 +145,17 @@ function elegir_planiveles(planacad_id){
     if(planacad_id>0){
         var base_url = document.getElementById('base_url').value;
         var html = "";
-        html += "<div class='col-md-6 no-print'>";
+//        html += "<div class='col-md-6 no-print'>";
         html += "<div class='form-group'>";
-        html += "<a class='btn btn-success' data-toggle='modal' onclick='getnombreplan()' data-target='#modalnuevonivel' title='Nuevo Nivel'>+ Nuevo Nivel</a>";
+        
+        html += "<a class='btn btn-facebook btn-block' data-toggle='modal' onclick='getnombreplan()' data-target='#modalnuevonivel' title='Nuevo Nivel'><fa class='fa fa-cubes'></fa> Nuevo Nivel</a>";
+        var html1 = "<a onclick='imprimir_plan()' id='imprimir' class='btn btn-sq-lg btn-success no-print btn-block' title='Imprimir' ><span class='fa fa-print'></span> Imprimir Plan</a>";
+        
         html += "</div>";
-        html += "</div>";
+//        html += "</div>";
         
         //var html1 = "<a href='"+base_url+"plan_academico/print_planacademico/"+planacad_id+"' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
         //var html1 = "<a href='javascript:window.print(); void 0;' id='imprimir' class='btn btn-sq-lg btn-success no-print' target='_blank' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
-        var html1 = "<a onclick='imprimir_plan()' id='imprimir' class='btn btn-sq-lg btn-success no-print' title='Imprimir' ><span class='fa fa-print'></span>&nbsp;Plan Academico</a>";
         //$('#bnewnivel').attr("disabled", false);
         //$("#nuevonivel").css('visibility', 'visible');
         $("#imprimirplanacademico").html(html1);
@@ -438,13 +445,13 @@ function materiasnivel(nivel_id){
                     var escheckedm = "";
                     var n = registros.length; //tamaño del arreglo de la consulta
                     for (var i = 0; i < n ; i++){
-                        res += "<div onclick='mostrarcheckm("+registros[i]["materia_id"]+")' data-toggle='modal' data-target='#modalmodificar_materia"+registros[i]["materia_id"]+"'  class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
+                        res += "<div onclick='mostrarcheckm("+registros[i]["materia_id"]+")' data-toggle='modal' data-target='#modalmodificar_materia"+registros[i]["materia_id"]+"'  class='is_materias materia' id='"+registros[i]["materia_id"]+"'  style='line-height:10px;'>";
                         //res += "<div class='is_materias materia' id='"+registros[i]["materia_id"]+"'>";
-                        res += "<b>"+registros[i]['materia_nombre']+"</b><br>";
+                        res += "<b><small>"+registros[i]['materia_nombre']+"</small></b><br>";
                         //res += "<a href='"+base_url+"materia/edit/"+registros[i]["materia_id"]+"' class='btn btn-xs btn-xs btn-info' title='Modificar materias'>";
-                        res += registros[i]['materia_codigo']+"<br>";
+                        res += "<small>"+registros[i]['materia_codigo']+"</small><br>";
                         //res += "</a>";
-                        res += registros[i]['materia_horas']+" Hrs.<br>";
+                        res += "<small>"+registros[i]['materia_horas']+" Hrs.</small><br>";
                         res += "<div id='isprerequisito"+registros[i]["materia_id"]+"'></div>"
                         processPrerequisito(registros[i]['mat_materia_id'], registros[i]['materia_id']);
                         res += "</div>";
@@ -536,16 +543,6 @@ function materiasnivel(nivel_id){
                             res += "</div>";
                             res += "</div>";
                             res += "<!-- ---------------------- FIN modal para Registrar Nueva Materia ----------------- -->";
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
                         
                         res2 += Number(registros[i]['materia_horas']);
                         res3 = registros[i]['carrera_modalidad'];
