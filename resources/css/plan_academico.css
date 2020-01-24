@@ -101,7 +101,7 @@ body{
 }
 
 .materia{
-  height:8em;
+  height:6em;
   width:11em;
   border:solid #ccc 1px;
   background:white;
@@ -247,7 +247,7 @@ svg{
   /*float:left;*/
 }
   .materia{
-  height:7em;
+  height:4em;
   width:8em;
   margin:0;
     margin-bottom:2px;
