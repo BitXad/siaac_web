@@ -180,8 +180,8 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                       
                         html += "<td>"+(i+1)+"</td>";
                         
-                        
-                       html += "<td>"+formatofecha_hora(registros[i]["fecha"])+"</td>";
+                       ; 
+                       html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
                        html += "<td>"+registros[i]["detalle"]+"</td>";
                        html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
                        //html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["egreso"]).toFixed(2))+"</td>";

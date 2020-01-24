@@ -317,7 +317,7 @@
                                 if($rolusuario[45-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
-                                    <a href="<?php echo site_url('inscripcion/inscribir/0');?>"><i class="fa fa-check-square-o"></i>Inscripción</a>
+                                    <a href="<?php echo site_url('inscripcion/inscribir/0');?>"><i class="fa fa-mortar-board"></i>Inscripción</a>
                                 </li>
                                 <?php
                                 }
@@ -380,6 +380,19 @@
                         <?php
                         }
                         ?>
+                        
+                <li>
+                    <a href="#"><i class="fa fa-clipboard"></i> <span>Reportes</span></a>
+                    <ul class="treeview-menu">
+                        <?php
+                        //if($rolusuario[1-1]['rolusuario_asignado'] == 1){
+                        ?>
+                        <li>
+                            <a href="<?php echo site_url('reportes/rinscripcion');?>"><i class="fa fa-check-square-o"></i> <span>Inscripciones</span></a>
+                        </li>
+                        <?php
+                        //}
+                        ?>
                         <?php
                         //if($rolusuario[1-1]['rolusuario_asignado'] == 1){
                         ?>
@@ -389,6 +402,8 @@
                         <?php
                         //}
                         ?>
+                    </ul>
+                </li>
                         
                 <li>
                     <a href="#"><i class="fa fa-calculator"></i> <span>Contabilidad</span></a>

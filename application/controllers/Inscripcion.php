@@ -573,7 +573,13 @@ class Inscripcion extends CI_Controller{
             '".$detallefact_preferencia."',
             '".$detallefact_caracteristicas."')";
 
-            $this->Mensualidad_model->ejecutar($sql);           
+            $this->Mensualidad_model->ejecutar($sql);
+            
+                $params = array(
+                'estudiante_nit' => $factura_nit,
+                'estudiante_razon' => $factura_razonsocial,
+                );
+                $this->Estudiante_model->update_estudiante($estudiante_id, $params);
             }
         }
         $datos= array($kardexacad_id, $esfactura_id);
