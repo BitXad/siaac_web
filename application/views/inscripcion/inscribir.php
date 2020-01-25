@@ -174,34 +174,34 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         <div class="col-md-2" <?php echo $atributos; ?>>
                                 <label for="carrera_nivel" class="control-label">Nivel</label>
                                 <div class="form-group">
-                                        <input type="text" name="carrera_nivel" id="carrera_nivel" value="<?php echo ($this->input->post('carrera_nivel') ? $this->input->post('carrera_nivel') : $carrera['carrera_nivel']); ?>" class="form-control" <?php echo $atributos2; ?>/>
+                                    <input type="text" name="carrera_nivel" id="carrera_nivel" value="<?php echo ($this->input->post('carrera_nivel') ? $this->input->post('carrera_nivel') : "-"); ?>" class="form-control" <?php echo $atributos2; ?>/>
                                 </div>
                         </div>
 
                         <div class="col-md-2" <?php echo $atributos; ?>>
                                 <label for="carrera_tiempoestudio" class="control-label">Duración Carrera</label>
                                 <div class="form-group">
-                                    <input type="text" name="carrera_tiempoestudio" id="carrera_tiempoestudio" value="<?php echo ($this->input->post('carrera_tiempoestudio') ? $this->input->post('carrera_tiempoestudio') : $carrera['carrera_tiempoestudio']); ?>" class="form-control" <?php echo $atributos2; ?>/>
+                                    <input type="text" name="carrera_tiempoestudio" id="carrera_tiempoestudio" value="<?php echo ($this->input->post('carrera_tiempoestudio') ? $this->input->post('carrera_tiempoestudio') : "-"); ?>" class="form-control" <?php echo $atributos2; ?>/>
                                 </div>
                         </div>
 
                         <div class="col-md-2" <?php echo $atributos; ?>>
                                 <label for="carrera_codigo" class="control-label"><span class="text-danger">*</span>Código</label>
                                 <div class="form-group">
-                                    <input type="text" name="carrera_codigo"  id="carrera_codigo" value="<?php echo ($this->input->post('carrera_codigo') ? $this->input->post('carrera_codigo') : $carrera['carrera_codigo']); ?>" class="form-control" required <?php echo $atributos2; ?>/>
+                                    <input type="text" name="carrera_codigo"  id="carrera_codigo" value="<?php echo ($this->input->post('carrera_codigo') ? $this->input->post('carrera_codigo') : "-"); ?>" class="form-control" required <?php echo $atributos2; ?>/>
                                 </div>
                         </div>
 
                         <div class="col-md-2" <?php echo $atributos; ?>>
                                 <label for="carrera_modalidad" class="control-label">Modalidad</label>
                                 <div class="form-group">
-                                        <input type="text" name="carrera_modalidad" id="carrera_modalidad" value="<?php echo ($this->input->post('carrera_modalidad') ? $this->input->post('carrera_modalidad') : $carrera['carrera_modalidad']); ?>" class="form-control" <?php echo $atributos2; ?>/>
+                                        <input type="text" name="carrera_modalidad" id="carrera_modalidad" value="<?php echo ($this->input->post('carrera_modalidad') ? $this->input->post('carrera_modalidad') : "-"); ?>" class="form-control" <?php echo $atributos2; ?>/>
                                 </div>
                         </div>
                         <div class="col-md-2" <?php echo $atributos; ?>>
                                 <label for="carrera_plan" class="control-label">Plan</label>
                                 <div class="form-group">
-                                        <input type="text" name="carrera_plan" id="carrera_plan" value="<?php echo ($this->input->post('carrera_plan') ? $this->input->post('carrera_plan') : $carrera['carrera_plan']); ?>" class="form-control" <?php echo $atributos2; ?>/>
+                                        <input type="text" name="carrera_plan" id="carrera_plan" value="<?php echo ($this->input->post('carrera_plan') ? $this->input->post('carrera_plan') : "-"); ?>" class="form-control" <?php echo $atributos2; ?>/>
                                 </div>
                         </div>
                         <?php 
@@ -211,19 +211,19 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         <div class="col-md-2" <?php echo $atributos; ?>>
                             <label for="carrera_matricula" class="control-label">Matrícula Bs</label>
                             <div class="form-group">
-                                <input type="number" step="any" min="0" name="carrera_matricula" id="carrera_matricula" value="<?php echo ($this->input->post('carrera_matricula') ? $this->input->post('carrera_matricula') : number_format($carrera['carrera_matricula'],2)); ?>" class="form-control" placeholder="0.00" <?php echo $atributos2; ?>/>
+                                <input type="number" step="any" min="0" name="carrera_matricula" id="carrera_matricula" value="<?php echo ($this->input->post('carrera_matricula') ? $this->input->post('carrera_matricula') : number_format(0,2)); ?>" class="form-control" placeholder="0.00" <?php echo $atributos2; ?>/>
                             </div>
                         </div>
                         <div class="col-md-2" <?php echo $atributos; ?>>
                             <label for="carrera_mensualidad" class="control-label">Mensualidad Bs</label>
                             <div class="form-group">
-                                <input type="number" step="any" min="0" name="carrera_mensualidad" id="carrera_mensualidad" value="<?php echo ($this->input->post('carrera_mensualidad') ? $this->input->post('carrera_mensualidad') : number_format($carrera['carrera_mensualidad'],2)); ?>" class="form-control" placeholder="0.00" <?php echo $atributos2; ?>/>
+                                <input type="number" step="any" min="0" name="carrera_mensualidad" id="carrera_mensualidad" value="<?php echo ($this->input->post('carrera_mensualidad') ? $this->input->post('carrera_mensualidad') : number_format(0,2)); ?>" class="form-control" placeholder="0.00" <?php echo $atributos2; ?>/>
                             </div>
                         </div>
                         <div class="col-md-2" <?php echo $atributos; ?>>
                             <label for="carrera_nummeses" class="control-label">Meses/Cuotas</label>
                             <div class="form-group">
-                                <input type="number" min="0" name="carrera_nummeses" id="carrera_nummeses"  value="<?php echo ($this->input->post('carrera_nummeses') ? $this->input->post('carrera_nummeses') : $carrera['carrera_nummeses']); ?>" class="form-control" placeholder="0" <?php echo $atributos2; ?>/>
+                                <input type="number" min="0" name="carrera_nummeses" id="carrera_nummeses"  value="<?php echo ($this->input->post('carrera_nummeses') ? $this->input->post('carrera_nummeses') : "0"); ?>" class="form-control" placeholder="0" <?php echo $atributos2; ?>/>
                             </div>
                         </div>
 <!--------------------- FIN ------------------------------------>
@@ -308,7 +308,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                                     <select id="pagar_matricula" name="pagar_matricula"  class="form-control" onchange="calcular()">
                                                         <option value="1">PAGAR MATRICULA</option>
                                                         <option value="0">- NO - PAGAR MATRICULA</option>
-                                                        <option value="2">PAGAR MATRICULA DESPUES</option>
+                                                        <option value="0">PAGAR MATRICULA DESPUES</option>
                                                     </select>
                                                 </div>
 					</div>
@@ -469,36 +469,30 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                            <!--------------------- parametro de buscador por codigo --------------------->
 
                                            <div class="col-md-8">
-                                                 <div class="input-group">
+                                                <label for="buscar_estudiante" class="control-label">Buscar Estudiante:</label>
+                                                <div class="input-group">
                                                      <span class="input-group-addon"> 
                                                        <i class="fa fa-binoculars"></i>
-                                                     </span>           
+                                                     </span>
                                                      <input type="text" name="filtrar2" id="filtrar2" class="form-control" placeholder="Ingrese el nombre, CI, codigo del cliente " onkeyup="validar(event,1)">
                                                  </div>
                                            </div>      
                                           <!--------------------- fin buscador por codigo --------------------->
 
 
-                                           <div class="col-md-4">
+                                <div class="col-md-4">
 
                                <!--            ------------------- parametro de buscador --------------------->
 
-                                                 <div class="input-group">
-<!--                                                     <span class="input-group-addon"> 
-                                                      <i class="fa fa-user"></i>
-                                                     </span>           -->
-<!--                                                     <select id="tipo" class="form-control">
-                                                         <option value="1">Mis clientes</option>
-                                                         <option value="2">Todos</option>
-                                                     </select>-->
-                                                     <button class="btn btn-primary"><span class="fa fa-binoculars"></span> Buscar </button>
-                                                 </div>
+                                <div class="input-group" style="padding-top: 5px">
+                                    <br>
+                                    <label>&nbsp;</label>
+                                    <button class="btn btn-primary"><span class="fa fa-binoculars"></span> Buscar </button>
+                                </div>
+               <!--            ------------------- fin parametro de buscador ------------------- -->
+                                   </div>
 
-                               <!--            ------------------- fin parametro de buscador ------------------- -->
-
-                                           </div>
-
-                                       </div>
+                               </div>
 
                                 
 			</div>

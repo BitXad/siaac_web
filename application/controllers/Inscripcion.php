@@ -310,6 +310,13 @@ class Inscripcion extends CI_Controller{
         $kardexacad_notfinal5 = 0;
         $kardexacad_notfinal = 0;
         $kardexacad_estado = 1;
+        if($pagar_matricula == 1){
+            $kardexeco_matriculapagada = $this->input->post('carrera_matricula');
+        }else{ $kardexeco_matriculapagada = 0; }
+        
+        if($pagar_mensualidad > 0){
+            $kardexeco_mensualidadpagada = $pagar_mensualidad*$this->input->post('carrera_mensualidad');;
+        }else{ $kardexeco_mensualidadpagada = 0; }
         
         $params = array(
             'inscripcion_id' => $inscripcion_id,
@@ -320,6 +327,8 @@ class Inscripcion extends CI_Controller{
             'kardexacad_notfinal5' => $kardexacad_notfinal5,
             'kardexacad_notfinal' => $kardexacad_notfinal,
             'kardexacad_estado' => $kardexacad_estado,
+            'kardexeco_matriculapagada' => $kardexeco_matriculapagada,
+            'kardexeco_mensualidadpagada' => $kardexeco_mensualidadpagada,
             );
             $kardexacad_id = $this->Kardex_academico_model->add_kardex_academico($params);
         
@@ -346,6 +355,7 @@ class Inscripcion extends CI_Controller{
             'kardexeco_nummens' => $kardexeco_nummens,
             'kardexeco_observacion' => $kardexeco_observacion,
             'kardexeco_fecha' => $kardexeco_fecha,
+            'kardexeco_hora' => $kardexeco_hora,
             'kardexeco_hora' => $kardexeco_hora,
             );
         $kardexeco_id = $this->Kardex_economico_model->add_kardex_economico($paramseco);
@@ -573,7 +583,13 @@ class Inscripcion extends CI_Controller{
             '".$detallefact_preferencia."',
             '".$detallefact_caracteristicas."')";
 
-            $this->Mensualidad_model->ejecutar($sql);           
+            $this->Mensualidad_model->ejecutar($sql);
+            
+                $params = array(
+                'estudiante_nit' => $factura_nit,
+                'estudiante_razon' => $factura_razonsocial,
+                );
+                $this->Estudiante_model->update_estudiante($estudiante_id, $params);
             }
         }
         $datos= array($kardexacad_id, $esfactura_id);

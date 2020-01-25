@@ -97,6 +97,7 @@ function seleccionar_carrera(){
                 if (registros != null){
                     $("#carrera_codigo").val(registros[0].carrera_codigo);
                     $("#carrera_nivel").val(registros[0].carrera_nivel);
+                    $("#carrera_tiempoestudio").val(registros[0].carrera_tiempoestudio);
                     $("#carrera_modalidad").val(registros[0].carrera_modalidad);
                     $("#carrera_plan").val(registros[0].carrera_plan);
                     $("#carrera_matricula").val(registros[0].carrera_matricula);
