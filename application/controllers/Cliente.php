@@ -32,7 +32,7 @@ class Cliente extends CI_Controller{
      */
     function index($a = null)
     {
-        if($this->acceso(94)){
+        if($this->acceso(77-1)){
             $data['rol'] = $this->session_data['rol'];
             $data['page_title'] = "Cliente";
             $data['a'] = $a;
@@ -69,7 +69,7 @@ class Cliente extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(95)){
+        if($this->acceso(77-1)){
             $data['page_title'] = "Cliente";
             $this->load->library('form_validation');
 
@@ -236,7 +236,7 @@ class Cliente extends CI_Controller{
      */
     function edit($cliente_id)
     {
-        if($this->acceso(98)){
+        if($this->acceso(77-1)){
             $data['page_title'] = "Cliente";
         // check if the cliente exists before trying to edit it
         $data['cliente'] = $this->Cliente_model->get_cliente($cliente_id);
@@ -400,7 +400,7 @@ class Cliente extends CI_Controller{
     //modificar clientes en pedidos
     function modificar_cliente($cliente_id)
     {
-        if($this->acceso(31)){
+        if($this->acceso(77-1)){
             $data['page_title'] = "Modificar Cliente";
         // check if the cliente exists before trying to edit it
         $data['cliente'] = $this->Cliente_model->get_cliente($cliente_id);
@@ -573,7 +573,7 @@ class Cliente extends CI_Controller{
      */
     function remove($cliente_id)
     {
-        if($this->acceso(99)){
+        if($this->acceso(77-1)){
         $cliente = $this->Cliente_model->get_cliente($cliente_id);
 
         // check if the cliente exists before trying to delete it
@@ -599,7 +599,7 @@ class Cliente extends CI_Controller{
      */
     function add_new()
     {
-        if($this->acceso(69)){
+        if($this->acceso(77-1)){
             $this->load->model('Servicio_model');
             $servicio_id = $this->input->post('servicio_id');
             $data['servicio'] = $this->Servicio_model->get_servicio($servicio_id);
@@ -684,7 +684,7 @@ class Cliente extends CI_Controller{
         }else{
            $condicion = "";
         }
-        if($this->acceso(94)){
+        if($this->acceso(77-1)){
             if ($this->input->is_ajax_request()) {
 
                 $parametro = $this->input->post('parametro');   
@@ -710,7 +710,7 @@ class Cliente extends CI_Controller{
     */
     function buscarclientes_usuario()
     {
-        if($this->acceso(94)){   
+        if($this->acceso(77-1)){   
             $usuario_id = $this->session_data['usuario_id'];
             if ($this->input->is_ajax_request()) {
 
@@ -745,7 +745,7 @@ class Cliente extends CI_Controller{
     */
     function buscarclientesactivos()
     {
-        if($this->acceso(70)){
+        if($this->acceso(77-1)){
             if ($this->input->is_ajax_request()) {
 
                 $parametro = $this->input->post('parametro');   
@@ -768,7 +768,7 @@ class Cliente extends CI_Controller{
      */
     function clientenuevo($pedido_id)
     {
-        if($this->acceso(30)){ // rol 30 admnistrar pedidos
+        if($this->acceso(77-1)){ // rol 30 admnistrar pedidos
             $data['page_title'] = "Cliente";
             $data['tipousuario_id'] =  $this->session_data['tipousuario_id'];
             $data['usuario_id'] =  $this->session_data['usuario_id'];
@@ -964,7 +964,7 @@ class Cliente extends CI_Controller{
     
     function realizar_pedido($cliente_id)
     {
-        if($this->acceso(30)){
+        if($this->acceso(77-1)){
             //**************** inicio contenido ***************     
             //Crear el pedido
             $usuario_id = $this->session_data['usuario_id'];
@@ -992,7 +992,7 @@ class Cliente extends CI_Controller{
         }else{
            $condicion = "";
         }
-        if($this->acceso(94)){
+        if($this->acceso(77-1)){
             if ($this->input->is_ajax_request()) {
 
                 $parametro = $this->input->post('parametro');   
@@ -1022,7 +1022,7 @@ class Cliente extends CI_Controller{
         }else{
            $condicion = "";
         }
-        if($this->acceso(30)){ //permiso para administrar pedidos
+        if($this->acceso(77-1)){ //permiso para administrar pedidos
             if ($this->input->is_ajax_request())
             {
                 $datos = $this->Cliente_model->get_all_cliente($condicion);
@@ -1041,7 +1041,7 @@ class Cliente extends CI_Controller{
     */
     function buscarclientes_pedido()
     {
-        if($this->acceso(30)){
+        if($this->acceso(77-1)){
             if ($this->input->is_ajax_request()) {
                 $parametro = $this->input->post('parametro');
 
@@ -1067,7 +1067,7 @@ class Cliente extends CI_Controller{
         //control de sesion
 //        if ($this->session->userdata('perfil')=='PREVENDEDOR'){
             
-       if($this->acceso(30)) {
+       if($this->acceso(77-1)) {
         //**************** inicio contenido ***************  
         
             $data['page_title'] = "Mapa de Clientes";

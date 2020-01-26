@@ -1243,6 +1243,8 @@ function tablaresultados(opcion)
     
     document.getElementById('oculto').style.display = 'block'; //mostrar el bloque del loader
     
+    
+    
     $.ajax({url: controlador,
            type:"POST",
            data:{parametro:parametro},
@@ -1251,8 +1253,10 @@ function tablaresultados(opcion)
                                      
                 $("#encontrados").val("- 0 -");
                var registros =  JSON.parse(respuesta);
-                
+               
                if (registros != null){
+                   
+
                    
                    if (modo_visualizacion == 1){ // visualziacion tipos texto, en lista
                    
