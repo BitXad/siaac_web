@@ -442,7 +442,45 @@
                    
                 </li>       
                         
+
+                
+                                 
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-cart-plus"></i> <span>Ventas</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <?php
+                                if($rolusuario[58-1]['rolusuario_asignado'] == 1){
+                                ?>
+                                <li>
+                                    <a href="<?php echo site_url('producto');?>"><i class="fa fa-cubes"></i>Productos</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('categoria_producto');?>"><i class="fa fa-list"></i>Categorias</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('inventario');?>"><i class="fa fa-list-ol"></i>Inventario</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('cliente');?>"><i class="fa fa-users"></i>Clientes</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('venta/ventas');?>"><i class="fa fa-cart-plus"></i>Ventas</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('compra');?>"><i class="fa fa-border"></i>Compras</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('usuario');?>"><i class="fa fa-users"></i>Usuarios</a>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                        </li>
                         
+                                 
+                        
+                
                         
                         <li>
                             <a href="#">
@@ -474,8 +512,6 @@
                                 ?>
                             </ul>
                         </li>
-                        
-                                 
                         
                         <?php  ?>
                         <?php }elseif($session_data['tipousuario_id'] == 2){ ?>

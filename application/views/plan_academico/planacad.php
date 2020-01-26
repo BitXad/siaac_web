@@ -60,7 +60,8 @@
     }*/
 </script>
 <div class="box-header" style="text-align: center">
-    <h3 class="box-title"><b><?php echo $all_institucion[0]['institucion_nombre']; ?></b></h3>
+    <!--<h3 class="box-title"><b><?php echo $all_institucion[0]['institucion_nombre']; ?></b></h3>-->
+    <h3 class="box-title"><b>ADMINISTRADOR DE PLANES ACADEMICOS</b></h3>
 </div>
 <div class="row">
     <div class="col-md-12">
