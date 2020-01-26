@@ -327,8 +327,6 @@ class Inscripcion extends CI_Controller{
             'kardexacad_notfinal5' => $kardexacad_notfinal5,
             'kardexacad_notfinal' => $kardexacad_notfinal,
             'kardexacad_estado' => $kardexacad_estado,
-            'kardexeco_matriculapagada' => $kardexeco_matriculapagada,
-            'kardexeco_mensualidadpagada' => $kardexeco_mensualidadpagada,
             );
             $kardexacad_id = $this->Kardex_academico_model->add_kardex_academico($params);
         
@@ -357,6 +355,8 @@ class Inscripcion extends CI_Controller{
             'kardexeco_fecha' => $kardexeco_fecha,
             'kardexeco_hora' => $kardexeco_hora,
             'kardexeco_hora' => $kardexeco_hora,
+            'kardexeco_matriculapagada' => $kardexeco_matriculapagada,
+            'kardexeco_mensualidadpagada' => $kardexeco_mensualidadpagada,
             );
         $kardexeco_id = $this->Kardex_economico_model->add_kardex_economico($paramseco);
         

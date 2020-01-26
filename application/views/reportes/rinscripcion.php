@@ -81,14 +81,14 @@
             <div class=" col-md-11" style="padding: 0px;">
                     <div class="col-md-2" style="padding: 0px 10px 0px 0px;">
                         Usuario:
-                        <?php if($tipousuario_id == 1){ ?>
+                        <?php //if($tipousuario_id == 1){ ?>
                         <select  class="btn btn-primary btn-sm form-control" id="buscarusuario_id" required>
                             <option value="0"> TODOS </option>
                             <?php foreach($all_usuario as $usuario){?>
                             <option value="<?php echo $usuario['usuario_id']; ?>"><?php echo $usuario['usuario_nombre']; ?></option>
                             <?php } ?>
                         </select>
-                        <?php }else{ ?>
+                        <?php /*}else{ ?>
                         <select  class="btn btn-primary btn-sm form-control" id="buscarusuario_id" required>
                             <?php
                             $ischequed = "";
@@ -100,7 +100,7 @@
                             <?php }    
                                 } ?>
                         </select>
-                        <?php } ?>
+                        <?php }*/ ?>
                     </div>
                 <div class="col-md-2" style="padding: 0px 10px 0px 0px">
                     Desde: <input type="date" value="<?php echo date('Y-m-d')?>" class="btn btn-primary btn-sm form-control" id="fecha_desde" name="fecha_desde" required="true">

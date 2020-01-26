@@ -27,11 +27,12 @@ function busquedainscripcion(fecha_desde, fecha_hasta, usuario, filtro){
                 //$("#resinscritos").val("- 0 -");
                var registros =  JSON.parse(resul);
            
-               if (registros != null){
-                    if(filtro != ""){
-                        var fecha1 = fecha_desde;
-                        var fecha2 = fecha_hasta;
-                        var esusuario = $('#buscarusuario_id option:selected').text();
+                if (registros != null){
+                    var fecha1 = fecha_desde;
+                    var fecha2 = fecha_hasta;
+                    var esusuario = $('#buscarusuario_id option:selected').text();
+                    
+                    if(filtro == ""){
                         if(!(fecha_desde == null || fecha_desde =="") && !(fecha_hasta == null  || fecha_hasta =="")){
                             fecha1 = "Desde: "+moment(fecha_desde).format("DD/MM/YYYY");
                             fecha2 = " - Hasta: "+moment(fecha_hasta).format("DD/MM/YYYY");
@@ -124,6 +125,7 @@ function busquedainscripcion(fecha_desde, fecha_hasta, usuario, filtro){
 function buscar_inscritos()
 {
     var opcion      = document.getElementById('select_inscripcion').value;
+    var usuario_id = document.getElementById('buscarusuario_id').value;
     var filtro = "";
 
     if (opcion == 1)
@@ -145,7 +147,7 @@ function buscar_inscritos()
     {   filtro = " ";
     }//todos los servicios
     
-    busquedainscripcion("", "", 0, filtro)
+    busquedainscripcion("", "", usuario_id, filtro)
 }
 
 function numberFormat(numero){
