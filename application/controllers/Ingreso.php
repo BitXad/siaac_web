@@ -113,7 +113,7 @@ class Ingreso extends CI_Controller{
             );
 
             $ingreso_id = $this->Ingreso_model->add_ingreso($params);
-            $sql = "UPDATE gestion SET gestion_numingreso=gestion_numingreso+1 WHERE gestion_id = '1'"; 
+            $sql = "UPDATE gestion SET gestion_numingreso=gestion_numingreso+1 WHERE gestion_id = ".$gestion.""; 
             $this->db->query($sql);
 
 
