@@ -83,12 +83,20 @@ class Ingreso_model extends CI_Model
         return $dia;
     }
     
-   function numero()
+  /* function numero()
     {
         
         $numrec = $this->db->query("SELECT * FROM parametros")->result_array();
         return $numrec;
+    }*/
+
+    function numero()
+    {
+        
+        $numrec = $this->db->query("SELECT * FROM gestion")->result_array();
+        return $numrec;
     }
+
      function nombre()
     {
         

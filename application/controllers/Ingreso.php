@@ -87,16 +87,18 @@ class Ingreso extends CI_Controller{
     {   
          if($this->acceso(54)){
                 $usuario_id = $this->session_data['usuario_id'];
+                $gestion = $this->session_data['gestion_id'];
         $this->load->library('form_validation');
-      $this->form_validation->set_rules(
+        $this->form_validation->set_rules(
         'ingreso_nombre', 'ingreso_nombre',
         'required');
        
        if($this->form_validation->run())      
         {   
+          /*$numrec = $this->Ingreso_model->numero();
+          $numero = $numrec[0]['parametro_numrecing'] + 1;*/
           $numrec = $this->Ingreso_model->numero();
-           $numero = $numrec[0]['parametro_numrecing'] + 1;
-           
+          $numero = $numrec[0]['gestion_numingreso'] + 1;
 
             $params = array(
                 'usuario_id' => $usuario_id,
@@ -111,7 +113,7 @@ class Ingreso extends CI_Controller{
             );
 
             $ingreso_id = $this->Ingreso_model->add_ingreso($params);
-            $sql = "UPDATE parametros SET parametro_numrecing=parametro_numrecing+1 WHERE parametro_id = '1'"; 
+            $sql = "UPDATE gestion SET gestion_numingreso=gestion_numingreso+1 WHERE gestion_id = '1'"; 
             $this->db->query($sql);
 
 
