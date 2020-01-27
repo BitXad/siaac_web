@@ -310,12 +310,13 @@ class Inscripcion extends CI_Controller{
         $kardexacad_notfinal5 = 0;
         $kardexacad_notfinal = 0;
         $kardexacad_estado = 1;
+        $kardexeco_matriculapagada = 0;
         if($pagar_matricula == 1){
-            $kardexeco_matriculapagada = $this->input->post('carrera_matricula');
-        }else{ $kardexeco_matriculapagada = 0; }
+            $kardexeco_matriculapagada = $this->input->post('inscripcion_matricula');
+        }
         
         if($pagar_mensualidad > 0){
-            $kardexeco_mensualidadpagada = $pagar_mensualidad*$this->input->post('carrera_mensualidad');;
+            $kardexeco_mensualidadpagada = $pagar_mensualidad*$this->input->post('inscripcion_mensualidad');
         }else{ $kardexeco_mensualidadpagada = 0; }
         
         $params = array(
@@ -453,7 +454,7 @@ class Inscripcion extends CI_Controller{
             for($i = 1; $i <= $pagar_mensualidad; $i++){
                 $parampm = array(
                     'estado_id' => $estadomen_id,
-                    'mensualidad_montocancelado' => $kardexeco_fecha,
+                    'mensualidad_montocancelado' => $this->input->post('inscripcion_mensualidad'),
                     'mensualidad_fechapago' => $kardexeco_fecha,
                     'mensualidad_horapago' => $kardexeco_hora,
                     'mensualidad_nombre' => $thisestudiante['estudiante_nombre']." ".$thisestudiante['estudiante_apellidos'],
