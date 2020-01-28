@@ -275,6 +275,8 @@ class Inscripcion extends CI_Controller{
         $usuario_id = $this->session_data['usuario_id'];
         $gestion_id = $this->session_data['gestion_id'];
         $this->load->model('Mensualidad_model');
+        $this->load->model('Gestion_model');
+        $esta_gestion = $this->Gestion_model->get_gestion($gestion_id);
         
         $estudiante_id = $this->input->post('estudiante_id');
         $paralelo_id = $this->input->post('paralelo_id');
@@ -300,9 +302,15 @@ class Inscripcion extends CI_Controller{
             'inscripcion_fechainicio' => $inscripcion_fechainicio,
             'carrera_id' => $carrera_id,
             'inscripcion_glosa' => $inscripcion_glosa,
+            'inscripcion_numrecibo' => $esta_gestion['gestion_numingreso']+1,
             );
         $inscripcion_id = $this->Inscripcion_model->add_inscripcion($paramsi);
-
+        
+        $paramg = array(
+            'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1,
+            );
+        $this->Gestion_model->update_gestion($gestion_id, $paramg);
+        
         $kardexacad_notfinal1 = 0;
         $kardexacad_notfinal2 = 0;
         $kardexacad_notfinal3 = 0;
@@ -403,30 +411,28 @@ class Inscripcion extends CI_Controller{
             //$mensualidad_nombre = ;
             //$mensualidad_ci = ;
             //$mensualidad_glosa = ;
-            $mensualidad_numrec = 0;
             $mensualidad_mes = $nombremes."/".$anio;
+            $paramm = array(
+            'estado_id' => $estado_id,
+            'kardexeco_id' => $kardexeco_id,
+            'usuario_id' => $usuario_id,
+            'mensualidad_numero' => $mensualidad_numero,
+            'mensualidad_montoparcial' => $mensualidad_montoparcial,
+            'mensualidad_descuento' => $mensualidad_descuento,
+            'mensualidad_montototal' => $mensualidad_montototal,
+            'mensualidad_fechalimite' => $mensualidad_fechalimite,
+            'mensualidad_mora' => $mensualidad_mora,
+            'mensualidad_montocancelado' => $mensualidad_montocancelado,
+            'mensualidad_saldo' => $mensualidad_saldo,
+            'mensualidad_mes' => $mensualidad_mes,
+            'mensualidad_numrec' => 0,
+            'mensualidad_inscripcionpago' => 0,
+            );
+            $mensualidad_id = $this->Mensualidad_model->add_mensualidad($paramm);
             
-            $sql = "insert into mensualidad(estado_id,kardexeco_id,usuario_id,mensualidad_numero,"
-                    . "mensualidad_montoparcial,mensualidad_descuento,mensualidad_montototal,"
-                    . "mensualidad_fechalimite,mensualidad_mora,mensualidad_montocancelado,"
-                    . "mensualidad_saldo,mensualidad_numrec,mensualidad_mes) value(".
-                    $estado_id.",".
-                    $kardexeco_id.",".
-                    $usuario_id.",".
-                    $mensualidad_numero.",".
-                    $mensualidad_montoparcial.",".
-                    $mensualidad_descuento.",".
-                    $mensualidad_montototal.",".
-                    "'".$mensualidad_fechalimite."',".
-                    $mensualidad_mora.",".
-                    $mensualidad_montocancelado.",".
-                    $mensualidad_saldo.",".                   
-                    $mensualidad_numrec.",".
-                    "'".$mensualidad_mes."')";
-             $this->Inscripcion_model->ejecutar($sql);
-             
             $cuota_fechalimitex = (time() + ($intervalo * $i * 24 * 60 * 60 ));
             $cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);
+            
         }
         
         if($pagar_matricula == 1){
@@ -452,6 +458,7 @@ class Inscripcion extends CI_Controller{
             $thismensualidad = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
             $cont = 0;
             for($i = 1; $i <= $pagar_mensualidad; $i++){
+                $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
                 $parampm = array(
                     'estado_id' => $estadomen_id,
                     'mensualidad_montocancelado' => $this->input->post('inscripcion_mensualidad'),
@@ -460,8 +467,15 @@ class Inscripcion extends CI_Controller{
                     'mensualidad_nombre' => $thisestudiante['estudiante_nombre']." ".$thisestudiante['estudiante_apellidos'],
                     'mensualidad_ci' => $thisestudiante['estudiante_ci'],
                     'mensualidad_glosa' => "Se pago al momento de inscribirse",
+                    'mensualidad_numrec' => $mensualidad_numrec,
+                    'mensualidad_inscripcionpago' => 1,
                 );
                 $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
+                
+                $paramg = array(
+                'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1+$i,
+                );
+                $this->Gestion_model->update_gestion($gestion_id, $paramg);
                 $cont++;
             }
         }
