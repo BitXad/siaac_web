@@ -45,7 +45,7 @@ class Factura extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(152)){
+        if($this->acceso(73)){
         //**************** inicio contenido ***************            
         
         $params['limit'] = RECORDS_PER_PAGE; 
@@ -83,7 +83,7 @@ class Factura extends CI_Controller{
 
     function factura_compra()
     {
-        if($this->acceso(153)){
+        if($this->acceso(74)){
         //**************** inicio contenido ***************            
         
         $params['limit'] = RECORDS_PER_PAGE; 
@@ -388,7 +388,7 @@ class Factura extends CI_Controller{
 
     function comanda_boucher($venta_id)
     {
-        if($this->acceso(154)){
+        if($this->acceso(74)){
         //**************** inicio contenido ***************           
     
         $usuario_id = $this->session_data['usuario_id'];
@@ -470,7 +470,7 @@ class Factura extends CI_Controller{
      */
     function add()
     {   
-        if($this->acceso(154)){
+        if($this->acceso(74)){
         //**************** inicio contenido ***************   
                 
         if(isset($_POST) && count($_POST) > 0)     
@@ -518,7 +518,7 @@ class Factura extends CI_Controller{
      */
     function edit($factura_id)
     {   
-        if($this->acceso(154)){
+        if($this->acceso(74)){
         //**************** inicio contenido ***************   
         
         // check if the factura exists before trying to edit it
@@ -573,7 +573,7 @@ class Factura extends CI_Controller{
      */
     function remove($factura_id)
     {
-        if($this->acceso(154)){
+        if($this->acceso(74)){
         //**************** inicio contenido ***************   
                 
         $factura = $this->Factura_model->get_factura($factura_id);
@@ -833,7 +833,7 @@ class Factura extends CI_Controller{
      */
     function verificador()
     {
-        if($this->acceso(154)){
+        if($this->acceso(74)){
 //        if ($this->session->userdata('logged_in')) {
 //            $this->session_data = $this->session->userdata('logged_in');
 //            if($this->session_data['tipousuario_id']==1 or $this->session_data['tipousuario_id']==4) {
@@ -895,7 +895,7 @@ class Factura extends CI_Controller{
 //        } else { redirect('', 'refresh'); }
 
     function anular_factura($factura_id,$factura_numero){
-        if($this->acceso(154)){
+        if($this->acceso(74)){
         //**************** inicio contenido ***************   
                 
 //        if($factura_id>0)

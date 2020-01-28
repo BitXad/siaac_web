@@ -26,6 +26,27 @@ class Kardex_academico extends CI_Controller{
         }
     }
 
+    function busqueda()
+    {
+        if($this->acceso(47)){
+            if ($this->input->is_ajax_request()) {
+                $estudiante = $this->input->post('dato');
+                if ($estudiante!="") {
+                $datos = $this->Kardex_academico_model->get_est_kardex($estudiante);
+                echo json_encode($datos);
+                }
+                else{ echo json_encode(null);
+                }
+            }
+            else
+            {                 
+                $data['_view'] = 'kardex_academico/busqueda';
+                $this->load->view('layouts/main',$data);
+            }
+        }
+       
+    }
+
     /*
      * Listing of kardex_academico
      */
