@@ -6,6 +6,10 @@
             <file>file:/C:/xampp/htdocs/siaac_web/application/views/inscripcion/inscribir.php</file>
             <file>file:/C:/xampp/htdocs/siaac_web/resources/js/inscripcion.js</file>
             <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Inscripcion.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/models/Gestion_model.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Reportes.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/models/Reportes_model.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/models/Mensualidad_model.php</file>
         </group>
     </open-files>
 </project-private>
