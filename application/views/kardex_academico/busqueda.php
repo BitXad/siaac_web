@@ -1,5 +1,5 @@
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo base_url('resources/js/kardexeconomico.js'); ?>"></script>
+<script src="<?php echo base_url('resources/js/kardexacademico.js'); ?>"></script>
 <script type="text/javascript">
         $(document).ready(function () {
             (function ($) {
@@ -17,7 +17,7 @@
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
   <div class="box-header">
-                <h3 class="box-title">Kardex Economico</h3>
+                <h3 class="box-title">Kardex Academico</h3>
                 
             </div>
 <div class="row">
@@ -84,9 +84,7 @@
                         <th>CODIGO</th>
                         <th>CARRERA</th>
                         <th>GESTION</th>
-                        <th>MATR.</th>
-                        <th>MENS.</th>
-                        <th>No MENS.</th>
+                        <th>No MATERIAS</th>
                         <th>ESTADO</th>
                         <th></th>
                     </tr>

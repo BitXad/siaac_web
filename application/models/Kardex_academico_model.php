@@ -50,6 +50,33 @@ class Kardex_academico_model extends CI_Model
 
         return $kardex_academico;
     }
+
+    function get_est_kardex($dato)
+    {
+        $kardex_economico = $this->db->query("
+            SELECT
+                i.*, ka.*, c.*, e.*, n.*, g.*
+
+            FROM
+                inscripcion i
+
+            LEFT JOIN kardex_academico ka ON i.inscripcion_id=ka.inscripcion_id
+            LEFT JOIN carrera c ON i.carrera_id=c.carrera_id
+            LEFT JOIN estudiante e ON i.estudiante_id=e.estudiante_id
+            LEFT JOIN nivel n ON i.nivel_id=n.nivel_id
+            LEFT JOIN gestion g ON i.gestion_id=g.gestion_id
+            LEFT JOIN gestion g ON i.gestion_id=g.gestion_id
+            
+
+            WHERE
+                
+                 ".$dato."
+
+            ORDER BY `kardexeco_id` DESC
+        ")->result_array();
+
+        return $kardex_economico;
+    }
         
     /*
      * function to add new kardex_academico

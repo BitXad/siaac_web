@@ -54,12 +54,11 @@ function buscarestudiante(dato){
                         html += "<td align='center'>"+registros[i]["estudiante_ci"]+"  "+registros[i]["estudiante_extci"]+"</td>";
                         html += "<td align='center'>"+registros[i]["estudiante_codigo"]+"</td>";
                         html += "<td><b>"+registros[i]["carrera_nombre"]+"</b><br>"+registros[i]["nivel_descripcion"]+"</td>";
-                        html += "<td><b>"+registros[i]["gestion_descripcion"]+"</b></td>";
-                        html += "<td align='right'><b>"+Number(registros[i]["kardexeco_matricula"]).toFixed(2)+"</b></td>";
-                        html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"]).toFixed(2)+"</b></td>";
-                        html += "<td align='center'><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
-                        html += "<td align='center'><b>"+registros[i]["estado_descripcion"]+"</b></td>";
-                        html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-xs' title='COBRAR'><i class='fa fa-usd'></i></a> <a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-xs' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
+                        html += "<td align='center'><b>"+registros[i]["gestion_descripcion"]+"</b></td>";
+                        html += "<td align='center'><b>6</b></td>";
+                        html += "<td><b>"+registros[i]["estado_descripcion"]+"</b></td>";
+                        html += "<td><a href='#' target='_blank' class='btn btn-success btn-xs' title='NOTAS'><i class='fa fa-list'></i></a>"; 
+                        html += " <a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-xs' title='VER KARDEX'><i class='fa fa-print'></i></a></td>";
                         html += "</tr>";  
                         }     
                         
