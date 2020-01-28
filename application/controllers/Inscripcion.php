@@ -378,7 +378,7 @@ class Inscripcion extends CI_Controller{
         for ($i = 1; $i<=$kardexeco_nummens; $i++){
             
                        
-            $estado_id = 3; // estado PENDIENTE
+            $estado_id = 8; // estado PENDIENTE
             
             $mes = date("m", strtotime($cuota_fechalimite));
             
@@ -451,7 +451,7 @@ class Inscripcion extends CI_Controller{
             //$kardexeco_id
         }
         if($pagar_mensualidad >0){
-            $estadomen_id = 4; //cancelado
+            $estadomen_id = 9; //cancelado
             $this->load->model('Estudiante_model');
             $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
             

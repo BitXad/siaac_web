@@ -164,7 +164,7 @@ class Mensualidad extends CI_Controller{
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
-                    'estado_id' => 3,
+                    'estado_id' => 8,
                     'kardexeco_id' => $kardexeco_id,
                     'usuario_id' => $usuario_id,
                     'mensualidad_numero' => $this->input->post('mensualidad_numero'),
@@ -288,7 +288,7 @@ class Mensualidad extends CI_Controller{
             $descontar = $this->input->post('mensualidad_descuento');
             $params = array(
                 'usuario_id' => $usuario_id,
-                'estado_id' => 4,
+                'estado_id' => 9,
                 'mensualidad_mora' => $this->input->post('mensualidad_mora'),
                 'mensualidad_descuento' => $this->input->post('mensualidad_descuento'),
                 'mensualidad_montototal' => $total-$descontar,
@@ -417,9 +417,9 @@ class Mensualidad extends CI_Controller{
     function pendiente($mensualidad_id,$kardexeco_id,$descuento,$numero)
     {
         if($this->acceso(47)){
-            $ptq="DELETE FROM mensualidad WHERE mensualidad_numero = ".$numero." and mensualidad_id > ".$mensualidad_id." and kardexeco_id=".$kardexeco_id." and estado_id=3 ";
+            $ptq="DELETE FROM mensualidad WHERE mensualidad_numero = ".$numero." and mensualidad_id > ".$mensualidad_id." and kardexeco_id=".$kardexeco_id." and estado_id=8 ";
             $this->db->query($ptq);
-            $sql = "UPDATE mensualidad SET estado_id=3,mensualidad_montocancelado=0,mensualidad_montototal=mensualidad_montototal+".$descuento.", mensualidad_fechapago=NULL,mensualidad_saldo=0,mensualidad_descuento=0, mensualidad_nombre='',mensualidad_ci='',mensualidad_horapago=NULL WHERE mensualidad.mensualidad_id=".$mensualidad_id." and mensualidad.kardexeco_id=".$kardexeco_id." ";
+            $sql = "UPDATE mensualidad SET estado_id=8,mensualidad_montocancelado=0,mensualidad_montototal=mensualidad_montototal+".$descuento.", mensualidad_fechapago=NULL,mensualidad_saldo=0,mensualidad_descuento=0, mensualidad_nombre='',mensualidad_ci='',mensualidad_horapago=NULL WHERE mensualidad.mensualidad_id=".$mensualidad_id." and mensualidad.kardexeco_id=".$kardexeco_id." ";
             $this->db->query($sql);
             
             redirect('mensualidad/mensualidad/'.$kardexeco_id);

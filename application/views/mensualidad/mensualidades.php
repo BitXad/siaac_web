@@ -211,7 +211,7 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
 						<?php echo $m['mensualidad_ci']; ?></td>
             <td><?php echo $m['mensualidad_numrec']; ?></td>
 						<td><?php echo $m['mensualidad_glosa']; ?></td>
-						<td> <?php if ($m['estado_id']==3) { ?>
+						<td> <?php if ($m['estado_id']==8) { ?>
                       
                            
                              
