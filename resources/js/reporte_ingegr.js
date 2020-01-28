@@ -106,14 +106,14 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                     var fecha2 = fecha_hasta;
                     var esusuario =  $('#buscarusuario_id option:selected').text();
                     if(!(fecha_desde == null || fecha_desde =="") && !(fecha_hasta == null  || fecha_hasta =="")){
-                        fecha1 = "Desde: "+convertDateFormat(fecha_desde);
-                        fecha2 = " - Hasta: "+convertDateFormat(fecha_hasta);
+                        fecha1 = "<b>DESDE: </b>"+convertDateFormat(fecha_desde);
+                        fecha2 = "<br><b>HASTA: </b>"+convertDateFormat(fecha_hasta);
                     }else if(!(fecha_desde == null || fecha_desde =="") && (fecha_desde == null || fecha_hasta =="")){
-                        fecha1 = "De: "+convertDateFormat(fecha_desde);
+                        fecha1 = "<b>DE: </b>"+convertDateFormat(fecha_desde);
                         fecha2 = "";
                     }else if((fecha_desde == null || fecha_desde =="") && !(fecha_hasta == null || fecha_hasta =="")){
                         fecha1 = "";
-                        fecha2 = "De: "+convertDateFormat(fecha_hasta);
+                        fecha2 = "<b>DE: </b>"+convertDateFormat(fecha_hasta);
                     }else{
                         fecha1 = "";
                         fecha2 = "";
@@ -144,7 +144,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                      // totalutilidad += parseFloat(registros[i]['utilidad']);
                         if(registros[i]['tipo'] == 6){
                             if(tituloegreso == 1){
-                                html += "<tr class='cabeceratabla' style='background: #5bc0de;'>";
+                                html += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
                                 html += "<th colspan='5' class='text-center'> - EGRESOS - </th>";
                                 html += "</tr>";
                                 tituloegreso = 0;
@@ -170,7 +170,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                         html += "</tr>";
                         }else{
                             if(tituloingreso == 1){
-                                html += "<tr class='cabeceratabla' style='background: #5bc0de;'>";
+                                html += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
                                 html += "<th colspan='5' class='text-center'> - INGRESOS - </th>";
                                 
                                 html += "</tr>";
@@ -199,14 +199,14 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                    }
                    
                    htmls = "";
-                   htmls += "<tr>";
+                   htmls += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
                    htmls += "<td></td>";
                    htmls += "<td colspan='2' class='esbold'>TOTAL (INGRESOS/EGRESOS)Bs.</td>";
                    /*var totaling = Number(totalingreso).toFixed(2);
                    var n = totaling.toString(); */
                    htmls += "<td class='esbold' id='alinearder'>"+numberFormat(Number(totalingreso).toFixed(2))+"</td>";
                    htmls += "<td class='esbold' id='alinearder'>"+numberFormat(Number(totalegreso).toFixed(2))+"</td>";
-                   htmls += "<td></td>";
+                   //htmls += "<td></td>";
                    //htmls += "<td class='esbold' id='alinearder'>"+numberFormat(Number(totalutilidad).toFixed(2))+"</td>";
                    //htmls += "<td class='esbold' id='alinearder'>"+numberFormat(Number(totalutilidad).toFixed(2))+"</td>";
                    htmls += "</tr>";
@@ -223,7 +223,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                    htmls += "</tr>";*/
                    
                    
-                   htmls += "<tr class='cabeceratabla' style='background: #5bc0de;'>";
+                   htmls += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
                    htmls += "<td></td>";
                    htmls += "<td colspan='3' class='text-bold' style='font-family: Arial; font-size: 12px'>SALDO EFECTIVO EN CAJA Bs.</td>";
                    htmls += "<td class='text-bold' id='alinearder' style='font-family: Arial; font-size: 12px'>"+numberFormat(Number((totalingreso)-totalegreso).toFixed(2))+"</td>";
@@ -231,7 +231,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                    
                    
 
-                   $('#elusuario').html("Usuario: "+esusuario);
+                   $('#elusuario').html("<b>USUARIO</b>: "+esusuario);
                    $('#fecha1impresion').html(fecha1);
                    $('#fecha2impresion').html(fecha2);
                     
@@ -244,12 +244,12 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                     //cabecerahtmlt= "<label  class='control-label'><a href='#' class='btn btn-success btn-sm no-print' id='mostotal' onclick='mostrartotal(); return false'>REPORTE TOTAL</a></label>";
                     
                     cabecerahtmlt = "<table class='table table-striped table-condensed' id='mitabladetimpresion' style='width: 100%'>";
-                    cabecerahtmlt += "<tr>";
-                    cabecerahtmlt += "<th style='width: 2%'>N°</th>";
-                    cabecerahtmlt += "<th style='width: 15%'>Fecha</th>";
-                    cabecerahtmlt += "<th style='width: 58%'>Detalle</th>";
-                    cabecerahtmlt += "<th style='width: 10%'>Ingreso</th>";
-                    cabecerahtmlt += "<th style='width: 10%'>Egreso</th>";
+                    cabecerahtmlt += "<tr style='background-color: #aaaaaa;' class='fondoprint'>";
+                    cabecerahtmlt += "<th class='fondoprint' style='width: 2%' class='text-center'>N°</th>";
+                    cabecerahtmlt += "<th style='width: 15%' class='text-center'>FECHA</th>";
+                    cabecerahtmlt += "<th style='width: 58%' class='text-center'>DETALLE</th>";
+                    cabecerahtmlt += "<th style='width: 10%' class='text-center'>INGRESO</th>";
+                    cabecerahtmlt += "<th style='width: 10%' class='text-center'>EGRESO</th>";
                     cabecerahtmlt += "</tr>";
                     cabecerahtmlt += "<tbody>";
                     
