@@ -31,7 +31,7 @@ class Parametro extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(125)) {
+        if($this->acceso(22)) {
         $this->load->model('Categoria_producto_model');
         $data['all_categoria_producto'] = $this->Categoria_producto_model->get_all_categoria_producto();
         $data['parametros'] = $this->Parametro_model->get_all_parametro();
@@ -46,7 +46,7 @@ class Parametro extends CI_Controller{
      */
     function add()
     {   
-        if($this->acceso(125)) {
+        if($this->acceso(22)) {
             $this->load->model('Categoria_producto_model');
             $data['all_categoria_producto'] = $this->Categoria_producto_model->get_all_categoria_producto();
         
@@ -105,7 +105,7 @@ class Parametro extends CI_Controller{
      */
     function edit($parametro_id)
     {   
-        if($this->acceso(125)) {
+        if($this->acceso(22)) {
         // check if the parametro exists before trying to edit it
         $data['parametro'] = $this->Parametro_model->get_parametro($parametro_id);
         $this->load->model('Categoria_producto_model');

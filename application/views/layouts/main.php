@@ -190,7 +190,7 @@
                                 <?php
                                 if($rolusuario[46-1]['rolusuario_asignado'] == 1){?>
                                 <li>
-                                    <a href="<?php echo site_url('kardex_academico');?>"><i class="fa fa-address-book-o"></i> Kardex Academico</a>
+                                    <a href="<?php echo site_url('kardex_academico/busqueda');?>"><i class="fa fa-address-book-o"></i> Kardex Academico</a>
                                 </li>
                                 <?php }?>
                                 
