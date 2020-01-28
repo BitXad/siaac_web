@@ -18,7 +18,7 @@
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <div class="box-header">
-    <h3 class="box-title">EGRESOS</h3>
+    <h3 class="box-title">EGRESOS </h3>
     <div class="box-tools">
       <a href="<?php echo site_url('egreso/add'); ?>" class="btn btn-success btn-sm">+ Añadir</a> 
       
