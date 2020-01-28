@@ -622,7 +622,7 @@ class Inscripcion extends CI_Controller{
         $this->load->model('Materia_asignada_model');
         $kardexacad_id = $this->input->post('kardexacad_id');
         $materia_id    = $this->input->post('materia_id');
-        $grupo_id      = $this->input->post('grupo_id');
+        $grupo_id      =  0; //$this->input->post('grupo_id');
         $materia = $this->Materia_model->get_materia($materia_id);
         $estado_id = 1;
         $params = array(
@@ -632,8 +632,18 @@ class Inscripcion extends CI_Controller{
             'materiaasig_codigo' => $materia['materia_codigo'],
             'materia_id' => $materia_id,
             'grupo_id' => $grupo_id,
-            );
-            $materiaasig_id = $this->Materia_asignada_model->add_materia_asignada($params);
+        );
+        $materiaasig_id = $this->Materia_asignada_model->add_materia_asignada($params);
+        
+        $param_mc = array(
+            'nivel_id' => $materia['nivel_id'],
+            'grupo_id' => $grupo_id,
+            'kardexacad_id' => $kardexacad_id,
+            'materiakardex_nombre' => $$materia['materia_nombre'],
+            'materiakardex_codigo' => $$materia['materia_codigo'],
+        );
+        $this->load->model('Materia_kardex_model');
+        $materiakardex_id = $this->Materia_kardex_model->add_materia_kardex($param_mc);    
         echo json_encode("ok");
     }
     

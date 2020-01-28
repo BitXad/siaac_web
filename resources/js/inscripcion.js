@@ -293,10 +293,10 @@ function registrar_inscripcion(){
                 for(i=0; i<materias.length; i++){
                     if (materias[i].checked){
                         var thismateria_id = materias[i].value;
-                        var thisgrupo_id = document.getElementById('selgrupo'+thismateria_id).value;
-                        if(thisgrupo_id >0){
+                        var thisgrupo_id = 0; //document.getElementById('selgrupo'+thismateria_id).value;
+                        //if(thisgrupo_id >0){
                             registrar_materiagrupo(kardexacad_id[0], thismateria_id, thisgrupo_id);
-                        }
+                        //}
                         //res = materias[i].value;
                        //cons += cons + ""
                     }
