@@ -182,7 +182,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                         
                        ; 
                        html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
-                       html += "<td>"+registros[i]["detalle"]+"</td>";
+                       html += "<td>"+registros[i]["detalle"]+registros[i]["esfactura"]+"</td>";
                        html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
                        //html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["egreso"]).toFixed(2))+"</td>";
                        /*if(registros[i]['tipo'] == 3 || registros[i]['tipo'] == 2){
