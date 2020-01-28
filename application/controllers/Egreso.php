@@ -103,6 +103,7 @@ class Egreso extends CI_Controller{
                         'page_title' => 'Admin >> Mi Cuenta'
                     );
                     $usuario_id = $session_data['usuario_id'];
+                    $gestion = $session_data['gestion_id'];
 
                     $this->load->library('form_validation');
                     $this->form_validation->set_rules(
@@ -112,7 +113,7 @@ class Egreso extends CI_Controller{
            if($this->form_validation->run())      
             {   
               $numrec = $this->Egreso_model->numero();
-               $numero = $numrec[0]['parametro_numrecegr'] + 1;
+               $numero = $numrec[0]['gestion_numegreso'] + 1;
 
 
                 $params = array(
@@ -130,7 +131,7 @@ class Egreso extends CI_Controller{
 
 
                 $egreso_id = $this->Egreso_model->add_egreso($params);
-                $sql = "UPDATE parametros SET parametro_numrecegr=parametro_numrecegr+1 WHERE parametro_id = '1'"; 
+                $sql = "UPDATE gestion SET gestion_numegreso=gestion_numegreso+1 WHERE gestion_id = ".$gestion.""; 
                 $this->db->query($sql);
                 redirect('egreso/index');
 

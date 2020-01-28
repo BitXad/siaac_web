@@ -270,6 +270,9 @@ class Mensualidad extends CI_Controller{
     {
         if($this->acceso(48)){
             $usuario_id = $this->session_data['usuario_id'];
+            $gestion = $this->session_data['gestion_id'];
+            $numrec = $this->Mensualidad_model->numero();
+            $numero = $numrec[0]['gestion_numingreso'] + 1;
             $mensualidad_id = $this->input->post('mensualidad_id');
             $kardexeco_id = $this->input->post('kardexeco_id');
             $mensualidad_saldo = $this->input->post('mensualidad_saldo');
@@ -296,8 +299,13 @@ class Mensualidad extends CI_Controller{
                 'mensualidad_ci' => $this->input->post('mensualidad_ci'),
                 'mensualidad_glosa' => $this->input->post('mensualidad_glosa'),
                 'mensualidad_saldo' => $this->input->post('mensualidad_saldo'),
+                'mensualidad_numrec' => $numero,
             );
             $this->Mensualidad_model->update_mensualidad($mensualidad_id,$params);
+
+            $sql = "UPDATE gestion SET gestion_numingreso=gestion_numingreso+1 WHERE gestion_id = ".$gestion.""; 
+            $this->db->query($sql);
+
             $facturado = $this->input->post('factura'.$mensualidad_id);
             if($facturado=="on"){ //si la venta es facturada
 

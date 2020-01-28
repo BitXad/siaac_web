@@ -212,6 +212,13 @@ class Mensualidad_model extends CI_Model
         $this->db->where('mensualidad_id',$mensualidad_id);
         return $this->db->update('mensualidad',$params);
     }
+
+    function numero()
+    {
+        
+        $num = $this->db->query("SELECT * FROM gestion")->result_array();
+        return $num;
+    }
     
     /*
      * function to delete mensualidad

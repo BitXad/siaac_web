@@ -126,53 +126,213 @@
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
+                        
                         <li>
                             <a href="#">
-                                <i class="fa fa-address-book-o"></i> <span>Registros</span>
+                                <i class="fa fa-industry"></i> <span>Operaciones</span>
                             </a>
                             <ul class="treeview-menu">
+                                <?php 
+                                if($rolusuario[45-1]['rolusuario_asignado'] == 1){
+                                ?>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('inscripcion/inscribir/0');?>"><i class="fa fa-mortar-board"></i>Inscripción</a>
+                                </li>
+                                
+                                <?php } ?>                                
+                                
+                                
+                                <?php 
+                                if($rolusuario[77-1]['rolusuario_asignado'] == 1){
+                                ?>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('venta/ventas');?>"><i class="fa fa-cart-plus"></i>Ventas</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('compra');?>"><i class="fa fa-shopping-basket"></i>Compras</a>
+                                </li>                                
+                                <?php } ?>                                
+                                
+                                <?php
+                                if($rolusuario[39-1]['rolusuario_asignado'] == 1){
+                                ?>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('egreso');?>"><i class="fa fa-arrow-left"></i>Egresos</a>
+                                </li>
+                                <?php
+                                } ?>
+
+                                
+                                <?php
+                                
+                                if($rolusuario[33-1]['rolusuario_asignado'] == 1){
+                                ?>
+                                <li>
+                                    <a href="<?php echo site_url('ingreso');?>"><i class="fa fa-arrow-right"></i>Ingresos</a>
+                                </li>
+                                
+                                <?php
+                                } ?>                                                                
+                                
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-gears"></i> <span>Administración</span>
+                            </a>
+                            <ul class="treeview-menu">
+
+
+                                <?php
+                                if($rolusuario[46-1]['rolusuario_asignado'] == 1){?>
+                                <li>
+                                    <a href="<?php echo site_url('kardex_academico');?>"><i class="fa fa-address-book-o"></i> Kardex Academico</a>
+                                </li>
+                                <?php }?>
+                                
+                                <?php
+                                if($rolusuario[47-1]['rolusuario_asignado'] == 1){?>
+                                <li>
+                                    <a href="<?php echo site_url('kardex_economico/busqueda');?>"><i class="fa fa-address-book"></i>Kardex Economico</a>
+                                </li>                                
+                                <?php } ?>
+                                
+                                <?php
+                                if($rolusuario[28-1]['rolusuario_asignado'] == 1){?>
+                                <li>
+                                    <a href="<?php echo site_url('grupo');?>"><i class="fa fa-clock-o"></i> Grupos & Horarios</a>
+                                </li>
+                                <?php } ?>                                
+                                
+                                <?php
+                                if($rolusuario[55-1]['rolusuario_asignado'] == 1){?>
+                                <li>
+                                    <a href="<?php echo site_url('plan_academico/planacad');?>"><i class="fa fa-sitemap"></i>Planes Académicos</a>
+                                </li>
+                                <?php } ?>
+                                
+                                <?php
+                                if($rolusuario[21-1]['rolusuario_asignado'] == 1){?>
+                                <li>
+                                    <a href="<?php echo site_url('gestion');?>"><i class="fa fa-calendar"></i>Gestiones</a>
+                                </li>
+                                <?php } ?>                                
+
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-book"></i> <span>Registro</span>
+                            </a>
+                            <ul class="treeview-menu">
+                                
+                                
+                                <?php
+                                if($rolusuario[10-1]['rolusuario_asignado'] == 1){ ?>
+                                <li>
+                                    <a href="<?php echo site_url('estudiante');?>"><i class="fa fa-user"></i> Estudiantes</a>
+                                </li>
+                                <?php } ?>
+                                <?php
+                                if($rolusuario[6-1]['rolusuario_asignado'] == 1){?>
+                                <li>
+                                    <a href="<?php echo site_url('docente');?>"><i class="fa fa-user-circle"></i> Docentes</a>
+                                </li>
+                                <?php } ?>
+                                
                                 <?php
                                 if($rolusuario[2-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
                                     <a href="<?php echo site_url('administrativo');?>"><i class="fa fa-user-circle-o"></i> Administrativos</a>
                                 </li>
+                                <?php } ?>
+                                
+                                
                                 <?php
-                                }
-                                if($rolusuario[6-1]['rolusuario_asignado'] == 1){
+                                if($rolusuario[29-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
-                                    <a href="<?php echo site_url('docente');?>"><i class="fa fa-user-circle"></i> Docentes</a>
+                                    <a href="<?php echo site_url('carrera');?>"><i class="fa fa-file-code-o"></i>Carreras</a>
+                                </li>
+                                <?php
+                                } ?>
+                                
+                                <?php
+                                if($rolusuario[50-1]['rolusuario_asignado'] == 1){
+                                ?>
+                                <li>
+                                    <a href="<?php echo site_url('materia');?>"><i class="fa fa-maxcdn"></i>Materias</a>
                                 </li>
                                 <?php
                                 }
-                                if($rolusuario[10-1]['rolusuario_asignado'] == 1){
+                                if($rolusuario[54-1]['rolusuario_asignado'] == 1){
+                                ?>
+                                
+                                <li>
+                                    <a href="<?php echo site_url('notum');?>"><i class="fa fa-list-alt"></i>Notas</a>
+                                </li>
+                                <?php } ?>
+                                
+                                
+                                <?php 
+                                if($rolusuario[27-1]['rolusuario_asignado'] == 1){?>
+                                <li>
+                                    <a href="<?php echo site_url('aula');?>"><i class="fa fa-font"></i> Aulas</a>
+                                </li>
+                                <?php } ?>
+
+                                <?php
+                                if($rolusuario[58-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
-                                    <a href="<?php echo site_url('estudiante');?>"><i class="fa fa-user"></i> Estudiantes</a>
+                                    <a href="<?php echo site_url('producto');?>"><i class="fa fa-cubes"></i>Productos</a>
                                 </li>
-                                <?php
-                                }
-                                if($rolusuario[27-1]['rolusuario_asignado'] == 1){
-                                ?>
                                 <li>
-                                    <a href="<?php echo site_url('aula');?>"><i class="fa fa-font"></i> Aula</a>
+                                    <a href="<?php echo site_url('categoria_producto');?>"><i class="fa fa-list"></i>Categorias</a>
                                 </li>
-                                <?php
-                                }
-                                ?>
+                                <li>
+                                    <a href="<?php echo site_url('inventario');?>"><i class="fa fa-list-ol"></i>Inventario</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo site_url('cliente');?>"><i class="fa fa-users"></i>Clientes</a>
+                                </li>
+                              
+                                <li>
+                                    <a href="<?php echo site_url('usuario');?>"><i class="fa fa-users"></i>Usuarios</a>
+                                </li>
+                                <?php } ?>                                
+                                
                             </ul>
                         </li>
+
+                        
+                        <?php
+                        if($rolusuario[1-1]['rolusuario_asignado'] == 1){
+                        ?>
+                        <li>
+                            <a href="<?php echo site_url('institucion');?>"><i class="fa fa-university"></i> <span>Institución</span></a>
+                        </li>
+                        <?php
+                        }
+                        ?>                        
+                        
+
                         <li>
                             <a href="#">
-                                <i class="fa fa-list-ol"></i> <span>Parametros</span>
+                                <i class="fa fa-list-ol"></i> <span>Parámetros</span>
                             </a>
                             <ul class="treeview-menu">
                                 <?php
                                 if($rolusuario[14-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
-                                    <a href="<?php echo site_url('area_carrera');?>"><i class="fa fa-university"></i>Area Carrera</a>
+                                    <a href="<?php echo site_url('area_carrera');?>"><i class="fa fa-university"></i>Carrera: Areas</a>
                                 </li>
                                 <?php
                                 }
@@ -224,14 +384,9 @@
                                     <a href="<?php echo site_url('genero');?>"><i class="fa fa-venus-mars"></i>Genero</a>
                                 </li>
                                 <?php
-                                }
-                                if($rolusuario[21-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <li>
-                                    <a href="<?php echo site_url('gestion');?>"><i class="fa fa-calendar"></i>Gestion</a>
-                                </li>
+                                } ?>
+
                                 <?php
-                                }
                                 if($rolusuario[72-1]['rolusuario_asignado'] == 1){
                                 ?>
                                 <li>
@@ -271,115 +426,7 @@
                             </ul>
                         </li>
                         
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-industry"></i> <span>Operaciones</span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <?php
-                                if($rolusuario[29-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <li>
-                                    <a href="<?php echo site_url('carrera');?>"><i class="fa fa-file-code-o"></i>Carrera</a>
-                                </li>
-                                <?php
-                                }
-                                if($rolusuario[39-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <!--<li>
-                                    <a href="<?php /*echo site_url('detalle_factura');?>"><i class="fa fa-file-text-o"></i>Detalle Factura</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('factura');?>"><i class="fa fa-align-left"></i>Factura</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('horario');*/?>"><i class="fa fa-calendar-check-o"></i>Horarios</a>
-                                </li>-->
-                                <li>
-                                    <a href="<?php echo site_url('egreso');?>"><i class="fa fa-arrow-left"></i>Egresos</a>
-                                </li>
-                                <?php
-                                }
-                                if($rolusuario[28-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <li>
-                                    <a href="<?php echo site_url('grupo');?>"><i class="fa fa-users"></i> Registrar Grupo-Horario</a>
-                                </li>
-                                <?php
-                                }
-                                if($rolusuario[33-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <li>
-                                    <a href="<?php echo site_url('ingreso');?>"><i class="fa fa-arrow-right"></i>Ingresos</a>
-                                </li>
-                                <?php
-                                }
-                                if($rolusuario[45-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <li>
-                                    <a href="<?php echo site_url('inscripcion/inscribir/0');?>"><i class="fa fa-mortar-board"></i>Inscripción</a>
-                                </li>
-                                <?php
-                                }
-                                if($rolusuario[46-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <li>
-                                    <a href="<?php echo site_url('kardex_academico');?>"><i class="fa fa-address-book-o"></i> Kardex Academico</a>
-                                </li>
-                                <?php
-                                }
-                                if($rolusuario[47-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <li>
-                                    <a href="<?php echo site_url('kardex_economico/busqueda');?>"><i class="fa fa-address-book"></i>Kardex Economico</a>
-                                </li>
-                                <?php
-                                }
-                                if($rolusuario[50-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <li>
-                                    <a href="<?php echo site_url('materia');?>"><i class="fa fa-maxcdn"></i>Materias</a>
-                                </li>
-                                <?php
-                                }
-                                if($rolusuario[54-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <!--<li>
-                                    <a href="<?php /*echo site_url('materia_asignada');?>"><i class="fa fa-navicon"></i>Materias Asignadas</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('matricula');?>"><i class="fa fa-money"></i>Matricula</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('mensualidad');?>"><i class="fa fa-usd"></i>Mensualidad</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('nivel');*/ ?>"><i class="fa fa-sort"></i>Nivel</a>
-                                </li>-->
-                                <li>
-                                    <a href="<?php echo site_url('notum');?>"><i class="fa fa-list-alt"></i>Notas</a>
-                                </li>
-                                <?php
-                                }
-                                if($rolusuario[55-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <li>
-                                    <a href="<?php echo site_url('plan_academico/planacad');?>"><i class="fa fa-buysellads"></i>Plan Académico</a>
-                                </li>
-                                <?php
-                                }
-                                ?>
-                            </ul>
-                        </li>
-                        <?php
-                        if($rolusuario[1-1]['rolusuario_asignado'] == 1){
-                        ?>
-                        <li>
-                            <a href="<?php echo site_url('institucion');?>"><i class="fa fa-university"></i> <span>Institución</span></a>
-                        </li>
-                        <?php
-                        }
-                        ?>
+                        
                         
                 <li>
                     <a href="#"><i class="fa fa-clipboard"></i> <span>Reportes</span></a>
@@ -445,38 +492,14 @@
 
                 
                                  
-                        <li>
+<!--                        <li>
                             <a href="#">
                                 <i class="fa fa-cart-plus"></i> <span>Ventas</span>
                             </a>
                             <ul class="treeview-menu">
-                                <?php
-                                if($rolusuario[58-1]['rolusuario_asignado'] == 1){
-                                ?>
-                                <li>
-                                    <a href="<?php echo site_url('producto');?>"><i class="fa fa-cubes"></i>Productos</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('categoria_producto');?>"><i class="fa fa-list"></i>Categorias</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('inventario');?>"><i class="fa fa-list-ol"></i>Inventario</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('cliente');?>"><i class="fa fa-users"></i>Clientes</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('venta/ventas');?>"><i class="fa fa-cart-plus"></i>Ventas</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('compra');?>"><i class="fa fa-border"></i>Compras</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('usuario');?>"><i class="fa fa-users"></i>Usuarios</a>
-                                </li>
-                                <?php } ?>
+
                             </ul>
-                        </li>
+                        </li>-->
                         
                                  
                         

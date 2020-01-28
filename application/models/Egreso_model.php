@@ -101,10 +101,17 @@ class Egreso_model extends CI_Model
      * function to update egreso
      */
      
-     function numero()
+    /* function numero()
     {
         
         $numrec = $this->db->query("SELECT * FROM parametros")->result_array();
+        return $numrec;
+    }*/
+
+     function numero()
+    {
+        
+        $numrec = $this->db->query("SELECT * FROM gestion")->result_array();
         return $numrec;
     }
      function nombre()
