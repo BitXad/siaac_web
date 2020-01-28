@@ -142,7 +142,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                       totalingreso  += parseFloat(registros[i]['ingreso']);
                       totalegreso   += parseFloat(registros[i]['egreso']);
                      // totalutilidad += parseFloat(registros[i]['utilidad']);
-                        if(registros[i]['tipo'] == 4){
+                        if(registros[i]['tipo'] == 6){
                             if(tituloegreso == 1){
                                 html += "<tr class='cabeceratabla' style='background: #5bc0de;'>";
                                 html += "<th colspan='5' class='text-center'> - EGRESOS - </th>";
@@ -154,7 +154,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                         html += "<td>"+(i+1)+"</td>";
                         
                         
-                       html += "<td>"+formatofecha_hora(registros[i]["fecha"])+"</td>";
+                       html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
                        html += "<td>"+registros[i]["detalle"]+"</td>";
                        html += "<td></td>";
                        //html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
