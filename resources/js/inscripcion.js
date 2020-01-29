@@ -176,7 +176,13 @@ function mostrar_materias(){
                     for (j = 0; j<Number(registros.length) ; j++){
                         html += "<tr>";
                         html += "<td style='padding: 0;'>"+(j+1)+"</td>";
-                        html += "<td style='padding: 0;'>"+registros[j]["materia_nombre"]+"</td>";
+                        html += "<td style='padding: 0;'>"+registros[j]["materia_nombre"];
+                        if(registros[j]["materia_nombre"] != registros[j]["materia_alias"]){
+                            html += "<span class='text-bold text-center' style='font-size: 8px'>";
+                            html += "<br>"+registros[j]["materia_alias"];
+                            html += "</span>";
+                        }
+                        html += "</td>";
                         html += "<td style='padding: 0;'>"+registros[j].materia_codigo+"</td>";
                         html += "<td style='padding: 0;'>";
                         processData(registros[j]["materia_id"]);
