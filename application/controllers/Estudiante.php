@@ -9,6 +9,7 @@ class Estudiante extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Estudiante_model');
+        $this->load->model('Cliente_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -174,39 +175,55 @@ class Estudiante extends CI_Controller{
                             $fotoapo = $new_name1.$extension1;
                         }
                 /* *********************FIN imagen***************************** */
+                $paramc = array(
+                    'estado_id' => 1,
+                    'tipocliente_id' => 1,
+                    'categoriaclie_id' => 1,
+                    'cliente_codigo' => $this->input->post('estudiante_codigo'),
+                    'cliente_nombre' => $this->input->post('estudiante_nombre')." ".$this->input->post('estudiante_apellidos'),
+                    'cliente_ci' => $this->input->post('estudiante_ci'),
+                    'cliente_direccion' => $this->input->post('estudiante_direccion'),
+                    'cliente_telefono' => $this->input->post('estudiante_telefono'),
+                    'cliente_celular' => $this->input->post('estudiante_celular'),
+                    'cliente_email' => $this->input->post('estudiante_email'),
+                    'cliente_nit' => $this->input->post('estudiante_nit'),
+                    'cliente_razon' => $this->input->post('estudiante_razon'),
+                );
+                $cliente_id = $this->Cliente_model->add_cliente($paramc);
                 $params = array(
-                                    'estado_id' => 1,
-                                    'genero_id' => $this->input->post('genero_id'),
-                                    'estadocivil_id' => $this->input->post('estadocivil_id'),
-                                    'estudiante_nombre' => $this->input->post('estudiante_nombre'),
-                                    'estudiante_apellidos' => $this->input->post('estudiante_apellidos'),
-                                    'estudiante_fechanac' => $this->input->post('estudiante_fechanac'),
-                                    'estudiante_edad' => $this->input->post('estudiante_edad'),
-                                    'estudiante_ci' => $this->input->post('estudiante_ci'),
-                                    'estudiante_extci' => $this->input->post('estudiante_extci'),
-                                    'estudiante_codigo' => $this->input->post('estudiante_codigo'),
-                                    'estudiante_direccion' => $this->input->post('estudiante_direccion'),
-                                    'estudiante_telefono' => $this->input->post('estudiante_telefono'),
-                                    'estudiante_celular' => $this->input->post('estudiante_celular'),
-                                    'estudiante_foto' => $foto,
-                                    'estudiante_lugarnac' => $this->input->post('estudiante_lugarnac'),
-                                    'estudiante_nacionalidad' => $this->input->post('estudiante_nacionalidad'),
-                                    'estudiante_establecimiento' => $this->input->post('estudiante_establecimiento'),
-                                    'estudiante_distrito' => $this->input->post('estudiante_distrito'),
-                                    'estudiante_apoderado' => $this->input->post('estudiante_apoderado'),
-                                    'apoderado_foto' => $fotoapo,
-                                    'estudiante_apodireccion' => $this->input->post('estudiante_apodireccion'),
-                                    'estudiante_apoparentesco' => $this->input->post('estudiante_apoparentesco'),
-                                    'estudiante_apotelefono' => $this->input->post('estudiante_apotelefono'),
-                                    'estudiante_nit' => $this->input->post('estudiante_nit'),
-                                    'estudiante_razon' => $this->input->post('estudiante_razon'),
+                    'estado_id' => 1,
+                    'genero_id' => $this->input->post('genero_id'),
+                    'estadocivil_id' => $this->input->post('estadocivil_id'),
+                    'estudiante_nombre' => $this->input->post('estudiante_nombre'),
+                    'estudiante_apellidos' => $this->input->post('estudiante_apellidos'),
+                    'estudiante_fechanac' => $this->input->post('estudiante_fechanac'),
+                    'estudiante_edad' => $this->input->post('estudiante_edad'),
+                    'estudiante_ci' => $this->input->post('estudiante_ci'),
+                    'estudiante_extci' => $this->input->post('estudiante_extci'),
+                    'estudiante_codigo' => $this->input->post('estudiante_codigo'),
+                    'estudiante_direccion' => $this->input->post('estudiante_direccion'),
+                    'estudiante_telefono' => $this->input->post('estudiante_telefono'),
+                    'estudiante_celular' => $this->input->post('estudiante_celular'),
+                    'estudiante_foto' => $foto,
+                    'estudiante_lugarnac' => $this->input->post('estudiante_lugarnac'),
+                    'estudiante_nacionalidad' => $this->input->post('estudiante_nacionalidad'),
+                    'estudiante_establecimiento' => $this->input->post('estudiante_establecimiento'),
+                    'estudiante_distrito' => $this->input->post('estudiante_distrito'),
+                    'estudiante_apoderado' => $this->input->post('estudiante_apoderado'),
+                    'apoderado_foto' => $fotoapo,
+                    'estudiante_apodireccion' => $this->input->post('estudiante_apodireccion'),
+                    'estudiante_apoparentesco' => $this->input->post('estudiante_apoparentesco'),
+                    'estudiante_apotelefono' => $this->input->post('estudiante_apotelefono'),
+                    'estudiante_nit' => $this->input->post('estudiante_nit'),
+                    'estudiante_razon' => $this->input->post('estudiante_razon'),
                     'estudiante_email' => $this->input->post('estudiante_email'),
                     'estudiante_login' => $this->input->post('estudiante_login'),
                     'estudiante_clave' => md5($this->input->post('estudiante_clave')),
                     'tipousuario_id' => 3,
+                    'cliente_id' => $cliente_id,
                 );
-
                 $estudiante_id = $this->Estudiante_model->add_estudiante($params);
+                
                 redirect('estudiante/index');
             }
             else
@@ -566,21 +583,36 @@ class Estudiante extends CI_Controller{
                         'estudiante_apodireccion' => $this->input->post('estudiante_apodireccion'),
                         'estudiante_apoparentesco' => $this->input->post('estudiante_apoparentesco'),
                         'estudiante_apotelefono' => $this->input->post('estudiante_apotelefono'),
+                        'estudiante_email' => $this->input->post('estudiante_email'),
                         'estudiante_nit' => $this->input->post('estudiante_nit'),
                         'estudiante_razon' => $this->input->post('estudiante_razon'),
-                        'estudiante_email' => $this->input->post('estudiante_email'),
                         //'estudiante_login' => $this->input->post('estudiante_codigo'),
                         //'estudiante_clave' => md5($this->input->post('estudiante_ci')),
                         //'tipousuario_id' => 3,
                     );
 
-                    $this->Estudiante_model->update_estudiante($estudiante_id,$params);            
+                        $this->Estudiante_model->update_estudiante($estudiante_id,$params);
+                        $cliente_id = $this->input->post('cliente_id');
+                        $paramc = array(
+                        'estado_id' => $this->input->post('estado_id'),
+                        'cliente_codigo' => $this->input->post('estudiante_codigo'),
+                        'cliente_nombre' => $this->input->post('estudiante_nombre')." ".$this->input->post('estudiante_apellidos'),
+                        'cliente_ci' => $this->input->post('estudiante_ci'),
+                        'cliente_direccion' => $this->input->post('estudiante_direccion'),
+                        'cliente_telefono' => $this->input->post('estudiante_telefono'),
+                        'cliente_celular' => $this->input->post('estudiante_celular'),
+                        'cliente_email' => $this->input->post('estudiante_email'),
+                        'cliente_nit' => $this->input->post('estudiante_nit'),
+                        'cliente_razon' => $this->input->post('estudiante_razon'),
+                    );
+                    $this->Cliente_model->update_cliente($cliente_id, $paramc);
                     redirect('estudiante/index');
                 }
                 else
                 {
                     $this->load->model('Estado_model');
-                    $data['all_estado'] = $this->Estado_model->get_all_estado();
+                    $tipo = 1;
+                    $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
 
                     $this->load->model('Genero_model');
                     $data['all_genero'] = $this->Genero_model->get_all_genero();
