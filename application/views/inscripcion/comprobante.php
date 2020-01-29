@@ -118,13 +118,13 @@
     <tr>
         <td style="width: 2cm;"></td>
         <td <?php echo $padding; ?>><b>MATRICULA Bs:</b></td>
-        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_matricula'],2,".",","); ?></td>
+        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_matriculapagada'],2,".",","); ?></td>
     </tr>
 
     <tr>
         <td style="width: 2cm;"></td>
         <td <?php echo $padding; ?>><b>MENSUALIDAD Bs:</b></td>
-        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_mensualidad'],2,".",","); ?></td>
+        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_mensualidadpagada'],2,".",","); ?></td>
     </tr>
 
 
@@ -149,7 +149,7 @@
         <td>
             <font face="Arial" size="3"><b>TOTAL FINAL Bs</b></font>
         </td>
-        <td><font face="Arial" size="3"><b><?php echo number_format($inscripcion[0]['kardexeco_mensualidad']+$inscripcion[0]['kardexeco_matricula'],2,".",","); ?></b></font></td>
+        <td><font face="Arial" size="3"><b><?php echo number_format($inscripcion[0]['kardexeco_matriculapagada']+$inscripcion[0]['kardexeco_mensualidadpagada'],2,".",","); ?></b></font></td>
     </tr>
     <!--</tbody>-->
 </table>   
