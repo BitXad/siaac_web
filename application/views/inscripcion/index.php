@@ -109,7 +109,8 @@
                             <td><?php echo $i['inscripcion_fechainicio']; ?></td>
                             <td>
                             <a href="<?php echo site_url('inscripcion/edit/'.$i['inscripcion_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> 
-                            <a href="<?php echo site_url('inscripcion/remove/'.$i['inscripcion_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a>
+                            <a href="<?php echo site_url('venta/ventas_cliente/'.$i['cliente_id']); ?>" class='btn btn-success btn-xs' title='Vender'><span class='fa fa-cart-plus'></span></a>
+                            <!--<a href="<?php echo site_url('inscripcion/remove/'.$i['inscripcion_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a>-->
                         </td>
                     </tr>
                     <?php } ?>
