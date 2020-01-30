@@ -204,7 +204,7 @@ class Credito extends CI_Controller{
         $usuario_id = $this->session_data['usuario_id'];
         $tipo_usuario = $this->session_data['tipousuario_id'];
         if ($tipo_usuario>1 && $permiso==2) {
-           $condicion = " and ve.usuario_id=".$usuario_id." or s.usuario_id=".$usuario_id." ";
+           $condicion = " and ve.usuario_id=".$usuario_id." ";
         }else{
            $condicion = "";
         }
