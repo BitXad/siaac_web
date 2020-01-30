@@ -223,6 +223,7 @@
 						<label for="estudiante_razon" class="control-label">Razon Social</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_razon" value="<?php echo ($this->input->post('estudiante_razon') ? $this->input->post('estudiante_razon') : $estudiante['estudiante_razon']); ?>" class="form-control" id="estudiante_razon" />
+                                                        <input type="hidden" name="cliente_id" value="<?php echo $estudiante['cliente_id']; ?>" class="form-control" id="cliente_id" />
 						</div>
 					</div>
 				</div>

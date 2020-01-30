@@ -442,7 +442,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                             <a href="<?php echo base_url("inscripcion/ultima_inscripcion"); ?>" target="_BLANK" class="btn btn-warning btn-block" id="boton_imprimir">
                                     <i class="fa fa-print"></i> Imprimir
                             </a>
-                            <a href="<?php echo base_url("admin/dashb"); ?>" class="btn btn-danger btn-block">
+                            <a href="<?php echo base_url("inscripcion"); ?>" class="btn btn-danger btn-block">
                                     <i class="fa fa-fax"></i> Salir
                             </a>
                         </div>      

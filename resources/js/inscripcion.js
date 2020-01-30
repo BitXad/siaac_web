@@ -177,9 +177,14 @@ function mostrar_materias(){
                         html += "<tr>";
                         html += "<td style='padding: 0;'>"+(j+1)+"</td>";
                         html += "<td style='padding: 0;'>"+registros[j]["materia_nombre"];
-                        if(registros[j]["materia_nombre"] != registros[j]["materia_alias"]){
-                            html += "<span class='text-bold text-center' style='font-size: 8px'>";
+                        if(registros[j]["materia_nombre"] != registros[j]["materia_alias"] && registros[j]["materia_alias"] != null){
+                            html += "<span class='text-blue' style='font-size: 8px'>";
                             html += "<br>"+registros[j]["materia_alias"];
+                            html += "</span>";
+                        }
+                        if(registros[j]["materia_alias"] == null){
+                            html += "<span class='text-blue' style='font-size: 8px'>";
+                            html += "<br>MATERIA COMPLEMENTARIA";
                             html += "</span>";
                         }
                         html += "</td>";
