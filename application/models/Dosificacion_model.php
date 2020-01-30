@@ -190,14 +190,14 @@ class Dosificacion_model extends CI_Model
         $sql= "SELECT 
                 d.*,
                 e.estado_descripcion,
-                em.institucion_nombre
+                em.empresa_nombre
               FROM
                 dosificacion d,
                 estado e,
-                institucion em
+                empresa em
               WHERE
                 d.estado_id = e.estado_id AND 
-                d.institucion_id = em.institucion_id
+                d.empresa_id = em.empresa_id
               ORDER BY
                 dosificacion_id DESC";
         

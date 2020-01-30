@@ -184,5 +184,18 @@ class Grupo_model extends CI_Model
 
         return $grupo;
     }
+    function get_all_grupo_gestion($gestion_id)
+    {
+        $grupo = $this->db->query("
+            SELECT
+                g.grupo_id, g.materia_id, g.grupo_nombre
+            FROM
+                grupo g
+            WHERE
+                g.gestion_id = $gestion_id
+        ")->result_array();
+
+        return $grupo;
+    }
     
 }
