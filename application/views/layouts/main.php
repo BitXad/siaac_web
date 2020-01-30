@@ -137,7 +137,7 @@
                                 ?>
                                 
                                 <li>
-                                    <a href="<?php echo site_url('inscripcion/inscribir/0');?>"><i class="fa fa-mortar-board"></i>Inscripción</a>
+                                    <a href="<?php echo site_url('inscripcion');?>"><i class="fa fa-mortar-board"></i>Inscripción</a>
                                 </li>
                                 
                                 <?php } ?>                                
