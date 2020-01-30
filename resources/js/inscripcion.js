@@ -163,6 +163,7 @@ function mostrar_materias(){
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/buscar_materias";
     var nivel_id = document.getElementById('nivel_id').value;
+    var allgrupo = JSON.parse(document.getElementById('allgrupo').value);
         $.ajax({
             url:controlador,
             type:"POST",
@@ -172,7 +173,7 @@ function mostrar_materias(){
                 
                 var registros = JSON.parse(respuesta);
                 if (registros != null){
-                   
+                    var resgrupo = allgrupo.length;
                     for (j = 0; j<Number(registros.length) ; j++){
                         html += "<tr>";
                         html += "<td style='padding: 0;'>"+(j+1)+"</td>";
@@ -190,14 +191,27 @@ function mostrar_materias(){
                         html += "</td>";
                         html += "<td style='padding: 0;'>"+registros[j].materia_codigo+"</td>";
                         html += "<td style='padding: 0;'>";
-                        processData(registros[j]["materia_id"]);
-                        html += "<div id='mostrargrupo"+registros[j]['materia_id']+"'>";
+                        //processData(registros[j]["materia_id"]);
+                        //html += "<div id='mostrargrupo"+registros[j]['materia_id']+"'>";
+                        
+                        html += "<select id='selgrupo"+registros[j]['materia_id']+"' name='selgrupo"+registros[j]['materia_id']+"'>";
+                        html += "<option value='0'>- GRUPO -</option>";
+                        for (var i = 0; i < resgrupo ; i++){
+                            if(registros[j]['materia_id'] == allgrupo[i]["materia_id"]){
+                                html += "<option value='"+allgrupo[i]['grupo_id']+"'>"+allgrupo[i]['grupo_nombre']+"</option>";
+                            }
+                        }
+                        html += "</select>";
+                        
+                        
+                        
+                        
                         /* html += "<select >";
                         html += "<option value='0'>- GRUPO -</option>";
                         html += "<option value='1'>Grupo 1</option>";
                         
                         html += "</select>*/;
-                        html += "</div>";
+                        //html += "</div>";
                         html += "</td>";
                         html += "<td align='center' style='padding: 0;'><input type='checkbox' name='mat' id='materias' value='"+registros[j].materia_id+"' checked/></td>";
                         html += "</tr>";
@@ -379,7 +393,7 @@ function mostrar_ocultar_buscador(parametro){
         document.getElementById('buscador_oculto').style.display = 'none';}
     
 }
-
+/*
 async function processData(materia_id) {
   try {
     const result = await mostrargrupo(materia_id);
@@ -421,7 +435,7 @@ function mostrargrupo(materia_id){
     });
   
   return promise;
-}
+}*/
 
 function registrar_materiagrupo(kardexacad_id, materia_id, grupo_id)
 {

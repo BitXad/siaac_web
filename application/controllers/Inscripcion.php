@@ -139,11 +139,17 @@ class Inscripcion extends CI_Controller{
                 $data['all_gestion'] = $this->Gestion_model->get_all_gestion();
 
                 $this->load->model('Estudiante_model');
+                
+                $this->load->model('Grupo_model');
+                $data['all_grupo'] = $this->Grupo_model->get_all_grupo_gestion($gestion_id);
 
                 if ($estudiante_id>0){
                     $data['estudiante'] = $this->Estudiante_model->get_estudiante_por_id($estudiante_id);
                     $this->load->model('Inscripcion_model');
                     $data['carrera_idinsc_est'] = $this->Inscripcion_model->get_carreraid_inscripcion($estudiante_id);
+                    
+                    /*$this->load->model('Grupo_model');
+                    $data['all_grupo'] = $this->Grupo_model->get_all_grupo_gestion($gestion_id);*/
                 }else{
                     $data['estudiante'] = $this->Estudiante_model->get_estudiante_temporal();
                     $data['carrera_idinsc_est'] = 0;

@@ -97,7 +97,7 @@ class Dosificacion extends CI_Controller{
     function edit($dosificacion_id)
     {
         if($this->acceso(73-1)){
-            $data['page_title'] = "Dosificación";
+            $data['page_title'] = " :: Dosificación";
         // check if the dosificacion exists before trying to edit it
         $data['dosificacion'] = $this->Dosificacion_model->get_dosificacion($dosificacion_id);
         
@@ -133,8 +133,8 @@ class Dosificacion extends CI_Controller{
                 $this->load->model('Estado_model');
                 $data['all_estado'] = $this->Estado_model->get_all_estado_activo_inactivo();
 
-                $this->load->model('Institucion_model');
-                $data['all_empresa'] = $this->Institucion_model->get_all_institucion();
+                $this->load->model('Empresa_model');
+                $data['all_empresa'] = $this->Empresa_model->get_all_empresa();
 
                 $data['_view'] = 'dosificacion/edit';
                 $this->load->view('layouts/main',$data);

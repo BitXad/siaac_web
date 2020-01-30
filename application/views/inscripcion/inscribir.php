@@ -63,6 +63,7 @@ function mostrar_ocultar(){
 </script>
 <script src="<?php echo base_url('resources/js/inscripcion.js'); ?>" type="text/javascript"></script>
 <input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
+<input type="hidden" name="allgrupo" id="allgrupo" value='<?php echo json_encode($all_grupo); ?>' />
 <input type="text" value="<?php echo $estudiante[0]["estudiante_id"]; ?>" id="estudiante_id" hidden>
 
 <!------------------ ESTILO DE LAS TABLAS ----------------->
