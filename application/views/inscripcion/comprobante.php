@@ -112,6 +112,12 @@
     <tr>
         <td style="width: 2cm;"></td>
         <td <?php echo $padding; ?>><b>NIVEL:</b></td>
+        <td <?php echo $padding; ?>><?php echo $inscripcion[0]['carrera_nivel']; ?></td>
+    </tr>
+
+    <tr>
+        <td style="width: 2cm;"></td>
+        <td <?php echo $padding; ?>><b>CURSO:</b></td>
         <td <?php echo $padding; ?>><?php echo $inscripcion[0]['nivel_descripcion']; ?></td>
     </tr>
 
