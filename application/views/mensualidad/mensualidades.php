@@ -113,10 +113,11 @@ function cerrar() {
             <th>Mes</th>
 						<th>Estado</th>
 						<th>Montoparcial</th>
+            <th>Mora</th>
+            <th>Multa</th>
 						<th>Desc.</th>
 						<th>Montototal</th>
 						<th>Fechalimite</th>
-						<th>Mora</th>
 						<th>Cancelado</th>
 						<th>Saldo</th>
 						<th>Fecha Pago</th>
@@ -131,77 +132,18 @@ function cerrar() {
                     foreach($mensualidad as $m){ 
                     	$i=$i+1; ?>
                     <tr>
-    <script>
-$(document).ready(function(){
-  
-  function restar(){
     
-  
-      uno = $("#mensualidad_montototal<?php echo $m['mensualidad_id']; ?>");
-      dos = $("#mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>");
-      tres = $("#mensualidad_saldo<?php echo $m['mensualidad_id']; ?>");
-      cuatro = $("#mensualidad_mora<?php echo $m['mensualidad_id']; ?>");
-      cinco =  $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>");
-
-      descuento = parseFloat(cinco.val());
-      multa = parseFloat(cuatro.val());
-      multar = parseFloat(uno.val())  + multa;
-      operacion  = multar - parseFloat(dos.val()) - descuento; 
-      tres.val(operacion);
-    
-  }
-$("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
-      
-      
-      var descuento = $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>");
-      var total = $("#mensualidad_montototal<?php echo $m['mensualidad_id']; ?>");
-      var nuevo = parseFloat(total.val() - descuento.val());
-      $("#mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>").val(nuevo);
-      
-  });
-
-  $("#mensualidad_mora<?php echo $m['mensualidad_id']; ?>").keyup(function(){
-      
-      var cuatro;
-      cuatro = $("#mensualidad_mora<?php echo $m['mensualidad_id']; ?>").val();
-      if(cuatro != ""){
-        restar()
-      }
-      
-  });
-  
-  $("#mensualidad_montototal<?php echo $m['mensualidad_id']; ?>").keyup(function(){
-      
-      var dos;
-      dos = $("#mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>").val();
-      
-      if(dos != ""){
-        restar()
-      }
-      
-  });
-  
-  $("#mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>").keyup(function(){
-      
-      var uno;
-      uno = $("#mensualidad_montototal<?php echo $m['mensualidad_id']; ?>").val();
-      
-      if(uno != ""){
-        restar()
-      }
-      
-  });
-})
-</script>
 						<td><?php echo $i; ?></td>
             <td><?php echo $m['mensualidad_numero']; ?></td>
             <td><?php echo $m['mensualidad_mes']; ?></td>
 						<td><?php echo $m['estado_descripcion']; ?></td>
 						<td><?php echo $m['mensualidad_montoparcial']; ?></td>
+            <td><?php echo $m['mensualidad_mora']; ?></td>
+            <td><?php echo $m['mensualidad_multa']; ?></td>
 						<td><?php echo $m['mensualidad_descuento']; ?></td>
 						<td><?php echo $m['mensualidad_montototal']; ?></td>
 						<td><?php echo date('d/m/Y',strtotime($m['mensualidad_fechalimite'])); ?></td>
-						<td><?php echo $m['mensualidad_mora']; ?></td>
+						
 						<td><?php echo $m['mensualidad_montocancelado']; ?></td>
 						<td><?php echo $m['mensualidad_saldo']; ?></td>
 						<td style="text-align: center;"><?php if ($m['mensualidad_fechapago']=='') { echo ("");
@@ -280,28 +222,29 @@ $("#mensualidad_descuento<?php echo $m['mensualidad_id']; ?>").keyup(function(){
           <div class="col-md-12">
             <input type="hidden" name="mensualidad_id" value="<?php echo $m['mensualidad_id']; ?>" class="form-control" id="mensualidad_id" />
             <input type="hidden" name="estado_id" value="9" class="form-control" id="estado_id" />
-            <div class="col-md-4" hidden>
-                        <label for="mensualidad_mora" class="control-label">Mora</label>
-                        <div class="form-group">
-                            <input type="text" name="mensualidad_mora" value="0" class="form-control" id="mensualidad_mora<?php echo $m['mensualidad_id']; ?>" />
-                        </div>
-                    </div>
+            
                     <div class="col-md-4">
                         <label for="mensualidad_descuento" class="control-label">Descuento</label>
                         <div class="form-group">
-                            <input type="text" name="mensualidad_descuento" value="0" class="form-control" id="mensualidad_descuento<?php echo $m['mensualidad_id']; ?>" />
+                            <input type="number" onkeyup="descontar(<?php echo $m['mensualidad_id']; ?>)" max="<?php echo $m['mensualidad_multa']; ?>" name="mensualidad_descuento" value="0" min="0"class="form-control" id="mensualidad_descuento<?php echo $m['mensualidad_id']; ?>" />
+                        </div>
+                    </div>
+                    <div class="col-md-4" >
+                        <label for="mensualidad_multa" class="control-label">Multa</label>
+                        <div class="form-group">
+                            <input type="text" name="mensualidad_multa" value="<?php echo $m['mensualidad_multa']; ?>" class="form-control" id="mensualidad_multa<?php echo $m['mensualidad_id']; ?>" readonly/>
                         </div>
                     </div>
           <div class="col-md-4">
 
                         <label for="mensualidad_montocancelado" class="control-label">Monto Cancelado</label>
                         <div class="form-group">
-                            <input type="number" step="any" name="mensualidad_montocancelado" value="<?php echo $m['mensualidad_montototal']; ?>" class="form-control" id="mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>" min="0"/>
-                            <input type="hidden"  name="mensualidad_montototal" value="<?php echo $m['mensualidad_montototal']; ?>" class="form-control" id="mensualidad_montototal<?php echo $m['mensualidad_id']; ?>" />
+                            <input type="number" step="any" onkeyup="calcular(<?php echo $m['mensualidad_id']; ?>)" name="mensualidad_montocancelado" value="<?php echo $m['mensualidad_montoparcial']+$m['mensualidad_multa']; ?>" class="form-control" id="mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>" min="0"/>
+                            <input type="hidden"  name="mensualidad_montototal" value="<?php echo $m['mensualidad_montoparcial']+$m['mensualidad_multa']; ?>" class="form-control" id="mensualidad_montototal<?php echo $m['mensualidad_id']; ?>" />
                             <input type="hidden"  name="kardexeco_id" value="<?php echo $m['kardexeco_id']; ?>" class="form-control" id="kardexeco_id" />
                         </div>
                     </div>
-                     <div class="col-md-4">
+                     <div class="col-md-4" >
                         <label for="mensualidad_saldo" class="control-label">Saldo</label>
                         <div class="form-group">
                             
