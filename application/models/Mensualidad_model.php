@@ -57,6 +57,27 @@ class Mensualidad_model extends CI_Model
         return $mensualidad;
     }
 
+    function get_pendientes($kardex_id)
+    {
+        $mensualidad = $this->db->query("
+            SELECT
+                m.*
+
+            FROM
+               mensualidad m
+            WHERE
+             
+                 m.kardexeco_id = ".$kardex_id." 
+                 and m.estado_id = 8
+
+            ORDER BY `mensualidad_id` ASC
+
+          
+        ")->result_array();
+
+        return $mensualidad;
+    }
+
     function kardex_mensualidad($kardex_id)
     {
         $mensualidad = $this->db->query("

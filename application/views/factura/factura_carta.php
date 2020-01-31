@@ -246,6 +246,7 @@ border-bottom : 1px solid #aaa;
 
                             <center>
                             ____________________________________________________
+                            <br>
                             <font size="1px" face="arial narrow">
                                 <small>
                                         <?php echo $factura[0]['factura_actividad']?>

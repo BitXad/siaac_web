@@ -10,3 +10,31 @@ function facturar(mensualidad){
                        
         
 }
+
+
+  
+  function descontar(mensualidad_id){
+    
+  
+      var montototal = Number(document.getElementById('mensualidad_montototal'+mensualidad_id).value);
+      var descuento = Number(document.getElementById('mensualidad_descuento'+mensualidad_id).value);
+ 
+      
+
+      $('#mensualidad_montocancelado'+mensualidad_id).val(montototal-descuento);
+      
+      
+ 	
+  }
+
+function calcular(mensualidad_id){
+    
+  
+      var montototal = Number(document.getElementById('mensualidad_montototal'+mensualidad_id).value);
+      var montocancelado = Number(document.getElementById('mensualidad_montocancelado'+mensualidad_id).value);
+      var descuento = Number(document.getElementById('mensualidad_descuento'+mensualidad_id).value);
+
+      $('#mensualidad_saldo'+mensualidad_id).val(montototal-montocancelado-descuento);
+      
+ 	
+  }

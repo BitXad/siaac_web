@@ -47,6 +47,23 @@ class Mensualidad extends CI_Controller{
     function mensualidad($kardexeco_id)
     {
         if($this->acceso(47)){
+            $mens_pendientes = $this->Mensualidad_model->get_pendientes($kardexeco_id);
+            if (isset($mens_pendientes)) {
+              foreach ($mens_pendientes as $mens) {
+              $hoy = new DateTime('NOW');
+              $fechalimite = new DateTime($mens['mensualidad_fechalimite']);
+              
+              
+              if ($hoy>$fechalimite) {
+                $diff = $hoy->diff($fechalimite);
+                $dias =  $diff->days;
+                $multa = $dias*1;  //esto hay que parametrizar
+                $sql = "UPDATE mensualidad SET mensualidad_mora = ".$dias.", mensualidad_multa = ".$multa."  WHERE mensualidad_id = ".$mens['mensualidad_id']." ";
+                $this->db->query($sql);
+              }
+            }
+            }
+
             $data['mensualidad'] = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
             $data['kardex_economico'] = $this->Kardex_economico_model->get_datos_kardex($kardexeco_id);
             $data['dosificacion'] = $this->Dosificacion_model->get_dosificacion_activa();
@@ -289,7 +306,7 @@ class Mensualidad extends CI_Controller{
             $params = array(
                 'usuario_id' => $usuario_id,
                 'estado_id' => 9,
-                'mensualidad_mora' => $this->input->post('mensualidad_mora'),
+                
                 'mensualidad_descuento' => $this->input->post('mensualidad_descuento'),
                 'mensualidad_montototal' => $total-$descontar,
                 'mensualidad_montocancelado' => $this->input->post('mensualidad_montocancelado'),
