@@ -227,18 +227,29 @@ class Inscripcion extends CI_Controller{
         }
     } 
 
-    /*
-     * Deleting inscripcion
-     */
-    function remove($inscripcion_id)
+    /* anula toda la inscripcion */
+    function anular($inscripcion_id)
     {
         if($this->acceso(45)){
             $inscripcion = $this->Inscripcion_model->get_inscripcion($inscripcion_id);
+            $params = array(
+                        'usuario_id' => $this->input->post('usuario_id'),
+                        'gestion_id' => $this->input->post('gestion_id'),
+                        'estudiante_id' => $this->input->post('estudiante_id'),
+                        'paralelo_id' => $this->input->post('paralelo_id'),
+                        'nivel_id' => $this->input->post('nivel_id'),
+                        'turno_id' => $this->input->post('turno_id'),
+                        'inscripcion_fecha' => $this->input->post('inscripcion_fecha'),
+                        'inscripcion_hora' => $this->input->post('inscripcion_hora'),
+                        'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
+                    );
 
+                    $this->Inscripcion_model->update_inscripcion($inscripcion_id,$params);
+                    
             // check if the inscripcion exists before trying to delete it
             if(isset($inscripcion['inscripcion_id']))
             {
-                $this->Inscripcion_model->delete_inscripcion($inscripcion_id);
+                //$this->Inscripcion_model->delete_inscripcion($inscripcion_id);
                 redirect('inscripcion/index');
             }
             else

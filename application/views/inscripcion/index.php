@@ -84,33 +84,60 @@
             <div class="box-body  table-responsive">
                 <table class="table table-striped" id="mitabla">
                     <tr>
-                            <th>#</th>
-                            <th>Estudiante</th>
-                            <th>Fecha Inscripción</th>
-                            <th>Cod. Inscrip.</th>
-                            <th>Nivel</th>
-                            <th>Grupo/Horario</th>
-                            <th>Fecha Inicio</th>
-                            <th></th>
+                        <th>#</th>
+                        <th>Estudiante</th>
+                        <th>Fecha Inscripción</th>
+                        <th>Cod. Inscrip.</th>
+                        <th>Nivel</th>
+                        <th>Grupo/Horario</th>
+                        <th>Fecha Inicio</th>
+                        <th></th>
                     </tr>
                     <?php 
                             $j = 0;
                         foreach($inscripcion as $i){ ?>
                     <tr>
-                            <td><?php echo ++$j; ?></td>
-                            <td><font size="3"><b><?php echo $i['estudiante_apellidos'].", ".$i['estudiante_nombre']; ?></b></font>
-                                <sub><?php echo "[".$i['estudiante_id']."]"; ?></sub>
-                                <br><?php echo "CODIGO: ".$i['estudiante_codigo']." | C.I.: ".$i['estudiante_ci']." ".$i['estudiante_extci']; ?>
-                            </td>
-                            <td align="center"><?php echo $i['inscripcion_fecha']."<br>".$i['inscripcion_hora'] ; ?></td>
-                            <td align="center"><font size="3"><b><?php echo "00".$i['inscripcion_id']; ?></b></font></td>
-                            <td align="center"><b><?php echo $i['carrera_nombre']; ?></b><br><?php echo $i['nivel_descripcion']; ?></td>                           
-                            <td align="center"><?php echo $i['paralelo_descripcion']."<br>".$i["turno_nombre"]; ?></td>
-                            <td><?php echo $i['inscripcion_fechainicio']; ?></td>
-                            <td>
+                        <td><?php echo ++$j; ?></td>
+                        <td><font size="3"><b><?php echo $i['estudiante_apellidos'].", ".$i['estudiante_nombre']; ?></b></font>
+                            <sub><?php echo "[".$i['estudiante_id']."]"; ?></sub>
+                            <br><?php echo "CODIGO: ".$i['estudiante_codigo']." | C.I.: ".$i['estudiante_ci']." ".$i['estudiante_extci']; ?>
+                        </td>
+                        <td align="center"><?php echo $i['inscripcion_fecha']."<br>".$i['inscripcion_hora'] ; ?></td>
+                        <td align="center"><font size="3"><b><?php echo "00".$i['inscripcion_id']; ?></b></font></td>
+                        <td align="center"><b><?php echo $i['carrera_nombre']; ?></b><br><?php echo $i['nivel_descripcion']; ?></td>                           
+                        <td align="center"><?php echo $i['paralelo_descripcion']."<br>".$i["turno_nombre"]; ?></td>
+                        <td><?php echo $i['inscripcion_fechainicio']; ?></td>
+                        <td>
                             <a href="<?php echo site_url('inscripcion/edit/'.$i['inscripcion_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> 
                             <a href="<?php echo site_url('venta/ventas_cliente/'.$i['cliente_id']); ?>" class='btn btn-success btn-xs' title='Vender'><span class='fa fa-cart-plus'></span></a>
-                            <!--<a href="<?php echo site_url('inscripcion/remove/'.$i['inscripcion_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a>-->
+                            <!--<a href="<?php //echo site_url('inscripcion/anular/'.$i['inscripcion_id']); ?>" class="btn btn-warning btn-xs"><span class="fa fa-ban"></span></a>-->
+                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal<?php echo $i['inscripcion_id']; ?>"  title="Anular Inscripción"><span class="fa fa-ban"></span></a>
+                            <!------------------------ INICIO modal para confirmar eliminación ------------------->
+                            <div class="modal fade" id="myModal<?php echo $i['inscripcion_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel<?php echo $i['inscripcion_id']; ?>">
+                                <div class="modal-dialog" role="document">
+                                    <br><br>
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <span class="text-bold" style="font-size: 18px">ANULAR INSCRIPCION</span>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!------------------------------------------------------------------->
+                                            <div style="text-align: left !important; font-size: 15px">
+                                                Se anulara la inscripcion de:
+                                            </div><br>
+                                            <div class="text-center" style="font-size: 15px"><b> <?php echo $i['estudiante_apellidos'].", ".$i['estudiante_nombre']; ?></b></div>
+                                            
+                                            <!------------------------------------------------------------------->
+                                        </div>
+                                        <div class="modal-footer aligncenter">
+                                            <a href="<?php echo site_url('inscripcion/anular/'.$i['inscripcion_id']); ?>" class="btn btn-success"><span class="fa fa-check"></span> Si </a>
+                                            <a href="#" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> No </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------------------ FIN modal para confirmar eliminación ------------------->
                         </td>
                     </tr>
                     <?php } ?>
