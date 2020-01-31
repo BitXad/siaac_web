@@ -14,6 +14,11 @@ class Inscripcion extends CI_Controller{
         $this->load->model('Nivel_model');
         $this->load->helper('numeros');
         $this->load->library('ControlCode');
+        $this->load->model('Mensualidad_model');
+        $this->load->model('Materia_asignada_model');
+        $this->load->model('Materia_kardex_model');
+        $this->load->model('Factura_model');
+        $this->load->model('Matricula_model');
         $this->load->model('Kardex_economico_model');
         $this->load->model('Kardex_academico_model');
         if ($this->session->userdata('logged_in')) {
@@ -231,21 +236,97 @@ class Inscripcion extends CI_Controller{
     function anular($inscripcion_id)
     {
         if($this->acceso(45)){
+            $usuario_id = $this->session_data['usuario_id'];
             $inscripcion = $this->Inscripcion_model->get_inscripcion($inscripcion_id);
+            $estado_id = 3;
             $params = array(
-                        'usuario_id' => $this->input->post('usuario_id'),
-                        'gestion_id' => $this->input->post('gestion_id'),
-                        'estudiante_id' => $this->input->post('estudiante_id'),
-                        'paralelo_id' => $this->input->post('paralelo_id'),
-                        'nivel_id' => $this->input->post('nivel_id'),
-                        'turno_id' => $this->input->post('turno_id'),
-                        'inscripcion_fecha' => $this->input->post('inscripcion_fecha'),
-                        'inscripcion_hora' => $this->input->post('inscripcion_hora'),
-                        'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
+                'usuario_id' => $usuario_id,
+                'estado_id' => $estado_id,
+            );
+            $this->Inscripcion_model->update_inscripcion($inscripcion_id,$params);
+            
+            $kardexacad_id = $this->Kardex_academico_model->get_kardex_academico_frominscripcion($inscripcion_id);
+            $params = array(
+                'kardexacad_estado' => $estado_id,
+            );
+            $this->Kardex_academico_model->update_kardex_academico($kardexacad_id,$params);
+            
+            $all_materiaasig = $this->Materia_asignada_model->get_materia_asignada_frominscripcion($kardexacad_id);
+            if(isset($all_materiaasig)){
+                foreach ($all_materiaasig as $materiaasig){
+                    $params = array(
+                        'estado_id' => $estado_id,
                     );
-
-                    $this->Inscripcion_model->update_inscripcion($inscripcion_id,$params);
-                    
+                    $this->Materia_asignada_model->update_materia_asignada($materiaasig['materiaasig_id'],$params);
+                }
+            }
+            $all_materiakardex = $this->Materia_kardex_model->get_materia_kardex_frominscripcion($kardexacad_id);
+            if(isset($all_materiaasig)){
+                foreach ($all_materiakardex as $materiakardex){
+                    $params = array(
+                        'estado_id' => $estado_id,
+                    );
+                    $this->Materia_kardex_model->update_materia_kardex($materiakardex['materiakardex_id'],$params);
+                }
+            }
+            $kardexeco_id = $this->Kardex_economico_model->get_kardex_economico_frominscripcion($inscripcion_id);
+            $params = array(
+                'estado_id' => $estado_id,
+                'kardexeco_matriculapagada' => 0,
+                'kardexeco_mensualidadpagada' => 0,
+            );
+            $this->Kardex_economico_model->update_kardex_economico($kardexeco_id,$params);
+            
+            $all_mensualidad = $this->Mensualidad_model->get_mensualidad_frominscripcion($kardexeco_id);
+            if(isset($all_mensualidad)){
+                foreach ($all_mensualidad as $mensualidad){
+                    $params = array(
+                        'estado_id' => $estado_id,
+                        'usuario_id' => $usuario_id,
+                        'mensualidad_montoparcial' => 0,
+                        'mensualidad_descuento' => 0,
+                        'mensualidad_montototal' => 0,
+                        'mensualidad_mora' => 0,
+                        'mensualidad_montocancelado' => 0,
+                        'mensualidad_saldo' => 0,
+                        'mensualidad_nombre' => 0,
+                        'mensualidad_ci' => 0,
+                        'mensualidad_glosa' => 0,
+                        'mensualidad_mes' => 0,
+                        'mensualidad_inscripcionpago' => 0,
+                        'mensualidad_multa' => 0,
+                    );
+                    $this->Mensualidad_model->update_mensualidad($mensualidad['mensualidad_id'],$params);
+                }
+            }
+            
+            $matricula_id = $this->Matricula_model->get_matricula_frominscripcion($inscripcion_id);
+            $params = array(
+                'estado_id' => $estado_id,
+                'matricula_monto' => 0,
+                'matricula_descuento' => 0,
+                'matricula_total' => 0,
+            );
+            $this->Matricula_model->update_matricula($matricula_id,$params);
+            
+            $factura_id = $this->Factura_model->get_factura_frominscripcion($inscripcion_id);
+            if(isset($factura_id) and $factura_id >0){
+                $params = array(
+                    'estado_id' => $estado_id,
+                    'factura_subtotal' => 0,
+                    'factura_nit' => 0,
+                    'factura_razonsocial' => 'ANULADO',
+                    'factura_ice' => 0,
+                    'factura_exento' => 0,
+                    'factura_descuento' => 0,
+                    'factura_total' => 0,
+                    'factura_codigocontrol' => 0,
+                );
+                $this->Factura_model->update_factura($factura_id,$params);
+            }
+            
+            
+                    //$this->load->model('Institucion_model');
             // check if the inscripcion exists before trying to delete it
             if(isset($inscripcion['inscripcion_id']))
             {
@@ -291,7 +372,6 @@ class Inscripcion extends CI_Controller{
         //$session_data = $this->session->userdata('logged_in');
         $usuario_id = $this->session_data['usuario_id'];
         $gestion_id = $this->session_data['gestion_id'];
-        $this->load->model('Mensualidad_model');
         $this->load->model('Gestion_model');
         $esta_gestion = $this->Gestion_model->get_gestion($gestion_id);
         
@@ -306,8 +386,8 @@ class Inscripcion extends CI_Controller{
         $inscripcion_glosa = $this->input->post('inscripcion_glosa');
         $pagar_matricula = $this->input->post('pagar_matricula');
         $pagar_mensualidad = $this->input->post('pagar_mensualidad');
-        
         $paramsi = array(
+            'estado_id' => 1,
             'usuario_id' => $usuario_id,
             'gestion_id' => $gestion_id,
             'estudiante_id' => $estudiante_id,
@@ -453,9 +533,9 @@ class Inscripcion extends CI_Controller{
         }
         
         if($pagar_matricula == 1){
-            $this->load->model('Matricula_model');
             $paramspm = array(
                 'inscripcion_id' => $inscripcion_id,
+                'estado_id' => 1,
                 'matricula_fechapago' => $kardexeco_fecha,
                 'matricula_horapago' => $kardexeco_hora,
                 //'matricula_fechalimite' => $kardexeco_mensualidad,
@@ -636,7 +716,7 @@ class Inscripcion extends CI_Controller{
     
     function registrar_matasignada(){
         $this->load->model('Materia_model');
-        $this->load->model('Materia_asignada_model');
+        //$this->load->model('Materia_asignada_model');
         $kardexacad_id = $this->input->post('kardexacad_id');
         $materia_id    = $this->input->post('materia_id');
         $grupo_id      =  0; //$this->input->post('grupo_id');
@@ -654,12 +734,13 @@ class Inscripcion extends CI_Controller{
         
         $param_mc = array(
             'nivel_id' => $materia['nivel_id'],
+            'estado_id' => 1,
             'grupo_id' => $grupo_id,
             'kardexacad_id' => $kardexacad_id,
             'materiakardex_nombre' => $$materia['materia_nombre'],
             'materiakardex_codigo' => $$materia['materia_codigo'],
         );
-        $this->load->model('Materia_kardex_model');
+        //$this->load->model('Materia_kardex_model');
         $materiakardex_id = $this->Materia_kardex_model->add_materia_kardex($param_mc);    
         echo json_encode("ok");
     }

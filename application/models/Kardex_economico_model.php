@@ -172,4 +172,18 @@ class Kardex_economico_model extends CI_Model
     {
         return $this->db->delete('kardex_economico',array('kardexeco_id'=>$kardexeco_id));
     }
+    
+    function get_kardex_economico_frominscripcion($inscripcion_id)
+    {
+        $kardex_academico = $this->db->query("
+            SELECT
+                k.kardexeco_id
+            FROM
+                `kardex_economico` k
+            WHERE
+                k.inscripcion_id = ?
+        ",array($inscripcion_id))->row_array();
+
+        return $kardex_academico['kardexeco_id'];
+    }
 }

@@ -20,4 +20,27 @@ class Materia_kardex_model extends CI_Model
         return $this->db->insert_id();
     }
     
+    /*
+     * function to update materia_asignada
+     */
+    function update_materia_kardex($materiakardex_id,$params)
+    {
+        $this->db->where('materiakardex_id',$materiakardex_id);
+        return $this->db->update('materia_kardex',$params);
+    }
+    
+    function get_materia_kardex_frominscripcion($kardexacad_id)
+    {
+        $materiakardex = $this->db->query("
+            SELECT
+                m.materiakardex_id
+            FROM
+                `materia_kardex` m
+            WHERE
+                m.kardexacad_id = ?
+        ",array($kardexacad_id))->result_array();
+
+        return $materiakardex;
+    }
+    
 }
