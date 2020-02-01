@@ -18,6 +18,7 @@ class Inscripcion extends CI_Controller{
         $this->load->model('Materia_asignada_model');
         $this->load->model('Materia_kardex_model');
         $this->load->model('Factura_model');
+        $this->load->model('Parametro_model');
         $this->load->model('Matricula_model');
         $this->load->model('Kardex_economico_model');
         $this->load->model('Kardex_academico_model');
@@ -44,15 +45,9 @@ class Inscripcion extends CI_Controller{
     function index()
     {
         if($this->acceso(45)){
-            $params['limit'] = RECORDS_PER_PAGE; 
-            $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
-
-            $config = $this->config->item('pagination');
-            $config['base_url'] = site_url('inscripcion/index?');
-            $config['total_rows'] = $this->Inscripcion_model->get_all_inscripcion_count();
-            $this->pagination->initialize($config);
-
-            $data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($params);
+            $gestion_id = $this->session_data['gestion_id'];
+            $data['parametro'] = $this->Parametro_model->get_parametro(1);
+            $data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($gestion_id);
 
             $data['_view'] = 'inscripcion/index';
             $this->load->view('layouts/main',$data);
@@ -783,6 +778,16 @@ class Inscripcion extends CI_Controller{
                                     );
          return $code;
     }
-    
+    /* reimprimir boleta de inscripcion*/
+    function boleta_inscripcion($inscripcion_id)
+    {   
+        if($this->acceso(45)){
+            $data['inscripcion'] = $this->Inscripcion_model->get_inscripcion_array($inscripcion_id);
+            $data['institucion'] = $this->Institucion_model->get_all_institucion();
+
+            $data['_view'] = 'inscripcion/comprobante';
+            $this->load->view('layouts/main',$data);
+        }
+    }
     
 }

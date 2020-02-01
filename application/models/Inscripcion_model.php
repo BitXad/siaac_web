@@ -157,9 +157,12 @@ class Inscripcion_model extends CI_Model
     /*
      * function to ejecutar una consulta sql y devolver una tupla
      */
-    function get_inscripciones()
+    function get_inscripciones($gestion_id)
     {
-        $sql = "select * from consinscripcion";
+        $sql = "select c.*, f.factura_id
+                from consinscripcion c
+                left join factura f on c.inscripcion_id = f.inscripcion_id
+                where c.gestion_id = $gestion_id";
 
         $resultado = $this->db->query($sql)->result_array();
         return $resultado;
@@ -223,6 +226,15 @@ class Inscripcion_model extends CI_Model
                 i.nivel_id = n.nivel_id and
                 i.inscripcion_fecha >= '".$desde."' and
                 i.inscripcion_fecha <= '".$hasta."'";
+        $grupo = $this->db->query($sql)->result_array();
+        return $grupo;
+    }
+    function get_inscripcion_array($inscripcion_id)
+    {
+        $sql = "select * 
+                from consinscripcion i
+                where 
+                i.inscripcion_id = $inscripcion_id";
         $grupo = $this->db->query($sql)->result_array();
         return $grupo;
     }

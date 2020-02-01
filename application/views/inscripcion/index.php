@@ -91,12 +91,13 @@
                         <th>Nivel</th>
                         <th>Grupo/Horario</th>
                         <th>Fecha Inicio</th>
+                        <th>Estado</th>
                         <th></th>
                     </tr>
                     <?php 
                             $j = 0;
                         foreach($inscripcion as $i){ ?>
-                    <tr>
+                    <tr style="background-color: #<?php echo $i['estado_colorinsc'] ?>">
                         <td><?php echo ++$j; ?></td>
                         <td><font size="3"><b><?php echo $i['estudiante_apellidos'].", ".$i['estudiante_nombre']; ?></b></font>
                             <sub><?php echo "[".$i['estudiante_id']."]"; ?></sub>
@@ -107,11 +108,23 @@
                         <td align="center"><b><?php echo $i['carrera_nombre']; ?></b><br><?php echo $i['nivel_descripcion']; ?></td>                           
                         <td align="center"><?php echo $i['paralelo_descripcion']."<br>".$i["turno_nombre"]; ?></td>
                         <td><?php echo $i['inscripcion_fechainicio']; ?></td>
+                        <td><?php echo $i['esteestado_descripcion']; ?></td>
                         <td>
-                            <a href="<?php echo site_url('inscripcion/edit/'.$i['inscripcion_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> 
-                            <a href="<?php echo site_url('venta/ventas_cliente/'.$i['cliente_id']); ?>" class='btn btn-success btn-xs' title='Vender'><span class='fa fa-cart-plus'></span></a>
-                            <!--<a href="<?php //echo site_url('inscripcion/anular/'.$i['inscripcion_id']); ?>" class="btn btn-warning btn-xs"><span class="fa fa-ban"></span></a>-->
-                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal<?php echo $i['inscripcion_id']; ?>"  title="Anular Inscripción"><span class="fa fa-ban"></span></a>
+                            <?php if($i['estado_idinsc'] != 3){ ?>
+                                <a href="<?php echo site_url('inscripcion/edit/'.$i['inscripcion_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> 
+                                <a href="<?php echo site_url('venta/ventas_cliente/'.$i['cliente_id']); ?>" class='btn btn-success btn-xs' title='Vender'><span class='fa fa-cart-plus'></span></a>
+                                <?php /*if($parametro['parametro_tipoimpresora'] == "FACTURADORA"){
+                                        $tipo_recibo = "factura_boucher_id";
+                                      }else { $tipo_recibo = "factura_carta_id";}*/ ?>
+                                <a href="<?php echo site_url('inscripcion/boleta_inscripcion/'.$i['inscripcion_id']); ?>" target="_blank" class="btn btn-facebook btn-xs" title="Imprimir boleta de inscripción"><span class="fa fa-print"></span></a>
+                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal<?php echo $i['inscripcion_id']; ?>"  title="Anular Inscripción"><span class="fa fa-ban"></span></a>
+                                <?php if($i['factura_id'] >0){ ?>
+                                    <?php if($parametro['parametro_tipoimpresora'] == "FACTURADORA"){
+                                            $tipo_fact = "factura_boucher_id";
+                                          }else { $tipo_fact = "factura_carta_id";} ?>
+                                    <a href="<?php echo site_url('factura/'.$tipo_fact."/".$i['factura_id']); ?>" target="_blank" class="btn btn-warning btn-xs" title="Ver/anular factura"><span class="fa fa-list-alt"></span></a>
+                                <?php } ?>
+                            <?php } ?>
                             <!------------------------ INICIO modal para confirmar eliminación ------------------->
                             <div class="modal fade" id="myModal<?php echo $i['inscripcion_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel<?php echo $i['inscripcion_id']; ?>">
                                 <div class="modal-dialog" role="document">
