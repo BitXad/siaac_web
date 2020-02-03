@@ -269,4 +269,18 @@ class Mensualidad_model extends CI_Model
     {
         return $this->db->delete('mensualidad',array('mensualidad_id'=>$mensualidad_id));
     }
+    
+    function get_mensualidad_frominscripcion($kardexeco_id)
+    {
+        $mensualidad = $this->db->query("
+            SELECT
+                m.mensualidad_id
+            FROM
+                `mensualidad` m
+            WHERE
+                m.kardexeco_id = ?
+        ",array($kardexeco_id))->result_array();
+
+        return $mensualidad;
+    }
 }

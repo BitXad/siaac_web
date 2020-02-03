@@ -103,4 +103,18 @@ class Kardex_academico_model extends CI_Model
     {
         return $this->db->delete('kardex_academico',array('kardexacad_id'=>$kardexacad_id));
     }
+    
+    function get_kardex_academico_frominscripcion($inscripcion_id)
+    {
+        $kardex_academico = $this->db->query("
+            SELECT
+                k.kardexacad_id
+            FROM
+                `kardex_academico` k
+            WHERE
+                k.inscripcion_id = ?
+        ",array($inscripcion_id))->row_array();
+
+        return $kardex_academico['kardexacad_id'];
+    }
 }

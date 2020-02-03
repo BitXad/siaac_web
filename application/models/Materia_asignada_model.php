@@ -76,4 +76,18 @@ class Materia_asignada_model extends CI_Model
     {
         return $this->db->delete('materia_asignada',array('materiaasig_id'=>$materiaasig_id));
     }
+    
+    function get_materia_asignada_frominscripcion($kardexacad_id)
+    {
+        $materiaasig = $this->db->query("
+            SELECT
+                m.materiaasig_id
+            FROM
+                `materia_asignada` m
+            WHERE
+                m.kardexacad_id = ?
+        ",array($kardexacad_id))->result_array();
+
+        return $materiaasig;
+    }
 }

@@ -76,4 +76,17 @@ class Matricula_model extends CI_Model
     {
         return $this->db->delete('matricula',array('matricula_id'=>$matricula_id));
     }
+    function get_matricula_frominscripcion($inscripcion_id)
+    {
+        $matricula = $this->db->query("
+            SELECT
+                m.matricula_id
+            FROM
+                `matricula` m
+            WHERE
+                m.inscripcion_id = ?
+        ",array($inscripcion_id))->row_array();
+
+        return $matricula['matricula_id'];
+    }
 }
