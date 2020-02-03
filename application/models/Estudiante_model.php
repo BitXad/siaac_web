@@ -114,6 +114,22 @@ class Estudiante_model extends CI_Model
 
         return $estudiante;
     }
+
+    function get_estudiantesexcel()
+    {
+        $estudiante = $this->db->query("
+            SELECT
+                es.*
+            FROM
+                estudiante es
+
+
+            ORDER BY `estudiante_id` DESC
+
+        ")->result_array();
+
+        return $estudiante;
+    }
         
     /*
      * Get all estudiante

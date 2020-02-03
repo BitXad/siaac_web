@@ -98,6 +98,27 @@ class Mensualidad_model extends CI_Model
 
         return $mensualidad;
     }
+
+    function get_credito_cliente($kardexeco)
+    {
+        $credito = $this->db->query("
+            SELECT
+                ke.*, i.estudiante_id, e.cliente_id, v.cliente_id, c.*
+
+            FROM
+                kardex_economico ke
+
+            LEFT JOIN inscripcion i on ke.inscripcion_id=i.inscripcion_id
+            LEFT JOIN estudiante e on i.estudiante_id = e.estudiante_id
+            LEFT JOIN venta v on e.cliente_id = v.cliente_id
+            LEFT JOIN credito c on v.venta_id = c.venta_id
+
+            WHERE ke.kardexeco_id=".$kardexeco."
+            and c.estado_id = 8
+        ")->result_array();
+
+        return $credito;
+    }
      function geta_mensualidades()
     {
         $mensualidad = $this->db->query("
@@ -210,9 +231,9 @@ class Mensualidad_model extends CI_Model
          }
     }*/
 
-    function parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id,$mes)
+    function parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$usuario_id,$mes)
     {
-        $mensualidad ="INSERT INTO mensualidad (kardexeco_id,usuario_id,estado_id,mensualidad_numero,mensualidad_mora,mensualidad_descuento,mensualidad_montocancelado,mensualidad_montoparcial,mensualidad_montototal,mensualidad_fechalimite,mensualidad_mes) VALUES (".$kardexeco_id.",".$usuario_id.",3,".$mensualidad_numero.",".$dias_mora.",".$descuento.",".$cancelado.",".$mensualidad_montoparcial.",".$mensualidad_montoparcial.",".$mensualidad_fechalimite.",'".$mes."')";
+        $mensualidad ="INSERT INTO mensualidad (kardexeco_id,usuario_id,estado_id,mensualidad_numero,mensualidad_descuento,mensualidad_montocancelado,mensualidad_montoparcial,mensualidad_montototal,mensualidad_fechalimite,mensualidad_mes) VALUES (".$kardexeco_id.",".$usuario_id.",8,".$mensualidad_numero.",".$descuento.",".$cancelado.",".$mensualidad_montoparcial.",".$mensualidad_montoparcial.",".$mensualidad_fechalimite.",'".$mes."')";
                 $this->db->query($mensualidad);
     }
         

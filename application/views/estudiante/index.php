@@ -21,15 +21,18 @@
             <div class="box-header">
                 <h3 class="box-title">Estudiante</h3>
             	<div class="box-tools">
-                    <a href="<?php echo site_url('estudiante/add'); ?>" class="btn btn-success btn-sm">Registrar Estudiante</a> 
+                    <form action="<?php echo site_url('estudiante/generar_excel'); ?>" method="POST">
+                    <a href="<?php echo site_url('estudiante/add'); ?>" class="btn btn-success btn-sm">Registrar Estudiante</a>
+                    <button  type="submit" class="btn btn-facebook btn-sm" ><span class="fa fa-file-excel-o"> </span> Exportar a Excel</button>
+                    </form> 
                 </div>  
             </div>
             <div class="input-group">
-        <span class="input-group-addon">Buscar</span>
+            <span class="input-group-addon">Buscar</span>
             
                 <input type="text" name="nombre" class="form-control" id="nombre" autocomplete="off" onkeypress="validar(event,1)"  placeholder="Nombre, Apellidos del Estudiante" />
            
-        </div>
+            </div>
 <div class="row">
     <div class="col-md-12">
          <div class="box">

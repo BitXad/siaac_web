@@ -67,6 +67,7 @@ class Mensualidad extends CI_Controller{
             $data['mensualidad'] = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
             $data['kardex_economico'] = $this->Kardex_economico_model->get_datos_kardex($kardexeco_id);
             $data['dosificacion'] = $this->Dosificacion_model->get_dosificacion_activa();
+            $data['creditos'] = $this->Mensualidad_model->get_credito_cliente($kardexeco_id);
             $data['_view'] = 'mensualidad/mensualidades';
             $this->load->view('layouts/main',$data);
         }
@@ -425,7 +426,7 @@ class Mensualidad extends CI_Controller{
         }
 
             if($mensualidad_saldo>0){ 
-                $this->Mensualidad_model->parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$dias_mora,$usuario_id,$mes); 
+                $this->Mensualidad_model->parcial_mensualidad($kardexeco_id,$descuento,$cancelado,$fechalimite,$mensualidad_fechalimite,$mensualidad_montoparcial,$mensualidad_numero,$usuario_id,$mes); 
             }
              redirect('mensualidad/mensualidad/'.$kardexeco_id);  
         }
