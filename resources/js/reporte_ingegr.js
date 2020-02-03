@@ -149,9 +149,15 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                         html += "<tr>";
                       
                         html += "<td>"+(i+1)+"</td>";
-                       html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
+                        html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
                         html += "<td>"+registros[i]["recibo"]+"</td>";
-                        html += "<td>"+registros[i]["esfactura"]+"</td>";
+                        html += "<td>";
+                        if(registros[i]["estado_id"] == 1){
+                            html += registros[i]["esfactura"];
+                        }else{
+                            html += "-";
+                        }
+                        html += "</td>";
                         
                        html += "<td>"+registros[i]["detalle"]+"</td>";
                        html += "<td style='text-align: right'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
