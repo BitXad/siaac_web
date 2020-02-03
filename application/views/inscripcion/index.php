@@ -1,3 +1,16 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        (function ($) {
+            $('#filtrar').keyup(function () {
+                var rex = new RegExp($(this).val(), 'i');
+                $('.buscar tr').hide();
+                $('.buscar tr').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+            })
+        }(jQuery));
+    });
+</script> 
 <script src="<?php echo base_url('resources/js/inscripcion.js'); ?>" type="text/javascript"></script>
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
@@ -9,7 +22,15 @@
                 </center>            	
             </div>
 <!-------------------------------------------------------->
-
+<!--<div class="col-md-6">-->
+            <!--este es INICIO de input buscador-->
+             <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">Buscar</span>           
+                    <input id="filtrar" type="text" class="form-control" placeholder="Ingrese el nombre, codigo, ci, nit" onkeypress="buscarcliente(event)" autocomplete="off" >
+                </div>
+            </div>
+        <!--</div>-->
 
 <div class="box-header no-print">
 <h3 class="box-title"></h3>
@@ -94,6 +115,7 @@
                         <th>Estado</th>
                         <th></th>
                     </tr>
+                    <tbody class="buscar" id="tablaresultados">
                     <?php 
                             $j = 0;
                         foreach($inscripcion as $i){ ?>
@@ -116,7 +138,7 @@
                                 <?php /*if($parametro['parametro_tipoimpresora'] == "FACTURADORA"){
                                         $tipo_recibo = "factura_boucher_id";
                                       }else { $tipo_recibo = "factura_carta_id";}*/ ?>
-                                <a href="<?php echo site_url('inscripcion/boleta_inscripcion/'.$i['inscripcion_id']); ?>" target="_blank" class="btn btn-facebook btn-xs" title="Imprimir boleta de inscripción"><span class="fa fa-print"></span></a>
+                                <a href="<?php echo site_url('inscripcion/boleta_inscripcion/'.$i['inscripcion_id']); ?>" target="_blank" class="btn btn-facebook btn-xs" title="Imprimir comprobante de inscripción"><span class="fa fa-print"></span></a>
                                 <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal<?php echo $i['inscripcion_id']; ?>"  title="Anular Inscripción"><span class="fa fa-ban"></span></a>
                                 <?php if($i['factura_id'] >0){ ?>
                                     <?php if($parametro['parametro_tipoimpresora'] == "FACTURADORA"){
@@ -154,6 +176,7 @@
                         </td>
                     </tr>
                     <?php } ?>
+                    </tbody>
                 </table>
 <!--                <div class="pull-right">
                     <?php echo $this->pagination->create_links(); ?>                    
