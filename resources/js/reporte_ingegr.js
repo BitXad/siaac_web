@@ -1,40 +1,10 @@
 $(document).on("ready",inicio);
 function inicio(){
-  buscar_por_fecha(); 
-  /*var f = new Date();
-        var estafecha = f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
-
-
-       fechabusquedaingegr(esta_fecha, esta_fecha);
-        /*tablaproductos();
-        */
+    var f = new Date();
+    $('#fechaimpresion').html(moment(f).format("DD/MM/YYYY HH:mm:ss"));
+    buscar_por_fecha();
 }
 
-function convertDateFormat(string){
-    var info = "";
-    if(string != null){
-       info = string.split('-').reverse().join('/');
-   }
-    return info;
-}
-/*aumenta un cero a un digito; es para las horas*/
-function aumentar_cero(num){
-    if (num < 10) {
-        num = "0" + num;
-    }
-    return num;
-}
-function formatofecha_hora(string){
-    var mifh = new Date(string);
-    var info = "";
-    
-
-    if(string != null){
-       info = mifh.getDate()+"/"+(mifh.getMonth()+1)+"/"+mifh.getFullYear()+" "+aumentar_cero(mifh.getHours())+":"+aumentar_cero(mifh.getMinutes())+":"+aumentar_cero(mifh.getSeconds());
-   }
-    return info;
-}
-    
 function buscar_por_fecha(){
 
     var fecha_desde = document.getElementById('fecha_desde').value;
@@ -106,14 +76,14 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                     var fecha2 = fecha_hasta;
                     var esusuario =  $('#buscarusuario_id option:selected').text();
                     if(!(fecha_desde == null || fecha_desde =="") && !(fecha_hasta == null  || fecha_hasta =="")){
-                        fecha1 = "<b>DESDE: </b>"+convertDateFormat(fecha_desde);
-                        fecha2 = "<br><b>HASTA: </b>"+convertDateFormat(fecha_hasta);
+                        fecha1 = "<b>DESDE: </b>"+moment(fecha_desde).format("DD/MM/YYYY");
+                        fecha2 = "<br><b>HASTA: </b>"+moment(fecha_hasta).format("DD/MM/YYYY");
                     }else if(!(fecha_desde == null || fecha_desde =="") && (fecha_desde == null || fecha_hasta =="")){
-                        fecha1 = "<b>DE: </b>"+convertDateFormat(fecha_desde);
+                        fecha1 = "<b>DE: </b>"+moment(fecha_desde).format("DD/MM/YYYY");
                         fecha2 = "";
                     }else if((fecha_desde == null || fecha_desde =="") && !(fecha_hasta == null || fecha_hasta =="")){
                         fecha1 = "";
-                        fecha2 = "<b>DE: </b>"+convertDateFormat(fecha_hasta);
+                        fecha2 = "<b>DE: </b>"+moment(fecha_hasta).format("DD/MM/YYYY");
                     }else{
                         fecha1 = "";
                         fecha2 = "";
@@ -145,20 +115,20 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                         if(registros[i]['tipo'] == 6){
                             if(tituloegreso == 1){
                                 html += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
-                                html += "<th colspan='5' class='text-center'> - EGRESOS - </th>";
+                                html += "<th colspan='7' class='text-center'> - EGRESOS - </th>";
                                 html += "</tr>";
                                 tituloegreso = 0;
                             }
                             html += "<tr>";
-                      
                         html += "<td>"+(i+1)+"</td>";
+                        html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
+                        html += "<td>"+registros[i]["recibo"]+"</td>";
+                        html += "<td>"+registros[i]["esfactura"]+"</td>";
                         
-                        
-                       html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
                        html += "<td>"+registros[i]["detalle"]+"</td>";
                        html += "<td></td>";
                        //html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
-                       html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["egreso"]).toFixed(2))+"</td>";
+                       html += "<td style='text-align: right'>"+numberFormat(Number(registros[i]["egreso"]).toFixed(2))+"</td>";
                        /*if(registros[i]['tipo'] == 3 || registros[i]['tipo'] == 2){
                            html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["utilidad"]).toFixed(2))+"</td>";
                        }else{
@@ -171,7 +141,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                         }else{
                             if(tituloingreso == 1){
                                 html += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
-                                html += "<th colspan='5' class='text-center'> - INGRESOS - </th>";
+                                html += "<th colspan='7' class='text-center'> - INGRESOS - </th>";
                                 
                                 html += "</tr>";
                                 tituloingreso = 0;
@@ -179,11 +149,12 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                         html += "<tr>";
                       
                         html += "<td>"+(i+1)+"</td>";
-                        
-                       ; 
                        html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
-                       html += "<td>"+registros[i]["detalle"]+registros[i]["esfactura"]+"</td>";
-                       html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
+                        html += "<td>"+registros[i]["recibo"]+"</td>";
+                        html += "<td>"+registros[i]["esfactura"]+"</td>";
+                        
+                       html += "<td>"+registros[i]["detalle"]+"</td>";
+                       html += "<td style='text-align: right'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
                        //html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["egreso"]).toFixed(2))+"</td>";
                        /*if(registros[i]['tipo'] == 3 || registros[i]['tipo'] == 2){
                            html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["utilidad"]).toFixed(2))+"</td>";
@@ -201,11 +172,11 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                    htmls = "";
                    htmls += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
                    htmls += "<td></td>";
-                   htmls += "<td colspan='2' class='esbold'>TOTAL (INGRESOS/EGRESOS)Bs.</td>";
+                   htmls += "<td colspan='4' class='esbold'>TOTAL (INGRESOS/EGRESOS)Bs.</td>";
                    /*var totaling = Number(totalingreso).toFixed(2);
                    var n = totaling.toString(); */
-                   htmls += "<td class='esbold' id='alinearder'>"+numberFormat(Number(totalingreso).toFixed(2))+"</td>";
-                   htmls += "<td class='esbold' id='alinearder'>"+numberFormat(Number(totalegreso).toFixed(2))+"</td>";
+                   htmls += "<td class='esbold' style='text-align: right'>"+numberFormat(Number(totalingreso).toFixed(2))+"</td>";
+                   htmls += "<td class='esbold' style='text-align: right'>"+numberFormat(Number(totalegreso).toFixed(2))+"</td>";
                    //htmls += "<td></td>";
                    //htmls += "<td class='esbold' id='alinearder'>"+numberFormat(Number(totalutilidad).toFixed(2))+"</td>";
                    //htmls += "<td class='esbold' id='alinearder'>"+numberFormat(Number(totalutilidad).toFixed(2))+"</td>";
@@ -225,7 +196,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                    
                    htmls += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
                    htmls += "<td></td>";
-                   htmls += "<td colspan='3' class='text-bold' style='font-family: Arial; font-size: 12px'>SALDO EFECTIVO EN CAJA Bs.</td>";
+                   htmls += "<td colspan='5' class='text-bold' style='font-family: Arial; font-size: 12px'>SALDO EFECTIVO EN CAJA Bs.</td>";
                    htmls += "<td class='text-bold' id='alinearder' style='font-family: Arial; font-size: 12px'>"+numberFormat(Number((totalingreso)-totalegreso).toFixed(2))+"</td>";
                    htmls += "</tr>";
                    
@@ -246,8 +217,10 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                     cabecerahtmlt = "<table class='table table-striped table-condensed' id='mitabladetimpresion' style='width: 100%'>";
                     cabecerahtmlt += "<tr style='background-color: #aaaaaa;' class='fondoprint'>";
                     cabecerahtmlt += "<th class='fondoprint' style='width: 2%' class='text-center'>N°</th>";
-                    cabecerahtmlt += "<th style='width: 15%' class='text-center'>FECHA</th>";
-                    cabecerahtmlt += "<th style='width: 58%' class='text-center'>DETALLE</th>";
+                    cabecerahtmlt += "<th style='width: 8%' class='text-center'>FECHA</th>";
+                    cabecerahtmlt += "<th style='width: 8%' class='text-center'>REC.</th>";
+                    cabecerahtmlt += "<th style='width: 8%' class='text-center'>FACT.</th>";
+                    cabecerahtmlt += "<th style='width: 54%' class='text-center'>DETALLE</th>";
                     cabecerahtmlt += "<th style='width: 10%' class='text-center'>INGRESO</th>";
                     cabecerahtmlt += "<th style='width: 10%' class='text-center'>EGRESO</th>";
                     cabecerahtmlt += "</tr>";
