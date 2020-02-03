@@ -380,4 +380,6 @@ LEFT JOIN usuario u on ve.usuario_id = u.usuario_id
         $credito = $this->db->query($sql)->row_array();
         return $credito;
     }
+
+    
 }

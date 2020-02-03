@@ -310,6 +310,59 @@ function cerrar() {
                 </table>
             </div>
         </div>
-        <a href="javascript:cerrar();" class="btn btn-danger">Cerrar</a>
+        
     </div>
 </div>
+Deudas por Ventas
+<div class="row">
+    <div class="col-md-12">
+        <!--------------------- parametro de buscador --------------------->
+             
+        <!--------------------- fin parametro de buscador --------------------->
+        <div class="box">
+
+            <div class="box-body table-responsive">
+                <table class="table table-striped table-condensed" id="mitabla">
+                   
+                    <tr>
+            <th>#</th>
+            <th>Credito</th>
+            <th>Transaccion</th>
+            <th>Monto</th>
+            <th>Cuota Inicial</th>
+            <th>Interes (%)</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th></th>
+                    </tr>
+                    <?php $cont = 0;
+                    $total = 0;
+                    foreach($creditos as $cr){ 
+                        $total += $cr['credito_monto'];
+                        $cont = $cont+1; ?>
+                        <tr>
+                          <td align="center"><?php echo $cont; ?></td>
+                          <td align="center"><?php echo $cr['credito_id']; ?></td>
+                          <td align="center"><?php echo $cr['venta_id']; ?></td>
+                          <td align="right"><?php echo number_format($cr['credito_monto'],2); ?></td>
+                          <td align="right"><?php echo number_format($cr['credito_cuotainicial'],2); ?></td>
+                          <td align="right"><?php echo number_format($cr['credito_interesmonto'],2); echo '('.$cr['credito_interesproc'].')'; ?></td>
+                          <td align="center"><?php echo date("d/m/Y", strtotime($cr['credito_fecha'])); ?></td>
+                          <td align="center"><?php echo $cr['credito_hora']; ?></td>
+                          <td><a href="<?php echo site_url('cuotum/cuentas/'.$cr['credito_id']); ?>" target="_blank" class="btn btn-success btn-xs" title="Ver cuotas"><span class="fa fa-eye"></span></a>    </td>
+                        <?php } ?>
+                        </tr>
+                        <tr>
+                          <td colspan="3" style="font-size: 12px">TOTAL</td>
+                          <td align="right" style="font-size: 12px"><b><?php echo number_format($total,2); ?></b></td>
+                          <td colspan="5"></td>
+                        </tr>
+                  
+                </table>
+                
+            </div>
+                        
+        </div>
+    </div>
+</div>
+<a href="javascript:cerrar();" class="btn btn-danger">Cerrar</a>

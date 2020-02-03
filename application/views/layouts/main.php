@@ -299,13 +299,13 @@
                                 <li>
                                     <a href="<?php echo site_url('inventario');?>"><i class="fa fa-list-ol"></i>Inventario</a>
                                 </li>
-                                <li>
+                                <!--<li>
                                     <a href="<?php echo site_url('cliente');?>"><i class="fa fa-users"></i>Clientes</a>
                                 </li>
                               
                                 <li>
                                     <a href="<?php echo site_url('usuario');?>"><i class="fa fa-users"></i>Usuarios</a>
-                                </li>
+                                </li>-->
                                 <?php } ?>                                
                                 
                             </ul>
