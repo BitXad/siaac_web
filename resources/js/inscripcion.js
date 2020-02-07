@@ -213,7 +213,7 @@ function mostrar_materias(){
                         html += "</select>*/;
                         //html += "</div>";
                         html += "</td>";
-                        html += "<td align='center' style='padding: 0;'><input type='checkbox' name='mat' id='materias' value='"+registros[j].materia_id+"' checked/></td>";
+                        html += "<td align='center' style='padding: 0;'><input type='checkbox' name='mat[]' id='mat"+registros[j].materia_id+"' value='"+registros[j].materia_id+"' checked /></td>";
                         html += "</tr>";
                         
                     }
@@ -315,6 +315,19 @@ function registrar_inscripcion(){
                 },
             success:function(respuesta){
                 var kardexacad_id =  JSON.parse(respuesta);
+                /*alert($('input:checkbox[name=mat]:checked').val());
+                alert(materias.length+"BB");*/
+                $("input:checkbox:checked").each(   
+                    function() {
+                        var thismateria_id = $(this).val();
+                        if(thismateria_id >0){
+                            var thisgrupo_id = 0;
+                            registrar_materiagrupo(kardexacad_id[0], thismateria_id, thisgrupo_id);
+                        }
+                    }
+                );
+                
+                /*
                 for(i=0; i<materias.length; i++){
                     if (materias[i].checked){
                         var thismateria_id = materias[i].value;
@@ -325,7 +338,7 @@ function registrar_inscripcion(){
                         //res = materias[i].value;
                        //cons += cons + ""
                     }
-                }
+                }*/
                 $("#boton_imprimir").click();
                 location.href = base_url+"inscripcion/inscribir/0";
                 if(kardexacad_id[1] > 0){
