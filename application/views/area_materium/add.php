@@ -13,7 +13,7 @@
 							<input type="text" name="area_nombre" value="<?php echo $this->input->post('area_nombre'); ?>" class="form-control" id="area_nombre" required/>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" hidden>
 						<label for="area_fechareg" class="control-label">Fecha Registro</label>
 						<div class="form-group">
 							<input type="date" name="area_fechareg" value="<?php echo date('Y-m-d') ?>" class="form-control" id="area_fechareg" />

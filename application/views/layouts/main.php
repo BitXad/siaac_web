@@ -86,7 +86,9 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
+                                            <?php if ($session_data['tipousuario_id']==1) { ?>
                                             <a href="<?php echo site_url() ?>admin/dashb/cuenta" class="btn btn-default btn-flat">Mi Cuenta</a>
+                                        <?php } ?>
                                         </div>
                                         <div class="pull-right">
                                             <a href="<?php echo site_url() ?>admin/dashb/logout" class="btn btn-default btn-flat">Salir</a>
@@ -553,6 +555,9 @@
                         <li>
                             <a href="<?php echo site_url('docente/notas/'.$session_data['usuario_id']);?>"><i class="fa fa-list-alt"></i> <span>Notas</span></a>
                         </li>
+                        <li>
+                            <a href="<?php echo site_url('docente/cuenta/'.$session_data['usuario_id']);?>"><i class="fa fa-id-card"></i> <span>Administrar Cuenta</span></a>
+                        </li>
                         <?php  ?>
                         <?php }elseif($session_data['tipousuario_id'] == 3){ ?>
                         <li>
@@ -569,6 +574,9 @@
                         </li>
                         <li>
                             <a href="<?php echo site_url('estudiante/keconomico/'.$session_data['usuario_id']);?>"><i class="fa fa-maxcdn"></i> <span>Kardex Económico</span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('estudiante/cuenta/'.$session_data['usuario_id']);?>"><i class="fa fa-id-card"></i> <span>Administrar Cuenta</span></a>
                         </li>
                         <?php } ?>
                         

@@ -49,6 +49,8 @@ class Administrativo extends CI_Controller{
             $this->load->library('form_validation');
             $this->form_validation->set_rules('administrativo_nombre','Administrativo Nombre','required');
             $this->form_validation->set_rules('administrativo_apellidos','Administrativo Apellidos','required');
+            $this->form_validation->set_rules('administrativo_ci','administrativo_ci','is_unique[administrativo.administrativo_ci]', array('is_unique' => 'Este C.I. ya fue Registrado'));
+            $this->form_validation->set_rules('administrativo_codigo','administrativo_codigo','is_unique[administrativo.administrativo_codigo]',array('is_unique' => 'Este Codigo ya fue Registrado'));
             if($this->form_validation->run())     
             {   
                 /* *********************INICIO imagen***************************** */
@@ -175,13 +177,27 @@ class Administrativo extends CI_Controller{
     function edit($administrativo_id)
     {
         if($this->acceso(4)){
+        $data['administrativo'] = $this->Administrativo_model->get_administrativo($administrativo_id);
+
+        if ($this->input->post('administrativo_ci') != $data['administrativo']['administrativo_ci']) {
+            $is_unique = '|is_unique[administrativo.administrativo_ci]';
+        } else {
+            $is_unique = '';
+        }
+        if ($this->input->post('administrativo_codigo') != $data['administrativo']['administrativo_codigo']) {
+            $is_unique1 = '|is_unique[administrativo.administrativo_codigo]';
+        } else {
+            $is_unique1 = '';
+        }
             // check if the administrativo exists before trying to edit it
-            $data['administrativo'] = $this->Administrativo_model->get_administrativo($administrativo_id);
+            
             if(isset($data['administrativo']['administrativo_id']))
             {
                 $this->load->library('form_validation');
                 $this->form_validation->set_rules('administrativo_nombre','Administrativo Nombre','required');
                 $this->form_validation->set_rules('administrativo_apellidos','Administrativo Apellidos','required');
+                $this->form_validation->set_rules('administrativo_ci', 'administrativo_ci', 'required' . $is_unique, array('is_unique' => 'Este C.I. de administrativo ya existe.'));
+                $this->form_validation->set_rules('administrativo_codigo', 'administrativo_codigo', 'required' . $is_unique1, array('is_unique' => 'Este codigo de administrativo ya existe.'));
 
                 if($this->form_validation->run())     
                 {   

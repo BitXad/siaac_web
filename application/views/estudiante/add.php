@@ -100,6 +100,7 @@
 						<label for="estudiante_ci" class="control-label">C.I.</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_ci" value="<?php echo $this->input->post('estudiante_ci'); ?>" class="form-control" id="estudiante_ci" required/>
+							<span class="text-danger"><?php echo form_error('estudiante_ci');?></span>
 						</div>
 					</div>
 					<div class="col-md-2">
@@ -154,6 +155,7 @@
 						<label for="estudiante_codigo" class="control-label">Codigo</label>
 						<div class="form-group">
 							<input type="text" name="estudiante_codigo" value="<?php echo $this->input->post('estudiante_codigo'); ?>" class="form-control" id="estudiante_codigo" />
+							<span class="text-danger"><?php echo form_error('estudiante_codigo');?></span>
 						</div>
 					</div>
 					<div class="col-md-2">

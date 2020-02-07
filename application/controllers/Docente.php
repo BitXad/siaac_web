@@ -105,7 +105,12 @@ class Docente extends CI_Controller{
     function add()
     {
         if($this->acceso(7)){
-            if(isset($_POST) && count($_POST) > 0)     
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('docente_nombre','docente Nombre','required');
+            $this->form_validation->set_rules('docente_apellidos','docente Apellidos','required');
+            $this->form_validation->set_rules('docente_ci','docente_ci','is_unique[docente.docente_ci]', array('is_unique' => 'Este C.I. ya fue Registrado'));
+            $this->form_validation->set_rules('docente_codigo','docente_codigo','is_unique[docente.docente_codigo]',array('is_unique' => 'Este Codigo ya fue Registrado'));
+            if($this->form_validation->run())     
             {   
                 /* *********************INICIO imagen***************************** */
                 $foto="";
@@ -211,9 +216,28 @@ class Docente extends CI_Controller{
             // check if the docente exists before trying to edit it
             $data['docente'] = $this->Docente_model->get_docente($docente_id);
 
+
+        if ($this->input->post('docente_ci') != $data['docente']['docente_ci']) {
+            $is_unique = '|is_unique[docente.docente_ci]';
+        } else {
+            $is_unique = '';
+        }
+        if ($this->input->post('docente_codigo') != $data['docente']['docente_codigo']) {
+            $is_unique1 = '|is_unique[docente.docente_codigo]';
+        } else {
+            $is_unique1 = '';
+        }
+
             if(isset($data['docente']['docente_id']))
             {
-                if(isset($_POST) && count($_POST) > 0)     
+                $this->load->library('form_validation');
+
+                $this->form_validation->set_rules('docente_nombre','docente Nombre','required');
+                $this->form_validation->set_rules('docente_apellidos','docente Apellidos','required');
+                $this->form_validation->set_rules('docente_ci', 'docente_ci', 'required' . $is_unique, array('is_unique' => 'Este C.I. de docente ya existe.'));
+                $this->form_validation->set_rules('docente_codigo', 'docente_codigo', 'required' . $is_unique1, array('is_unique' => 'Este codigo de docente ya existe.'));
+
+                if($this->form_validation->run())     
                 {   
                      /* *********************INICIO imagen***************************** */
                     $foto="";
@@ -324,6 +348,53 @@ class Docente extends CI_Controller{
                 show_error('The docente you are trying to edit does not exist.');
         }
     } 
+
+
+        function cuenta($docente_id)
+    {
+        if($this->acceso(61)&&$this->privado($docente_id)){
+             
+            //usuario_id ===>id de docente
+            $usuario_id = $this->session_data['usuario_id'];
+            if($docente_id == $usuario_id){
+                $data['docente'] = $this->Docente_model->get_docente($docente_id);
+
+                if(isset($data['docente']['docente_id']))  
+                {
+                    $this->load->library('form_validation');
+                    $this->form_validation->set_rules('docente_login','docente_login','required');
+                    if($this->form_validation->run()) {
+
+
+                    $curr_password = md5($this->input->post('docente_clave'));
+                    if ($curr_password==$data['docente']['docente_clave']) {
+                       $params = array(
+                 
+                    'docente_login' => $this->input->post('docente_login'),
+                    'docente_clave' => md5($this->input->post('newpass')),
+                    
+                        );
+
+                     $this->Docente_model->update_docente($docente_id,$params);
+                     redirect('docente/dashboard/'.$docente_id);
+                    } } else {
+                        $data['mensaje'] = '';
+                        $data['_view'] = 'docente/cuenta';
+                     $this->load->view('layouts/main',$data);
+                    } 
+                     $data['mensaje'] = 'La clave antigua es incorrecta.';
+                     $data['_view'] = 'docente/cuenta';
+                     $this->load->view('layouts/main',$data);
+                }else
+                    show_error('The docente you are trying to edit does not exist.');
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
+                $this->load->view('layouts/main',$data);
+            }
+        }
+       
+    }
+
 
     /*
      * Deleting docente

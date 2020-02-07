@@ -98,6 +98,7 @@
 						<label for="docente_ci" class="control-label">C.I.</label>
 						<div class="form-group">
 							<input type="text" name="docente_ci" value="<?php echo $this->input->post('docente_ci'); ?>" class="form-control" id="docente_ci" required/>
+							<span class="text-danger"><?php echo form_error('docentente_ci');?></span>
 						</div>
 					</div>
 					<div class="col-md-2">
@@ -164,6 +165,7 @@
 						<label for="docente_codigo" class="control-label">Codigo</label>
 						<div class="form-group">
 							<input type="text" name="docente_codigo" value="<?php echo $this->input->post('docente_codigo'); ?>" class="form-control" id="docente_codigo" />
+							<span class="text-danger"><?php echo form_error('docente_codigo');?></span>
 						</div>
 					</div>
 					<div class="col-md-4">

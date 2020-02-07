@@ -102,6 +102,7 @@
 						<label for="administrativo_ci" class="control-label">C.I.</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_ci" value="<?php echo $this->input->post('administrativo_ci'); ?>" class="form-control" id="administrativo_ci" required/>
+							<span class="text-danger"><?php echo form_error('administrativo_ci');?></span>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -125,6 +126,7 @@
 						<label for="administrativo_codigo" class="control-label">Codigo</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_codigo" value="<?php echo $this->input->post('administrativo_codigo'); ?>" class="form-control" id="administrativo_codigo" />
+							<span class="text-danger"><?php echo form_error('administrativo_codigo');?></span>
 						</div>
 					</div>
 					<div class="col-md-6">
