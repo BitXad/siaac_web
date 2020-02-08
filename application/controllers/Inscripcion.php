@@ -789,5 +789,10 @@ class Inscripcion extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }
+    function ultimatransaccion(){
+        $gestion_id = $this->session_data['gestion_id'];
+        $datos = $this->Inscripcion_model->get_ultima_notafactura($gestion_id);
+        echo json_encode($datos);
+    }
     
 }

@@ -20,10 +20,8 @@
 </script>
 <style type="text/css">
     @media print {
-        .cabeceratabla th {
-            background-color: rgba(127,127,127,0.5) !important;
-            color: black !important;
-            -webkit-print-color-adjust: exact;
+        #elfondo {
+            background: rgba(127,127,127,0.3) !important;
         }
     }
 </style>
@@ -35,7 +33,7 @@
 <input type="text" value="<?php echo base_url(); ?>" name="base_url" id="base_url" hidden>
 <input type="text" value="<?php echo $gestion_id; ?>" name="gestion_id" id="gestion_id" hidden>
 <?php $padding = "style='padding:0; '"; 
-    $ancho = "16cm";
+    $ancho = "18cm";
     
     $logo = base_url("resources/images/institucion/").$institucion[0]['institucion_logo'];
     $logo_thumb = base_url("resources/images/institucion/")."thumb_".$institucion[0]['institucion_logo'];
@@ -60,7 +58,7 @@
                 <font size="3" face="Arial"><b>INSCRIPCIONES</b></font><br>
                 <!--<font size="2" face="Arial"><b>DE INSCRIPCION</b></font><br>
                 <font size="3" face="Arial"><b>Nº: 00<?php //echo $inscripcion[0]['inscripcion_id']; ?></b></font><br>-->
-                <font size="1" face="Arial"><b><span id="fechaimpresion"></span></b></font>
+                <font size="1" face="Arial"><span id="fechaimpresion"></span></font>
                 
             </center>
         </td>
@@ -80,7 +78,7 @@
         <div class="box-tools">
             <div class=" col-md-11" style="padding: 0px;">
                     <div class="col-md-2" style="padding: 0px 10px 0px 0px;">
-                        Usuario:
+                        USUARIO:
                         <?php //if($tipousuario_id == 1){ ?>
                         <select  class="btn btn-primary btn-sm form-control" id="buscarusuario_id" required>
                             <option value="0"> TODOS </option>
@@ -103,10 +101,10 @@
                         <?php }*/ ?>
                     </div>
                 <div class="col-md-2" style="padding: 0px 10px 0px 0px">
-                    Desde: <input type="date" value="<?php echo date('Y-m-d')?>" class="btn btn-primary btn-sm form-control" id="fecha_desde" name="fecha_desde" required="true">
+                    DESDE: <input type="date" value="<?php echo date('Y-m-d')?>" class="btn btn-primary btn-sm form-control" id="fecha_desde" name="fecha_desde" required="true">
                 </div>
                 <div class="col-md-2" style="padding: 0px 10px 0px 0px">
-                    Hasta: <input type="date" value="<?php echo date('Y-m-d')?>" class="btn btn-primary btn-sm form-control" id="fecha_hasta" name="fecha_hasta" required="true">
+                    HASTA: <input type="date" value="<?php echo date('Y-m-d')?>" class="btn btn-primary btn-sm form-control" id="fecha_hasta" name="fecha_hasta" required="true">
                 </div>
                 <div class="col-md-2" style="padding: 0px 10px 0px 0px">
                     &nbsp;
@@ -142,63 +140,58 @@
     </div>
 </div>
 <div class="box-body table-responsive" id="cabizquierdafechas" style="font-family: Arial; font-size: 10px; padding-bottom: 0px !important; padding-left: 0px" >
-    <label id="elusuario" style="margin: 0px"></label><br>
-    <label id="fecha1impresion" style="margin: 0px"></label>
-    <label id="fecha2impresion" style="margin: 0px"></label>
+    <span id="elusuario" style="margin: 0px"></span><br>
+    <span id="fecha1impresion" style="margin: 0px"></span>
+    <span id="fecha2impresion" style="margin: 0px"></span>
 </div>
 <div class="row" id='loader'  style='display:none; text-align: center'>
     <img src="<?php echo base_url("resources/images/loader.gif"); ?>">
 </div>
 
 <div class="table-responsive">
-<table  class="table table-condensed" style="width: <?php echo $ancho; ?>; font-family: Arial; font-size: 10px; border-top: solid; border-bottom: solid; ">
+<table  class="table table-condensed" style="width: <?php echo $ancho; ?>; font-family: Arial; font-size: 9px;">
     <!--<table class="table table-striped" id="mitabla">-->
-        <tr>
-            <th rowspan="2">#</th>
-            <th rowspan="2">APELLIDOS</th>
-            <th rowspan="2">NOMBRES</th>
-            <th rowspan="2">CURSO/CARRERA</th>
-            <th rowspan="2">COD.</th>
-            <th rowspan="2">N°<br>KARD.</th>
-            <th rowspan="2">FECHA<br>INSCRIP.</th>
-            <th colspan="3">MONTO</th>
-        </tr>
-        <tr>
-            <th style="padding: 0px" rowspan="2">MATR.</th>
-            <th style="padding: 0px" rowspan="2">MENS.</th>
-            <th style="padding: 0px" rowspan="2">TOTAL</th>
-        </tr>
-        <tbody id="resinscripcion"></tbody>
+    <tr>
+        <th id="elfondo" class="text-center" style="vertical-align: central; border: 2px solid black ; border-left: 2px solid black; background-color: #000 solid !important" rowspan="2">#</th>
+        <th id="elfondo" class="text-center" style="border: 2px solid black; width: 4cm" rowspan="2">APELLIDOS</th>
+        <th id="elfondo" class="text-center" style="border: 2px solid black; width: 3.5cm" rowspan="2">NOMBRES</th>
+        <th id="elfondo" class="text-center" style="border: 2px solid black" rowspan="2">CURSO/CARRERA</th>
+        <th id="elfondo" class="text-center" style="border: 2px solid black" rowspan="2">COD.</th>
+        <th id="elfondo" class="text-center" style="border: 2px solid black" rowspan="2">N°<br>KARD.</th>
+        <th id="elfondo" class="text-center" style="border: 2px solid black" rowspan="2">FECHA<br>INSCRIP.</th>
+        <th id="elfondo" class="text-center" style="border: 2px solid black; border-right: 2px solid black" colspan="3">MONTO</th>
+    </tr>
+    <tr>
+        <th id="elfondo" class="text-center" style="padding: 0px; border-bottom: 2px solid black; border: 2px solid black" rowspan="2">MATR.</th>
+        <th id="elfondo" class="text-center" style="padding: 0px; border-bottom: 2px solid black; border: 2px solid black" rowspan="2">MENS.</th>
+        <th id="elfondo" class="text-center" style="padding: 0px; border-bottom: 2px solid black; border-right: 2px solid black" rowspan="2">TOTAL</th>
+    </tr>
+    <tbody id="resinscripcion"></tbody>
     </table>
 </div>
 <table  class="table table-striped table-condensed" style="width: <?php echo $ancho; ?>; font-family: Arial; font-size:10px;">
     <tr><br>
     </tr>
-    
     <tr>
-        <td> <center>
-
-                <?php echo "-----------------------------------------------------"; ?><br>
-                <?php echo "RECIBI CONFORME"; ?><br>
-
+        <td style="line-height: 8px !important"> <center>
+                -----------------------------------------------------<br>
+                RECIBI CONFORME<br>
             </center>
         </td>
         <td width="100">
             <?php echo "     "; ?><br>
             <?php echo "     "; ?><br>
         </td>
-        <td>
+        <td style="line-height: 8px !important">
             <center>
-
-                <?php echo "-----------------------------------------------------"; ?><br>
-                <?php echo "ENTREGUE CONFORME"; ?><br>   
-
+                -----------------------------------------------------<br>
+                ENTREGUE CONFORME<br>
             </center>
         </td>
     </tr>
     <tr>
         <td>
-        <b>USUARIO: </b><?php //echo $inscripcion[0]['usuario_nombre']; ?><br>
+        <b>IMPRESO POR: </b><?php echo $usuario_nombre; ?><br>
         </td>
     </tr>
 </table>

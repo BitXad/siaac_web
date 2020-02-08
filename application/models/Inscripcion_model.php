@@ -238,5 +238,20 @@ class Inscripcion_model extends CI_Model
         $grupo = $this->db->query($sql)->result_array();
         return $grupo;
     }
-    
+    /*
+     * funcion que te muestra la ultima transaccion con factura o sin factura..
+     */
+    function get_ultima_notafactura($gestion_id)
+    {
+        $sql = "select
+                      c.inscripcion_id, if(f.factura_id>0, f.factura_id, 0) as numfactura
+                from
+                      consinscripcion c
+                left join factura f on c.inscripcion_id = f.inscripcion_id
+                where
+                      c.gestion_id = $gestion_id
+                      and c.inscripcion_id = (select max(inscripcion_id) from inscripcion)";
+        $resultado = $this->db->query($sql)->row_array();
+        return $resultado;
+    }
 }

@@ -216,19 +216,19 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                     totaltablaegresoresultados  = "<table style='width:100%;' class='table table-striped table-condensed' id='tablasinespacio'><tr><td style='width:5%;'> </td><td style='width:61%;'><b>TOTAL EGRESOS: </b></td><td style='width:17%;'></td><td style='width:17%;' id='alinearder'><b>"+numberFormat(Number(totalegreso4).toFixed(2))+"</b></td></tr></table>";
                     /* *****************F I N para suma reporte total de INGRESOS****************** */ 
                    //para mostrar saldo en caja
-                    saldoencaja = "<table style='width:100%;' class='table table-striped table-condensed' id='tablasinespacio'><tr style='font-size: 12px'><td style='width:5%;'> </td><td style='width:61%;' id='alinearder'><b>SALDO EFECTIVO EN CAJA: </b></td><td style='width:17%;'></td><td style='width:17%;' id='alinearder'><b>"+numberFormat(Number((totalingreso1+totalingreso2+totalingreso3)-totalegreso).toFixed(2))+"</b></td></tr></table>";
+                    saldoencaja = "<table style='width:100%;' class='table table-striped table-condensed' id='tablasinespacio'><tr style='font-size: 12px'><td id='fondoprint' style='width:5%;'> </td><td id='fondoprint' style='width:61%; text-align: rigth;' ><b>SALDO EFECTIVO EN CAJA: </b></td><td id='fondoprint' style='width:17%;'></td><td id='fondoprint' style='width:17%; text-aling: rigth;' ><b>"+numberFormat(Number((totalingreso1+totalingreso2+totalingreso3)-totalegreso).toFixed(2))+"</b></td></tr></table>";
                     /* *****************INICIO para reporte TOTAL****************** */
                     //cabecerahtmlt= "<label  class='control-label'><a href='#' class='btn btn-success btn-sm no-print' id='mostotal' onclick='mostrartotal(); return false'>REPORTE TOTAL</a></label>";
                     
                     cabecerahtmlt = "<table class='table table-striped table-condensed' id='mitabladetimpresion' style='width: 100%'>";
                     cabecerahtmlt += "<tr style='background-color: #aaaaaa;' class='fondoprint'>";
-                    cabecerahtmlt += "<th class='fondoprint' style='width: 2%' class='text-center'>N°</th>";
-                    cabecerahtmlt += "<th style='width: 8%' class='text-center'>FECHA</th>";
-                    cabecerahtmlt += "<th style='width: 8%' class='text-center'>REC.</th>";
-                    cabecerahtmlt += "<th style='width: 8%' class='text-center'>FACT.</th>";
-                    cabecerahtmlt += "<th style='width: 54%' class='text-center'>DETALLE</th>";
-                    cabecerahtmlt += "<th style='width: 10%' class='text-center'>INGRESO</th>";
-                    cabecerahtmlt += "<th style='width: 10%' class='text-center'>EGRESO</th>";
+                    cabecerahtmlt += "<th id='fondoprint' class='fondoprint' style='width: 2%' class='text-center'>N°</th>";
+                    cabecerahtmlt += "<th id='fondoprint' style='width: 8%' class='text-center'>FECHA</th>";
+                    cabecerahtmlt += "<th id='fondoprint' style='width: 8%' class='text-center'>REC.</th>";
+                    cabecerahtmlt += "<th id='fondoprint' style='width: 8%' class='text-center'>FACT.</th>";
+                    cabecerahtmlt += "<th id='fondoprint' style='width: 54%' class='text-center'>DETALLE</th>";
+                    cabecerahtmlt += "<th id='fondoprint' style='width: 10%' class='text-center'>INGRESO</th>";
+                    cabecerahtmlt += "<th id='fondoprint' style='width: 10%' class='text-center'>EGRESO</th>";
                     cabecerahtmlt += "</tr>";
                     cabecerahtmlt += "<tbody>";
                     
