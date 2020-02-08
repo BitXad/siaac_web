@@ -39,23 +39,23 @@
 							<span class="text-danger"><?php echo form_error('administrativo_apellidos');?></span>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<label for="estado_id" class="control-label">Estado</label>
+					<div class="col-md-2">
+						<label for="genero_id" class="control-label">Genero</label>
 						<div class="form-group">
-							<select name="estado_id" class="form-control">
-								<option value="">- ESTADO -</option>
+							<select name="genero_id" class="form-control">
+								<option value="">- GENERO -</option>
 								<?php 
-								foreach($all_estado as $estado)
+								foreach($all_genero as $genero)
 								{
-									$selected = ($estado['estado_id'] == $administrativo['estado_id']) ? ' selected="selected"' : "";
+									$selected = ($genero['genero_id'] == $administrativo['genero_id']) ? ' selected="selected"' : "";
 
-									echo '<option value="'.$estado['estado_id'].'" '.$selected.'>'.$estado['estado_descripcion'].'</option>';
+									echo '<option value="'.$genero['genero_id'].'" '.$selected.'>'.$genero['genero_nombre'].'</option>';
 								} 
 								?>
 							</select>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-2">
 						<label for="estadocivil_id" class="control-label">Estado Civil</label>
 						<div class="form-group">
 							<select name="estadocivil_id" class="form-control">
@@ -68,6 +68,77 @@
 									echo '<option value="'.$estado_civil['estadocivil_id'].'" '.$selected.'>'.$estado_civil['estadocivil_descripcion'].'</option>';
 								} 
 								?>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label for="administrativo_fechanac" class="control-label">Fecha de Nacimiento</label>
+						<div class="form-group">
+							<input type="date" name="administrativo_fechanac" value="<?php echo ($this->input->post('administrativo_fechanac') ? $this->input->post('administrativo_fechanac') : $administrativo['administrativo_fechanac']); ?>" class="form-control" id="administrativo_fechanac" />
+						</div>
+					</div>
+					<!--<div class="col-md-6">
+						<label for="administrativo_edad" class="control-label">Administrativo Edad</label>
+						<div class="form-group">
+							<input type="text" name="administrativo_edad" value="<?php echo ($this->input->post('administrativo_edad') ? $this->input->post('administrativo_edad') : $administrativo['administrativo_edad']); ?>" class="form-control" id="administrativo_edad" />
+						</div>
+					</div>-->
+					<div class="col-md-3">
+						<label for="administrativo_ci" class="control-label">C. I.</label>
+						<div class="form-group">
+							<input type="text" name="administrativo_ci" value="<?php echo ($this->input->post('administrativo_ci') ? $this->input->post('administrativo_ci') : $administrativo['administrativo_ci']); ?>" class="form-control" id="administrativo_ci" />
+							<span class="text-danger"><?php echo form_error('administrativo_ci');?></span>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<label for="administrativo_extci" class="control-label">Extension</label>
+						<div class="form-group">
+							<select name="administrativo_extci" class="form-control"  value="<?php echo $this->input->post('administrativo_extci'); ?>" id="administrativo_extci" required>
+								<option value="">- EXTENSION -</option>
+							  <option value="CBBA" <?php if($administrativo['administrativo_extci']=='CBBA'){ ?> selected <?php } ?>>CBBA</option>
+							  <option value="LPZ" <?php if($administrativo['administrativo_extci']=='LPZ'){ ?> selected <?php } ?>>LPZ</option>
+							  <option value="POT" <?php if($administrativo['administrativo_extci']=='POT'){ ?> selected <?php } ?>>POT</option>
+							  <option value="ORU" <?php if($administrativo['administrativo_extci']=='ORU'){ ?> selected <?php } ?>>ORU</option>
+							  <option value="STCZ" <?php if($administrativo['administrativo_extci']=='STCZ'){ ?> selected <?php } ?>>STCZ</option>
+							  <option value="BEN" <?php if($administrativo['administrativo_extci']=='BEN'){ ?> selected <?php } ?>>BEN</option>
+							  <option value="PAN" <?php if($administrativo['administrativo_extci']=='PAN'){ ?> selected <?php } ?>>PAN</option>
+							  <option value="CHQ" <?php if($administrativo['administrativo_extci']=='CHQ'){ ?> selected <?php } ?>>CHQ</option>
+							  <option value="TRJ" <?php if($administrativo['administrativo_extci']=='TRJ'){ ?> selected <?php } ?>>TRJ</option>
+							</select> 
+
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="administrativo_direccion" class="control-label">Direccion</label>
+						<div class="form-group">
+							<input type="text" name="administrativo_direccion" value="<?php echo ($this->input->post('administrativo_direccion') ? $this->input->post('administrativo_direccion') : $administrativo['administrativo_direccion']); ?>" class="form-control" id="administrativo_direccion" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label for="administrativo_telefono" class="control-label">Telefono</label>
+						<div class="form-group">
+							<input type="number" name="administrativo_telefono" value="<?php echo ($this->input->post('administrativo_telefono') ? $this->input->post('administrativo_telefono') : $administrativo['administrativo_telefono']); ?>" class="form-control" id="administrativo_telefono" />
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label for="administrativo_celular" class="control-label">Celular</label>
+						<div class="form-group">
+							<input type="number" name="administrativo_celular" value="<?php echo ($this->input->post('administrativo_celular') ? $this->input->post('administrativo_celular') : $administrativo['administrativo_celular']); ?>" class="form-control" id="administrativo_celular" />
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<label for="administrativo_cargo" class="control-label">Cargo</label>
+						<div class="form-group">
+							<select name="administrativo_cargo" class="form-control" id="administrativo_cargo" required>
+								<option value="">- CARGO -</option>
+								<option value="1" <?php if($administrativo['administrativo_cargo']=='1'){ ?> selected <?php } ?>>- ADMINISTRATIVO -</option>
+								<!--<option value="2" <?php if($administrativo['administrativo_cargo']=='2'){ ?> selected <?php } ?>>- DIR. ACADEMICO -</option>
+								<option value="3" <?php if($administrativo['administrativo_cargo']=='3'){ ?> selected <?php } ?>>- DIR. ADMINISTRATIVO -</option>
+								<option value="4" <?php if($administrativo['administrativo_cargo']=='4'){ ?> selected <?php } ?>>- SECRETARIA -</option>
+								<option value="5" <?php if($administrativo['administrativo_cargo']=='5'){ ?> selected <?php } ?>>- JEFE CARRERA -</option>
+								<option value="6" <?php if($administrativo['administrativo_cargo']=='6'){ ?> selected <?php } ?>>- COBRANZA -</option>-->
+								
 							</select>
 						</div>
 					</div>
@@ -87,99 +158,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<label for="genero_id" class="control-label">Genero</label>
-						<div class="form-group">
-							<select name="genero_id" class="form-control">
-								<option value="">- GENERO -</option>
-								<?php 
-								foreach($all_genero as $genero)
-								{
-									$selected = ($genero['genero_id'] == $administrativo['genero_id']) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$genero['genero_id'].'" '.$selected.'>'.$genero['genero_nombre'].'</option>';
-								} 
-								?>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="administrativo_fechanac" class="control-label">Fecha de Nacimiento</label>
-						<div class="form-group">
-							<input type="date" name="administrativo_fechanac" value="<?php echo ($this->input->post('administrativo_fechanac') ? $this->input->post('administrativo_fechanac') : $administrativo['administrativo_fechanac']); ?>" class="form-control" id="administrativo_fechanac" />
-						</div>
-					</div>
-					<!--<div class="col-md-6">
-						<label for="administrativo_edad" class="control-label">Administrativo Edad</label>
-						<div class="form-group">
-							<input type="text" name="administrativo_edad" value="<?php echo ($this->input->post('administrativo_edad') ? $this->input->post('administrativo_edad') : $administrativo['administrativo_edad']); ?>" class="form-control" id="administrativo_edad" />
-						</div>
-					</div>-->
-					<div class="col-md-6">
-						<label for="administrativo_ci" class="control-label">C. I.</label>
-						<div class="form-group">
-							<input type="text" name="administrativo_ci" value="<?php echo ($this->input->post('administrativo_ci') ? $this->input->post('administrativo_ci') : $administrativo['administrativo_ci']); ?>" class="form-control" id="administrativo_ci" />
-							<span class="text-danger"><?php echo form_error('administrativo_ci');?></span>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="administrativo_extci" class="control-label">Extension</label>
-						<div class="form-group">
-							<select name="administrativo_extci" class="form-control"  value="<?php echo $this->input->post('administrativo_extci'); ?>" id="administrativo_extci" required>
-								<option value="">- EXTENSION -</option>
-							  <option value="CBBA" <?php if($administrativo['administrativo_extci']=='CBBA'){ ?> selected <?php } ?>>CBBA</option>
-							  <option value="LPZ" <?php if($administrativo['administrativo_extci']=='LPZ'){ ?> selected <?php } ?>>LPZ</option>
-							  <option value="POT" <?php if($administrativo['administrativo_extci']=='POT'){ ?> selected <?php } ?>>POT</option>
-							  <option value="ORU" <?php if($administrativo['administrativo_extci']=='ORU'){ ?> selected <?php } ?>>ORU</option>
-							  <option value="STCZ" <?php if($administrativo['administrativo_extci']=='STCZ'){ ?> selected <?php } ?>>STCZ</option>
-							  <option value="BEN" <?php if($administrativo['administrativo_extci']=='BEN'){ ?> selected <?php } ?>>BEN</option>
-							  <option value="PAN" <?php if($administrativo['administrativo_extci']=='PAN'){ ?> selected <?php } ?>>PAN</option>
-							  <option value="CHQ" <?php if($administrativo['administrativo_extci']=='CHQ'){ ?> selected <?php } ?>>CHQ</option>
-							  <option value="TRJ" <?php if($administrativo['administrativo_extci']=='TRJ'){ ?> selected <?php } ?>>TRJ</option>
-							</select> 
-
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="administrativo_codigo" class="control-label">Codigo</label>
-						<div class="form-group">
-							<input type="text" name="administrativo_codigo" value="<?php echo ($this->input->post('administrativo_codigo') ? $this->input->post('administrativo_codigo') : $administrativo['administrativo_codigo']); ?>" class="form-control" id="administrativo_codigo" />
-							<span class="text-danger"><?php echo form_error('administrativo_codigo');?></span>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="administrativo_direccion" class="control-label">Direccion</label>
-						<div class="form-group">
-							<input type="text" name="administrativo_direccion" value="<?php echo ($this->input->post('administrativo_direccion') ? $this->input->post('administrativo_direccion') : $administrativo['administrativo_direccion']); ?>" class="form-control" id="administrativo_direccion" />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="administrativo_telefono" class="control-label">Telefono</label>
-						<div class="form-group">
-							<input type="number" name="administrativo_telefono" value="<?php echo ($this->input->post('administrativo_telefono') ? $this->input->post('administrativo_telefono') : $administrativo['administrativo_telefono']); ?>" class="form-control" id="administrativo_telefono" />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="administrativo_celular" class="control-label">Celular</label>
-						<div class="form-group">
-							<input type="number" name="administrativo_celular" value="<?php echo ($this->input->post('administrativo_celular') ? $this->input->post('administrativo_celular') : $administrativo['administrativo_celular']); ?>" class="form-control" id="administrativo_celular" />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="administrativo_cargo" class="control-label">Cargo</label>
-						<div class="form-group">
-							<select name="administrativo_cargo" class="form-control" id="administrativo_cargo" required>
-								<option value="">- CARGO -</option>
-								<option value="1" <?php if($administrativo['administrativo_cargo']=='1'){ ?> selected <?php } ?>>- ADMINISTRATIVO -</option>
-								<!--<option value="2" <?php if($administrativo['administrativo_cargo']=='2'){ ?> selected <?php } ?>>- DIR. ACADEMICO -</option>
-								<option value="3" <?php if($administrativo['administrativo_cargo']=='3'){ ?> selected <?php } ?>>- DIR. ADMINISTRATIVO -</option>
-								<option value="4" <?php if($administrativo['administrativo_cargo']=='4'){ ?> selected <?php } ?>>- SECRETARIA -</option>
-								<option value="5" <?php if($administrativo['administrativo_cargo']=='5'){ ?> selected <?php } ?>>- JEFE CARRERA -</option>
-								<option value="6" <?php if($administrativo['administrativo_cargo']=='6'){ ?> selected <?php } ?>>- COBRANZA -</option>-->
-								
-							</select>
-						</div>
-					</div>
+	
 					<div class="col-md-6">
 						<label for="administrativo_foto" class="control-label">Foto</label>
 						<div class="form-group">
@@ -191,6 +170,29 @@
 						<label for="administrativo_email" class="control-label">Email</label>
 						<div class="form-group">
 							<input type="email" name="administrativo_email" value="<?php echo ($this->input->post('administrativo_email') ? $this->input->post('administrativo_email') : $administrativo['administrativo_email']); ?>" class="form-control" id="administrativo_email" />
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="administrativo_codigo" class="control-label">Codigo</label>
+						<div class="form-group">
+							<input type="text" name="administrativo_codigo" value="<?php echo ($this->input->post('administrativo_codigo') ? $this->input->post('administrativo_codigo') : $administrativo['administrativo_codigo']); ?>" class="form-control" id="administrativo_codigo" />
+							<span class="text-danger"><?php echo form_error('administrativo_codigo');?></span>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="estado_id" class="control-label">Estado</label>
+						<div class="form-group">
+							<select name="estado_id" class="form-control">
+								<option value="">- ESTADO -</option>
+								<?php 
+								foreach($all_estado as $estado)
+								{
+									$selected = ($estado['estado_id'] == $administrativo['estado_id']) ? ' selected="selected"' : "";
+
+									echo '<option value="'.$estado['estado_id'].'" '.$selected.'>'.$estado['estado_descripcion'].'</option>';
+								} 
+								?>
+							</select>
 						</div>
 					</div>
 					<div class="col-md-6" hidden>
