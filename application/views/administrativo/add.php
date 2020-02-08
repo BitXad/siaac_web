@@ -10,8 +10,20 @@
         var cad3 = Math.floor((Math.random(1001,9999) * pararand));
             var cad = cad1+cad3;
               $('#administrativo_codigo').val(cad);
+              $('#administrativo_login').val(cad);
           });
       });
+
+</script>
+<script type="text/javascript">
+
+      $(document).ready(function () {
+          $('#administrativo_ci').keyup(function () {
+            var value = $(this).val();
+              $('#administrativo_clave').val(value);
+          });
+      });
+
 
 </script>
 <div class="row">
@@ -37,39 +49,7 @@
 							<span class="text-danger"><?php echo form_error('administrativo_apellidos');?></span>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<label for="estadocivil_id" class="control-label">Estado Civil</label>
-						<div class="form-group">
-							<select name="estadocivil_id" class="form-control">
-								<option value="">-ESTADO CIVIL-</option>
-								<?php 
-								foreach($all_estado_civil as $estado_civil)
-								{
-									$selected = ($estado_civil['estadocivil_id'] == $this->input->post('estadocivil_id')) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$estado_civil['estadocivil_id'].'" '.$selected.'>'.$estado_civil['estadocivil_descripcion'].'</option>';
-								} 
-								?>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="institucion_id" class="control-label">Institucion</label>
-						<div class="form-group">
-							<select name="institucion_id" class="form-control">
-								<option value="">- INSTITUCION -</option>
-								<?php 
-								foreach($all_institucion as $institucion)
-								{
-									$selected = ($institucion['institucion_id'] == $this->input->post('institucion_id')) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$institucion['institucion_id'].'" '.$selected.'>'.$institucion['institucion_nombre'].'</option>';
-								} 
-								?>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-6">
+					<div class="col-md-2">
 						<label for="genero_id" class="control-label">Genero</label>
 						<div class="form-group">
 							<select name="genero_id" class="form-control">
@@ -85,27 +65,36 @@
 							</select>
 						</div>
 					</div>
-				
-					<div class="col-md-6">
+					<div class="col-md-2">
+						<label for="estadocivil_id" class="control-label">Estado Civil</label>
+						<div class="form-group">
+							<select name="estadocivil_id" class="form-control">
+								<option value="">-ESTADO CIVIL-</option>
+								<?php 
+								foreach($all_estado_civil as $estado_civil)
+								{
+									$selected = ($estado_civil['estadocivil_id'] == $this->input->post('estadocivil_id')) ? ' selected="selected"' : "";
+
+									echo '<option value="'.$estado_civil['estadocivil_id'].'" '.$selected.'>'.$estado_civil['estadocivil_descripcion'].'</option>';
+								} 
+								?>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-3">
 						<label for="administrativo_fechanac" class="control-label">Fecha de Nacimiento</label>
 						<div class="form-group">
 							<input type="date" name="administrativo_fechanac" value="<?php echo $this->input->post('administrativo_fechanac'); ?>" class="form-control" id="administrativo_fechanac" />
 						</div>
 					</div>
-					<!--<div class="col-md-6">
-						<label for="administrativo_edad" class="control-label">Administrativo Edad</label>
-						<div class="form-group">
-							<input type="text" name="administrativo_edad" value="<?php echo $this->input->post('administrativo_edad'); ?>" class="form-control" id="administrativo_edad" />
-						</div>
-					</div>-->
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="administrativo_ci" class="control-label">C.I.</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_ci" value="<?php echo $this->input->post('administrativo_ci'); ?>" class="form-control" id="administrativo_ci" required/>
 							<span class="text-danger"><?php echo form_error('administrativo_ci');?></span>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-2">
 						<label for="administrativo_extci" class="control-label">Extension</label>
 						<div class="form-group">
 								<select name="administrativo_extci" class="form-control"  value="<?php echo $this->input->post('administrativo_extci'); ?>" id="administrativo_extci" required>
@@ -123,25 +112,18 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="administrativo_codigo" class="control-label">Codigo</label>
-						<div class="form-group">
-							<input type="text" name="administrativo_codigo" value="<?php echo $this->input->post('administrativo_codigo'); ?>" class="form-control" id="administrativo_codigo" />
-							<span class="text-danger"><?php echo form_error('administrativo_codigo');?></span>
-						</div>
-					</div>
-					<div class="col-md-6">
 						<label for="administrativo_direccion" class="control-label">Direccion</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_direccion" value="<?php echo $this->input->post('administrativo_direccion'); ?>" class="form-control" id="administrativo_direccion" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="administrativo_telefono" class="control-label">Telefono</label>
 						<div class="form-group">
 							<input type="number" name="administrativo_telefono" value="<?php echo $this->input->post('administrativo_telefono'); ?>" class="form-control" id="administrativo_telefono" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label for="administrativo_celular" class="control-label">Celular</label>
 						<div class="form-group">
 							<input type="number" name="administrativo_celular" value="<?php echo $this->input->post('administrativo_celular'); ?>" class="form-control" id="administrativo_celular" />
@@ -164,6 +146,30 @@
 						</div>
 					</div>
 					<div class="col-md-6">
+						<label for="institucion_id" class="control-label">Institucion</label>
+						<div class="form-group">
+							<select name="institucion_id" class="form-control">
+								<option value="">- INSTITUCION -</option>
+								<?php 
+								foreach($all_institucion as $institucion)
+								{
+									$selected = ($institucion['institucion_id'] == $this->input->post('institucion_id')) ? ' selected="selected"' : "";
+
+									echo '<option value="'.$institucion['institucion_id'].'" '.$selected.'>'.$institucion['institucion_nombre'].'</option>';
+								} 
+								?>
+							</select>
+						</div>
+					</div>
+					
+					<!--<div class="col-md-6">
+						<label for="administrativo_edad" class="control-label">Administrativo Edad</label>
+						<div class="form-group">
+							<input type="text" name="administrativo_edad" value="<?php echo $this->input->post('administrativo_edad'); ?>" class="form-control" id="administrativo_edad" />
+						</div>
+					</div>-->
+					
+					<div class="col-md-6">
 						<label for="administrativo_foto" class="control-label">Foto</label>
 						<div class="form-group">
 							<input type="file" name="administrativo_foto" value="<?php echo $this->input->post('administrativo_foto'); ?>" class="form-control" id="administrativo_foto" />
@@ -175,10 +181,31 @@
 							<input type="email" name="administrativo_email" value="<?php echo $this->input->post('administrativo_email'); ?>" class="form-control" id="administrativo_email" />
 						</div>
 					</div>
+
 					<div class="col-md-6" hidden>
 						<label for="administrativo_fechareg" class="control-label">Administrativo Fechareg</label>
 						<div class="form-group">
 							<input type="text" name="administrativo_fechareg" value="<?php $date=date('Y-m-d H:i:s'); echo $date ; ?>" class="form-control" id="administrativo_fechareg" readonly/>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<label for="administrativo_codigo" class="control-label">Codigo</label>
+						<div class="form-group">
+							<input type="text" name="administrativo_codigo" value="<?php echo $this->input->post('administrativo_codigo'); ?>" class="form-control" id="administrativo_codigo" />
+							<span class="text-danger"><?php echo form_error('administrativo_codigo');?></span>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<label for="administrativo_login" class="control-label">Login</label>
+						<div class="form-group">
+							<input type="text" name="administrativo_login" value="<?php echo $this->input->post('administrativo_login'); ?>" class="form-control" id="administrativo_login" />
+						</div>
+					</div>
+					<div class="col-md-4">
+						<label for="administrativo_clave" class="control-label">Clave</label>
+						<div class="form-group">
+							<input type="password" name="administrativo_clave" value="<?php echo $this->input->post('administrativo_clave'); ?>" class="form-control" id="administrativo_clave" />
 						</div>
 					</div>
 				</div>

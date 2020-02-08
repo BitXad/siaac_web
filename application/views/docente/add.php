@@ -1,7 +1,7 @@
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
 <script type="text/javascript">
 
-      $(document).ready(function () {
+       $(document).ready(function () {
           $('#docente_nombre').keyup(function () {
              var value = $(this).val();
             var cad1 = value.substring(0,3);

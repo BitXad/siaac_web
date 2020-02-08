@@ -117,8 +117,8 @@ class Administrativo extends CI_Controller{
                     'estado_id' => 1,
                     'usuario_nombre' => $name,
                     'usuario_email' => $this->input->post('administrativo_email'),
-                    'usuario_login' => $this->input->post('administrativo_codigo'),
-                    'usuario_clave' => md5($this->input->post('administrativo_ci')),
+                    'usuario_login' => $this->input->post('administrativo_login'),
+                    'usuario_clave' => md5($this->input->post('administrativo_clave')),
                     'usuario_imagen' => $foto,
 
                 );
