@@ -1,3 +1,8 @@
+$(document).on("ready",inicio);
+function inicio(){
+    ultimatransaccion();
+}
+
 function validar(e,opcion) {
  tecla = (document.all) ? e.keyCode : e.which;
  
@@ -317,7 +322,7 @@ function registrar_inscripcion(){
                 var kardexacad_id =  JSON.parse(respuesta);
                 /*alert($('input:checkbox[name=mat]:checked').val());
                 alert(materias.length+"BB");*/
-                $("input:checkbox:checked").each(   
+                $("input:checkbox:checked").each(
                     function() {
                         var thismateria_id = $(this).val();
                         if(thismateria_id >0){
@@ -339,12 +344,12 @@ function registrar_inscripcion(){
                        //cons += cons + ""
                     }
                 }*/
-                $("#boton_imprimir").click();
+                //$("#boton_imprimir").click();
                 location.href = base_url+"inscripcion/inscribir/0";
                 if(kardexacad_id[1] > 0){
                     window.open( base_url+"factura/factura_carta_id/"+kardexacad_id[1], "_blank");
                 }else{
-                    alert("Inscripcion realizada con éxito..!!");
+                    window.open( base_url+"inscripcion/ultima_inscripcion", "_blank");
                 }
             },
             error:function(respuesta){
@@ -473,3 +478,35 @@ function registrar_materiagrupo(kardexacad_id, materia_id, grupo_id)
     });   
 
 }
+function ultimatransaccion(){
+    var base_url    = document.getElementById('base_url').value;
+    var controlador = base_url+"inscripcion/ultimatransaccion";
+    $.ajax({url: controlador,
+            type:"POST",
+            data:{},
+            success:function(resul){
+                var registros =  JSON.parse(resul);
+                if (registros != null){
+                    var tipoimpresion = "";
+                    html = "";
+                    if(registros['numfactura'] > 0){
+                        tipoimpresion = "factura/imprimir_factura_id/"+registros['numfactura'];
+                    }else if(registros['inscripcion_id'] > 0){
+                        tipoimpresion = "inscripcion/boleta_inscripcion/"+registros['inscripcion_id'];
+                    }
+                    html += "<a href='"+base_url+tipoimpresion+"' target='_blank' class='btn btn-warning btn-block' id='boton_imprimir'>";
+                    html += "<i class='fa fa-print'></i> Imprimir";
+                    html += "</a>";
+                    $('#esultimatransaccion').html(html);
+                }else{
+                   
+                }
+                
+        },
+        error:function(resul){
+           alert("Algo salio mal...!!!");
+        }
+        
+    });
+}
+

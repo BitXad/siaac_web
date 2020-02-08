@@ -34,14 +34,14 @@ function busquedainscripcion(fecha_desde, fecha_hasta, usuario, filtro){
                     
                     if(filtro == ""){
                         if(!(fecha_desde == null || fecha_desde =="") && !(fecha_hasta == null  || fecha_hasta =="")){
-                            fecha1 = "Desde: "+moment(fecha_desde).format("DD/MM/YYYY");
-                            fecha2 = " - Hasta: "+moment(fecha_hasta).format("DD/MM/YYYY");
+                            fecha1 = "<b>DESDE:</b> "+moment(fecha_desde).format("DD/MM/YYYY");
+                            fecha2 = "<b> - HASTA:</b> "+moment(fecha_hasta).format("DD/MM/YYYY");
                         }else if(!(fecha_desde == null || fecha_desde =="") && (fecha_desde == null || fecha_hasta =="")){
-                            fecha1 = "De: "+moment(fecha_desde).format("DD/MM/YYYY");
+                            fecha1 = "<b>DE:</b> "+moment(fecha_desde).format("DD/MM/YYYY");
                             fecha2 = "";
                         }else if((fecha_desde == null || fecha_desde =="") && !(fecha_hasta == null || fecha_hasta =="")){
                             fecha1 = "";
-                            fecha2 = "De: "+moment(fecha_hasta).format("DD/MM/YYYY");
+                            fecha2 = "<b>DE:</b> "+moment(fecha_hasta).format("DD/MM/YYYY");
                         }else{
                             fecha1 = "";
                             fecha2 = "";
@@ -49,13 +49,13 @@ function busquedainscripcion(fecha_desde, fecha_hasta, usuario, filtro){
                     }else{
                         var sel_inscripcion = document.getElementById('select_inscripcion').value;
                         if(sel_inscripcion == 1){
-                            fecha1 = "De Hoy";
+                            fecha1 = "<b>De</b> Hoy";
                         }else if(sel_inscripcion == 2){
-                            fecha1 = "De Hayer";
+                            fecha1 = "<b>De</b> Hayer";
                         }else if(sel_inscripcion == 3){
-                            fecha1 = "De la semana";
+                            fecha1 = "<b>De</b> la semana";
                         }else if(sel_inscripcion == 4){
-                            fecha1 = "Todas los inscritos";
+                            fecha1 = "<b>Todos</b> los inscritos";
                         }
                     }
 
@@ -74,30 +74,30 @@ function busquedainscripcion(fecha_desde, fecha_hasta, usuario, filtro){
                      
                         html += "<tr>";
                       
-                        html += "<td>"+(i+1)+"</td>";
-                        html += "<td>"+registros[i]["estudiante_apellidos"]+"</td>";
-                        html += "<td>"+registros[i]["estudiante_nombre"]+"</td>";
-                        html += "<td>"+registros[i]["carrera_nombre"]+"</td>";
-                        html += "<td>"+registros[i]["carrera_codigo"]+"</td>";
-                        html += "<td>00"+registros[i]["kardexeco_id"]+"</td>";
-                        html += "<td>"+registros[i]["inscripcion_fecha"]+"</td>";
-                        html += "<td class='text-right'>"+numberFormat(Number(registros[i]["kardexeco_matriculapagada"]).toFixed(2))+"</td>";
-                        html += "<td class='text-right'>"+numberFormat(Number(registros[i]["kardexeco_mensualidadpagada"]).toFixed(2))+"</td>";
-                        html += "<td class='text-right'>"+numberFormat(Number(Number(registros[i]["kardexeco_matriculapagada"])+Number(registros[i]["kardexeco_mensualidadpagada"])).toFixed(2))+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px'>"+(i+1)+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px'>"+registros[i]["estudiante_apellidos"]+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px'>"+registros[i]["estudiante_nombre"]+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px'>"+registros[i]["carrera_nombre"]+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px'>"+registros[i]["carrera_codigo"]+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px'>00"+registros[i]["kardexeco_id"]+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px'>"+moment(registros[i]["inscripcion_fecha"]).format("DD/MM/YYYY")+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px' class='text-right'>"+numberFormat(Number(registros[i]["kardexeco_matriculapagada"]).toFixed(2))+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px' class='text-right'>"+numberFormat(Number(registros[i]["kardexeco_mensualidadpagada"]).toFixed(2))+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px' class='text-right'>"+numberFormat(Number(Number(registros[i]["kardexeco_matriculapagada"])+Number(registros[i]["kardexeco_mensualidadpagada"])).toFixed(2))+"</td>";
                         
                         //html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
                          html += "</tr>";
                     }
                    
                     html += "<tr>";
-                    html += "<td colspan='7' class='text-bold text-right'>TOTAL Bs.</td>";
-                    html += "<td class='text-bold text-right'>"+numberFormat(Number(totalmatricula).toFixed(2))+"</td>";
-                    html += "<td class='text-bold text-right'>"+numberFormat(Number(totalmensualidad).toFixed(2))+"</td>";
-                    html += "<td class='text-bold text-right'>"+numberFormat(Number(montototal).toFixed(2))+"</td>";
+                    html += "<td id='elfondo' colspan='7' class='text-bold text-right' style='border-top: 2px solid black; border-bottom: 2px solid black'>TOTAL Bs.</td>";
+                    html += "<td id='elfondo' class='text-bold text-right' style='border-top: 2px solid black; border-bottom: 2px solid black'>"+numberFormat(Number(totalmatricula).toFixed(2))+"</td>";
+                    html += "<td id='elfondo' class='text-bold text-right' style='border-top: 2px solid black; border-bottom: 2px solid black'>"+numberFormat(Number(totalmensualidad).toFixed(2))+"</td>";
+                    html += "<td id='elfondo' class='text-bold text-right' style='border-top: 2px solid black; border-bottom: 2px solid black'>"+numberFormat(Number(montototal).toFixed(2))+"</td>";
                     html += "</tr>";
                    
                   
-                    $('#elusuario').html("Usuario: "+esusuario);
+                    $('#elusuario').html("<b>USUARIO:</b> "+esusuario);
                     $('#fecha1impresion').html(fecha1);
                     $('#fecha2impresion').html(fecha2);
                     
