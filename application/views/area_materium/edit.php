@@ -13,12 +13,7 @@
 							<input type="text" name="area_nombre" value="<?php echo ($this->input->post('area_nombre') ? $this->input->post('area_nombre') : $area_materium['area_nombre']); ?>" class="form-control" id="area_nombre" required/>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<label for="area_fechareg" class="control-label">Fecha Registro</label>
-						<div class="form-group">
-							<input type="text" name="area_fechareg" value="<?php echo ($this->input->post('area_fechareg') ? $this->input->post('area_fechareg') : $area_materium['area_fechareg']); ?>" class="form-control" id="area_fechareg" />
-						</div>
-					</div>
+					
 				</div>
 			</div>
 			<div class="box-footer">

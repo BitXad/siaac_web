@@ -4,7 +4,7 @@
             <div class="box-header with-border">
               	<h3 class="box-title">Editar Tipo Aula</h3>
             </div>
-			<?php echo form_open('tipo_aula/edit/'.$tipo_aula['tipoaula _id']); ?>
+			<?php echo form_open('tipo_aula/edit/'.$tipo_aula['tipoaula_id']); ?>
 			<div class="box-body">
 				<div class="row clearfix">
 					<div class="col-md-6">

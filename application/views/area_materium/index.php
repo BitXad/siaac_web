@@ -15,7 +15,6 @@
                     <tr>
 						<th>#</th>
 						<th>Nombre</th>
-						<th>Fecha Registro</th>
 						<th></th>
                     </tr>
                     <?php $cont=0;
@@ -24,7 +23,7 @@
                     <tr>
 						<td><?php echo $cont; ?></td>
 						<td><?php echo $a['area_nombre']; ?></td>
-						<td><?php echo date("d/m/Y", strtotime($a['area_fechareg']));  ?></td>
+						
 						<td>
                             <a href="<?php echo site_url('area_materium/edit/'.$a['area_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
                             <!--<a href="<?php echo site_url('area_materium/remove/'.$a['area_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->

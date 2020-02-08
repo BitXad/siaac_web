@@ -13,6 +13,9 @@ class Dashb extends CI_Controller
         $this->load->model('rol_model');
         $this->load->model('Dashboard_model');
         $this->load->model('Institucion_model');
+        $this->load->model('Rol_usuario_model');
+        $this->load->model('Tipo_usuario_model');
+        $this->load->model('Gestion_model');
         $this->session_data = $this->session->userdata('logged_in');
     }
 
@@ -172,19 +175,7 @@ class Dashb extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {   //validacion falla
 
-            $data = array(
-                'usuario_login' => $this->session_data['usuario_login'],
-                'usuario_id' => $this->session_data['usuario_id'],
-                'usuario_nombre' => $this->session_data['usuario_nombre'],
-                'rol' => $this->getRol($this->session_data['tipousuario_id']),
-                'tipousuario_id' => $this->session_data['tipousuario_id'],
-                'usuario_imagen' => $this->session_data['usuario_imagen'],
-                'usuario_email' => $this->session_data['usuario_email'],
-                'page_title' => 'Admin >> Mi Cuenta',
-                'thumb'=> $this->session_data['thumb']
-            );
-
-            $data['user'] = $this->user_model->get_usuario($this->session_data['usuario_id']);
+            $data['user'] = $this->user_model->get_usuario($session_data['usuario_id']);
             $data['usuario_imagen'] = $this->session_data['usuario_imagen'];
 
             $data['_view'] = 'admin/form_cuenta';
@@ -238,34 +229,36 @@ class Dashb extends CI_Controller
             );
 
             if (!$this->user_model->update_usuario($data, $idu)) {
-                $usuario = $this->user_model->get_usuario3($idu);
-                if ($usuario) {
+                $result = $this->user_model->get_usuario3($idu);
+                if ($result) {
                     $this->session->unset_userdata('logged_in');
 
-                    $path_parts = pathinfo('./resources/images/usuarios/' . $usuario->usuario_imagen);
+                    $path_parts = pathinfo('./resources/images/usuarios/' . $result->usuario_imagen);
                     $thumb =  $path_parts['filename'] .'_thumb.'. $path_parts['extension'];
 
-                    $this->load->model('Gestion_model');
-                    $gestion_id = $this->session_data['gestion_id'];
-                    $gestion = $this->Gestion_model->get_gestion2($gestion_id);
+                    $rolusuario = $this->Rol_usuario_model->getall_rolusuario($result->tipousuario_id);
+                $tipousuario_nombre = $this->Tipo_usuario_model->get_tipousuario_nombre($result->tipousuario_id);
 
-                    $sess_array = array(
-                        'usuario_login' => $usuario->usuario_login,
-                        'usuario_id' => $usuario->usuario_id,
-                        'usuario_nombre' => $usuario->usuario_nombre,
-                        'estado_id' => $usuario->estado_id,
-                        'tipousuario_id' => $usuario->tipousuario_id,
-                        'usuario_imagen' => $usuario->usuario_imagen,
-                        'usuario_email' => $usuario->usuario_email,
-                        'usuario_clave' => $usuario->usuario_clave,
-                        'thumb' => $thumb,
-                        'rol' => $this->getTipo_usuario($usuario->tipousuario_id),
-                        'semestre' => $gestion->gestion_semestre,
-                        'gestion' => $gestion->gestion_descripcion,
-                        'gestion_id' => $gestion->gestion_id
-                    );
+                $gestion = $this->Gestion_model->get_gestion2($gestion_id);
 
-                    $this->session->set_userdata('logged_in', $sess_array);
+                $sess_array = array(
+                    'usuario_login' => $result->usuario_login,
+                    'usuario_id' => $result->usuario_id,
+                    'usuario_nombre' => $result->usuario_nombre,
+                    'estado_id' => $result->estado_id,
+                    'tipousuario_id' => $result->tipousuario_id,
+                    'tipousuario_descripcion' => $tipousuario_nombre,
+                    'usuario_imagen' => $result->usuario_imagen,
+                    'usuario_email' => $result->usuario_email,
+                    'usuario_clave' => $result->usuario_clave,
+                    'thumb' => $thumb,
+                    'rol' => $rolusuario,
+                    'semestre' => $gestion->gestion_semestre,
+                    'gestion' => $gestion->gestion_descripcion,
+                    'gestion_id' => $gestion->gestion_id
+                );
+
+                $this->session->set_userdata('logged_in', $sess_array);
                     $this->session->set_flashdata('msg',
                         '<div class="alert alert-success text-center fade in" style="margin-top:18px;">
                                 <a class="close" title="close" aria-label="close" data-dismiss="alert" href="#">×</a>

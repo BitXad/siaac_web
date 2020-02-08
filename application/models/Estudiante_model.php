@@ -78,12 +78,11 @@ class Estudiante_model extends CI_Model
                 es.*, e.*, ec.*, g.*
 
             FROM
-                estudiante es, estado e, estado_civil ec, genero g
+                estudiante es
 
-            WHERE
-                es.estado_id=e.estado_id
-                and es.genero_id=g.genero_id
-                and es.estadocivil_id=ec.estadocivil_id
+            LEFT JOIN estado e ON es.estado_id=e.estado_id
+            LEFT JOIN estado_civil ec ON es.estadocivil_id=ec.estadocivil_id
+            LEFT JOIN genero g ON es.genero_id=g.genero_id
 
             ORDER BY `estudiante_id` DESC
 
@@ -99,13 +98,13 @@ class Estudiante_model extends CI_Model
                 es.*, e.*, ec.*, g.*
 
             FROM
-                estudiante es, estado e, estado_civil ec, genero g
+                estudiante es 
 
+            LEFT JOIN estado e ON es.estado_id=e.estado_id
+            LEFT JOIN estado_civil ec ON es.estadocivil_id=ec.estadocivil_id
+            LEFT JOIN genero g ON es.genero_id=g.genero_id
             WHERE
-                es.estado_id=e.estado_id
-                and es.genero_id=g.genero_id
-                and es.estadocivil_id=ec.estadocivil_id
-                and es.estudiante_nombre like '%".$parametro."%' 
+                es.estudiante_nombre like '%".$parametro."%' 
                 or es.estudiante_apellidos like '%".$parametro."%' 
 
             ORDER BY `estudiante_id` DESC

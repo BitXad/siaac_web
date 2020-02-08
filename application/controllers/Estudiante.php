@@ -65,7 +65,10 @@ class Estudiante extends CI_Controller{
             $this->load->library('form_validation');
             $this->form_validation->set_rules('estudiante_nombre','Estudiante Nombre','required');
             $this->form_validation->set_rules('estudiante_apellidos','Estudiante Apellidos','required');
+            $this->form_validation->set_rules('estudiante_ci','estudiante_ci','is_unique[estudiante.estudiante_ci]', array('is_unique' => 'Este C.I. ya fue Registrado'));
+            $this->form_validation->set_rules('estudiante_codigo','estudiante_codigo','is_unique[estudiante.estudiante_codigo]',array('is_unique' => 'Este Codigo ya fue Registrado'));
 
+            
             if($this->form_validation->run())     
             {
                 /* *********************INICIO imagen***************************** */
@@ -228,6 +231,7 @@ class Estudiante extends CI_Controller{
             }
             else
             {
+                
                 $this->load->model('Estado_model');
                 $data['all_estado'] = $this->Estado_model->get_all_estado();
 
@@ -253,6 +257,9 @@ class Estudiante extends CI_Controller{
             $this->load->library('form_validation');
             $this->form_validation->set_rules('estudiante_nombre','Estudiante Nombre','required');
             $this->form_validation->set_rules('estudiante_apellidos','Estudiante Apellidos','required');
+            $this->form_validation->set_rules('estudiante_ci','estudiante_ci','is_unique[estudiante.estudiante_ci]', array('is_unique' => 'Este C.I. ya fue Registrado'));
+            $this->form_validation->set_rules('estudiante_codigo','estudiante_codigo','is_unique[estudiante.estudiante_codigo]',array('is_unique' => 'Este Codigo ya fue Registrado'));
+
             if($this->form_validation->run())     
             {
                 /* *********************INICIO imagen***************************** */
@@ -420,6 +427,20 @@ class Estudiante extends CI_Controller{
     function edit($estudiante_id)
     {
         if($this->acceso(12)){
+
+        $original_ci = $this->db->query("SELECT estudiante_ci FROM estudiante WHERE estudiante_id = " . $estudiante_id)->row()->estudiante_ci;
+        $original_codigo = $this->db->query("SELECT estudiante_codigo FROM estudiante WHERE estudiante_id = " . $estudiante_id)->row()->estudiante_codigo;
+
+        if ($this->input->post('estudiante_ci') != $original_ci) {
+            $is_unique = '|is_unique[estudiante.estudiante_ci]';
+        } else {
+            $is_unique = '';
+        }
+        if ($this->input->post('estudiante_codigo') != $original_codigo) {
+            $is_unique1 = '|is_unique[estudiante.estudiante_codigo]';
+        } else {
+            $is_unique1 = '';
+        }
             // check if the estudiante exists before trying to edit it
             $data['estudiante'] = $this->Estudiante_model->get_estudiante($estudiante_id);
 
@@ -429,6 +450,8 @@ class Estudiante extends CI_Controller{
 
                 $this->form_validation->set_rules('estudiante_nombre','Estudiante Nombre','required');
                 $this->form_validation->set_rules('estudiante_apellidos','Estudiante Apellidos','required');
+                $this->form_validation->set_rules('estudiante_ci', 'estudiante_ci', 'required' . $is_unique, array('is_unique' => 'Este C.I. de estudiante ya existe.'));
+                $this->form_validation->set_rules('estudiante_codigo', 'estudiante_codigo', 'required' . $is_unique1, array('is_unique' => 'Este codigo de estudiante ya existe.'));
 
                 if($this->form_validation->run())     
                 {   
@@ -789,6 +812,51 @@ class Estudiante extends CI_Controller{
                     $data['mikardex'] = $this->Estudiante_model->get_estudiante_kardexecon($estudiante_id);
 
                      $data['_view'] = 'estudiante/keconomico';
+                     $this->load->view('layouts/main',$data);
+                }else
+                    show_error('The estudiante you are trying to edit does not exist.');
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
+                $this->load->view('layouts/main',$data);
+            }
+        }
+       
+    }
+
+    function cuenta($estudiante_id)
+    {
+        if($this->acceso(60)&&$this->privado($estudiante_id)){
+             
+            //usuario_id ===>id de estudiante
+            $usuario_id = $this->session_data['usuario_id'];
+            if($estudiante_id == $usuario_id){
+                $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+
+                if(isset($data['estudiante']['estudiante_id']))  
+                {
+                    $this->load->library('form_validation');
+                    $this->form_validation->set_rules('estudiante_login','estudiante_login','required');
+                    if($this->form_validation->run()) {
+
+
+                    $curr_password = md5($this->input->post('estudiante_clave'));
+                    if ($curr_password==$data['estudiante']['estudiante_clave']) {
+                       $params = array(
+                 
+                    'estudiante_login' => $this->input->post('estudiante_login'),
+                    'estudiante_clave' => md5($this->input->post('newpass')),
+                    
+                        );
+
+                     $this->Estudiante_model->update_estudiante($estudiante_id,$params);
+                     redirect('estudiante/menu_estudiante/'.$estudiante_id);
+                    } } else {
+                        $data['mensaje'] = '';
+                        $data['_view'] = 'estudiante/cuenta';
+                     $this->load->view('layouts/main',$data);
+                    } 
+                     $data['mensaje'] = 'La clave antigua es incorrecta.';
+                     $data['_view'] = 'estudiante/cuenta';
                      $this->load->view('layouts/main',$data);
                 }else
                     show_error('The estudiante you are trying to edit does not exist.');
