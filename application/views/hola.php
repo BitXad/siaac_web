@@ -273,7 +273,7 @@ $session_data = $this->session->userdata('logged_in');
           <div class="info-box bg-yellow">
             <span class="info-box-icon"><i class="ion ion-cash"></i></span>
 
-            <a href="../kardex_economico" style="color: white;"><div class="info-box-content">
+            <a href="../kardex_economico/busqueda" style="color: white;"><div class="info-box-content">
               <span class="info-box-text">Mensualidades</span>
               <span class="info-box-number"></span>
 
@@ -307,7 +307,7 @@ $session_data = $this->session->userdata('logged_in');
           <div class="info-box bg-red">
             <span class="info-box-icon"><i class="fa fa-address-card"></i></span>
 
-            <a href="../kardex_economico" style="color: white;"><div class="info-box-content">
+            <a href="../kardex_economico/busqueda" style="color: white;"><div class="info-box-content">
               <span class="info-box-text">Kardex Economico</span>
               <span class="info-box-number"></span>
 
@@ -324,7 +324,7 @@ $session_data = $this->session->userdata('logged_in');
           <div class="info-box bg-aqua">
             <span class="info-box-icon"><i class="fa fa-id-card-o"></i></span>
 
-            <a href="../kardex_academico" style="color: white;"><div class="info-box-content">
+            <a href="../kardex_academico/busqueda" style="color: white;"><div class="info-box-content">
               <span class="info-box-text">Kardex Academico</span>
               <span class="info-box-number"></span>
 
