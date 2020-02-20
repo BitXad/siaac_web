@@ -69,9 +69,7 @@ class Estudiante_model extends CI_Model
      */
     function get_all_estudiante($params = array())
     {
-        $limit_condition = "";
-        if(isset($params) && !empty($params))
-            $limit_condition = " LIMIT " . $params['offset'] . "," . $params['limit'];
+       
         
         $estudiante = $this->db->query("
             SELECT
@@ -84,9 +82,9 @@ class Estudiante_model extends CI_Model
             LEFT JOIN estado_civil ec ON es.estadocivil_id=ec.estadocivil_id
             LEFT JOIN genero g ON es.genero_id=g.genero_id
 
-            ORDER BY `estudiante_id` DESC
+            ORDER BY `estudiante_id` DESC limit 50
 
-            " . $limit_condition . "
+            
         ")->result_array();
 
         return $estudiante;

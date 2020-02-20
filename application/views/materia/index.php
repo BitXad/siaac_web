@@ -34,6 +34,7 @@
                         <th>Materia</th>
                         <th>Codigo</th>
                         <th>Nivel</th>
+                        <th>Carrera</th>
                         <th>Pre-Requisito</th>
                         <th>Area</th>
                         <th>Estado</th>
@@ -50,6 +51,7 @@
 						(<?php echo $m['materia_alias']; ?>)</td>
 						<td><?php echo $m['materia_codigo']; ?></td>
 						<td><?php echo $m['nivel_descripcion']; ?></td>
+                        <td><?php echo $m['carrera_nombre']; ?></td>
 						<?php if($m['mat_materia_id']==0) { ?>
 						<td>NINGUNO</td>
 						<?php } else { ?>
