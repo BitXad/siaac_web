@@ -307,8 +307,8 @@ $session_data = $this->session->userdata('logged_in'); ?>
 						<label for="pagar_matricula" class="control-label">Pagar Matrícula</label>
 						<div class="form-group">
                                                     <select id="pagar_matricula" name="pagar_matricula"  class="form-control" onchange="calcular()">
-                                                        <option value="1">PAGAR MATRICULA</option>
                                                         <option value="0">- NO - PAGAR MATRICULA</option>
+                                                        <option value="1">PAGAR MATRICULA</option>
                                                         <option value="0">PAGAR MATRICULA DESPUES</option>
                                                     </select>
                                                 </div>
@@ -392,11 +392,11 @@ $session_data = $this->session->userdata('logged_in'); ?>
                     <tr>
 
                         <td style="padding: 0" align="right">
-                            <b>TOTAL FINAL Bs</b>
+                            <b>TOTAL Bs</b>
                         </td>
                         <td></td>
                         <td style="padding: 0">
-                            <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" style="font-size: 15px; font-weight: bolder; text-align:right;" size="5" name="total_final" value="0.00" id="total_final" readonly/>
+                            <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" style="font-size: 15px; font-weight: bolder; text-align:right;" size="5" name="total" value="0.00" id="total" readonly/>
                         </td>
                     </tr>
                     
@@ -406,17 +406,26 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         </td>
                         <td></td>
                         <td style="padding: 0">                                        
-                                <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" size="5"  style="font-size: 15px; font-weight: bolder; text-align:right;" name="descuento" value="0.00" id="descuento" readonly/>
+                                <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" size="5"  style="font-size: 15px; font-weight: bolder; text-align:right;" name="descuento" value="0.00" id="descuento" onchange="calcular()" onclick="this.select();" />
                         </td>
                     </tr>
+                    <tr>
 
+                        <td style="padding: 0" align="right">
+                            <b>TOTAL FINAL Bs</b>
+                        </td>
+                        <td></td>
+                        <td style="padding: 0">
+                            <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" style="font-size: 15px; font-weight: bolder; text-align:right;" size="5" name="total_final" value="0.00" id="total_final" readonly/>
+                        </td>
+                    </tr>
                     <tr>
                         <td   style="padding: 0" align="right">                   
                             <b>EFECTIVO Bs </b>
                         </td>
                         <td></td>
                         <td style="padding: 0">                                        
-                            <input type="number" class="btn btn-sm btn-warning btn-foursquarexs" style="width: 94px;  font-size: 15px; font-weight: bolder; text-align:right;" name="efectivo" value="0.00" id="efectivo" onkeyup="calcular()" onclick="seleccionar_efectivo()"/>
+                            <input type="number" class="btn btn-sm btn-warning btn-foursquarexs" style="width: 94px;  font-size: 15px; font-weight: bolder; text-align:right;" name="efectivo" value="0.00" id="efectivo" onchange="calcularcambio()" onclick="this.select();"/>
                         </td>                                    
                     </tr>
 

@@ -369,6 +369,22 @@ class Estudiante extends CI_Controller{
                     $fotoapo = $new_name1.$extension1;
                 }
                 /* *********************FIN imagen***************************** */
+                $paramc = array(
+                    'estado_id' => 1,
+                    'tipocliente_id' => 1,
+                    'categoriaclie_id' => 1,
+                    'cliente_codigo' => $this->input->post('estudiante_codigo'),
+                    'cliente_nombre' => $this->input->post('estudiante_nombre')." ".$this->input->post('estudiante_apellidos'),
+                    'cliente_ci' => $this->input->post('estudiante_ci'),
+                    'cliente_direccion' => $this->input->post('estudiante_direccion'),
+                    'cliente_telefono' => $this->input->post('estudiante_telefono'),
+                    'cliente_celular' => $this->input->post('estudiante_celular'),
+                    'cliente_email' => $this->input->post('estudiante_email'),
+                    'cliente_nit' => $this->input->post('estudiante_nit'),
+                    'cliente_razon' => $this->input->post('estudiante_razon'),
+                );
+                $cliente_id = $this->Cliente_model->add_cliente($paramc);
+                
                 $params = array(
                     'estado_id' => 1,
                     'genero_id' => $this->input->post('genero_id'),
