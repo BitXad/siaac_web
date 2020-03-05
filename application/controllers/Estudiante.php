@@ -415,6 +415,7 @@ class Estudiante extends CI_Controller{
                     'estudiante_login' => $this->input->post('estudiante_codigo'),
                     'estudiante_clave' => md5($this->input->post('estudiante_ci')),
                     'tipousuario_id' => 3,
+                    'cliente_id' => $cliente_id,
                 );
 
                 $estudiante_id = $this->Estudiante_model->add_estudiante($params);
