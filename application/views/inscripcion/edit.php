@@ -106,7 +106,7 @@
 					<div class="col-md-6">
 						<label for="inscripcion_fecha" class="control-label">Inscripcion Fecha</label>
 						<div class="form-group">
-							<input type="text" name="inscripcion_fecha" value="<?php echo ($this->input->post('inscripcion_fecha') ? $this->input->post('inscripcion_fecha') : $inscripcion['inscripcion_fecha']); ?>" class="has-datepicker form-control" id="inscripcion_fecha" />
+							<input type="date" name="inscripcion_fecha" value="<?php echo ($this->input->post('inscripcion_fecha') ? $this->input->post('inscripcion_fecha') : $inscripcion['inscripcion_fecha']); ?>" class="form-control" id="inscripcion_fecha" />
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -118,15 +118,17 @@
 					<div class="col-md-6">
 						<label for="inscripcion_fechainicio" class="control-label">Inscripcion Fechainicio</label>
 						<div class="form-group">
-							<input type="text" name="inscripcion_fechainicio" value="<?php echo ($this->input->post('inscripcion_fechainicio') ? $this->input->post('inscripcion_fechainicio') : $inscripcion['inscripcion_fechainicio']); ?>" class="has-datepicker form-control" id="inscripcion_fechainicio" />
+							<input type="date" name="inscripcion_fechainicio" value="<?php echo ($this->input->post('inscripcion_fechainicio') ? $this->input->post('inscripcion_fechainicio') : $inscripcion['inscripcion_fechainicio']); ?>" class="form-control" id="inscripcion_fechainicio" />
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="box-footer">
             	<button type="submit" class="btn btn-success">
-					<i class="fa fa-check"></i> Save
-				</button>
+                    <i class="fa fa-check"></i> Guardar
+                </button>
+                <a href="<?php echo site_url('inscripcion'); ?>" class="btn btn-danger">
+                    <i class="fa fa-times"></i> Cancelar</a>
 	        </div>				
 			<?php echo form_close(); ?>
 		</div>
