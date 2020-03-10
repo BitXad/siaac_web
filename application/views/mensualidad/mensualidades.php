@@ -349,7 +349,8 @@ Deudas por Ventas
                           <td align="right"><?php echo number_format($cr['credito_interesmonto'],2); echo '('.$cr['credito_interesproc'].')'; ?></td>
                           <td align="center"><?php echo date("d/m/Y", strtotime($cr['credito_fecha'])); ?></td>
                           <td align="center"><?php echo $cr['credito_hora']; ?></td>
-                          <td><a href="<?php echo site_url('cuotum/cuentas/'.$cr['credito_id']); ?>" target="_blank" class="btn btn-success btn-xs" title="Ver cuotas"><span class="fa fa-eye"></span></a>    </td>
+                          <td><a href="<?php echo site_url('factura/imprimir_recibo/'.$cr['venta_id']); ?>"
+                           class="btn btn-facebook btn-xs" target="_blank" title="Ver nota de venta"><span class="fa fa-print"></span></a> <a href="<?php echo site_url('cuotum/cuentas/'.$cr['credito_id']); ?>" target="_blank" class="btn btn-success btn-xs" title="Ver cuotas"><span class="fa fa-eye"></span></a>    </td>
                         <?php } ?>
                         </tr>
                         <tr>
