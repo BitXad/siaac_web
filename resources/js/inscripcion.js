@@ -244,20 +244,31 @@ function calcular(){
 
     var calculo_total = (matricula * pagar_matricula) + (mensualidad * pagar_mensualidad) ;
     
+    $("#total").val(Number(calculo_total).toFixed(2));
     $("#total_final").val(Number(calculo_total).toFixed(2));
     
-    var total_final = document.getElementById('total_final').value;
+    var total = document.getElementById('total').value;
     
     var descuento = document.getElementById('descuento').value;
     
 //    var efectivo = document.getElementById('efectivo').value;
-    var efectivo = total_final - descuento;
-    $("#efectivo").val(Number(efectivo).toFixed(2));
+    var total_final = total - descuento;
+    $("#total_final").val(Number(total_final).toFixed(2));
+    $("#efectivo").val(Number(total_final).toFixed(2));
     
-    var cambio = document.getElementById('cambio').value;
+    var efectivo = document.getElementById('efectivo').value;
     
+    //var total_final = document.getElementById('total_final').value;
+    cambio = efectivo - (total_final);
+    $("#cambio").val(cambio);
     
-    cambio = efectivo - (total_final - descuento);
+}
+function calcularcambio(){
+    
+    var efectivo = Number(document.getElementById('efectivo').value);
+    var total_final = Number(document.getElementById('total_final').value);
+    
+    cambio = efectivo - (total_final);
     $("#cambio").val(cambio);
     
 }
@@ -291,6 +302,7 @@ function registrar_inscripcion(){
     var carrera_nummeses = document.getElementById('carrera_nummeses').value;
     var pagar_matricula = document.getElementById('pagar_matricula').value;
     var pagar_mensualidad = document.getElementById('pagar_mensualidad').value;
+    var total = document.getElementById('total').value;
     var total_final = document.getElementById('total_final').value;
     var descuento = document.getElementById('descuento').value;
 
@@ -316,7 +328,7 @@ function registrar_inscripcion(){
                     carrera_id:carrera_id, inscripcion_glosa:inscripcion_glosa,inscripcion_matricula:inscripcion_matricula,
                     inscripcion_mensualidad:inscripcion_mensualidad,carrera_nummeses:carrera_nummeses,
                     pagar_matricula:pagar_matricula, pagar_mensualidad:pagar_mensualidad, esfactura:esfactura,
-                    total_final:total_final, nit:nit, razon:razon, descuento:descuento
+                    total:total, total_final:total_final, nit:nit, razon:razon, descuento:descuento
                 },
             success:function(respuesta){
                 var kardexacad_id =  JSON.parse(respuesta);
