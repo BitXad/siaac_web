@@ -1,23 +1,35 @@
+/*$(document).on("ready",inicio);
+function inicio(){
+    
+        
+        buscarestudiante(); 
+     
+        
+} 
+*/
 function validar(e,opcion) {
  tecla = (document.all) ? e.keyCode : e.which;
  
     if (tecla==13){ 
      	if (opcion==1){   //si la pulsacion proviene del buscador de estudiantes
-            var parametro = document.getElementById('nombre').value;
-            buscarestudiante(parametro);
+            
+            buscarestudiante();
         }
 
     }
 
 }
 
-function buscarestudiante(parametro){
+
+function buscarestudiante(){
 	var base_url = document.getElementById('base_url').value;
 	var controlador = base_url+'estudiante/buscar_estudiante';
-            
+    var parametro = document.getElementById('nombre').value;
+    var estado = 1;//document.getElementById('estado').value;
+
         $.ajax({url:controlador,
                 type:"POST",
-                data:{parametro:parametro},
+                data:{parametro:parametro,estado:estado},
                 success:function(respuesta){
                     
             	var registros = JSON.parse(respuesta);
@@ -37,7 +49,7 @@ function buscarestudiante(parametro){
                         if (registros[i]["estudiante_foto"] != null  && registros[i]["estudiante_foto"]  !='') {
                         
                         html += "<div id='contieneimg'>";
-                        html += "<a class='btn  btn-xs' data-toggle='modal' data-target='#mostrarimagen"+i+"' style='padding: 0px;'>";
+                        html += "<a class='btn  btn-xs' data-toggle='modal' data-target='#mostrarimagen"+registros[i]['estudiante_id']+"' style='padding: 0px;'>";
                         html += "<img src='"+base_url+"/resources/images/estudiantes/thumb_"+registros[i]["estudiante_foto"]+"' /></a>";               
                         html += "</div>";
                         }else{
@@ -51,7 +63,7 @@ function buscarestudiante(parametro){
                         html += "<b>Cod.:</b>"+registros[i]["estudiante_codigo"]+"</b>";
                         html += "</div>";  
                         html += "</div>";
-                        html += "<div class='modal fade' id='mostrarimagen"+i+"' tabindex='-1' role='dialog' aria-labelledby=mostrarimagenlabel"+i+"'>";
+                        html += "<div class='modal fade' id='mostrarimagen"+registros[i]['estudiante_id']+"' tabindex='-1' role='dialog' aria-labelledby=mostrarimagenlabel"+registros[i]['estudiante_id']+"'>";
                         html += "<div class='modal-dialog' role='document'><br><br><div class='modal-content'><div class='modal-header'>";
                         html += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
                         html += "<font size='3'><b>"+registros[i]["estudiante_nombre"]+"</b><b style='padding-left: 10px;'>"+registros[i]['estudiante_apellidos']+"</b></font>";
@@ -74,7 +86,7 @@ function buscarestudiante(parametro){
                         if (registros[i]["apoderado_foto"] != null  && registros[i]["apoderado_foto"]  !='') {
                         
                         html += "<div id='contieneimg'>";
-                        html += "<a class='btn  btn-xs' data-toggle='modal' data-target='#mostrarimagen"+i+"' style='padding: 0px;'>";
+                        html += "<a class='btn  btn-xs' data-toggle='modal' data-target='#mostrarimagen"+registros[i]['estudiante_id']+"' style='padding: 0px;'>";
                         html += "<img src='"+base_url+"/resources/images/apoderados/thumb_"+registros[i]["apoderado_foto"]+"' /></a>";               
                         html += "</div>";
                         }else{
@@ -88,7 +100,7 @@ function buscarestudiante(parametro){
                         html += "<b>Cod.:</b>"+registros[i]["estudiante_apotelefono"]+"";
                         html += "</div>";  
                         html += "</div>";
-                        html += "<div class='modal fade' id='mostrarimagen"+i+"' tabindex='-1' role='dialog' aria-labelledby=mostrarimagenlabel"+i+"'>";
+                        html += "<div class='modal fade' id='mostrarimagen"+registros[i]['estudiante_id']+"' tabindex='-1' role='dialog' aria-labelledby=mostrarimagenlabel"+registros[i]['estudiante_id']+"'>";
                         html += "<div class='modal-dialog' role='document'><br><br><div class='modal-content'><div class='modal-header'>";
                         html += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
                         html += "<font size='3'><b>"+registros[i]["estudiante_apoderado"]+"</b></font>";
@@ -98,10 +110,19 @@ function buscarestudiante(parametro){
                         html += "</td>";
                         html += "<td>"+registros[i]['estado_descripcion']+"</br>";
                         html += "<b>Nit.: </b>"+registros[i]['estudiante_nit']+"<br><b>Razon Social: </b>"+registros[i]['estudiante_razon']+"</td>";
-                        html += "<td><a href='"+base_url+"/estudiante/edit/"+registros[i]["estudiante_id"]+"' class='btn btn-info btn-xs'><span class='fa fa-pencil'></span></a></td>";
-
-                        }    
+                        html += "<td><a href='"+base_url+"/estudiante/edit/"+registros[i]["estudiante_id"]+"' class='btn btn-info btn-xs' title='Editar'><span class='fa fa-pencil'></span></a>";
+                        html += " <a class='btn btn-warning btn-xs' data-toggle='modal' data-target='#restablecer"+registros[i]['estudiante_id']+"' title='Restablecer Acceso'><span class='fa fa-repeat'></span></a>";
+                        html += "<div class='modal fade' id='restablecer"+registros[i]['estudiante_id']+"' tabindex='-1' role='dialog' aria-labelledby=mostrarimagenlabel"+registros[i]['estudiante_id']+"'>";
+                        html += "<div class='modal-dialog' role='document'><br><br><div class='modal-content'><div class='modal-header'>";
+                        html += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
+                        html += "<font size='3'><b>Desea restablecer el acceso de: "+registros[i]["estudiante_nombre"]+"</b><b style='padding-left: 10px;'>"+registros[i]['estudiante_apellidos']+" ?</b></font>";
+                        html += "</div><div class='modal-body'>";
+                        html += "<a href='"+base_url+"/estudiante/restablecer/"+registros[i]["estudiante_id"]+"' class='btn btn-info btn-sm'><span class='fa fa-check'></span> Restablecer</a> <button data-dismiss='modal'  class='btn btn-danger btn-sm'><span class='fa fa-times'></span> Cancelar</button>";
+                        html += "</div></div></div></div>";
+                        html += "</td>";
                         html += "</tr>";
+                        }    
+                        
                         $("#tablaestudiantes").html(html);          
                 }
             },

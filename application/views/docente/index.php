@@ -53,7 +53,7 @@
                                     $mimagen = "thumb_".$d['docente_foto'];
                                     //echo '<img src="'.site_url('/resources/images/clientes/'.$mimagen).'" />';
                                     ?>
-                                    <a class="btn  btn-xs" data-toggle="modal" data-target="#mostrarimagen<?php echo $i; ?>" style="padding: 0px;">
+                                    <a class="btn  btn-xs" data-toggle="modal" data-target="#mostrarimagen<?php echo $d['docente_id']; ?>" style="padding: 0px;">
                                         <?php
                                         echo '<img src="'.site_url('/resources/images/docentes/'.$mimagen).'" />';
                                         ?>
@@ -90,7 +90,7 @@
 						<td><?php echo $d['docente_email']; ?></td>
 						<td><?php echo $d['estado_descripcion']; ?>
 							 <!------------------------ INICIO modal para MOSTRAR imagen REAL ------------------->
-                                    <div class="modal fade" id="mostrarimagen<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="mostrarimagenlabel<?php echo $i; ?>">
+                                    <div class="modal fade" id="mostrarimagen<?php echo $d['docente_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="mostrarimagenlabel<?php echo $d['docente_id']; ?>">
                                       <div class="modal-dialog" role="document">
                                             <br><br>
                                         <div class="modal-content">
@@ -110,8 +110,26 @@
                             <!------------------------ FIN modal para MOSTRAR imagen REAL ------------------->
 						</td>
 						<td>
-                            <a href="<?php echo site_url('docente/edit/'.$d['docente_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span></a> 
-                           <!-- <a href="<?php echo site_url('docente/remove/'.$d['docente_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->
+                            <a href="<?php echo site_url('docente/edit/'.$d['docente_id']); ?>" class="btn btn-info btn-xs" title="Editar"><span class="fa fa-pencil"></span></a> 
+                            <a href="#" data-toggle="modal" data-target="#restablecer<?php echo $d['docente_id']; ?>" class="btn btn-warning btn-xs" title="Restablecer"><span class="fa fa-repeat"></span></a>
+
+                           <!------------------------ INICIO modal para MOSTRAR imagen REAL ------------------->
+                                    <div class="modal fade" id="restablecer<?php echo $d['docente_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="restablecer<?php echo $d['docente_id']; ?>">
+                                      <div class="modal-dialog" role="document">
+                                            <br><br>
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                                            <font size="3">Desea restablecer acceso de: <b><?php echo $d['docente_nombre']; ?></b><b style="padding-left: 10px;"><?php echo $d['docente_apellidos']; ?></b> ?</font>
+                                          </div>
+                                            <div class="modal-body">
+                                            <a href="<?php echo site_url('docente/restablecer/'.$d['docente_id']); ?>" class="btn btn-info btn-sm"><span class="fa fa-check"></span> Restablecer</a> <button data-dismiss="modal"  class="btn btn-danger btn-sm"><span class="fa fa-times"></span> Cancelar</button>
+                                            </div>
+                                          
+                                        </div>
+                                      </div>
+                                    </div>
+                            <!------------------------ FIN modal para MOSTRAR imagen REAL ------------------->
                         </td>
                     </tr>
                    <?php $i++; } ?>

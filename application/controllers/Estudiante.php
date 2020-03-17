@@ -885,6 +885,16 @@ class Estudiante extends CI_Controller{
        
     }
 
+    function restablecer($estudiante_id)
+    {
+        if($this->acceso(9)){
+           
+           $sql="UPDATE estudiante SET estudiante_login=estudiante_ci, estudiante_clave=md5(estudiante_ci) WHERE estudiante_id=".$estudiante_id." ";
+           $this->db->query($sql);
+           redirect('estudiante/index');
+        }
+    }
+
 
     public function generar_excel(){
 

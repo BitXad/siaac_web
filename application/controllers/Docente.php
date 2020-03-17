@@ -9,6 +9,7 @@ class Docente extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Docente_model');
+        $this->load->model('Grupo_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -64,6 +65,7 @@ class Docente extends CI_Controller{
     function grupos($docente_id)
     {
         if($this->acceso(62)&&$this->privado($docente_id)){
+            $data['grupos'] = $this->Grupo_model->get_allgrupo_docente($docente_id);
             $data['_view'] = 'docente/grupos';
             $this->load->view('layouts/main',$data);
         }
@@ -399,6 +401,17 @@ class Docente extends CI_Controller{
     /*
      * Deleting docente
      */
+
+    function restablecer($docente_id)
+    {
+        if($this->acceso(9)){
+           
+           $sql="UPDATE docente SET docente_login=docente_ci, docente_clave=md5(docente_ci) WHERE docente_id=".$docente_id." ";
+           $this->db->query($sql);
+           redirect('docente/index');
+        }
+    }
+
     function remove($docente_id)
     {
         if($this->acceso(9)){
