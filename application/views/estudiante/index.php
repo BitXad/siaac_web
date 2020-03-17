@@ -27,11 +27,26 @@
                     </form> 
                 </div>  
             </div>
+            <div class="col-md-8">
             <div class="input-group">
             <span class="input-group-addon">Buscar</span>
             
                 <input type="text" name="nombre" class="form-control" id="nombre" autocomplete="off" onkeypress="validar(event,1)"  placeholder="Nombre, Apellidos del Estudiante" />
            
+            </div>
+            </div>
+            <div class="col-md-4">
+                <select name="estado" class="form-control" id="estado">
+                                
+                                <?php 
+                                foreach($all_estado as $estado)
+                                {
+                                  
+
+                                    echo '<option value="'.$estado['estado_id'].'" '.$selected.'>'.$estado['estado_descripcion'].'</option>';
+                                } 
+                                ?>
+                            </select>
             </div>
 <div class="row">
     <div class="col-md-12">

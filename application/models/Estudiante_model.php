@@ -89,7 +89,7 @@ class Estudiante_model extends CI_Model
 
         return $estudiante;
     }
-    function get_estudiantes($parametro)
+    function get_estudiantes($parametro,$estado)
     {
         $estudiante = $this->db->query("
             SELECT
@@ -102,8 +102,9 @@ class Estudiante_model extends CI_Model
             LEFT JOIN estado_civil ec ON es.estadocivil_id=ec.estadocivil_id
             LEFT JOIN genero g ON es.genero_id=g.genero_id
             WHERE
-                es.estudiante_nombre like '%".$parametro."%' 
-                or es.estudiante_apellidos like '%".$parametro."%' 
+                es.estado_id = ".$estado." 
+                and (es.estudiante_nombre like '%".$parametro."%' 
+                or es.estudiante_apellidos like '%".$parametro."%')
 
             ORDER BY `estudiante_id` DESC
 

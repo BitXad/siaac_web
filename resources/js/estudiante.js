@@ -25,7 +25,7 @@ function buscarestudiante(){
 	var base_url = document.getElementById('base_url').value;
 	var controlador = base_url+'estudiante/buscar_estudiante';
     var parametro = document.getElementById('nombre').value;
-    var estado = 1;//document.getElementById('estado').value;
+    var estado = document.getElementById('estado').value;
 
         $.ajax({url:controlador,
                 type:"POST",
@@ -115,7 +115,7 @@ function buscarestudiante(){
                         html += "<div class='modal fade' id='restablecer"+registros[i]['estudiante_id']+"' tabindex='-1' role='dialog' aria-labelledby=mostrarimagenlabel"+registros[i]['estudiante_id']+"'>";
                         html += "<div class='modal-dialog' role='document'><br><br><div class='modal-content'><div class='modal-header'>";
                         html += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button>";
-                        html += "<font size='3'><b>Desea restablecer el acceso de: "+registros[i]["estudiante_nombre"]+"</b><b style='padding-left: 10px;'>"+registros[i]['estudiante_apellidos']+" ?</b></font>";
+                        html += "<font size='3'><b>Desea restablecer acceso de: "+registros[i]["estudiante_nombre"]+"</b><b style='padding-left: 10px;'>"+registros[i]['estudiante_apellidos']+" ?</b></font>";
                         html += "</div><div class='modal-body'>";
                         html += "<a href='"+base_url+"/estudiante/restablecer/"+registros[i]["estudiante_id"]+"' class='btn btn-info btn-sm'><span class='fa fa-check'></span> Restablecer</a> <button data-dismiss='modal'  class='btn btn-danger btn-sm'><span class='fa fa-times'></span> Cancelar</button>";
                         html += "</div></div></div></div>";

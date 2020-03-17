@@ -43,6 +43,9 @@ class Estudiante extends CI_Controller{
     function index()
     {
         if($this->acceso(10)){
+            $this->load->model('Estado_model');
+            $tipo = 1;
+            $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
             $data['estudiante'] = $this->Estudiante_model->get_all_estudiante();
             $data['_view'] = 'estudiante/index';
             $this->load->view('layouts/main',$data);
@@ -51,7 +54,8 @@ class Estudiante extends CI_Controller{
     function buscar_estudiante(){
         
         $parametro = $this->input->post('parametro');
-        $estudiantes = $this->Estudiante_model->get_estudiantes($parametro);
+        $estado = $this->input->post('estado');
+        $estudiantes = $this->Estudiante_model->get_estudiantes($parametro,$estado);
         echo json_encode($estudiantes);
         
     }
