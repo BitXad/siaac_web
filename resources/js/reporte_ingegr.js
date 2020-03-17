@@ -68,7 +68,10 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
               
                             
                 $("#resingegr").val("- 0 -");
-               var registros =  JSON.parse(resul);
+               //var registros =  JSON.parse(resul);
+               var resultado =  JSON.parse(resul);
+                var registros = resultado.ventas;
+                var detalles = resultado.detalles;
            
                if (registros != null){
                    
@@ -94,6 +97,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                     var totalbanca = 0;
                     //var totalutilidad = 0;
                     var n = registros.length; //tamaño del arreglo de la consulta
+                    var m = detalles.length;
                     $("#resingegr").val("- "+n+" -");
                    
                     html = "";
@@ -151,7 +155,14 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                         }
                         html += "</td>";
                         
-                       html += "<td>"+registros[i]["detalle"]+"</td>";
+                       html += "<td>";
+                       html += registros[i]["detalle"];
+                       for(var j = 0; j < m; j++){
+                            if(detalles[j]['venta_id'] == registros[i]["laventa_id"]){
+                                html += ", "+detalles[j]['producto_nombre']+" "+detalles[j]['detalleven_total'];
+                            }
+                       }
+                       html += "</td>";
                        html += "<td></td>";
                        html += "<td></td>";
                        html += "<td style='text-align: right'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
@@ -187,7 +198,14 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                             }
                             html += "</td>";
 
-                            html += "<td>"+registros[i]["detalle"]+"</td>";
+                            html += "<td>";
+                            html += registros[i]["detalle"];
+                            for(var j = 0; j < m; j++){
+                                if(detalles[j]['venta_id'] == registros[i]["laventa_id"]){
+                                    html += ", "+detalles[j]['producto_nombre']+" "+detalles[j]['detalleven_total'];
+                                }
+                            }
+                            html += "</td>";
                             html += "<td style='text-align: right'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
                             html += "<td></td>";
                             html += "<td></td>";
