@@ -31,7 +31,7 @@ class Area_carrera extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(14)){
+        if($this->acceso(61)){
             $data['area_carrera'] = $this->Area_carrera_model->get_all_area_carrera();
 
             $data['_view'] = 'area_carrera/index';
@@ -44,7 +44,7 @@ class Area_carrera extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(14)){
+        if($this->acceso(61)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('areacarrera_nombre','Areacarrera Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
             if($this->form_validation->run())     
@@ -68,7 +68,7 @@ class Area_carrera extends CI_Controller{
      */
     function edit($areacarrera_id)
     {
-        if($this->acceso(14)){
+        if($this->acceso(61)){
             // check if the area_carrera exists before trying to edit it
             $data['area_carrera'] = $this->Area_carrera_model->get_area_carrera($areacarrera_id);
             if(isset($data['area_carrera']['areacarrera_id']))
@@ -101,7 +101,7 @@ class Area_carrera extends CI_Controller{
      */
     function remove($areacarrera_id)
     {
-        if($this->acceso(14)){
+        if($this->acceso(61)){
             $area_carrera = $this->Area_carrera_model->get_area_carrera($areacarrera_id);
             // check if the area_carrera exists before trying to delete it
             if(isset($area_carrera['areacarrera_id']))

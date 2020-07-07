@@ -31,7 +31,7 @@ class Materia extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(50)){
+        if($this->acceso(65)){
             $data['materia'] = $this->Materia_model->get_all_materia();
 
             $data['_view'] = 'materia/index';
@@ -44,7 +44,7 @@ class Materia extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(51)){
+        if($this->acceso(66)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -106,7 +106,7 @@ class Materia extends CI_Controller{
      */
     function edit($materia_id)
     {
-        if($this->acceso(52)){
+        if($this->acceso(67)){
             // check if the materia exists before trying to edit it
             $data['materia'] = $this->Materia_model->get_materia($materia_id);
 
@@ -176,7 +176,7 @@ class Materia extends CI_Controller{
      */
     function remove($materia_id)
     {
-        if($this->acceso(53)){
+        if($this->acceso(65)){
             $materia = $this->Materia_model->get_materia($materia_id);
             // check if the materia exists before trying to delete it
             if(isset($materia['materia_id']))

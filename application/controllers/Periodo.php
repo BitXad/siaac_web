@@ -35,7 +35,7 @@ class Periodo extends CI_Controller {
      */
     function index()
     {
-        if($this->acceso(23)){
+        if($this->acceso(109)){
             $data['periodo'] = $this->Periodo_model->get_all_periodo();
             $data['_view'] = 'periodo/index';
             $this->load->view('layouts/main',$data);
@@ -44,7 +44,7 @@ class Periodo extends CI_Controller {
 
     public function nuevo()
     {
-        if($this->acceso(23)){
+        if($this->acceso(110)){
             $data['_view'] = 'periodo/add';
             $this->load->view('layouts/main',$data);
         }
@@ -56,7 +56,7 @@ class Periodo extends CI_Controller {
      */
     function add()
     {
-        if($this->acceso(23)){
+        if($this->acceso(110)){
             $this->form_validation->set_rules('periodo_nombre','Periodo Nombre','required');
             $this->form_validation->set_rules('periodo_horainicio','Periodo Horainicio','required');
             $this->form_validation->set_rules('periodo_horafin','Periodo Horafin','required');
@@ -90,7 +90,7 @@ class Periodo extends CI_Controller {
 
     public function editar($periodo_id)
     {
-        if($this->acceso(23)){
+        if($this->acceso(111)){
             $data['periodo'] = $this->Periodo_model->get_periodo($periodo_id);
             $data['_view'] = 'periodo/edit';
             $this->load->view('layouts/main',$data);
@@ -102,7 +102,7 @@ class Periodo extends CI_Controller {
      */
     function set()
     {
-        if($this->acceso(23)){
+        if($this->acceso(111)){
             $periodo_id = $this->input->post('periodo_id');
             $data['periodo'] = $this->Periodo_model->get_periodo($periodo_id);
 
@@ -146,7 +146,7 @@ class Periodo extends CI_Controller {
      */
     function remove($periodo_id)
     {
-        if($this->acceso(23)){
+        if($this->acceso(109)){
             $periodo = $this->Periodo_model->get_periodo($periodo_id);
             // check if the periodo exists before trying to delete it
             if(isset($periodo['periodo_id']))

@@ -31,7 +31,7 @@ class Estado_civil extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(19)){
+        if($this->acceso(97)){
             $data['estado_civil'] = $this->Estado_civil_model->get_all_estado_civil();
 
             $data['_view'] = 'estado_civil/index';
@@ -44,7 +44,7 @@ class Estado_civil extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(19)){
+        if($this->acceso(98)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('estadocivil_descripcion','Estadocivil Descripcion','required');
             if($this->form_validation->run())
@@ -69,7 +69,7 @@ class Estado_civil extends CI_Controller{
      */
     function edit($estadocivil_id)
     {
-        if($this->acceso(19)){
+        if($this->acceso(99)){
             // check if the estado_civil exists before trying to edit it
             $data['estado_civil'] = $this->Estado_civil_model->get_estado_civil($estadocivil_id);
 
@@ -102,7 +102,7 @@ class Estado_civil extends CI_Controller{
      */
     function remove($estadocivil_id)
     {
-        if($this->acceso(19)){
+        if($this->acceso(97)){
             $estado_civil = $this->Estado_civil_model->get_estado_civil($estadocivil_id);
             // check if the estado_civil exists before trying to delete it
             if(isset($estado_civil['estadocivil_id']))

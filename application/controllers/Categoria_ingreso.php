@@ -31,7 +31,7 @@ class Categoria_ingreso extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(17)){
+        if($this->acceso(91)){
             $data['categoria_ingreso'] = $this->Categoria_ingreso_model->get_all_categoria_ingreso();
 
             $data['_view'] = 'categoria_ingreso/index';
@@ -44,7 +44,7 @@ class Categoria_ingreso extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(17)){
+        if($this->acceso(92)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -68,7 +68,7 @@ class Categoria_ingreso extends CI_Controller{
      */
     function edit($id_cating)
     {
-        if($this->acceso(17)){
+        if($this->acceso(93)){
             // check if the categoria_ingreso exists before trying to edit it
             $data['categoria_ingreso'] = $this->Categoria_ingreso_model->get_categoria_ingreso($id_cating);
             if(isset($data['categoria_ingreso']['id_cating']))
@@ -99,7 +99,7 @@ class Categoria_ingreso extends CI_Controller{
      */
     function remove($id_cating)
     {
-        if($this->acceso(17)){
+        if($this->acceso(91)){
             $categoria_ingreso = $this->Categoria_ingreso_model->get_categoria_ingreso($id_cating);
             // check if the categoria_ingreso exists before trying to delete it
             if(isset($categoria_ingreso['id_cating']))

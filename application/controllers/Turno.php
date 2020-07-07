@@ -31,7 +31,7 @@ class Turno extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(25)){
+        if($this->acceso(115)){
             $data['turno'] = $this->Turno_model->get_all_turno();
 
             $data['_view'] = 'turno/index';
@@ -44,7 +44,7 @@ class Turno extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(25)){
+        if($this->acceso(116)){
             $this->load->library('form_validation');
 
                     $this->form_validation->set_rules('turno_nombre','Turno Nombre','required');
@@ -75,7 +75,7 @@ class Turno extends CI_Controller{
      */
     function edit($turno_id)
     {
-        if($this->acceso(25)){
+        if($this->acceso(117)){
             // check if the turno exists before trying to edit it
             $data['turno'] = $this->Turno_model->get_turno($turno_id);
 
@@ -114,7 +114,7 @@ class Turno extends CI_Controller{
      */
     function remove($turno_id)
     {
-        if($this->acceso(25)){
+        if($this->acceso(115)){
             $turno = $this->Turno_model->get_turno($turno_id);
             // check if the turno exists before trying to delete it
             if(isset($turno['turno_id']))

@@ -31,7 +31,7 @@ class Gestion extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(21)){
+        if($this->acceso(45)){
             $params['limit'] = RECORDS_PER_PAGE; 
             $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
 
@@ -52,7 +52,7 @@ class Gestion extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(21)){
+        if($this->acceso(46)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -82,7 +82,7 @@ class Gestion extends CI_Controller{
      */
     function edit($gestion_id)
     {
-        if($this->acceso(21)){
+        if($this->acceso(47)){
             // check if the gestion exists before trying to edit it
             $data['gestion'] = $this->Gestion_model->get_gestion($gestion_id);
 
@@ -120,7 +120,7 @@ class Gestion extends CI_Controller{
      */
     function remove($gestion_id)
     {
-        if($this->acceso(21)){
+        if($this->acceso(45)){
             $gestion = $this->Gestion_model->get_gestion($gestion_id);
 
             // check if the gestion exists before trying to delete it

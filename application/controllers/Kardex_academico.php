@@ -28,7 +28,7 @@ class Kardex_academico extends CI_Controller{
 
     function busqueda()
     {
-        if($this->acceso(47)){
+        if($this->acceso(32)){
             if ($this->input->is_ajax_request()) {
                 $estudiante = $this->input->post('dato');
                 if ($estudiante!="") {
@@ -52,7 +52,7 @@ class Kardex_academico extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(46)){
+        if($this->acceso(31)){
             $data['kardex_academico'] = $this->Kardex_academico_model->get_all_kardex_academico();
 
             $data['_view'] = 'kardex_academico/index';
@@ -65,7 +65,7 @@ class Kardex_academico extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(46)){
+        if($this->acceso(31)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -98,7 +98,7 @@ class Kardex_academico extends CI_Controller{
      */
     function edit($kardexacad_id)
     {
-        if($this->acceso(46)){
+        if($this->acceso(31)){
             // check if the kardex_academico exists before trying to edit it
             $data['kardex_academico'] = $this->Kardex_academico_model->get_kardex_academico($kardexacad_id);
             if(isset($data['kardex_academico']['kardexacad_id']))
@@ -138,7 +138,7 @@ class Kardex_academico extends CI_Controller{
      */
     function remove($kardexacad_id)
     {
-        if($this->acceso(46)){
+        if($this->acceso(31)){
             $kardex_academico = $this->Kardex_academico_model->get_kardex_academico($kardexacad_id);
             // check if the kardex_academico exists before trying to delete it
             if(isset($kardex_academico['kardexacad_id']))

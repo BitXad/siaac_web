@@ -32,7 +32,7 @@ class Aula extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(27)){
+        if($this->acceso(71)){
             $data['aula'] = $this->Aula_model->get_all_aula();
 
             $data['_view'] = 'aula/index';
@@ -45,7 +45,7 @@ class Aula extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(27)){
+        if($this->acceso(72)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('aula_nombre','Aula Nombre','required');
             if($this->form_validation->run())     
@@ -74,7 +74,7 @@ class Aula extends CI_Controller{
      */
     function edit($aula_id)
     {
-        if($this->acceso(27)){
+        if($this->acceso(73)){
             // check if the aula exists before trying to edit it
             $data['aula'] = $this->Aula_model->get_aula($aula_id);
 
@@ -110,7 +110,7 @@ class Aula extends CI_Controller{
      */
     function remove($aula_id)
     {
-        if($this->acceso(27)){
+        if($this->acceso(71)){
             $aula = $this->Aula_model->get_aula($aula_id);
             // check if the aula exists before trying to delete it
             if(isset($aula['aula_id']))

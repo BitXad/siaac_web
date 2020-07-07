@@ -31,7 +31,7 @@ class Area_materium extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(15)){
+        if($this->acceso(65)){
             $data['area_materia'] = $this->Area_materium_model->get_all_area_materia();
 
             $data['_view'] = 'area_materium/index';
@@ -44,7 +44,7 @@ class Area_materium extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(15)){
+        if($this->acceso(65)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -68,7 +68,7 @@ class Area_materium extends CI_Controller{
      */
     function edit($area_id)
     {
-        if($this->acceso(15)){
+        if($this->acceso(65)){
             // check if the area_materium exists before trying to edit it
             $data['area_materium'] = $this->Area_materium_model->get_area_materium($area_id);
             if(isset($data['area_materium']['area_id']))
@@ -99,7 +99,7 @@ class Area_materium extends CI_Controller{
      */
     function remove($area_id)
     {
-        if($this->acceso(15)){
+        if($this->acceso(65)){
             $area_materium = $this->Area_materium_model->get_area_materium($area_id);
             // check if the area_materium exists before trying to delete it
             if(isset($area_materium['area_id']))

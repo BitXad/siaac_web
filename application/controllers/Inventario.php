@@ -35,7 +35,7 @@ class Inventario extends CI_Controller{
     {
         
 
-        if($this->acceso(76-1)){
+        if($this->acceso(82)){
         //**************** inicio contenido ***************
             $data['rolusuario'] = $this->session_data['rol'];
         $empresa_id = 1;
@@ -55,7 +55,7 @@ class Inventario extends CI_Controller{
     function kardex($producto_id)
     {
 
-        if($this->acceso(76-1)){
+        if($this->acceso(82)){
         //**************** inicio contenido ***************
 		  
                 
@@ -84,7 +84,7 @@ class Inventario extends CI_Controller{
     function buscar_kardex()
     {
 
-        if($this->acceso(76-1)){
+        if($this->acceso(82)){
         //**************** inicio contenido ***************
 		  
                 
@@ -110,7 +110,7 @@ class Inventario extends CI_Controller{
     function actualizar_inventario()
     {   
 
-        if($this->acceso(76-1)){
+        if($this->acceso(84)){
         //**************** inicio contenido ***************
 		       
         $usuario_id = 1;
@@ -130,7 +130,7 @@ class Inventario extends CI_Controller{
     {      
        
 
-        if($this->acceso(76-1)){
+        if($this->acceso(82)){
         //**************** inicio contenido ***************
 		
             $parametro = $this->input->post("parametro");
@@ -150,7 +150,7 @@ class Inventario extends CI_Controller{
     {      
        
 
-        if($this->acceso(76-1)){
+        if($this->acceso(82)){
         //**************** inicio contenido ***************
         
             $parametro = $this->input->post("parametro");
@@ -172,7 +172,7 @@ class Inventario extends CI_Controller{
     function actualizar_cantidad_inventario()
     {   
 
-        if($this->acceso(76-1)){
+        if($this->acceso(82)){
         //**************** inicio contenido ***************
 		       
         $usuario_id = 1;
@@ -192,7 +192,7 @@ class Inventario extends CI_Controller{
     {
      
 
-        if($this->acceso(76-1)){
+        if($this->acceso(82)){
         //**************** inicio contenido ***************
 		        
         if($this->input->is_ajax_request()){

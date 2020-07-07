@@ -31,7 +31,7 @@ class Categoria_egreso extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(16)){
+        if($this->acceso(88)){
             $data['categoria_egreso'] = $this->Categoria_egreso_model->get_all_categoria_egreso();
 
             $data['_view'] = 'categoria_egreso/index';
@@ -44,7 +44,7 @@ class Categoria_egreso extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(16)){
+        if($this->acceso(89)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -68,7 +68,7 @@ class Categoria_egreso extends CI_Controller{
      */
     function edit($id_categr)
     {
-        if($this->acceso(16)){
+        if($this->acceso(90)){
             // check if the categoria_egreso exists before trying to edit it
             $data['categoria_egreso'] = $this->Categoria_egreso_model->get_categoria_egreso($id_categr);
             if(isset($data['categoria_egreso']['id_categr']))
@@ -99,7 +99,7 @@ class Categoria_egreso extends CI_Controller{
      */
     function remove($id_categr)
     {
-        if($this->acceso(16)){
+        if($this->acceso(88)){
             $categoria_egreso = $this->Categoria_egreso_model->get_categoria_egreso($id_categr);
             // check if the categoria_egreso exists before trying to delete it
             if(isset($categoria_egreso['id_categr']))

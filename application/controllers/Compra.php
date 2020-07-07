@@ -36,7 +36,7 @@ class Compra extends CI_Controller{
     }
     public function boucher($compra_id){
 
-     if($this->acceso(1)){
+     if($this->acceso(17)){
          $data['page_title'] = "Compra";
          $usuario_id = $this->session_data['usuario_id'];
          $this->load->model('Empresa_model');
@@ -54,7 +54,7 @@ class Compra extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(1)){
+        if($this->acceso(14)){
             $data['page_title'] = "Compra";
             $params['limit'] = RECORDS_PER_PAGE; 
             $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
@@ -82,7 +82,7 @@ class Compra extends CI_Controller{
     
     function reportes()
     {
-        if($this->acceso(137)){
+        if($this->acceso(14)){
             $data['page_title'] = "Compra";
             $params['limit'] = RECORDS_PER_PAGE; 
             $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
@@ -109,7 +109,7 @@ class Compra extends CI_Controller{
     }
     function repoProveedor()
     {
-        if($this->acceso(137)){
+        if($this->acceso(14)){
             $data['page_title'] = "Compra";
             $usuario_id = $this->session_data['usuario_id'];
             $params['limit'] = RECORDS_PER_PAGE; 
@@ -138,7 +138,7 @@ class Compra extends CI_Controller{
     }
     function repoProducto()
     {
-        if($this->acceso(137)){
+        if($this->acceso(14)){
             $data['page_title'] = "Compra";
             $usuario_id = $this->session_data['usuario_id'];
             $params['limit'] = RECORDS_PER_PAGE; 
@@ -271,7 +271,7 @@ class Compra extends CI_Controller{
 
     function anula()
     {
-        if($this->acceso(1)){
+        if($this->acceso(18)){
             $data['page_title'] = "Compra";
             $usuario_id = $this->session_data['usuario_id'];
             $bandera = 1;
@@ -293,7 +293,7 @@ class Compra extends CI_Controller{
 
     function crearcompra()
     {
-        if($this->acceso(2)){
+        if($this->acceso(15)){
             $usuario_id = $this->session_data['usuario_id'];
             $bandera = 0;
                     //Registrar Compra
@@ -329,7 +329,7 @@ class Compra extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(1)){
+        if($this->acceso(15)){
             $data['page_title'] = "Compra";
             $usuario_id = $this->session_data['usuario_id'];
             if(isset($_POST) && count($_POST) > 0)     
@@ -466,7 +466,7 @@ class Compra extends CI_Controller{
 
     function edit($compra_id,$bandera)
     {
-        if($this->acceso(1)){
+        if($this->acceso(16)){
             $data['page_title'] = "Compra";
             $usuario_id = $this->session_data['usuario_id'];
             // check if the compra exists before trying to edit it
@@ -568,7 +568,7 @@ class Compra extends CI_Controller{
     function anular($compra_id)
     {
 
-        if($this->acceso(1)){
+        if($this->acceso(18)){
             $usuario_id = $this->session_data['usuario_id']; 
             //$compra_id = $this->input->post('compra_id');
             $vaciar =    "UPDATE inventario i, detalle_compra_aux d
@@ -649,7 +649,7 @@ class Compra extends CI_Controller{
     function finalizarcompra($compra_id)
     {
 
-    if($this->acceso(1)){
+    if($this->acceso(14)){
             $usuario_id = $this->session_data['usuario_id'];
  $this->load->model('Compra_model');
  $null = NULL;
@@ -1289,7 +1289,7 @@ else
 
 function updateDetalle()
 {
-    if($this->acceso(1)){
+    if($this->acceso(14)){
     $detallecomp_id = $this->input->post('detallecomp_id');
     $cantidad = $this->input->post('cantidad'); 
     $descuento = $this->input->post('descuento'); 
@@ -1318,7 +1318,7 @@ function updateDetalle()
 
 function quitar($detallecomp_id)
 {
-    if($this->acceso(7)){
+    if($this->acceso(14)){
         //**************** inicio contenido ***************        
  
  $sql = "delete from detalle_compra_aux where detallecomp_id = ".$detallecomp_id;
@@ -1335,7 +1335,7 @@ function quitar($detallecomp_id)
      */
     function edito($compra_id)
     {
-        if($this->acceso(1)){
+        if($this->acceso(14)){
             $data['page_title'] = "Compra";
             // check if the compra exists before trying to edit it
             $data['compra'] = $this->Compra_model->get_compra($compra_id);
@@ -1402,7 +1402,7 @@ function quitar($detallecomp_id)
     } 
     function editar()
     {
-        if($this->acceso(1)){
+        if($this->acceso(14)){
             $data['page_title'] = "Compra";
            $data['compra'] = $this->Compra_model->get_all_compra($params);
            $compra_id = $this->input->post('compra_id');
@@ -1465,7 +1465,7 @@ function quitar($detallecomp_id)
 
 function remove($compra_id)
 {
-    if($this->acceso(1)){
+    if($this->acceso(14)){
         $compra = $this->Compra_model->get_compra($compra_id);
 
             // check if the compra exists before trying to delete it
@@ -1491,7 +1491,7 @@ function nota($compra_id){
 }
 
 function pdf($compra_id){
-    if($this->acceso(1)){
+    if($this->acceso(14)){
         $data['page_title'] = "Compra";
         $usuario_id = $this->session_data['usuario_id'];
         $this->load->model('Empresa_model');
@@ -1505,7 +1505,7 @@ function pdf($compra_id){
     }
 }
 function ingreso_rapido($cantidad,$producto_id,$producto_costo){
-        if($this->acceso(1)){
+        if($this->acceso(14)){
             $usuario_id = $this->session_data['usuario_id'];
         $compra_fecha = "now()";
         $compra_hora = "'".date('H:i:s')."'";

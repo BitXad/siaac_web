@@ -31,7 +31,7 @@ class Institucion extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(1)){
+        if($this->acceso(86)){
             $rescount = $this->Institucion_model->get_all_institucion_count();
             if($rescount >0){
                 $data['newinst'] = 1;
@@ -48,7 +48,7 @@ class Institucion extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(1)){
+        if($this->acceso(86)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('institucion_nombre','Institucion Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
             if($this->form_validation->run())     
@@ -135,7 +135,7 @@ class Institucion extends CI_Controller{
      */
     function edit($institucion_id)
     {
-        if($this->acceso(1)){
+        if($this->acceso(87)){
             // check if the institucion exists before trying to edit it
             $data['institucion'] = $this->Institucion_model->get_institucion($institucion_id);
             if(isset($data['institucion']['institucion_id']))
@@ -240,7 +240,7 @@ class Institucion extends CI_Controller{
      */
     function remove($institucion_id)
     {
-        if($this->acceso(1)){
+        if($this->acceso(86)){
             $institucion = $this->Institucion_model->get_institucion($institucion_id);
             // check if the institucion exists before trying to delete it
             if(isset($institucion['institucion_id']))

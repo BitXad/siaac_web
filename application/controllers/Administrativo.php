@@ -32,7 +32,7 @@ class Administrativo extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(2)){
+        if($this->acceso(58)){
             $data['administrativo'] = $this->Administrativo_model->get_all_administrativo();
 
             $data['_view'] = 'administrativo/index';
@@ -45,7 +45,7 @@ class Administrativo extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(3)){
+        if($this->acceso(59)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('administrativo_nombre','Administrativo Nombre','required');
             $this->form_validation->set_rules('administrativo_apellidos','Administrativo Apellidos','required');
@@ -176,7 +176,7 @@ class Administrativo extends CI_Controller{
      */
     function edit($administrativo_id)
     {
-        if($this->acceso(4)){
+        if($this->acceso(60)){
         $data['administrativo'] = $this->Administrativo_model->get_administrativo($administrativo_id);
 
         if ($this->input->post('administrativo_ci') != $data['administrativo']['administrativo_ci']) {
@@ -336,7 +336,7 @@ class Administrativo extends CI_Controller{
      */
     function remove($administrativo_id)
     {
-        if($this->acceso(5)){
+        if($this->acceso(58)){
             $administrativo = $this->Administrativo_model->get_administrativo($administrativo_id);
             // check if the administrativo exists before trying to delete it
             if(isset($administrativo['administrativo_id']))

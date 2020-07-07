@@ -42,7 +42,7 @@ class Estudiante extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(10)){
+        if($this->acceso(48)){
             $this->load->model('Estado_model');
             $tipo = 1;
             $data['all_estado'] = $this->Estado_model->get_estado_tipo($tipo);
@@ -65,7 +65,7 @@ class Estudiante extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(11)){
+        if($this->acceso(49)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('estudiante_nombre','Estudiante Nombre','required');
             $this->form_validation->set_rules('estudiante_apellidos','Estudiante Apellidos','required');
@@ -257,7 +257,7 @@ class Estudiante extends CI_Controller{
     function registrar()
     {
         //rol viene desde inscripcion
-        if($this->acceso(45)){
+        if($this->acceso(1)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('estudiante_nombre','Estudiante Nombre','required');
             $this->form_validation->set_rules('estudiante_apellidos','Estudiante Apellidos','required');
@@ -447,7 +447,7 @@ class Estudiante extends CI_Controller{
      */
     function edit($estudiante_id)
     {
-        if($this->acceso(12)){
+        if($this->acceso(50)){
 
         $original_ci = $this->db->query("SELECT estudiante_ci FROM estudiante WHERE estudiante_id = " . $estudiante_id)->row()->estudiante_ci;
         $original_codigo = $this->db->query("SELECT estudiante_codigo FROM estudiante WHERE estudiante_id = " . $estudiante_id)->row()->estudiante_codigo;
@@ -678,7 +678,7 @@ class Estudiante extends CI_Controller{
      */
     function remove($estudiante_id)
     {
-        if($this->acceso(13)){
+        if($this->acceso(53)){
             $estudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
             // check if the estudiante exists before trying to delete it
             if(isset($estudiante['estudiante_id']))
@@ -693,7 +693,7 @@ class Estudiante extends CI_Controller{
     function menu_estudiante($estudiante_id)
     {
         
-        if($this->acceso(56)&&$this->privado($estudiante_id)){
+        if($this->acceso(131)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
@@ -710,7 +710,7 @@ class Estudiante extends CI_Controller{
     /* puede cambiar su información basica */
     function datos($estudiante_id)
     {
-        if($this->acceso(57)&&$this->privado($estudiante_id)){
+        if($this->acceso(132)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
@@ -753,7 +753,7 @@ class Estudiante extends CI_Controller{
     
     function carreras($estudiante_id)
     {
-        if($this->acceso(58)&&$this->privado($estudiante_id)){
+        if($this->acceso(133)&&$this->privado($estudiante_id)){
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
                 $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
@@ -775,7 +775,7 @@ class Estudiante extends CI_Controller{
     }
     function knotas($estudiante_id)
     {
-        if($this->acceso(59)&&$this->privado($estudiante_id)){
+        if($this->acceso(134)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
@@ -798,7 +798,7 @@ class Estudiante extends CI_Controller{
     }
     function mikardex_academico($carrera_id, $estudiante_id)
     {
-        if($this->acceso(59)&&$this->privado($estudiante_id)){
+        if($this->acceso(134)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
@@ -823,7 +823,7 @@ class Estudiante extends CI_Controller{
     }
     function keconomico($estudiante_id)
     {
-        if($this->acceso(60)&&$this->privado($estudiante_id)){
+        if($this->acceso(135)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
@@ -846,7 +846,7 @@ class Estudiante extends CI_Controller{
 
     function cuenta($estudiante_id)
     {
-        if($this->acceso(60)&&$this->privado($estudiante_id)){
+        if($this->acceso(135)&&$this->privado($estudiante_id)){
              
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
@@ -891,7 +891,7 @@ class Estudiante extends CI_Controller{
 
     function restablecer($estudiante_id)
     {
-        if($this->acceso(9)){
+        if($this->acceso(51)){
            
            $sql="UPDATE estudiante SET estudiante_login=estudiante_ci, estudiante_clave=md5(estudiante_ci) WHERE estudiante_id=".$estudiante_id." ";
            $this->db->query($sql);

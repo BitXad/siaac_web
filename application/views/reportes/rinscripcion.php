@@ -44,7 +44,7 @@
                      <center>                        
                          <img src="<?php echo $logo; ?>" width="80" height="60"><br>
                         <font size="2" face="Arial"><b><?php echo $institucion[0]['institucion_nombre']; ?></b></font><br>
-                        <?php if(sizeof($institucion[0]['institucion_slogan'])>1){ ?>
+                        <?php if(!empty($institucion[0]['institucion_slogan'])){ ?>
                             <font size="2" face="Arial"><b><?php echo $institucion[0]['institucion_slogan']; ?></b></font><br>
                         <?php } ?>
                         

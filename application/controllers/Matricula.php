@@ -32,7 +32,7 @@ class Matricula extends CI_Controller{
     function index()
     {
         // es el rol de Inscripcion.......
-        if($this->acceso(45)){
+        if($this->acceso(1)){
             $data['matricula'] = $this->Matricula_model->get_all_matricula();
 
             $data['_view'] = 'matricula/index';
@@ -45,7 +45,7 @@ class Matricula extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(45)){
+        if($this->acceso(1)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -77,7 +77,7 @@ class Matricula extends CI_Controller{
      */
     function edit($matricula_id)
     {
-        if($this->acceso(45)){
+        if($this->acceso(1)){
             // check if the matricula exists before trying to edit it
             $data['matricula'] = $this->Matricula_model->get_matricula($matricula_id);
 
@@ -117,7 +117,7 @@ class Matricula extends CI_Controller{
      */
     function remove($matricula_id)
     {
-        if($this->acceso(45)){
+        if($this->acceso(1)){
             $matricula = $this->Matricula_model->get_matricula($matricula_id);
             // check if the matricula exists before trying to delete it
             if(isset($matricula['matricula_id']))

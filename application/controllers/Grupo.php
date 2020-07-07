@@ -33,7 +33,7 @@ class Grupo extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(28)){
+        if($this->acceso(41)){
             $this->load->model('Carrera_model');
             $data['all_carrera'] = $this->Carrera_model->get_all_carreras();
 
@@ -64,7 +64,7 @@ class Grupo extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(28)){
+        if($this->acceso(41)){
             if(isset($_POST) && count($_POST) > 0)     
             {
                 $params = array(
@@ -114,7 +114,7 @@ class Grupo extends CI_Controller{
      */
     function edit($grupo_id)
     {
-        if($this->acceso(28)){
+        if($this->acceso(42)){
             // check if the grupo exists before trying to edit it
             $data['grupo'] = $this->Grupo_model->get_all_thisgrupo($grupo_id);
 

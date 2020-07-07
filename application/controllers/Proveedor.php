@@ -32,7 +32,7 @@ class Proveedor extends CI_Controller{
      
     function index()
     {
-        if($this->acceso(110)) {
+        if($this->acceso(14)) {
                 $usuario_id = $this->session_data['usuario_id'];
                 $data['rol'] = $this->session_data['rol'];
        
@@ -54,7 +54,7 @@ class Proveedor extends CI_Controller{
      */
     function add()
     {   
-         if($this->acceso(111)){
+         if($this->acceso(14)){
                 $usuario_id = $this->session_data['usuario_id'];
         $this->load->library('form_validation');
 
@@ -149,7 +149,7 @@ class Proveedor extends CI_Controller{
 
     function rapido()
     {   
-        if($this->acceso(4)){
+        if($this->acceso(14)){
          $this->load->library('form_validation');
         $this->form_validation->set_rules('proveedor_nombre','Proveedor Nombre','required');
         
@@ -202,7 +202,7 @@ class Proveedor extends CI_Controller{
     function cambiarproveedor()
     { 
 
-        if($this->acceso(4)){
+        if($this->acceso(14)){
 
          if ($this->input->is_ajax_request()) {
        
@@ -237,7 +237,7 @@ class Proveedor extends CI_Controller{
      */
     function edit($proveedor_id)
     {   
-         if($this->acceso(112)){
+         if($this->acceso(14)){
                 $usuario_id = $this->session_data['usuario_id'];
         // check if the proveedor exists before trying to edit it
         $data['proveedor'] = $this->Proveedor_model->get_proveedor($proveedor_id);
@@ -369,7 +369,7 @@ class Proveedor extends CI_Controller{
     /* *********Busca proveedores*********** */
     function buscarproveedor($filtro)
     {
-        if($this->acceso(113)){
+        if($this->acceso(14)){
                 
                 $data['proveedor'] = $this->Proveedor_model->get_busqueda_proveedor($filtro);
                 $data['a'] = "1";
@@ -381,7 +381,7 @@ class Proveedor extends CI_Controller{
     }
     function buscarreproveedor()
     {
-        if($this->acceso(113)){
+        if($this->acceso(14)){
                 $filtro = $this->input->post('parametro');
                 $data = $this->Proveedor_model->get_busqueda_proveedor($filtro);
                 echo json_encode($data);

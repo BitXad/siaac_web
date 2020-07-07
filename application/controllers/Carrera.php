@@ -31,7 +31,7 @@ class Carrera extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(29)){
+        if($this->acceso(61)){
             $data['carrera'] = $this->Carrera_model->get_all_carrera();
 
             $data['_view'] = 'carrera/index';
@@ -44,7 +44,7 @@ class Carrera extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(30)){
+        if($this->acceso(62)){
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('carrera_nombre','Carrera Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
@@ -93,7 +93,7 @@ class Carrera extends CI_Controller{
      */
     function edit($carrera_id)
     {
-        if($this->acceso(31)){
+        if($this->acceso(63)){
             // check if the carrera exists before trying to edit it
             $data['carrera'] = $this->Carrera_model->get_carrera($carrera_id);
 
@@ -147,7 +147,7 @@ class Carrera extends CI_Controller{
      */
     function remove($carrera_id)
     {
-        if($this->acceso(32)){
+        if($this->acceso(64)){
             $carrera = $this->Carrera_model->get_carrera($carrera_id);
             // check if the carrera exists before trying to delete it
             if(isset($carrera['carrera_id']))
@@ -162,16 +162,17 @@ class Carrera extends CI_Controller{
 
     function inactivar($carrera_id)
     {
-        
-                $this->Carrera_model->inactivar_carrera($carrera_id);
-                redirect('carrera');
-            
+        if($this->acceso(64)){
+            $this->Carrera_model->inactivar_carrera($carrera_id);
+            redirect('carrera');
+        }
     }
     function activar($carrera_id)
     {
-         $this->Carrera_model->activar_carrera($carrera_id);
-                redirect('carrera');
-           
+        if($this->acceso(64)){
+            $this->Carrera_model->activar_carrera($carrera_id);
+            redirect('carrera');
+        }
     }
     
 }

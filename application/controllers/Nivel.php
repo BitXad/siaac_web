@@ -31,7 +31,7 @@ class Nivel extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(55)){
+        if($this->acceso(103)){
             $data['nivel'] = $this->Nivel_model->get_all_nivel();
 
             $data['_view'] = 'nivel/index';
@@ -44,7 +44,7 @@ class Nivel extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(55)){
+        if($this->acceso(104)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('nivel_descripcion','Nivel Descripcion','trim|required', array('required' => 'Este Campo no debe ser vacio'));
             if($this->form_validation->run())     
@@ -72,7 +72,7 @@ class Nivel extends CI_Controller{
      */
     function edit($nivel_id)
     {
-        if($this->acceso(55)){
+        if($this->acceso(105)){
             // check if the nivel exists before trying to edit it
             $data['nivel'] = $this->Nivel_model->get_nivel($nivel_id);
             if(isset($data['nivel']['nivel_id']))
@@ -108,7 +108,7 @@ class Nivel extends CI_Controller{
      */
     function remove($nivel_id)
     {
-        if($this->acceso(55)){
+        if($this->acceso(103)){
         $nivel = $this->Nivel_model->get_nivel($nivel_id);
         // check if the nivel exists before trying to delete it
         if(isset($nivel['nivel_id']))

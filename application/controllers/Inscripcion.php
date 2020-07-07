@@ -44,7 +44,7 @@ class Inscripcion extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(45)){
+        if($this->acceso(1)){
             $gestion_id = $this->session_data['gestion_id'];
             $data['parametro'] = $this->Parametro_model->get_parametro(1);
             $data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($gestion_id);
@@ -57,7 +57,7 @@ class Inscripcion extends CI_Controller{
     /*
      * Adding a new inscripcion
      */
-    function add()
+    /*function add()
     {
         if($this->acceso(45)){
             if(isset($_POST) && count($_POST) > 0)     
@@ -101,14 +101,14 @@ class Inscripcion extends CI_Controller{
                 $this->load->view('layouts/main',$data);
             }
         }
-    }
+    }*/
 
     /*
      * Adding a new inscripcion
      */
     function inscribir($estudiante_id)
     {
-        if($this->acceso(45)){
+        if($this->acceso(2)){
             if(isset($_POST) && count($_POST) > 0)     
             {
                 $params = array(
@@ -175,7 +175,7 @@ class Inscripcion extends CI_Controller{
      */
     function edit($inscripcion_id)
     {
-        if($this->acceso(45)){
+        if($this->acceso(3)){
             // check if the inscripcion exists before trying to edit it
             $data['inscripcion'] = $this->Inscripcion_model->get_inscripcion($inscripcion_id);
 
@@ -230,7 +230,7 @@ class Inscripcion extends CI_Controller{
     /* anula toda la inscripcion */
     function anular($inscripcion_id)
     {
-        if($this->acceso(45)){
+        if($this->acceso(6)){
             $usuario_id = $this->session_data['usuario_id'];
             $inscripcion = $this->Inscripcion_model->get_inscripcion($inscripcion_id);
             $estado_id = 3;
@@ -742,7 +742,7 @@ class Inscripcion extends CI_Controller{
     
     function ultima_inscripcion()
     {   
-        if($this->acceso(45)){
+        if($this->acceso(1)){
             $data['inscripcion'] = $this->Inscripcion_model->get_ultima_inscripcion();
             $data['institucion'] = $this->Institucion_model->get_all_institucion();
 
@@ -754,7 +754,7 @@ class Inscripcion extends CI_Controller{
     
     function inscripciones()
     {   
-        if($this->acceso(45)){
+        if($this->acceso(1)){
             $desde = date("Y-m-d");
             $hasta = date("Y-m-d");
             
@@ -781,7 +781,7 @@ class Inscripcion extends CI_Controller{
     /* reimprimir boleta de inscripcion*/
     function boleta_inscripcion($inscripcion_id)
     {   
-        if($this->acceso(45)){
+        if($this->acceso(5)){
             $data['inscripcion'] = $this->Inscripcion_model->get_inscripcion_array($inscripcion_id);
             $data['institucion'] = $this->Institucion_model->get_all_institucion();
 

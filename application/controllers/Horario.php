@@ -37,7 +37,7 @@ class Horario extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(66)){
+        if($this->acceso(41)){
             $params['limit'] = RECORDS_PER_PAGE; 
             $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
 
@@ -56,7 +56,7 @@ class Horario extends CI_Controller{
 
     public function nuevo()
     {
-        if($this->acceso(66)){
+        if($this->acceso(41)){
         $this->load->model('Estado_model');
         $data['all_estado'] = $this->Estado_model->get_all_estado();
 
@@ -74,7 +74,7 @@ class Horario extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(66)){
+        if($this->acceso(41)){
             $params = array(
                 'estado_id' => $this->input->post('estado_id'),
                 'periodo_id' => $this->input->post('periodo_id'),
@@ -100,7 +100,7 @@ class Horario extends CI_Controller{
 
     public function editar($horario_id)
     {
-        if($this->acceso(66)){
+        if($this->acceso(41)){
             $data['horario'] = $this->Horario_model->get_horario2($horario_id);
             if(isset($data['horario']))
             {
@@ -122,7 +122,7 @@ class Horario extends CI_Controller{
      */
     function set()
     {
-        if($this->acceso(66)){
+        if($this->acceso(41)){
             $horario_id = $this->input->post('horario_id');
             $params = array(
                 'estado_id' => $this->input->post('estado_id'),
@@ -145,7 +145,7 @@ class Horario extends CI_Controller{
      */
     function remove($horario_id)
     {
-        if($this->acceso(66)){
+        if($this->acceso(41)){
             $horario = $this->Horario_model->get_horario($horario_id);
             // check if the horario exists before trying to delete it
             if(isset($horario['horario_id']))

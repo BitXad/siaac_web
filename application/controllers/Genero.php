@@ -31,7 +31,7 @@ class Genero extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(20)){
+        if($this->acceso(100)){
             $data['genero'] = $this->Genero_model->get_all_genero();
             $data['_view'] = 'genero/index';
             $this->load->view('layouts/main',$data);
@@ -43,7 +43,7 @@ class Genero extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(20)){
+        if($this->acceso(101)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('genero_nombre','Genero Nombre','required');
             if($this->form_validation->run())
@@ -67,7 +67,7 @@ class Genero extends CI_Controller{
      */
     function edit($genero_id)
     {
-        if($this->acceso(20)){
+        if($this->acceso(102)){
             // check if the genero exists before trying to edit it
             $data['genero'] = $this->Genero_model->get_genero($genero_id);
             if(isset($data['genero']['genero_id']))
@@ -98,7 +98,7 @@ class Genero extends CI_Controller{
      */
     function remove($genero_id)
     {
-        if($this->acceso(20)){
+        if($this->acceso(100)){
             $genero = $this->Genero_model->get_genero($genero_id);
             // check if the genero exists before trying to delete it
             if(isset($genero['genero_id']))

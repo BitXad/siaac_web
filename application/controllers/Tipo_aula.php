@@ -31,7 +31,7 @@ class Tipo_aula extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(24)){
+        if($this->acceso(112)){
             $data['tipo_aula'] = $this->Tipo_aula_model->get_all_tipo_aula();
 
             $data['_view'] = 'tipo_aula/index';
@@ -44,7 +44,7 @@ class Tipo_aula extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(24)){
+        if($this->acceso(113)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -67,7 +67,7 @@ class Tipo_aula extends CI_Controller{
      */
     function edit($tipoaula_id)
     {
-        if($this->acceso(24)){
+        if($this->acceso(114)){
             // check if the tipo_aula exists before trying to edit it
             $data['tipo_aula'] = $this->Tipo_aula_model->get_tipo_aula($tipoaula_id);
 
@@ -98,7 +98,7 @@ class Tipo_aula extends CI_Controller{
      */
     function remove($tipoaula_id)
     {
-        if($this->acceso(24)){
+        if($this->acceso(112)){
             $tipo_aula = $this->Tipo_aula_model->get_tipo_aula($tipoaula_id);
 
             // check if the tipo_aula exists before trying to delete it

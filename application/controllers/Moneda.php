@@ -30,7 +30,7 @@ class Moneda extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         $params['limit'] = RECORDS_PER_PAGE; 
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
         
@@ -51,7 +51,7 @@ class Moneda extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('moneda_descripcion','Moneda Descripcion','required');
@@ -81,7 +81,7 @@ class Moneda extends CI_Controller{
      */
     function edit($moneda_id)
     {  
-    if($this->acceso(77-1)){ 
+    if($this->acceso(8)){ 
         // check if the moneda exists before trying to edit it
         $data['moneda'] = $this->Moneda_model->get_moneda($moneda_id);
         
@@ -121,7 +121,7 @@ class Moneda extends CI_Controller{
      */
     function remove($moneda_id)
     {
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         $moneda = $this->Moneda_model->get_moneda($moneda_id);
 
         // check if the moneda exists before trying to delete it

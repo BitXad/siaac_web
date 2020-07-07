@@ -37,7 +37,7 @@ class Mensualidad extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             $data['mensualidad'] = $this->Mensualidad_model->get_all_mensualidad();
             $data['_view'] = 'mensualidad/index';
             $this->load->view('layouts/main',$data);
@@ -46,7 +46,7 @@ class Mensualidad extends CI_Controller{
 
     function mensualidad($kardexeco_id)
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             $mens_pendientes = $this->Mensualidad_model->get_pendientes($kardexeco_id);
             if (isset($mens_pendientes)) {
               foreach ($mens_pendientes as $mens) {
@@ -117,7 +117,7 @@ class Mensualidad extends CI_Controller{
 
     function buscarpension($grupo)
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             $data['mensualidad'] = $this->Mensualidad_model->grupo_mensualidad($grupo);
             $data['pensiones'] = $this->Mensualidad_model->geta_mensualidades();
             $data['sumas'] = $this->Mensualidad_model->suma_mensualidades();
@@ -131,7 +131,7 @@ class Mensualidad extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             $usuario_id = $this->session_data['usuario_id'];
             if(isset($_POST) && count($_POST) > 0)     
             {   
@@ -177,7 +177,7 @@ class Mensualidad extends CI_Controller{
 
     function nueva($kardexeco_id)
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             $usuario_id = $this->session_data['usuario_id'];
             if(isset($_POST) && count($_POST) > 0)     
             {   
@@ -219,7 +219,7 @@ class Mensualidad extends CI_Controller{
      */
     function edit($mensualidad_id)
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             // check if the mensualidad exists before trying to edit it
             $data['mensualidad'] = $this->Mensualidad_model->get_mensualidad($mensualidad_id);
 
@@ -434,7 +434,7 @@ class Mensualidad extends CI_Controller{
 
     function pendiente($mensualidad_id,$kardexeco_id,$descuento,$numero)
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             $ptq="DELETE FROM mensualidad WHERE mensualidad_numero = ".$numero." and mensualidad_id > ".$mensualidad_id." and kardexeco_id=".$kardexeco_id." and estado_id=8 ";
             $this->db->query($ptq);
             $sql = "UPDATE mensualidad SET estado_id=8,mensualidad_montocancelado=0,mensualidad_montototal=mensualidad_montototal+".$descuento.", mensualidad_fechapago=NULL,mensualidad_saldo=0,mensualidad_descuento=0, mensualidad_nombre='',mensualidad_ci='',mensualidad_horapago=NULL WHERE mensualidad.mensualidad_id=".$mensualidad_id." and mensualidad.kardexeco_id=".$kardexeco_id." ";
@@ -449,7 +449,7 @@ class Mensualidad extends CI_Controller{
      */
     function remove($mensualidad_id,$kardexeco_id)
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             $mensualidad = $this->Mensualidad_model->get_mensualidad($mensualidad_id);
             // check if the mensualidad exists before trying to delete it
             if(isset($mensualidad['mensualidad_id']))

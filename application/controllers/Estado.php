@@ -31,7 +31,7 @@ class Estado extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(18)){
+        if($this->acceso(96)){
             $data['estado'] = $this->Estado_model->get_all_estado();
 
             $data['_view'] = 'estado/index';
@@ -44,7 +44,7 @@ class Estado extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(18)){
+        if($this->acceso(96)){
             if(isset($_POST) && count($_POST) > 0)     
             {
                 $params = array(
@@ -68,7 +68,7 @@ class Estado extends CI_Controller{
      */
     function edit($estado_id)
     {
-        if($this->acceso(18)){
+        if($this->acceso(96)){
             // check if the estado exists before trying to edit it
             $data['estado'] = $this->Estado_model->get_estado($estado_id);
 
@@ -101,7 +101,7 @@ class Estado extends CI_Controller{
      */
     function remove($estado_id)
     {
-        if($this->acceso(18)){
+        if($this->acceso(96)){
             $estado = $this->Estado_model->get_estado($estado_id);
             // check if the estado exists before trying to delete it
             if(isset($estado['estado_id']))

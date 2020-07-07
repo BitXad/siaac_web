@@ -31,7 +31,7 @@ class Paralelo extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(26)){
+        if($this->acceso(106)){
             $data['paralelo'] = $this->Paralelo_model->get_all_paralelo();
 
             $data['_view'] = 'paralelo/index';
@@ -44,7 +44,7 @@ class Paralelo extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(26)){
+        if($this->acceso(107)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('paralelo_descripcion','Paralelo Descripcion','required');
             if($this->form_validation->run())     
@@ -72,7 +72,7 @@ class Paralelo extends CI_Controller{
      */
     function edit($paralelo_id)
     {
-        if($this->acceso(26)){
+        if($this->acceso(108)){
             // check if the paralelo exists before trying to edit it
             $data['paralelo'] = $this->Paralelo_model->get_paralelo($paralelo_id);
             if(isset($data['paralelo']['paralelo_id']))
@@ -108,7 +108,7 @@ class Paralelo extends CI_Controller{
      */
     function remove($paralelo_id)
     {
-        if($this->acceso(26)){
+        if($this->acceso(106)){
             $paralelo = $this->Paralelo_model->get_paralelo($paralelo_id);
             // check if the paralelo exists before trying to delete it
             if(isset($paralelo['paralelo_id']))

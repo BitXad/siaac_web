@@ -51,7 +51,7 @@ class Venta extends CI_Controller{
     function index()
     {
 
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************
         $data['rolusuario'] = $this->session_data['rol'];
         //$data['venta'] = $this->Venta_model->get_all_venta($params);
@@ -66,14 +66,14 @@ class Venta extends CI_Controller{
 		
 		
         //**************** fin contenido ***************
-		}
+        }
         
     }
 
     function ventas()
     {    
         
-        if($this->acceso(77-1)){
+        if($this->acceso(9)){
         //**************** inicio contenido ***************        
         $data['rolusuario'] = $this->session_data['rol'];
         $usuario_id = $this->session_data['usuario_id'];
@@ -106,7 +106,7 @@ class Venta extends CI_Controller{
     function ventas_cliente($cliente_id)
     {    
         
-        if($this->acceso(77-1)){
+        if($this->acceso(9)){
         //**************** inicio contenido ***************        
         
         $usuario_id = $this->session_data['usuario_id'];
@@ -138,7 +138,7 @@ class Venta extends CI_Controller{
 
     function ingresar_detalle()
     {       
-        if($this->acceso(77-1)||$this->acceso(77-1)){ // 12 ventas 30 pedidos
+        if($this->acceso(9)){ // 12 ventas 30 pedidos
         //**************** inicio contenido ***************        
   
         $usuario_id = $this->session_data['usuario_id'];
@@ -204,7 +204,7 @@ class Venta extends CI_Controller{
 
     function eliminardetalle()
     {       
-        if($this->acceso(77-1)){
+        if($this->acceso(9)){
         //**************** inicio contenido ***************       
         
         $usuario_id = $this->session_data['usuario_id'];
@@ -237,7 +237,7 @@ class Venta extends CI_Controller{
     
     function registrarventa()
     {  
-        if($this->acceso(77-1)){
+        if($this->acceso(9)){
         //**************** inicio contenido ***************        
         
         $usuario_id = $this->session_data['usuario_id'];
@@ -622,7 +622,7 @@ class Venta extends CI_Controller{
 
     function generar_factura()
     {  
-        if($this->acceso(77-1)){
+        if($this->acceso(13)){
         //**************** inicio contenido ***************        
 
             //$dosificacion = $this->Dosificacion_model->get_dosificacion_activa();
@@ -787,7 +787,7 @@ class Venta extends CI_Controller{
     function add()
     {   
         
-        if($this->acceso(77-1)){
+        if($this->acceso(9)){
         //**************** inicio contenido ***************        
         
         if(isset($_POST) && count($_POST) > 0)     
@@ -848,7 +848,7 @@ class Venta extends CI_Controller{
      */
 function edit($venta_id)
     {   
-        if($this->acceso(77-1)){
+        if($this->acceso(10)){
         //**************** inicio contenido ***************      
         
         $usuario_id = $this->session_data['usuario_id'];
@@ -1029,7 +1029,7 @@ function edit($venta_id)
     
     function buscar_venta()
     {   
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************      
             $data['page_title'] = "Buscar venta";        
             $data['_view'] = 'venta/buscar_venta';
@@ -1064,7 +1064,7 @@ function edit($venta_id)
     {
         
         
-        if($this->acceso(77-1)){
+        if($this->acceso(10)){
         //**************** inicio contenido ***************      
         $data['rolusuario'] = $this->session_data['rol'];
         $usuario_id = $this->session_data['usuario_id'];
@@ -1115,7 +1115,7 @@ function edit($venta_id)
     {
         
         
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************      
 
                 
@@ -1202,7 +1202,7 @@ function edit($venta_id)
     function remove($venta_id)
     {
         
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************     
         
         $venta = $this->Venta_model->get_venta($venta_id);
@@ -1226,7 +1226,7 @@ function edit($venta_id)
      */
     function eliminaritem($detalleven_id)
     {
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************        
 
         $sql = "delete from detalle_venta_aux where detalleven_id = ".$detalleven_id;
@@ -1243,7 +1243,7 @@ function edit($venta_id)
      */
     function eliminartodo()
     {
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************        
         $usuario_id = $this->session_data['usuario_id'];
         $sql = "delete from detalle_venta_aux where usuario_id = ".$usuario_id;
@@ -1261,7 +1261,7 @@ function edit($venta_id)
      */
     function cancelar_cambios()
     {
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************
                 
                 
@@ -1281,7 +1281,7 @@ function edit($venta_id)
      */
     function incrementar()
     {
-        if($this->acceso(77-1)||$this->acceso(77-1)){ // 12 ventas 30 pedidos
+        if($this->acceso(8)||$this->acceso(77-1)){ // 12 ventas 30 pedidos
         //**************** inicio contenido ***************        
         
         $detalleven_id = $this->input->post('detalleven_id');
@@ -1308,7 +1308,7 @@ function edit($venta_id)
      */
     function incrementar_detalle()
     {
-        if($this->acceso(77-1)||$this->acceso(77-1)){ // 12 ventas 30 pedidos
+        if($this->acceso(8)){ // 12 ventas 30 pedidos
         //**************** inicio contenido ***************        
         
         $detalleven_id = $this->input->post('detalleven_id');
@@ -1341,7 +1341,7 @@ function edit($venta_id)
     function reducir()
     {
       
-        if($this->acceso(77-1)||$this->acceso(77-1)){ // 12 ventas 30 pedidos
+        if($this->acceso(8)){ // 12 ventas 30 pedidos
         //**************** inicio contenido ***************
         
         
@@ -1371,7 +1371,7 @@ function edit($venta_id)
     function reducir_detalle()
     {
       
-        if($this->acceso(77-1)||$this->acceso(77-1)){ // 12 ventas 30 pedidos
+        if($this->acceso(8)){ // 12 ventas 30 pedidos
         //**************** inicio contenido ***************
         
         
@@ -1404,7 +1404,7 @@ function edit($venta_id)
      */
     function buscarcliente()
     {
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************
         
                 if ($this->input->is_ajax_request()) {       
@@ -1579,7 +1579,7 @@ function buscarcotizar()
 */
 function registrarcliente()
 {
-        if(($this->acceso(77-1)==true)||($this->acceso(77-1)==true)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************    
     
         if ($this->input->is_ajax_request()) {
@@ -1628,7 +1628,7 @@ function registrarcliente()
 */
 function modificarcliente()
 {
-        if($this->acceso(77-1)||$this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************    
     
         if ($this->input->is_ajax_request()) {
@@ -1722,7 +1722,7 @@ function modificarcliente()
 /*************** funcion para mostrar la vista de la factura******************/
 function ultimaventa(){
     
-              if($this->acceso(77-1)||$this->acceso(77-1)){
+              if($this->acceso(8)){
         //**************** inicio contenido ***************    
     
                 
@@ -1748,7 +1748,7 @@ function ultimaventa(){
 /*************** funcion para mostrar la vista de la factura******************/
 function ultimorecibo(){
     
-    if($this->acceso(77-1)||$this->acceso(77-1)){
+    if($this->acceso(8)){
     //**************** inicio contenido ***************    
     
                 
@@ -1768,7 +1768,7 @@ function ultimorecibo(){
 
 function ultimagarantia(){
     
-    if($this->acceso(77-1)||$this->acceso(77-1)){
+    if($this->acceso(8)){
     //**************** inicio contenido ***************    
     
                 
@@ -1788,7 +1788,7 @@ function ultimagarantia(){
 
 function ultimacomanda(){
     
-       if($this->acceso(77-1)){
+       if($this->acceso(8)){
         //**************** inicio contenido ***************    
     
                 
@@ -1805,7 +1805,7 @@ function ultimacomanda(){
 
 function eliminar_venta($venta_id){
 
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************       
     
             $sql = "update inventario i, detalle_venta d"
@@ -1834,7 +1834,7 @@ function eliminar_venta($venta_id){
 
 function anular_venta($venta_id){
 
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************   
     
     //$sql =  "delete from detalle_venta where venta_id = ".$venta_id;
@@ -1922,7 +1922,7 @@ function anular_venta($venta_id){
   function busquedacombi()
     {
 
-       if($this->acceso(77-1)){
+       if($this->acceso(8)){
         //**************** inicio contenido ***************          
 
                 
@@ -1955,7 +1955,7 @@ function anular_venta($venta_id){
 
     function comision()
     {
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************           
         
         $this->load->model('Usuario_model');
@@ -2036,7 +2036,7 @@ function anular_venta($venta_id){
     
     function eliminar_producto_vendido($detalleven_id)
     {
-           if($this->acceso(77-1)||$this->acceso(77-1)){ //12 ventas o 30 pedidos
+           if($this->acceso(8)){ //12 ventas o 30 pedidos
             //**************** inicio contenido ***************          
 
             if ($this->input->is_ajax_request()) {
@@ -2115,7 +2115,7 @@ function anular_venta($venta_id){
 
     function costo_cero()
     {       
-         if($this->acceso(77-1)){
+         if($this->acceso(8)){
         //**************** inicio contenido ***************       
         
         $usuario_id = $this->session_data['usuario_id'];
@@ -2142,7 +2142,7 @@ function anular_venta($venta_id){
         
     function cantidad_en_detalle()
     {       
-        if($this->acceso(77-1)||$this->acceso(77-1)){ //12 ventas o 30 pedidos
+        if($this->acceso(8)){ //12 ventas o 30 pedidos
         //**************** inicio contenido ***************       
         
         $usuario_id = $this->session_data['usuario_id'];
@@ -2162,7 +2162,7 @@ function anular_venta($venta_id){
         
     function cantidad_en_detalle_otros()
     {       
-          if($this->acceso(77-1)||$this->acceso(77-1)){ //12 ventas o 30 pedidos
+          if($this->acceso(8)){ //12 ventas o 30 pedidos
         //**************** inicio contenido ***************       
         
         $usuario_id = $this->session_data['usuario_id'];
@@ -2184,7 +2184,7 @@ function anular_venta($venta_id){
 
     function existencia()
     {       
-         if($this->acceso(77-1)||$this->acceso(77-1)){ //12 ventas o 30 pedidos
+         if($this->acceso(8)){ //12 ventas o 30 pedidos
         //**************** inicio contenido ***************       
         
         $usuario_id = $this->session_data['usuario_id'];
@@ -2208,7 +2208,7 @@ function anular_venta($venta_id){
 
     function precio_costo()
     {       
-         if($this->acceso(77-1)){
+         if($this->acceso(8)){
         //**************** inicio contenido ***************       
         
         $usuario_id = $this->session_data['usuario_id'];
@@ -2257,7 +2257,7 @@ function anular_venta($venta_id){
     }
         
     function seleccionar_cliente($cliente_id){
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
                //**************** inicio contenido ***************       
 
                $usuario_id = $this->session_data['usuario_id'];
@@ -2277,7 +2277,7 @@ function anular_venta($venta_id){
     }
         
     function registrar_caracteristicas(){
-       if($this->acceso(77-1)){
+       if($this->acceso(8)){
                //**************** inicio contenido ***************       
 
                $usuario_id = $this->session_data['usuario_id'];
@@ -2315,7 +2315,7 @@ function anular_venta($venta_id){
   
         
     function verificar_detalle($monto){
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
                //**************** inicio contenido ***************       
 
                $usuario_id = $this->session_data['usuario_id'];
@@ -2420,7 +2420,7 @@ function anular_venta($venta_id){
     function vencimientos()
     {
         
-        if($this->acceso(77-1)) {
+        if($this->acceso(8)) {
                 
         //**************** inicio contenido ***************            
         $usuario_id = $this->session_data['usuario_id'];
@@ -2451,7 +2451,7 @@ function anular_venta($venta_id){
     
     function lista_vencimientos(){
         
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************       
         
             $fecha_desde = $this->input->post("fecha_desde");
@@ -2473,7 +2473,7 @@ function anular_venta($venta_id){
     function prestamos()
     {
         
-        if($this->acceso(77-1)) {
+        if($this->acceso()) {
                 
         //**************** inicio contenido ***************            
         $usuario_id = $this->session_data['usuario_id'];
@@ -2508,7 +2508,7 @@ function anular_venta($venta_id){
     
     function lista_prestamos(){
         
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************       
         
             $fecha_desde = $this->input->post("fecha_desde");
@@ -2540,7 +2540,7 @@ function anular_venta($venta_id){
 
    function registrar_devolucion(){
         
-        if($this->acceso(77-1)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************       
             $usuario_id = $this->session_data['usuario_id'];
             $detalleven_id = $this->input->post("detalleven_id");

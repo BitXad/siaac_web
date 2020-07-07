@@ -37,7 +37,7 @@ class Egreso extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(39)){
+        if($this->acceso(19)){
             if ($this->session->userdata('logged_in')) {
                 $session_data = $this->session->userdata('logged_in');
                 if($session_data['tipousuario_id']==1) {
@@ -62,7 +62,7 @@ class Egreso extends CI_Controller{
 
  function buscarfecha()
     {
-        if($this->acceso(43)){
+        if($this->acceso(23)){
             if ($this->session->userdata('logged_in')) {
                 $session_data = $this->session->userdata('logged_in');
                 if($session_data['tipousuario_id']==1) {
@@ -95,7 +95,7 @@ class Egreso extends CI_Controller{
     
     function add()
     {
-        if($this->acceso(40)){
+        if($this->acceso(20)){
             if ($this->session->userdata('logged_in')) {
                 $session_data = $this->session->userdata('logged_in');
                 if($session_data['tipousuario_id']==1) {
@@ -160,7 +160,7 @@ class Egreso extends CI_Controller{
      */
     function edit($egreso_id)
     {
-        if($this->acceso(41)){
+        if($this->acceso(21)){
             if ($this->session->userdata('logged_in')) {
                 $session_data = $this->session->userdata('logged_in');
                 if($session_data['tipousuario_id']==1) {
@@ -211,7 +211,7 @@ class Egreso extends CI_Controller{
      */
 
 public function pdf($egreso_id){
-    if($this->acceso(44)){
+    if($this->acceso(22)){
         if ($this->session->userdata('logged_in')) {
             $session_data = $this->session->userdata('logged_in');
             if($session_data['tipousuario_id']==1) {
@@ -235,7 +235,7 @@ public function pdf($egreso_id){
 
 
     public function boucher($egreso_id){
-        if($this->acceso(44)){
+        if($this->acceso(22)){
             if ($this->session->userdata('logged_in')) {
                 $session_data = $this->session->userdata('logged_in');
                 if($session_data['tipousuario_id']==1) {
@@ -255,7 +255,7 @@ public function pdf($egreso_id){
 
     function remove($egreso_id)
     {
-        if($this->acceso(42)){
+        if($this->acceso(24)){
             $egreso = $this->Egreso_model->get_egreso($egreso_id);
             // check if the egreso exists before tryegr to delete it
             if(isset($egreso['egreso_id']))

@@ -31,7 +31,7 @@ class Producto extends CI_Controller{
      */
     function index($a = null)
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(74)) {
             $data['rol'] = $this->session_data['rol'];
             $data['tipousuario_id'] = $this->session_data['tipousuario_id'];
             $data['a'] = $a;
@@ -65,7 +65,7 @@ class Producto extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(75)) {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('producto_codigo','Producto Codigo','required');
         $this->form_validation->set_rules('producto_nombre','Producto Nombre','required');
@@ -233,7 +233,7 @@ class Producto extends CI_Controller{
      */
     function edit($producto_id)
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(79)) {
         // check if the producto exists before trying to edit it
         $data['producto'] = $this->Producto_model->get_esteproducto($producto_id);
         
@@ -404,7 +404,7 @@ class Producto extends CI_Controller{
      */
     function edit2($producto_id)
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(79)) {
         // check if the producto exists before trying to edit it
         $data['producto'] = $this->Producto_model->get_esteproducto($producto_id);
         
@@ -534,7 +534,7 @@ class Producto extends CI_Controller{
  
  function rapido()
  {
-     if($this->acceso(76-1)) {
+     if($this->acceso(74)) {
         $estado_id = 1;        
         $compra_id = $this->input->post('compra_id');
         $bandera = $this->input->post('bandera');
@@ -696,7 +696,7 @@ class Producto extends CI_Controller{
      
     function remove($producto_id)
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(80)) {
         $producto = $this->Producto_model->get_producto($producto_id);
 
         // check if the producto exists before trying to delete it
@@ -726,7 +726,7 @@ class Producto extends CI_Controller{
     */
     function buscarproductos()
     {
-       if($this->acceso(76-1)) {
+       if($this->acceso(74)) {
                 
                 $usuario_id = $this->session_data['usuario_id'];
 
@@ -756,7 +756,7 @@ class Producto extends CI_Controller{
     */
     function buscarproductoslimit()
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(74)) {
                 
                 $usuario_id = $this->session_data['usuario_id'];
 
@@ -780,7 +780,7 @@ class Producto extends CI_Controller{
     */
     function buscarproductosall()
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(74)) {
                 $usuario_id = $this->session_data['usuario_id'];
 
         if ($this->input->is_ajax_request()) {
@@ -801,7 +801,7 @@ class Producto extends CI_Controller{
     /* buscar productos por Categoria */
     function buscarproductos_porcategoria()
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(74)) {
                 
                 $usuario_id = $this->session_data['usuario_id'];
 
@@ -825,7 +825,7 @@ class Producto extends CI_Controller{
      */
     function existenciaminima()
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(77)) {
         $usuario_id = $this->session_data['usuario_id'];  
         $data = array(
             'page_title' => 'Admin >> Mi Cuenta'
@@ -854,7 +854,7 @@ class Producto extends CI_Controller{
     */
     function buscarproductosexistmin()
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(77)) {
             if ($this->input->is_ajax_request()) {
                 $parametro       = $this->input->post('parametro');
                 $categoriaestado = $this->input->post('categoriaestado'); 
@@ -871,7 +871,7 @@ class Producto extends CI_Controller{
     /* * añadir unidad en producto */
     function aniadirunidad()
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(74)) {
             if ($this->input->is_ajax_request()) {
                 $this->load->model('Unidad_model');
                 $parametro = $this->input->post('parametro');
@@ -909,7 +909,7 @@ class Producto extends CI_Controller{
     /* * añadir unidad en producto */
     function aniadircategoria()
     {
-        if($this->acceso(76-1)) {
+        if($this->acceso(74)) {
             if ($this->input->is_ajax_request()) {
                 $this->load->model('Categoria_producto_model');
                 $parametro = $this->input->post('parametro');

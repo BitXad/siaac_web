@@ -31,7 +31,7 @@ class Dia extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(67)){
+        if($this->acceso(41)){
             $data['dia'] = $this->Dia_model->get_all_dia();
 
             $data['_view'] = 'dia/index';
@@ -44,7 +44,7 @@ class Dia extends CI_Controller{
          */
         function add()
         {
-            if($this->acceso(67)){
+            if($this->acceso(41)){
                 $this->load->library('form_validation');
                 $this->form_validation->set_rules('dia_nombre','Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
                 if($this->form_validation->run())     
@@ -71,7 +71,7 @@ class Dia extends CI_Controller{
      */
     function edit($dia_id)
     {
-        if($this->acceso(67)){
+        if($this->acceso(41)){
             // check if the dia exists before trying to edit it
             $data['dia'] = $this->Dia_model->get_dia($dia_id);
             if(isset($data['dia']['dia_id']))
@@ -109,7 +109,7 @@ class Dia extends CI_Controller{
      */
     function remove($dia_id)
     {
-        if($this->acceso(67)){
+        if($this->acceso(41)){
             $dia = $this->Dia_model->get_dia($dia_id);
             // check if the dia exists before trying to delete it
             if(isset($dia['dia_id']))

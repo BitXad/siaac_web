@@ -31,7 +31,7 @@ class Kardex_economico extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             $data['kardex_economico'] = $this->Kardex_economico_model->get_all_kardex_economico();
 
             $data['_view'] = 'kardex_economico/index';
@@ -42,7 +42,7 @@ class Kardex_economico extends CI_Controller{
 
     function busqueda()
     {
-        if($this->acceso(47)){
+        if($this->acceso(35)){
             if ($this->input->is_ajax_request()) {
                 $estudiante = $this->input->post('dato');
                 if ($estudiante!="") {
@@ -104,7 +104,7 @@ class Kardex_economico extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -139,7 +139,7 @@ class Kardex_economico extends CI_Controller{
      */
     function edit($kardexeco_id)
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             // check if the kardex_economico exists before trying to edit it
             $data['kardex_economico'] = $this->Kardex_economico_model->get_kardex_economico($kardexeco_id);
             if(isset($data['kardex_economico']['kardexeco_id']))
@@ -182,7 +182,7 @@ class Kardex_economico extends CI_Controller{
      */
     function remove($kardexeco_id)
     {
-        if($this->acceso(47)){
+        if($this->acceso(34)){
             $kardex_economico = $this->Kardex_economico_model->get_kardex_economico($kardexeco_id);
             // check if the kardex_economico exists before trying to delete it
             if(isset($kardex_economico['kardexeco_id']))

@@ -42,7 +42,7 @@ class Ingreso extends CI_Controller{
      */
     function index()
     {
-         if($this->acceso(53)){
+         if($this->acceso(25)){
             $usuario_id = $this->session_data['usuario_id'];
             $data['rol'] = $this->session_data['rol'];
             $data['empresa'] = $this->Empresa_model->get_empresa(1);
@@ -85,7 +85,7 @@ class Ingreso extends CI_Controller{
      */
     function add()
     {   
-         if($this->acceso(54)){
+         if($this->acceso(26)){
                 $usuario_id = $this->session_data['usuario_id'];
                 $gestion = $this->session_data['gestion_id'];
         $this->load->library('form_validation');
@@ -255,7 +255,7 @@ class Ingreso extends CI_Controller{
     function edit($ingreso_id)
     {   
         
-        if($this->acceso(55)){
+        if($this->acceso(27)){
                 $usuario_id = $this->session_data['usuario_id'];
         // check if the ingreso exists before trying to edit it
         $data['ingreso'] = $this->Ingreso_model->get_ingreso($ingreso_id);
@@ -296,7 +296,7 @@ class Ingreso extends CI_Controller{
     
 
 public function pdf($ingreso_id){
-    if($this->acceso(58)){
+    if($this->acceso(28)){
       $data['ingresos'] = $this->Ingreso_model->get_ingresos($ingreso_id);
        $data['institucion'] = $this->Institucion_model->get_institucion(1);
        $data['page_title'] = "Ingreso"; 
@@ -308,7 +308,7 @@ public function pdf($ingreso_id){
 
 public function boucher($ingreso_id){
             
-    if($this->acceso(58)){
+    if($this->acceso(28)){
 
       $data['ingreso'] = $this->Ingreso_model->get_ingresos($ingreso_id);
        $data['institucion'] = $this->Institucion_model->get_institucion(1);
@@ -323,7 +323,7 @@ public function boucher($ingreso_id){
      */
     function remove($ingreso_id)
     {
-        if($this->acceso(56)){
+        if($this->acceso(30)){
         $ingreso = $this->Ingreso_model->get_ingreso($ingreso_id);
 
         // check if the ingreso exists before trying to delete it

@@ -31,7 +31,7 @@ class Materia_asignada extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(50)){
+        if($this->acceso(65)){
             $data['materia_asignada'] = $this->Materia_asignada_model->get_all_materia_asignada();
 
             $data['_view'] = 'materia_asignada/index';
@@ -44,7 +44,7 @@ class Materia_asignada extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(50)){
+        if($this->acceso(65)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -72,7 +72,7 @@ class Materia_asignada extends CI_Controller{
      */
     function edit($materiaasig_id)
     {
-        if($this->acceso(50)){
+        if($this->acceso(65)){
             // check if the materia_asignada exists before trying to edit it
             $data['materia_asignada'] = $this->Materia_asignada_model->get_materia_asignada($materiaasig_id);
             if(isset($data['materia_asignada']['materiaasig_id']))
@@ -108,7 +108,7 @@ class Materia_asignada extends CI_Controller{
      */
     function remove($materiaasig_id)
     {
-        if($this->acceso(50)){
+        if($this->acceso(65)){
             $materia_asignada = $this->Materia_asignada_model->get_materia_asignada($materiaasig_id);
             // check if the materia_asignada exists before trying to delete it
             if(isset($materia_asignada['materiaasig_id']))

@@ -31,7 +31,7 @@ class Categoria_cliente extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(114)){
+        if($this->acceso(8)){
             $data['page_title'] = "Categoria Negocio Cliente";
             $params['limit'] = RECORDS_PER_PAGE; 
             $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
@@ -53,7 +53,7 @@ class Categoria_cliente extends CI_Controller{
      */
     function add()
     {   
-        if($this->acceso(114)){
+        if($this->acceso(8)){
             $data['page_title'] = "Categoria Negocio Cliente";
             $this->load->library('form_validation');
 
@@ -86,7 +86,7 @@ class Categoria_cliente extends CI_Controller{
      */
     function edit($categoriaclie_id)
     {   
-        if($this->acceso(114)){
+        if($this->acceso(8)){
             $data['page_title'] = "Categoria Negocio Cliente";
             // check if the categoria_cliente exists before trying to edit it
             $data['categoria_cliente'] = $this->Categoria_cliente_model->get_categoria_cliente($categoriaclie_id);
@@ -125,7 +125,7 @@ class Categoria_cliente extends CI_Controller{
      */
     function remove($categoriaclie_id)
     {
-        if($this->acceso(114)){
+        if($this->acceso(8)){
             $categoria_cliente = $this->Categoria_cliente_model->get_categoria_cliente($categoriaclie_id);
 
             // check if the categoria_cliente exists before trying to delete it

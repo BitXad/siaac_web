@@ -31,7 +31,7 @@ class Dosificacion extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(73-1)){
+        if($this->acceso(121)){
            
             $config['total_rows'] = $this->Dosificacion_model->get_all_dosificacion_count();
             $this->pagination->initialize($config);
@@ -51,7 +51,7 @@ class Dosificacion extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(73-1)){
+        if($this->acceso(122)){
             $data['page_title'] = "Dosificación";
         if(isset($_POST) && count($_POST) > 0)     
         {   
@@ -96,7 +96,7 @@ class Dosificacion extends CI_Controller{
      */
     function edit($dosificacion_id)
     {
-        if($this->acceso(73-1)){
+        if($this->acceso(123)){
             $data['page_title'] = " :: Dosificación";
         // check if the dosificacion exists before trying to edit it
         $data['dosificacion'] = $this->Dosificacion_model->get_dosificacion($dosificacion_id);
@@ -150,7 +150,7 @@ class Dosificacion extends CI_Controller{
      */
     function remove($dosificacion_id)
     {
-        if($this->acceso(73-1)){
+        if($this->acceso(121)){
         $dosificacion = $this->Dosificacion_model->get_dosificacion($dosificacion_id);
 
         // check if the dosificacion exists before trying to delete it

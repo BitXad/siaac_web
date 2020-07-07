@@ -31,7 +31,7 @@ class Plan_academico extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(55)){
+        if($this->acceso(44)){
             $data['plan_academico'] = $this->Plan_academico_model->get_all_plan_academico();
 
             $data['_view'] = 'plan_academico/index';
@@ -44,7 +44,7 @@ class Plan_academico extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(55)){
+        if($this->acceso(44)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('planacad_nombre','Plan Academico Nombre','trim|required', array('required' => 'Este Campo no debe ser vacio'));
             if($this->form_validation->run())     
@@ -79,7 +79,7 @@ class Plan_academico extends CI_Controller{
      */
     function edit($plan_academico_id)
     {
-        if($this->acceso(55)){
+        if($this->acceso(44)){
             // check if the plan_academico exists before trying to edit it
             $data['planacad'] = $this->Plan_academico_model->get_plan_academico($plan_academico_id);
             if(isset($data['planacad']['planacad_id']))
@@ -124,7 +124,7 @@ class Plan_academico extends CI_Controller{
      */
     function remove($plan_academico_id)
     {
-        if($this->acceso(55)){
+        if($this->acceso(44)){
         $plan_academico = $this->Plan_academico_model->get_plan_academico($plan_academico_id);
         // check if the plan_academico exists before trying to delete it
         if(isset($plan_academico['planacad_id']))
@@ -141,7 +141,7 @@ class Plan_academico extends CI_Controller{
      */
     function planacad()
     {
-        if($this->acceso(55)){
+        if($this->acceso(44)){
             $this->load->model('Institucion_model');
             $data['all_institucion'] = $this->Institucion_model->get_all_institucion();
 
@@ -467,7 +467,7 @@ class Plan_academico extends CI_Controller{
     /* Imprimir plan_academico */
     function print_planacademico($planacad_id)
     {
-        if($this->acceso(55)){
+        if($this->acceso(44)){
             $this->load->model('Institucion_model');
             $data['all_institucion'] = $this->Institucion_model->get_all_institucion();
 

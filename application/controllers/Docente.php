@@ -42,7 +42,7 @@ class Docente extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(6)){
+        if($this->acceso(54)){
             
 
             $data['docente'] = $this->Docente_model->get_all_docente();
@@ -55,7 +55,7 @@ class Docente extends CI_Controller{
     function dashboard($docente_id)
     {
         //menu docentes
-        if($this->acceso(61)&&$this->privado($docente_id)){
+        if($this->acceso(136)&&$this->privado($docente_id)){
             $data['docente'] = $this->Docente_model->get_docent($docente_id);
             $data['_view'] = 'docente/dashboard';
             $this->load->view('layouts/main',$data);
@@ -64,7 +64,7 @@ class Docente extends CI_Controller{
 
     function grupos($docente_id)
     {
-        if($this->acceso(62)&&$this->privado($docente_id)){
+        if($this->acceso(137)&&$this->privado($docente_id)){
             $data['grupos'] = $this->Grupo_model->get_allgrupo_docente($docente_id);
             $data['_view'] = 'docente/grupos';
             $this->load->view('layouts/main',$data);
@@ -72,21 +72,21 @@ class Docente extends CI_Controller{
     }
     function materias($docente_id)
     {
-        if($this->acceso(63)&&$this->privado($docente_id)){
+        if($this->acceso(138)&&$this->privado($docente_id)){
             $data['_view'] = 'docente/materias';
             $this->load->view('layouts/main',$data);
         }
     }
     function horarios($docente_id)
     {
-        if($this->acceso(64)&&$this->privado($docente_id)){
+        if($this->acceso(139)&&$this->privado($docente_id)){
             $data['_view'] = 'docente/horarios';
             $this->load->view('layouts/main',$data);
         }
     }
     function notas($docente_id)
     {
-        if($this->acceso(65)&&$this->privado($docente_id)){
+        if($this->acceso(140)&&$this->privado($docente_id)){
             $data['_view'] = 'docente/notas';
             $this->load->view('layouts/main',$data);
         }
@@ -94,7 +94,7 @@ class Docente extends CI_Controller{
 
     function nota($grupo)
     {
-        if($this->acceso(65)){
+        if($this->acceso(140)){
             $data['estudiante'] = $this->Docente_model->get_estudiantes($grupo);
             $data['_view'] = 'docente/nota_grupo';
             $this->load->view('layouts/main',$data);
@@ -106,7 +106,7 @@ class Docente extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(7)){
+        if($this->acceso(55)){
             $this->load->library('form_validation');
             $this->form_validation->set_rules('docente_nombre','docente Nombre','required');
             $this->form_validation->set_rules('docente_apellidos','docente Apellidos','required');
@@ -214,7 +214,7 @@ class Docente extends CI_Controller{
      */
     function edit($docente_id)
     {
-        if($this->acceso(8)){
+        if($this->acceso(56)){
             // check if the docente exists before trying to edit it
             $data['docente'] = $this->Docente_model->get_docente($docente_id);
 
@@ -354,7 +354,7 @@ class Docente extends CI_Controller{
 
         function cuenta($docente_id)
     {
-        if($this->acceso(61)&&$this->privado($docente_id)){
+        if($this->acceso(136)&&$this->privado($docente_id)){
              
             //usuario_id ===>id de docente
             $usuario_id = $this->session_data['usuario_id'];
@@ -404,7 +404,7 @@ class Docente extends CI_Controller{
 
     function restablecer($docente_id)
     {
-        if($this->acceso(9)){
+        if($this->acceso(57)){
            
            $sql="UPDATE docente SET docente_login=docente_ci, docente_clave=md5(docente_ci) WHERE docente_id=".$docente_id." ";
            $this->db->query($sql);
@@ -414,7 +414,7 @@ class Docente extends CI_Controller{
 
     function remove($docente_id)
     {
-        if($this->acceso(9)){
+        if($this->acceso(54)){
             $docente = $this->Docente_model->get_docente($docente_id);
             // check if the docente exists before trying to delete it
             if(isset($docente['docente_id']))

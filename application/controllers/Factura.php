@@ -45,7 +45,7 @@ class Factura extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(73)){
+        if($this->acceso(124)){
         //**************** inicio contenido ***************            
         
         $params['limit'] = RECORDS_PER_PAGE; 
@@ -83,7 +83,7 @@ class Factura extends CI_Controller{
 
     function factura_compra()
     {
-        if($this->acceso(74)){
+        if($this->acceso(125)){
         //**************** inicio contenido ***************            
         
         $params['limit'] = RECORDS_PER_PAGE; 
@@ -106,7 +106,7 @@ class Factura extends CI_Controller{
     function factura_carta($venta_id)
     {
         
-        if($this->acceso(17)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************   
         $usuario_id = $this->session_data['usuario_id'];
         
@@ -166,7 +166,7 @@ class Factura extends CI_Controller{
     
     function factura_boucher($venta_id)
     {
-        if($this->acceso(17)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************           
     
         $usuario_id = $this->session_data['usuario_id'];
@@ -230,7 +230,7 @@ class Factura extends CI_Controller{
     
     function factura_boucher_id($factura_id)
     {
-        if($this->acceso(17)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************           
     
         $usuario_id = $this->session_data['usuario_id'];
@@ -296,7 +296,7 @@ class Factura extends CI_Controller{
     
     function factura_carta_id($factura_id)
     {
-        if($this->acceso(17)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************           
     
         $usuario_id = $this->session_data['usuario_id'];
@@ -363,7 +363,7 @@ class Factura extends CI_Controller{
 
     function recibo_boucher($venta_id)
     {
-        if($this->acceso(21)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************           
     
         $usuario_id = $this->session_data['usuario_id'];
@@ -388,7 +388,7 @@ class Factura extends CI_Controller{
 
     function comanda_boucher($venta_id)
     {
-        if($this->acceso(74)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************           
     
         $usuario_id = $this->session_data['usuario_id'];
@@ -416,7 +416,7 @@ class Factura extends CI_Controller{
     
     function recibo_carta($venta_id)
     {
-        if($this->acceso(21)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************           
     
         $usuario_id = $this->session_data['usuario_id'];
@@ -442,7 +442,7 @@ class Factura extends CI_Controller{
     
     function nota_garantia($venta_id)
     {
-        if($this->acceso(21)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************           
     
         $usuario_id = $this->session_data['usuario_id'];
@@ -470,7 +470,7 @@ class Factura extends CI_Controller{
      */
     function add()
     {   
-        if($this->acceso(74)){
+        if($this->acceso(124)){
         //**************** inicio contenido ***************   
                 
         if(isset($_POST) && count($_POST) > 0)     
@@ -518,7 +518,7 @@ class Factura extends CI_Controller{
      */
     function edit($factura_id)
     {   
-        if($this->acceso(74)){
+        if($this->acceso(124)){
         //**************** inicio contenido ***************   
         
         // check if the factura exists before trying to edit it
@@ -573,7 +573,7 @@ class Factura extends CI_Controller{
      */
     function remove($factura_id)
     {
-        if($this->acceso(74)){
+        if($this->acceso(124)){
         //**************** inicio contenido ***************   
                 
         $factura = $this->Factura_model->get_factura($factura_id);
@@ -833,7 +833,7 @@ class Factura extends CI_Controller{
      */
     function verificador()
     {
-        if($this->acceso(74)){
+        if($this->acceso(126)){
 //        if ($this->session->userdata('logged_in')) {
 //            $this->session_data = $this->session->userdata('logged_in');
 //            if($this->session_data['tipousuario_id']==1 or $this->session_data['tipousuario_id']==4) {
@@ -895,7 +895,7 @@ class Factura extends CI_Controller{
 //        } else { redirect('', 'refresh'); }
 
     function anular_factura($factura_id,$factura_numero){
-        if($this->acceso(74)){
+        if($this->acceso(124)){
         //**************** inicio contenido ***************   
                 
 //        if($factura_id>0)
@@ -932,7 +932,7 @@ class Factura extends CI_Controller{
      */
     function mensaje($factura_id,$factura_numero)
     {
-        if($this->acceso(17)){
+        if($this->acceso(124)){
         //**************** inicio contenido ***************            
         
 
@@ -955,7 +955,7 @@ class Factura extends CI_Controller{
      */
     function imprimir_factura($venta_id)
     {
-        if($this->acceso(17)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************            
                 
             $parametros = $this->Parametro_model->get_parametros();
@@ -979,7 +979,7 @@ class Factura extends CI_Controller{
      */
     function imprimir_factura_id($factura_id)
     {
-        if($this->acceso(17)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************            
                 
             $parametros = $this->Parametro_model->get_parametros();
@@ -999,7 +999,7 @@ class Factura extends CI_Controller{
 
     function imprimir_recibo($venta_id)
     {
-        if($this->acceso(21)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************            
                 
             $parametros = $this->Parametro_model->get_parametros();
@@ -1023,7 +1023,7 @@ class Factura extends CI_Controller{
     function emisor()
     {    
         
-        if($this->acceso(12)){
+        if($this->acceso(8)){
         //**************** inicio contenido ***************        
         $data['rolusuario'] = $this->session_data['rol'];
         $usuario_id = $this->session_data['usuario_id'];

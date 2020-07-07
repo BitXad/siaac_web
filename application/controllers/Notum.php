@@ -34,7 +34,7 @@ class Notum extends CI_Controller{
      */
     function index()
     {
-        if($this->acceso(54)){
+        if($this->acceso(68)){
             $data['nota'] = $this->Notum_model->get_all_nota();
 
             $data['_view'] = 'notum/index';
@@ -43,7 +43,7 @@ class Notum extends CI_Controller{
     }
     function notae2()
     {
-        if($this->acceso(54)){
+        if($this->acceso(68)){
             $data['estudiante'] = $this->Docente_model->get_estudiantes(1);
             $data['institucion'] = $this->Institucion_model->get_institucion(1);
             $data['_view'] = 'notum/notae2';
@@ -53,7 +53,7 @@ class Notum extends CI_Controller{
 
     function notae3()
     {
-        if($this->acceso(54)){
+        if($this->acceso(68)){
             $data['estudiante'] = $this->Docente_model->get_estudiantes(1);
             $data['institucion'] = $this->Institucion_model->get_institucion(1);
             $data['_view'] = 'notum/notae3';
@@ -63,7 +63,7 @@ class Notum extends CI_Controller{
 
     function centralizador()
     {
-        if($this->acceso(54)){
+        if($this->acceso(68)){
             $data['institucion'] = $this->Institucion_model->get_institucion(1);
             $data['_view'] = 'notum/centralizador';
             $this->load->view('layouts/main',$data);
@@ -75,7 +75,7 @@ class Notum extends CI_Controller{
      */
     function add()
     {
-        if($this->acceso(54)){
+        if($this->acceso(69)){
             if(isset($_POST) && count($_POST) > 0)     
             {   
                 $params = array(
@@ -121,7 +121,7 @@ class Notum extends CI_Controller{
      */
     function edit($nota_id)
     {
-        if($this->acceso(54)){
+        if($this->acceso(70)){
             // check if the notum exists before trying to edit it
             $data['notum'] = $this->Notum_model->get_notum($nota_id);
 
@@ -176,7 +176,7 @@ class Notum extends CI_Controller{
      */
     function remove($nota_id)
     {
-        if($this->acceso(54)){
+        if($this->acceso(68)){
             $notum = $this->Notum_model->get_notum($nota_id);
 
             // check if the notum exists before trying to delete it
