@@ -858,27 +858,24 @@ class Estudiante extends CI_Controller{
                     $this->load->library('form_validation');
                     $this->form_validation->set_rules('estudiante_login','estudiante_login','required');
                     if($this->form_validation->run()) {
-
-
-                    $curr_password = md5($this->input->post('estudiante_clave'));
-                    if ($curr_password==$data['estudiante']['estudiante_clave']) {
-                       $params = array(
-                 
-                    'estudiante_login' => $this->input->post('estudiante_login'),
-                    'estudiante_clave' => md5($this->input->post('newpass')),
-                    
-                        );
-
-                     $this->Estudiante_model->update_estudiante($estudiante_id,$params);
-                     redirect('estudiante/menu_estudiante/'.$estudiante_id);
-                    } } else {
+                        $curr_password = md5($this->input->post('estudiante_clave'));
+                        if ($curr_password==$data['estudiante']['estudiante_clave']) {
+                           $params = array(
+                                'estudiante_login' => $this->input->post('estudiante_login'),
+                                'estudiante_clave' => md5($this->input->post('newpass')),
+                            );
+                            $this->Estudiante_model->update_estudiante($estudiante_id,$params);
+                            redirect('estudiante/menu_estudiante/'.$estudiante_id);
+                        }else{
+                            $data['mensaje'] = 'La clave antigua es incorrecta.';
+                            $data['_view'] = 'estudiante/cuenta';
+                            $this->load->view('layouts/main',$data);
+                        }
+                    }else {
                         $data['mensaje'] = '';
                         $data['_view'] = 'estudiante/cuenta';
                      $this->load->view('layouts/main',$data);
-                    } 
-                     $data['mensaje'] = 'La clave antigua es incorrecta.';
-                     $data['_view'] = 'estudiante/cuenta';
-                     $this->load->view('layouts/main',$data);
+                    }
                 }else
                     show_error('The estudiante you are trying to edit does not exist.');
             }else{

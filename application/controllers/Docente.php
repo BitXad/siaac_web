@@ -366,27 +366,28 @@ class Docente extends CI_Controller{
                     $this->load->library('form_validation');
                     $this->form_validation->set_rules('docente_login','docente_login','required');
                     if($this->form_validation->run()) {
+                        $curr_password = md5($this->input->post('docente_clave'));
+                        if ($curr_password==$data['docente']['docente_clave']) {
+                           $params = array(
 
+                        'docente_login' => $this->input->post('docente_login'),
+                        'docente_clave' => md5($this->input->post('newpass')),
 
-                    $curr_password = md5($this->input->post('docente_clave'));
-                    if ($curr_password==$data['docente']['docente_clave']) {
-                       $params = array(
-                 
-                    'docente_login' => $this->input->post('docente_login'),
-                    'docente_clave' => md5($this->input->post('newpass')),
-                    
-                        );
+                            );
 
-                     $this->Docente_model->update_docente($docente_id,$params);
-                     redirect('docente/dashboard/'.$docente_id);
-                    } } else {
+                         $this->Docente_model->update_docente($docente_id,$params);
+                         redirect('docente/dashboard/'.$docente_id);
+                        }else{
+                            $data['mensaje'] = 'La clave antigua es incorrecta.';
+                     $data['_view'] = 'docente/cuenta';
+                     $this->load->view('layouts/main',$data);
+                        }
+                    }else {
                         $data['mensaje'] = '';
                         $data['_view'] = 'docente/cuenta';
                      $this->load->view('layouts/main',$data);
                     } 
-                     $data['mensaje'] = 'La clave antigua es incorrecta.';
-                     $data['_view'] = 'docente/cuenta';
-                     $this->load->view('layouts/main',$data);
+                     
                 }else
                     show_error('The docente you are trying to edit does not exist.');
             }else{
