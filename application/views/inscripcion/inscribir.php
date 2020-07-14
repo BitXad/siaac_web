@@ -145,10 +145,10 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <label for="carrera_id" class="control-label">Carrera</label>
                             <div class="form-group"> <b>
-                                <select name="carrera_id" id="carrera_id" class="form-control" onchange="seleccionar_carrera()">
+                                <select name="carrera_id" id="carrera_id" class="form-control" onchange="obtener_planacademico(this.value)">
                                     <option value="0">- CURSO/CARRERA -</option>
                                     <?php
                                     foreach($all_carrera as $carrera)
@@ -157,6 +157,14 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                         echo '<option value="'.$carrera['carrera_id'].'" '.$selected.'>'.$carrera['carrera_nombre'].'</option>';
                                     } 
                                     ?>
+                                </select></b>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="carrera_id" class="control-label">Plan Academico</label>
+                            <div class="form-group" id="elegirplanacad"><b>
+                                <select name="planacad_id" id="planacad_id" class="form-control" required>
+                                    <option value="0">- PLAN ACADEMICO -</option>
                                 </select></b>
                             </div>
                         </div>

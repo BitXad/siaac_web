@@ -182,7 +182,7 @@ class Inscripcion_model extends CI_Model
                 order by i.inscripcion_id desc
         ")->row_array();
 
-        return $inscripcion['carrera_id'];
+        return $inscripcion;
     }
     /*
      * Get grupos de una materia

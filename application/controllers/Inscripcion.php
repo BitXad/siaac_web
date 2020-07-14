@@ -146,8 +146,12 @@ class Inscripcion extends CI_Controller{
                 if ($estudiante_id>0){
                     $data['estudiante'] = $this->Estudiante_model->get_estudiante_por_id($estudiante_id);
                     $this->load->model('Inscripcion_model');
-                    $data['carrera_idinsc_est'] = $this->Inscripcion_model->get_carreraid_inscripcion($estudiante_id);
-                    
+                    $res_carreraid['carrera_id'] = $this->Inscripcion_model->get_carreraid_inscripcion($estudiante_id);
+                    if(isset($res_carreraid)){
+                        $data['carrera_idinsc_est'] = $res_carreraid;
+                    }else{
+                        $data['carrera_idinsc_est'] = 0;
+                    }
                     /*$this->load->model('Grupo_model');
                     $data['all_grupo'] = $this->Grupo_model->get_all_grupo_gestion($gestion_id);*/
                 }else{
@@ -343,8 +347,8 @@ class Inscripcion extends CI_Controller{
         
     function buscar_nivel(){
         
-        $carrera_id = $this->input->post('carrera_id');
-        $nivel = $this->Nivel_model->get_nivel_por_carrera($carrera_id);
+        $planacad_id = $this->input->post('planacad_id');
+        $nivel = $this->Nivel_model->get_all_nivel_forplan($planacad_id);
         echo json_encode($nivel);
         
     }

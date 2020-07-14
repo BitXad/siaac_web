@@ -82,6 +82,7 @@ function seleccionar_carrera(){
     var controlador = base_url+"inscripcion/buscar_carrera";
     var carrera_id = document.getElementById('carrera_id').value;
     var estudiante_id = document.getElementById('estudiante_id').value;
+    var planacad_id = document.getElementById('planacad_id').value;
     
     
    
@@ -137,7 +138,7 @@ function seleccionar_carrera(){
         $.ajax({
             url:controlador,
             type:"POST",
-            data:{carrera_id:carrera_id},
+            data:{planacad_id:planacad_id},
             success:function(respuesta){
                 
                 var registros = JSON.parse(respuesta);
@@ -521,4 +522,56 @@ function ultimatransaccion(){
         
     });
 }
-
+/* Obtiene los planes academicos de una determinada Carrera */
+function obtener_planacademico(carrera_id){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'plan_academico/get_plan_acadcarrera';
+    if(carrera_id >0){
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{carrera_id:carrera_id},
+           success:function(respuesta){
+               
+                var registros =  JSON.parse(respuesta);
+                var html1 = "";
+                if (registros != null){
+                    var n = registros.length; //tamaño del arreglo de la consulta
+                        html1 = "";
+                        html1 += "<b><select name='planacad_id' class='form-control' onchange='seleccionar_carrera()' id='planacad_id' required>";
+                        html1 += "<option value=''>- PLAN ACADEMICO -</option>";
+                        for (var i = 0; i < n ; i++){
+                            html1 += "<option value='"+registros[i]['planacad_id']+"'>"+registros[i]['planacad_nombre']+"</option>";
+                        }
+                        html1 += "</select></b>";
+                        $("#elegirplanacad").html(html1);
+                        $("#carrera_nivel").val("-");
+                        $("#carrera_tiempoestudio").val("-");
+                        $("#carrera_codigo").val("-");
+                        $("#carrera_modalidad").val("-");
+                        $("#carrera_plan").val("-");
+                        $("#carrera_matricula").val("0.00");
+                        $("#carrera_mensualidad").val("0.00");
+                        $("#carrera_nummeses").val("0");
+                        $("#pagar_mensualidad").empty();
+                        $("#pagar_mensualidad").html("<option value='0'>- NINGUNA -</option>");
+                        $("#nivel_id").empty();
+                        $("#nivel_id").html("<option value='0'>- NIVEL -</option>");
+                        $("#tabla_materia").html("");
+            }
+        },
+        error:function(respuesta){
+           // alert("Algo salio mal...!!!");
+           html = "";
+           $("#elegirplanacad").html("");
+        },
+        complete: function (jqXHR, textStatus) {
+        }
+    });   
+    }else{
+        var htmln = "";
+        htmln += "<select name='planacad_id' class='form-control' id='planacad_id' required>";
+        htmln += "<option value=''>- PLAN ACADEMICO -</option>";
+        htmln += "</select>";
+        $("#elegirplanacad").html(htmln);
+    }
+}

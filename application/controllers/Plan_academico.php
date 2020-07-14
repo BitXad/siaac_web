@@ -155,7 +155,7 @@ class Plan_academico extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }
-    /****obtener plan academico de una carrera****/
+    /****obtener plan academico de una carrera; tambien se lo usa en Inscripcion..****/
     function get_plan_acadcarrera()
     {
         if ($this->input->is_ajax_request()){
