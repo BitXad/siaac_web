@@ -463,7 +463,8 @@ class Mensualidad extends CI_Controller{
     }
     function planmensualidadest($kardexeco_id, $estudiante_id)
     {
-        if($this->acceso(60)){
+        // para el menu de estudiantes
+        if($this->acceso(135)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
