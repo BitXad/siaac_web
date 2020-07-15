@@ -145,6 +145,9 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                 </select>
                             </div>
                         </div>
+                        <div class="row" id='loader'  style='display:none; text-align: center'>
+                            <img src="<?php echo base_url("resources/images/loader.gif"); ?>"  >
+                        </div>
                         <div class="col-md-4">
                             <label for="carrera_id" class="control-label">Carrera</label>
                             <div class="form-group"> <b>
@@ -171,7 +174,9 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         <?php if($carrera_idinsc_est >0){ ?>
                             <script type="text/javascript">
                                 $(document).ready(function () {
-                                    seleccionar_carrera();
+                                    var carrera_id = document.getElementById('carrera_id').value;
+                                    obtener_planacademico(carrera_id);
+                                    //seleccionar_carrera();
                                 });
                             </script>
                         <?php } ?>

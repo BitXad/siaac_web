@@ -146,9 +146,9 @@ class Inscripcion extends CI_Controller{
                 if ($estudiante_id>0){
                     $data['estudiante'] = $this->Estudiante_model->get_estudiante_por_id($estudiante_id);
                     $this->load->model('Inscripcion_model');
-                    $res_carreraid['carrera_id'] = $this->Inscripcion_model->get_carreraid_inscripcion($estudiante_id);
+                    $res_carreraid = $this->Inscripcion_model->get_carreraid_inscripcion($estudiante_id);
                     if(isset($res_carreraid)){
-                        $data['carrera_idinsc_est'] = $res_carreraid;
+                        $data['carrera_idinsc_est'] = $res_carreraid['carrera_id'];
                     }else{
                         $data['carrera_idinsc_est'] = 0;
                     }

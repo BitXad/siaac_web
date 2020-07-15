@@ -4,27 +4,27 @@ var opcion = document.getElementById('opcion').value;
 if (tecla==13){ 
      	if (opcion==0){   //si la pulsacion proviene del codigo
             var codigo = document.getElementById('estudiante').value;
-            sql = "e.estudiante_codigo='"+codigo+"' ";
+            sql = "and e.estudiante_codigo='"+codigo+"' ";
             buscarestudiante(sql);
         }
         
         if (opcion==1){   //si la pulsacion proviene del ci         
             var ci = document.getElementById('estudiante').value;
-            sql = "e.estudiante_ci="+ci+" ";
+            sql = "and e.estudiante_ci="+ci+" ";
             buscarestudiante(sql);           
         }
 
         if (opcion==2){   //si la pulsacion proviene del nombre  
             var nombre = document.getElementById('estudiante').value;
             
-            sql = "e.estudiante_nombre like '%"+nombre+"%'";
+            sql = "and e.estudiante_nombre like '%"+nombre+"%'";
             buscarestudiante(sql);
         }
 
         if (opcion==3){   //si la pulsacion proviene del apellido  
             var apellidos = document.getElementById('estudiante').value;
 
-            sql = "e.estudiante_apellidos like '%"+apellidos+"%'";
+            sql = "and e.estudiante_apellidos like '%"+apellidos+"%'";
             buscarestudiante(sql);
         }
     }

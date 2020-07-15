@@ -87,7 +87,7 @@ class Kardex_economico_model extends CI_Model
             LEFT JOIN estado es ON ke.estado_id=es.estado_id
 
             WHERE
-                
+                ke.estado_id = 1 
                  ".$dato."
 
             ORDER BY `kardexeco_id` DESC

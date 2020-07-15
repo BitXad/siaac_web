@@ -527,6 +527,7 @@ function obtener_planacademico(carrera_id){
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+'plan_academico/get_plan_acadcarrera';
     if(carrera_id >0){
+        document.getElementById('loader').style.display = 'block';
     $.ajax({url: controlador,
            type:"POST",
            data:{carrera_id:carrera_id},
@@ -557,7 +558,10 @@ function obtener_planacademico(carrera_id){
                         $("#nivel_id").empty();
                         $("#nivel_id").html("<option value='0'>- NIVEL -</option>");
                         $("#tabla_materia").html("");
+                        $('#pagar_matricula').find('option:first').attr('selected', 'selected').parent('select');
+                        document.getElementById('loader').style.display = 'none';
             }
+            document.getElementById('loader').style.display = 'none';
         },
         error:function(respuesta){
            // alert("Algo salio mal...!!!");
@@ -565,6 +569,7 @@ function obtener_planacademico(carrera_id){
            $("#elegirplanacad").html("");
         },
         complete: function (jqXHR, textStatus) {
+            document.getElementById('loader').style.display = 'none';
         }
     });   
     }else{
@@ -573,5 +578,6 @@ function obtener_planacademico(carrera_id){
         htmln += "<option value=''>- PLAN ACADEMICO -</option>";
         htmln += "</select>";
         $("#elegirplanacad").html(htmln);
+        document.getElementById('nuevo_plan').style.display = 'none';
     }
 }
