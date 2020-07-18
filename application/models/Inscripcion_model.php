@@ -254,4 +254,21 @@ class Inscripcion_model extends CI_Model
         $resultado = $this->db->query($sql)->row_array();
         return $resultado;
     }
+    /*
+     * Get inscripcion by inscripcion_id pero que no este anulada
+     */
+    function get_inscripcion_noanulada($inscripcion_id)
+    {
+        $inscripcion = $this->db->query("
+            SELECT
+                *
+            FROM
+                `inscripcion`
+            WHERE
+                `estado_id` = 1
+                and `inscripcion_id` = ?
+        ",array($inscripcion_id))->row_array();
+
+        return $inscripcion;
+    }
 }

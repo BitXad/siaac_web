@@ -162,7 +162,13 @@
                                                 Se anulara la inscripcion de:
                                             </div><br>
                                             <div class="text-center" style="font-size: 15px"><b> <?php echo $i['estudiante_apellidos'].", ".$i['estudiante_nombre']; ?></b></div>
-                                            
+                                            <span style="font-size: 12px">
+                                            <?php
+                                            if($i['factura_id'] >0){
+                                                echo "<b><u>Nota</u>.- </b>Esta inscripcion, cuenta con una factura; se le recomienda anular dicha factura";
+                                            }
+                                            ?>
+                                            </span>
                                             <!------------------------------------------------------------------->
                                         </div>
                                         <div class="modal-footer aligncenter">

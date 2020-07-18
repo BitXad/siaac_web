@@ -186,4 +186,18 @@ class Kardex_economico_model extends CI_Model
 
         return $kardex_academico['kardexeco_id'];
     }
+    /* kardex economico dado una inscripcion */
+    function get_keconomico_frominscripcion($inscripcion_id)
+    {
+        $kardex_economico = $this->db->query("
+            SELECT
+                k.*
+            FROM
+                `kardex_economico` k
+            WHERE
+                k.inscripcion_id = ?
+        ",array($inscripcion_id))->row_array();
+
+        return $kardex_economico;
+    }
 }

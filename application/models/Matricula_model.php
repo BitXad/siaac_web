@@ -89,4 +89,12 @@ class Matricula_model extends CI_Model
 
         return $matricula['matricula_id'];
     }
+    /*
+     * function to actualiza matricula de una inscripcion
+     */
+    function update_matriculainscripcion($inscripcion_id, $params)
+    {
+        $this->db->where('inscripcion_id',$inscripcion_id);
+        return $this->db->update('matricula',$params);
+    }
 }

@@ -201,7 +201,9 @@ class Factura_model extends CI_Model
        
         return $factura;
     }
-    /* devuelve el id de factura atravez de una inscripcion */
+    /* devuelve el id de factura atravez de una inscripcion;
+     * tambien se lo usa en modificar factura
+     */
     function get_factura_frominscripcion($inscripcion_id)
     {
         $factura = $this->db->query("
@@ -213,7 +215,7 @@ class Factura_model extends CI_Model
                 f.inscripcion_id = ?
         ",array($inscripcion_id))->row_array();
 
-        return $factura['factura_id'];
+        return $factura;
     }
     
 }

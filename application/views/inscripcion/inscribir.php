@@ -508,7 +508,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                 <div class="input-group" style="padding-top: 5px">
                                     <br>
                                     <label>&nbsp;</label>
-                                    <button class="btn btn-primary"><span class="fa fa-binoculars"></span> Buscar </button>
+                                    <button class="btn btn-primary" onclick="boton_buscarestudiante()"><span class="fa fa-binoculars"></span> Buscar </button>
                                 </div>
                <!--            ------------------- fin parametro de buscador ------------------- -->
                                    </div>
