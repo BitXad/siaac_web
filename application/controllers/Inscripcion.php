@@ -47,7 +47,13 @@ class Inscripcion extends CI_Controller{
         if($this->acceso(1)){
             $gestion_id = $this->session_data['gestion_id'];
             $data['parametro'] = $this->Parametro_model->get_parametro(1);
-            $data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($gestion_id);
+            
+            $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+            $this->load->model('Estado_model');
+            $data['estado'] = $this->Estado_model->get_all_estado_tipo(1);
+            $this->load->model('Usuario_model');
+            $data['usuario'] = $this->Usuario_model->get_all_usuario_activo(1);
+            //$data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($gestion_id);
 
             $data['_view'] = 'inscripcion/index';
             $this->load->view('layouts/main',$data);
@@ -1226,6 +1232,18 @@ class Inscripcion extends CI_Controller{
         }
         $datos= array($kardexacad_id, $esfactura_id);
         echo json_encode($datos);
+    }
+    /* funcion que busca inscritos */
+    function buscar_inscritos()
+    {
+        if($this->input->is_ajax_request()){
+            $gestion_id = $this->session_data['gestion_id'];
+            $filtro = $this->input->post('filtro');
+            $res_inscritos = $this->Inscripcion_model->get_losinscritos($gestion_id, $filtro);
+            echo json_encode($res_inscritos);
+        }else{
+            show_404();
+        }
     }
     
 }

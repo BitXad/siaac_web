@@ -271,4 +271,17 @@ class Inscripcion_model extends CI_Model
 
         return $inscripcion;
     }
+    /*  */
+    function get_losinscritos($gestion_id, $filtro)
+    {
+        $sql = "select c.*, f.factura_id
+                from consinscripcion c
+                left join factura f on c.inscripcion_id = f.inscripcion_id
+                where
+                c.gestion_id = $gestion_id 
+                ".$filtro;
+        //echo $sql;
+        $resultado = $this->db->query($sql)->result_array();
+        return $resultado;
+    }
 }
