@@ -56,29 +56,35 @@ function cerrar() {
              <h3><b><span class="btn-info" style="border-radius: 8px;">Nueva Mensualidad </span></b></h3>  
           </div>
           <div class="col-md-12">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="mensualidad_numero" class="control-label">Numero</label>
                         <div class="form-group">
                           <input type="text" name="mensualidad_numero" value="<?php echo $this->input->post('mensualidad_numero'); ?>" class="form-control" id="mensualidad_numero" />
                         </div>
                       </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="mensualidad_montoparcial" class="control-label">Monto</label>
                         <div class="form-group">
                          <input type="text" name="mensualidad_montoparcial" value="<?php echo $this->input->post('mensualidad_montoparcial'); ?>" class="form-control" id="mensualidad_montoparcial" />
                         </div>
                       </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="mensualidad_mes" class="control-label">Mes</label>
                         <div class="form-group">
                           <input type="text" name="mensualidad_mes" value="<?php echo $this->input->post('mensualidad_mes'); ?>" class="form-control" id="mensualidad_mes" />
                         </div>
                       </div>
                   
-                     <div class="col-md-3">
+                     <div class="col-md-4">
                         <label for="mensualidad_fechalimite" class="control-label">Fecha Limite</label>
                         <div class="form-group">
                           <input type="date" name="mensualidad_fechalimite" value="<?php echo $this->input->post('mensualidad_fechalimite'); ?>" class="form-control" id="mensualidad_fechalimite" />
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <label for="mensualidad_glosa" class="control-label">Glosa</label>
+                        <div class="form-group">
+                          <input type="text" name="mensualidad_glosa" value="<?php echo $this->input->post('mensualidad_glosa'); ?>" class="form-control" id="mensualidad_glosa" />
                         </div>
                       </div>
                       

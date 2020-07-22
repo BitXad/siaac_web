@@ -192,6 +192,7 @@ class Mensualidad extends CI_Controller{
                     'mensualidad_fechalimite' => $this->input->post('mensualidad_fechalimite'),
                     'mensualidad_mes' => $this->input->post('mensualidad_mes'),
                     'mensualidad_mora' => 0,
+                    'mensualidad_glosa' => $this->input->post('mensualidad_glosa'),
 
                 );
 
