@@ -1,6 +1,7 @@
 <script src="<?php echo base_url('resources/js/inscripcion_index.js'); ?>" type="text/javascript"></script>
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <input type="hidden" name="parametro" id="parametro" value="<?php echo $parametro["parametro_tipoimpresora"]; ?>" />
+<input type="hidden" name="resinscripcion" id="resinscripcion" />
 <script type="text/javascript">
     $(document).ready(function () {
         (function ($) {
@@ -25,17 +26,17 @@
     </center>            	
 </div>
 <!-------------------------------------------------------->
- <div class="col-md-6">
+<div class="col-md-5">
     <div class="input-group">
         <span class="input-group-addon">Buscar</span>           
-        <input id="filtrar" type="text" class="form-control" placeholder="Ingrese el nombre, codigo, ci, nit" onkeypress="buscarcliente(event)" autocomplete="off" >
+        <input id="filtrar" type="text" class="form-control" placeholder="Ingrese el nombre, codigo, ci, nit" onkeypress="buscarinscritos(event,1)" autocomplete="off" >
     </div>
 </div>
-<div class="col-md-6">
+<div class="col-md-7">
     <!--<div class="box-header no-print">-->
         <!--<div class="box-tools">-->
         <!--<div class="col-md-3">-->
-            <select  class="btn btn-facebook btn-sm" id="select_inscripcion" onchange="buscar_inscripciones()">
+        <select  class="btn btn-facebook btn-sm" id="select_inscripcion" onchange="buscar_inscripciones()">
     <!--                        <option value="1">-- SELECCIONE UNA OPCION --</option>-->
                 <option value="1">Inscripciones de Hoy</option>
                 <option value="2">Inscripciones de Ayer</option>
@@ -51,7 +52,8 @@
             <a href="<?php echo site_url('venta/ventas'); ?>" class="btn btn-success btn-sm"><span class="fa fa-cart-arrow-down"></span> Ventas</a>
             <!--</div>-->
         <!--<div class="col-md-3">-->
-            <a href="<?php echo site_url('inscripcion/inscribir/0'); ?>" class="btn btn-info btn-sm"> <span class="fa fa-address-card"></span> Inscribir</a> 
+            <a href="<?php echo site_url('inscripcion/inscribir/0'); ?>" class="btn btn-info btn-sm"> <span class="fa fa-address-card"></span> Inscribir</a>
+            <a onclick="generarexcel_inscripcion()" class="btn btn-facebook btn-sm" ><span class="fa fa-file-excel-o"> </span> Exportar a Excel</a>
             <!--</div>-->
         <!--</div>-->
     <!--</div>-->
@@ -133,7 +135,7 @@
 </div>
 <!--</form>-->
 <!------------------------------------------------------------------------------------------->
-<div class="row" id='loader'  style='display:none; text-align: center'>
+<div class="row col-md-12" id='loader'  style='display:none; text-align: center'>
     <img src="<?php echo base_url("resources/images/loader.gif"); ?>"  >
 </div>
 <!-------------------------------------------------------->

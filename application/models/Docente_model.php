@@ -88,7 +88,29 @@ class Docente_model extends CI_Model
 
         return $docente;
     }
-        
+    /* recupera segun la buscqueda */
+    function get_all_docentes($filtro)
+    {
+        $docente = $this->db->query("
+            SELECT
+                d.*, e.*, g.*, ec.*
+
+            FROM
+                docente d, estado e, genero g, estado_civil ec
+
+            WHERE
+                d.estado_id=e.estado_id
+                and d.genero_id=g.genero_id
+                and d.estadocivil_id=ec.estadocivil_id
+                and (d.docente_nombre like '%".$filtro."%'
+                or d.docente_apellidos like '%".$filtro."%')
+                    
+            ORDER BY d.docente_apellidos, d.docente_nombre
+
+        ")->result_array();
+
+        return $docente;
+    }
     /*
      * function to add new docente
      */

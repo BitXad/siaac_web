@@ -22,11 +22,11 @@ function validar(e,opcion) {
 
 
 function buscarestudiante(){
-	var base_url = document.getElementById('base_url').value;
-	var controlador = base_url+'estudiante/buscar_estudiante';
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'estudiante/buscar_estudiante';
     var parametro = document.getElementById('nombre').value;
     var estado = document.getElementById('estado').value;
-
+    document.getElementById('loader').style.display = 'block'; //muestra el bloque del loader
         $.ajax({url:controlador,
                 type:"POST",
                 data:{parametro:parametro,estado:estado},
@@ -58,8 +58,8 @@ function buscarestudiante(){
                         html += "</div>";    
                         }
                         html += "<div style='padding-left: 4px'>";
-                        html += "<b>"+registros[i]["estudiante_nombre"]+"</b><br>";
                         html += "<b>"+registros[i]["estudiante_apellidos"]+"</b><br>";
+                        html += "<b>"+registros[i]["estudiante_nombre"]+"</b><br>";
                         html += "<b>Cod.:</b>"+registros[i]["estudiante_codigo"]+"</b>";
                         html += "</div>";  
                         html += "</div>";
@@ -121,13 +121,162 @@ function buscarestudiante(){
                         html += "</div></div></div></div>";
                         html += "</td>";
                         html += "</tr>";
-                        }    
-                        
-                        $("#tablaestudiantes").html(html);          
+                        }
+                        $("#tablaestudiantes").html(html);
+                        document.getElementById('loader').style.display = 'none';
                 }
             },
                 error:function(respuesta){
-
-        		}		
+        		}
         });
+}
+
+/* generar excel */
+function generarexcel_estudiante(){
+    var base_url = document.getElementById('base_url').value;
+    var parametro = document.getElementById('nombre').value;
+    var estado = document.getElementById('estado').value;
+    var controlador = base_url+'estudiante/buscar_estudiante';
+    
+    var showLabel = true;
+    
+    var reportitle = moment(Date.now()).format("DD/MM/YYYY H_m_s");
+    //document.getElementById('loader').style.display = 'block'; //muestra el bloque del loader
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{parametro:parametro,estado:estado},
+           success:function(result){
+                var registros = JSON.parse(result);
+                var tam = registros.length;
+              
+                var mensaje = "";
+                
+                html = "";
+                //if (opcion==1){
+                  /* **************INICIO Generar Excel JavaScript************** */
+                    var CSV = 'sep=,' + '\r\n\n';
+                    //This condition will generate the Label/Header
+                    if (showLabel) {
+                        var row = "";
+
+                        //This loop will extract the label from 1st index of on array
+                        
+
+                            //Now convert each value to string and comma-seprated
+                            //row += 'ESPEC.' + ',';
+                        row += 'N°' + ',';
+                        row += 'APELLIDOS' + ',';
+                        row += 'NOMBRE' + ',';
+                        row += 'CODIGO' + ',';
+                        row += 'C.I.' + ',';
+                        row += 'EXT' + ',';
+                        row += 'FECHA NAC.' + ',';
+                        row += 'DIRECCION' + ',';
+                        row += 'TELEFONO' + ',';
+                        row += 'CELULAR' + ',';
+                        row += 'NACIONALIDAD' + ',';
+                        row += 'ESTABLECIMIENTO' + ',';
+                        row += 'DISTRITO' + ',';
+                        row += 'APODERADO' + ',';
+                        row += 'PARENTESCO' + ',';
+                        row += 'DIRECCION APODERADO' + ',';
+                        row += 'TELEFONO APODERADO' + ',';
+                        row += 'NIT' + ',';
+                        row += 'RAZON SOCIAL' + ',';
+                           
+                        row = row.slice(0, -1);
+
+                        //append Label row with line break
+                        CSV += row + '\r\n';
+                    }
+                    
+                    //1st loop is to extract each row
+                    for (var i = 0; i < tam; i++) {
+                        var row = "";
+                        //2nd loop will extract each column and convert it in string comma-seprated
+                        
+                            row += (i+1)+',';
+                            row += '"' +registros[i]["estudiante_apellidos"]+ '",';
+                            row += '"' +registros[i]["estudiante_nombre"]+ '",';
+                            row += '"' +registros[i]["estudiante_codigo"]+ '",';
+                            /*if(registros[i]["estado_id"]==1){
+                                row += 'V,';
+                            }
+                            else{
+                                row += 'A,';
+                            }*/
+                            row += '"' +registros[i]["estudiante_ci"]+ '",';
+                            row += '"' +registros[i]["estudiante_extci"]+ '",';
+                            row += '"' +registros[i]["estudiante_fechanac"]+ '",';
+                            row += '"' +registros[i]["estudiante_direccion"]+ '",';
+                            row += '"' +registros[i]["estudiante_telefono"]+ '",';
+                            row += '"' +registros[i]["estudiante_celular"]+ '",';
+                            row += '"' +registros[i]["estudiante_nacionalidad"]+ '",';
+                            row += '"' +registros[i]["estudiante_establecimiento"]+ '",';
+                            row += '"' +registros[i]["estudiante_distrito"]+ '",';
+                            row += '"' +registros[i]["estudiante_apoderado"]+ '",';
+                            row += '"' +registros[i]["estudiante_apoparentesco"]+ '",';
+                            row += '"' +registros[i]["estudiante_apodireccion"]+ '",';
+                            row += '"' +registros[i]["estudiante_apotelefono"]+ '",';
+                            row += '"' +registros[i]["estudiante_nit"]+ '",';
+                            row += '"' +registros[i]["estudiante_razon"]+ '",';
+                            //row += '"' +Number(registros[i]["docente_direccion"]).toFixed(2)+ '",';
+                            
+                        row.slice(0, row.length - 1);
+
+                        //add a line break after each row
+                        CSV += row + '\r\n';
+                    }
+                    
+                    if (CSV == '') {        
+                        alert("Invalid data");
+                        return;
+                    }
+                    
+                    //Generate a file name
+                    var fileName = "Estudiantes_";
+                    //this will remove the blank-spaces from the title and replace it with an underscore
+                    fileName += reportitle.replace(/ /g,"_");   
+
+                    //Initialize file format you want csv or xls
+                    var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+
+                    // Now the little tricky part.
+                    // you can use either>> window.open(uri);
+                    // but this will not work in some browsers
+                    // or you will not get the correct file extension    
+
+                    //this trick will generate a temp <a /> tag
+                    var link = document.createElement("a");    
+                    link.href = uri;
+
+                    //set the visibility hidden so it will not effect on your web-layout
+                    link.style = "visibility:hidden";
+                    link.download = fileName + ".csv";
+
+                    //this part will append the anchor tag and remove it after automatic click
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    /* **************F I N  Generar Excel JavaScript************** */
+                   
+                   
+                   
+                   
+                   //document.getElementById('loader').style.display = 'none';
+            //}
+         //document.getElementById('loader').style.display = 'none'; //ocultar el bloque del loader
+        },
+        error:function(respuesta){
+           // alert("Algo salio mal...!!!");
+           html = "";
+           $("#tabla_factura").html(html);
+        },
+        complete: function (jqXHR, textStatus) {
+            //document.getElementById('loader').style.display = 'none'; //ocultar el bloque del loader 
+            //tabla_inventario();
+        }
+        
+    });   
+
 }

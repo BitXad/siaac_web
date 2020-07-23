@@ -279,7 +279,8 @@ class Inscripcion_model extends CI_Model
                 left join factura f on c.inscripcion_id = f.inscripcion_id
                 where
                 c.gestion_id = $gestion_id 
-                ".$filtro;
+                ".$filtro." 
+                order by c.estudiante_apellidos, estudiante_nombre";
         //echo $sql;
         $resultado = $this->db->query($sql)->result_array();
         return $resultado;
