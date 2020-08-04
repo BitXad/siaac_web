@@ -270,4 +270,16 @@ class Usuario_model extends CI_Model
         return $respuesta;
         
     }
+    public function get_all_usuario_activo_menoseste($usuario_id)
+    {
+        $usuario = $this->db->query("
+            SELECT
+                  u.usuario_id, u.usuario_login
+            FROM 
+                  usuario u
+            WHERE 
+                  u.estado_id = 1
+                  and usuario_id != $usuario_id")->result_array();
+        return $usuario;
+    }
 }
