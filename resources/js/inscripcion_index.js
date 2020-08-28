@@ -116,7 +116,7 @@ function tabla_inscripcion(filtro){
                         html += "<a href='"+base_url+"inscripcion/edit/"+registros[i]["inscripcion_id"]+"' class='btn btn-info btn-xs'><span class='fa fa-pencil'></span></a>";
                         html += "<a href='"+base_url+"venta/ventas_cliente/"+registros[i]["cliente_id"]+"' class='btn btn-success btn-xs' title='Vender'><span class='fa fa-cart-plus'></span></a>";
                         html += "<a href='"+base_url+"inscripcion/boleta_inscripcion/"+registros[i]["inscripcion_id"]+"' target='_blank' class='btn btn-facebook btn-xs' title='Imprimir comprobante de inscripción'><span class='fa fa-print'></span></a>";
-                        html += "<a class='btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal"+registros[i]["inscripcion_id"]+"  title='Anular Inscripción'><span class='fa fa-ban'></span></a>";
+                        html += "<a class='btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal"+registros[i]["inscripcion_id"]+"' title='Anular Inscripción'><span class='fa fa-ban'></span></a>";
                         if(registros[i]["factura_id"] >0){
                             //if(parametro["parametro_tipoimpresora"] == "FACTURADORA"){
                             if(parametro == "FACTURADORA"){

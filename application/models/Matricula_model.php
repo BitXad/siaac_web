@@ -87,7 +87,7 @@ class Matricula_model extends CI_Model
                 m.inscripcion_id = ?
         ",array($inscripcion_id))->row_array();
 
-        return $matricula['matricula_id'];
+        return $matricula;
     }
     /*
      * function to actualiza matricula de una inscripcion

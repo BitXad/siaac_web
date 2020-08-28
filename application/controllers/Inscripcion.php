@@ -331,14 +331,15 @@ class Inscripcion extends CI_Controller{
             }
             
             $matricula_id = $this->Matricula_model->get_matricula_frominscripcion($inscripcion_id);
+            if(isset($matricula_id) and $matricula_id >0){
             $params = array(
                 'estado_id' => $estado_id,
                 'matricula_monto' => 0,
                 'matricula_descuento' => 0,
                 'matricula_total' => 0,
             );
-            $this->Matricula_model->update_matricula($matricula_id,$params);
-            
+            $this->Matricula_model->update_matricula($matricula_id['matricula_id'],$params);
+        }
             $factura_id = $this->Factura_model->get_factura_frominscripcion($inscripcion_id);
             if(isset($factura_id) and $factura_id >0){
                 $params = array(
@@ -512,7 +513,6 @@ class Inscripcion extends CI_Controller{
                 
         for ($i = 1; $i<=$kardexeco_nummens; $i++){
             
-                       
             $estado_id = 8; // estado PENDIENTE
             
             $mes = date("m", strtotime($cuota_fechalimite));
@@ -564,9 +564,40 @@ class Inscripcion extends CI_Controller{
             'mensualidad_inscripcionpago' => 0,
             );
             $mensualidad_id = $this->Mensualidad_model->add_mensualidad($paramm);
+            //$cuota_fechalimitex = (strtotime("2020-07-01") + (31 * 1 * 24 * 60 * 60 ));
+            //$cuota_fechalimitex = (time() + ($intervalo * $i * 24 * 60 * 60 )); // fecha actual
+            $monthToAdd = $i;
+            $d1 = new DateTime($kardexeco_fechainicio);
+
+            $year = $d1->format('Y');
+            $month = $d1->format('n');
+            $day = $d1->format('d');
+
+            if ($monthToAdd > 0) {
+                $year += floor($monthToAdd/12);
+            } else {
+                $year += ceil($monthToAdd/12);
+            }
+            $monthToAdd = $monthToAdd%12;
+            $month += $monthToAdd;
+            if($month > 12) {
+                $year ++;
+                $month -= 12;
+            } elseif ($month < 1 ) {
+                $year --;
+                $month += 12;
+            }
             
-            $cuota_fechalimitex = (time() + ($intervalo * $i * 24 * 60 * 60 ));
-            $cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);
+            if(!checkdate($month, $day, $year)) {
+                $d2 = DateTime::createFromFormat('Y-n-j', $year.'-'.$month.'-1');
+                $d2->modify('last day of');
+            }else {
+                $d2 = DateTime::createFromFormat('Y-n-d', $year.'-'.$month.'-'.$day);
+            }
+            $cuota_fechalimite = $d2->format('Y-m-d');
+            
+            /*$cuota_fechalimitex = (strtotime($kardexeco_fechainicio) + ($intervalo * $i * 24 * 60 * 60 ));
+            $cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);*/
             
         }
         

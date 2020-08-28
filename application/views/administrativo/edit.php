@@ -95,15 +95,15 @@
 						<div class="form-group">
 							<select name="administrativo_extci" class="form-control"  value="<?php echo $this->input->post('administrativo_extci'); ?>" id="administrativo_extci" required>
 								<option value="">- EXTENSION -</option>
-							  <option value="CBBA" <?php if($administrativo['administrativo_extci']=='CBBA'){ ?> selected <?php } ?>>CBBA</option>
-							  <option value="LPZ" <?php if($administrativo['administrativo_extci']=='LPZ'){ ?> selected <?php } ?>>LPZ</option>
-							  <option value="POT" <?php if($administrativo['administrativo_extci']=='POT'){ ?> selected <?php } ?>>POT</option>
-							  <option value="ORU" <?php if($administrativo['administrativo_extci']=='ORU'){ ?> selected <?php } ?>>ORU</option>
-							  <option value="STCZ" <?php if($administrativo['administrativo_extci']=='STCZ'){ ?> selected <?php } ?>>STCZ</option>
-							  <option value="BEN" <?php if($administrativo['administrativo_extci']=='BEN'){ ?> selected <?php } ?>>BEN</option>
-							  <option value="PAN" <?php if($administrativo['administrativo_extci']=='PAN'){ ?> selected <?php } ?>>PAN</option>
-							  <option value="CHQ" <?php if($administrativo['administrativo_extci']=='CHQ'){ ?> selected <?php } ?>>CHQ</option>
-							  <option value="TRJ" <?php if($administrativo['administrativo_extci']=='TRJ'){ ?> selected <?php } ?>>TRJ</option>
+							  <option value="CB" <?php if($administrativo['administrativo_extci']=='CB'){ ?> selected <?php } ?>>CB</option>
+							  <option value="LP" <?php if($administrativo['administrativo_extci']=='LP'){ ?> selected <?php } ?>>LP</option>
+							  <option value="PT" <?php if($administrativo['administrativo_extci']=='PT'){ ?> selected <?php } ?>>PT</option>
+							  <option value="OR" <?php if($administrativo['administrativo_extci']=='OR'){ ?> selected <?php } ?>>OR</option>
+							  <option value="SC" <?php if($administrativo['administrativo_extci']=='SC'){ ?> selected <?php } ?>>SC</option>
+							  <option value="BN" <?php if($administrativo['administrativo_extci']=='BN'){ ?> selected <?php } ?>>BN</option>
+							  <option value="PN" <?php if($administrativo['administrativo_extci']=='PN'){ ?> selected <?php } ?>>PN</option>
+							  <option value="CH" <?php if($administrativo['administrativo_extci']=='CH'){ ?> selected <?php } ?>>CH</option>
+							  <option value="TJ" <?php if($administrativo['administrativo_extci']=='TJ'){ ?> selected <?php } ?>>TJ</option>
 							</select> 
 
 						</div>

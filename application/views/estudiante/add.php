@@ -116,7 +116,7 @@
 							  <option value="BN">BN</option>
 							  <option value="PN">PN</option>
 							  <option value="CH">CH</option>
-							  <option value=TJ>TJ</option>
+							  <option value="TJ">TJ</option>
 							</select> 
 						</div>
 					</div>
