@@ -163,10 +163,10 @@ function cerrar() {
                       
                            
                              
-                            <?php if ($bandera==0) { ?>
+                            <?php //if ($bandera==0) { ?>
                            
                             <a href="#" data-toggle="modal" data-target="#pagar<?php echo $i; ?>" class="btn btn-success btn-xs"><span class="fa fa-dollar" title="COBRAR"></span></a>
-<?php } $bandera=1; ?>
+<?php //} $bandera=1; ?>
                             <!------------------------ INICIO modal para confirmar eliminación ------------------->
                                     <div class="modal fade" id="myModal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel<?php echo $i; ?>">
                                       <div class="modal-dialog" role="document">

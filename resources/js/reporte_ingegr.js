@@ -114,7 +114,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                                 html += "</tr>";
                                 tituloegreso = 0;
                             }
-                            html += "<tr>";
+                            html += "<tr class='labj'>";
                         html += "<td>"+(i+1)+"</td>";
                         html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
                         html += "<td>"+registros[i]["recibo"]+"</td>";
@@ -142,7 +142,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                                 html += "</tr>";
                                 titulobanca = 0;
                             }
-                        html += "<tr>";
+                        html += "<tr class='labj'>";
                       
                         html += "<td>"+(i+1)+"</td>";
                         html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
@@ -184,7 +184,7 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                                 html += "</tr>";
                                 tituloingreso = 0;
                             }
-                            html += "<tr>";
+                            html += "<tr class='labj'>";
 
                             html += "<td>"+(i+1)+"</td>";
                             html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";

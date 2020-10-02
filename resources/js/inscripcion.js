@@ -605,9 +605,15 @@ function modificar_inscripcion(){
     var tipousuario_id = document.getElementById('tipousuario_id').value;
     var modif_kacademico = "no"
     var modif_keconomico = "no"
-    if(tipousuario_id == true){
-        modif_kacademico = "si"
-        modif_keconomico = "si"
+    if(tipousuario_id == 1){
+        var para_kacademico = $('#modif_kacademico').is(':checked');
+        var para_keconomico = $('#modif_keconomico').is(':checked');
+        if(para_kacademico){
+            modif_kacademico = "si"
+        }
+        if(para_keconomico){
+            modif_keconomico = "si"
+        }
     }
     var inscripcion_id = document.getElementById('inscripcion_id').value;
     var kardexacad_id = document.getElementById('kardexacad_id').value;

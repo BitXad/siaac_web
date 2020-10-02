@@ -1024,6 +1024,19 @@ class Inscripcion extends CI_Controller{
             // estado 27 = anulado
             $paraman = array(
                 'estado_id' => 27,
+                'usuario_id' => $usuario_id,
+                'mensualidad_montoparcial' => 0,
+                'mensualidad_descuento' => 0,
+                'mensualidad_montototal' => 0,
+                'mensualidad_mora' => 0,
+                'mensualidad_montocancelado' => 0,
+                'mensualidad_saldo' => 0,
+                'mensualidad_nombre' => 0,
+                'mensualidad_ci' => 0,
+                'mensualidad_glosa' => 0,
+                'mensualidad_mes' => 0,
+                'mensualidad_inscripcionpago' => 0,
+                'mensualidad_multa' => 0,
             );
             $this->Mensualidad_model->anular_mensualidad($kardexeco_id, $paraman);
             for ($i = 1; $i<=$kardexeco_nummens; $i++){
@@ -1077,8 +1090,38 @@ class Inscripcion extends CI_Controller{
                 );
                 $mensualidad_id = $this->Mensualidad_model->add_mensualidad($paramm);
 
-                $cuota_fechalimitex = (time() + ($intervalo * $i * 24 * 60 * 60 ));
-                $cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);
+                //$cuota_fechalimitex = (time() + ($intervalo * $i * 24 * 60 * 60 ));
+                //$cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);
+                $monthToAdd = $i;
+            $d1 = new DateTime($kardexeco_fechainicio);
+
+            $year = $d1->format('Y');
+            $month = $d1->format('n');
+            $day = $d1->format('d');
+
+            if ($monthToAdd > 0) {
+                $year += floor($monthToAdd/12);
+            } else {
+                $year += ceil($monthToAdd/12);
+            }
+            $monthToAdd = $monthToAdd%12;
+            $month += $monthToAdd;
+            if($month > 12) {
+                $year ++;
+                $month -= 12;
+            } elseif ($month < 1 ) {
+                $year --;
+                $month += 12;
+            }
+            
+            if(!checkdate($month, $day, $year)) {
+                $d2 = DateTime::createFromFormat('Y-n-j', $year.'-'.$month.'-1');
+                $d2->modify('last day of');
+            }else {
+                $d2 = DateTime::createFromFormat('Y-n-d', $year.'-'.$month.'-'.$day);
+            }
+            $cuota_fechalimite = $d2->format('Y-m-d');
+            
             }
         }
         if($pagar_matricula == 1){
