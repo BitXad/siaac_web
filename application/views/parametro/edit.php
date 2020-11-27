@@ -110,7 +110,14 @@
                         <input type="number" step="any" name="parametro_interes" value="<?php echo ($this->input->post('parametro_interes') ? $this->input->post('parametro_interes') : $parametro['parametro_interes']); ?>" class="form-control" id="parametro_interes" />
                     </div>
                 </div>
-            </div><hr>
+                <div class="col-md-2">
+                    <label for="parametro_multadia" class="control-label">MULTA POR DIA</label>
+                    <div class="form-group">
+                        <input type="number" step="any" min="0" name="parametro_multadia" value="<?php echo ($this->input->post('parametro_multadia') ? $this->input->post('parametro_multadia') : $parametro['parametro_multadia']); ?>" class="form-control" id="parametro_multadia" />
+                    </div>
+                </div>
+            </div>
+            <hr>
             <div class="box-body" style="margin-top: -20px;margin-bottom: -20px; background: rgba(255, 0, 0, 0.3);"><u><b>SERVICIOS</b></u><br>
                 <div class="col-md-3">
                     <label for="parametro_diagnostico" class="control-label">DIAGNOSTICO</label>

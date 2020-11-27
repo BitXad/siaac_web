@@ -55,9 +55,11 @@ class Mensualidad extends CI_Controller{
               
               
               if ($hoy>$fechalimite) {
+                  $parametro_id = 1;
+                  $esteparametro = $this->Parametro_model->get_parametro($parametro_id);
                 $diff = $hoy->diff($fechalimite);
                 $dias =  $diff->days;
-                $multa = $dias*1;  //esto hay que parametrizar
+                $multa = $dias*$esteparametro['parametro_multadia'];  //esto hay que parametrizar
                 $sql = "UPDATE mensualidad SET mensualidad_mora = ".$dias.", mensualidad_multa = ".$multa."  WHERE mensualidad_id = ".$mens['mensualidad_id']." ";
                 $this->db->query($sql);
               }

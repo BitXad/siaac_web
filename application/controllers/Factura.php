@@ -911,6 +911,7 @@ class Factura extends CI_Controller{
                 ",factura_total         = 0".
                 ",factura_codigocontrol     = '0'".
                 ",estado_id     = 3".
+                ",mensualidad_id     = 0".
                 " where factura_id = ".$factura_id;
         
         //echo $sql;
