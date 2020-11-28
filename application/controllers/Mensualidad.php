@@ -361,7 +361,12 @@ class Mensualidad extends CI_Controller{
 
                 $sql = "update dosificacion set dosificacion_numfact = ".$factura_numero;
                 $this->Mensualidad_model->ejecutar($sql);
-                             
+                
+                $tamllave = substr($factura_llave, -1);
+                //var_dump($tamllave); $tamllave."QQ";
+                //break;
+                if("$tamllave" === chr(92)){ $factura_llave = $factura_llave."\\"; }
+                //$factura_llave = $factura_llave."\\";
                 $sql = "insert into factura(estado_id, mensualidad_id, factura_fechaventa, 
                     factura_fecha, factura_hora, factura_subtotal, 
                     factura_ice, factura_exento, factura_descuento, factura_total, 
