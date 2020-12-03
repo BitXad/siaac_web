@@ -196,7 +196,7 @@ function cerrar() {
                              <a href="<?php echo site_url('mensualidad/comprobante/'.$m['mensualidad_id']); ?>" target="_blank" class="btn btn-success btn-xs"><span class="fa fa-print"></span></a>
                              <?php if ($m['factura_id']>0) {
                               ?>
-                             <a href="<?php echo site_url('factura/factura_boucher_id/'.$m['factura_id']); ?>" target="_blank" class="btn btn-warning btn-xs"><span class="fa fa-list"></span></a>
+                             <a href="<?php echo site_url('factura/imprimir_factura_id/'.$m['factura_id']); ?>" target="_blank" class="btn btn-warning btn-xs"><span class="fa fa-list"></span></a>
                            <?php } ?>
                         </td>  
                        <?php } ?>
