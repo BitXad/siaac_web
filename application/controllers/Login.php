@@ -13,7 +13,7 @@ Class Login extends CI_Controller
         );
 
         $this->load->model('Gestion_model');
-
+        
         $data['gestiones'] = $this->Gestion_model->get_gestiones();
 
         $this->load->view('public/login',$data);

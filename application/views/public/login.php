@@ -41,7 +41,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <b>SIAAC </b>WEB
+        <b>ESENCIAL </b>WEB
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -51,10 +51,17 @@
 
         <?php echo form_open('verificar'); ?>
             <div class="form-group">
-                <input type="radio" class="radio-btn" checked name="tipo" id="cbox1" value="1"><label for="cbox1"><i class="fa fa-check-square-o"></i> ADMINISTRATIVO </label>
-        <input type="radio" class="radio-btn" name="tipo" id="cbox2" value="2"><label for="cbox2"><i class="fa fa-check-square-o"></i> DOCENTE </label>
-        <input type="radio" class="radio-btn" name="tipo" id="cbox3" value="3"><label for="cbox3"><i class="fa fa-check-square-o"></i> ESTUDIANTE </label>
-        </div>
+        
+<!--            <input type="radio" class="radio-btn" checked name="tipo" id="cbox1" value="1"><label for="cbox1"><i class="fa fa-check-square-o"></i> ADMINISTRATIVO </label>
+            <input type="radio" class="radio-btn" name="tipo" id="cbox2" value="2"><label for="cbox2"><i class="fa fa-check-square-o"></i> DOCENTE </label>
+            <input type="radio" class="radio-btn" name="tipo" id="cbox3" value="3"><label for="cbox3"><i class="fa fa-check-square-o"></i> ESTUDIANTE </label>-->
+        
+        
+            <input type="radio" class="radio-btn" checked name="tipo" id="cbox1" value="1"><label for="cbox1"><i class="fa fa-sitemap"></i> ADMINISTRATIVO </label>
+            <input type="radio" class="radio-btn" name="tipo" id="cbox2" value="2"><label for="cbox2"><i class="fa fa-book"></i> DOCENTE </label>
+            <input type="radio" class="radio-btn" name="tipo" id="cbox3" value="3" ><label for="cbox3" ><i class="fa fa-mortar-board"></i> ESTUDIANTE </label>
+        
+            </div>
         <div class="form-group has-feedback">
                 <label for="gestion">Gestión</label>
                 <select class="form-control input-lg" name="gestion" id="gestion">
