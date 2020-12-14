@@ -106,15 +106,15 @@
 						<div class="form-group">
 							<select name="docente_extci" class="form-control"  value="<?php echo $this->input->post('docente_extci'); ?>" id="docente_extci" required>
 							  <option value="">- EXTENSION -</option>
-							  <option value="CBBA">CBBA</option>
-							  <option value="LPZ">LPZ</option>
-							  <option value="POT">POT</option>
-							  <option value="ORU">ORU</option>
-							  <option value="STCZ">STCZ</option>
-							  <option value="BEN">BEN</option>
-							  <option value="PAN">PAN</option>
-							  <option value="CHQ">CHQ</option>
-							  <option value=TRJ>TRJ</option>
+							  <option value="CB">CB</option>
+							  <option value="LP">LP</option>
+							  <option value="PT">PT</option>
+							  <option value="OR">OR</option>
+							  <option value="SC">SC</option>
+							  <option value="BN">BN</option>
+							  <option value="PN">PN</option>
+							  <option value="CH">CH</option>
+							  <option value="TJ">TJ</option>
 							</select> 
 						</div>
 					</div>

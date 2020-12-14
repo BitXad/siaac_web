@@ -184,22 +184,8 @@ private function acceso($id_rol){
     function editar($usuario_id){
 
         if($this->acceso(130)){
-
-
-                /*$data = array(
-                    'usuario_login' => $session_data['usuario_login'],
-                    'usuario_id' => $session_data['usuario_id'],
-                    'usuario_nombre' => $session_data['usuario_nombre'],
-                    'rol' => $this->getRol($session_data['tipousuario_id']),
-                    'tipousuario_id' => $session_data['tipousuario_id'],
-                    'usuario_imagen' => $session_data['usuario_imagen'],
-                    'usuario_email' => $session_data['usuario_email'],
-                    'page_title' => 'Admin >> Nuevo Usuario',
-                    'thumb' => $session_data['thumb']
-                );*/
-
                 $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
-
+                $data['mensajelogin'] = "";
                 $this->load->model('Estado_model');
                 $data['all_estado'] = $this->Estado_model->get_all_estado_activo_inactivo();
 
@@ -208,8 +194,6 @@ private function acceso($id_rol){
                 $data['page_title'] = "Usuario";
                 $data['_view'] = 'usuario/edit';
                 $this->load->view('layouts/main', $data);
-
-
             }
     }
 
@@ -221,35 +205,43 @@ private function acceso($id_rol){
         if($this->acceso(130)){
         $original_value = $this->db->query("SELECT usuario_login FROM usuario WHERE usuario_id = " . $usuario_id)->row()->usuario_login;
 
-        if ($this->input->post('usuario_login') != $original_value) {
+        /*if ($this->input->post('usuario_login') != $original_value) {
             $is_unique = '|is_unique[usuario.usuario_login]';
         } else {
             $is_unique = '';
-        }
+        }*/
         // check if the usuario exists before trying to edit it
         $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
-
+        
 
         $this->form_validation->set_rules('usuario_nombre', 'Usuario Nombre', 'required');
         $this->form_validation->set_rules('usuario_email', 'Usuario Email', 'valid_email');
 
-        $this->form_validation->set_rules('usuario_login', 'usuario_login', 'required|trim|xss_clean' . $is_unique, array('is_unique' => 'Este login de usuario ya existe.'));
+        $this->form_validation->set_rules('usuario_login', 'usuario_login', 'required|trim|xss_clean');
+        //$this->form_validation->set_rules('usuario_login', 'usuario_login', 'required|trim|xss_clean' . $is_unique, array('is_unique' => 'Este login de usuario ya existe.'));
 
         if (isset($data['usuario']['usuario_id'])) {
-
-            if ($this->form_validation->run()) {
+            $all_usuarios = $this->Usuario_model->get_all_usuario_activo_menoseste($usuario_id);
+            $band = true;
+            $data['mensajelogin'] = "";
+            foreach ($all_usuarios as $comparar) {
+                if($comparar["usuario_login"] === $this->input->post('usuario_login')){
+                    $band = false;
+                }
+            }
+            if ($this->form_validation->run() && $band == true) {
 
                 /* *********************INICIO imagen***************************** */
                 $foto="";
-                    $foto1= $this->input->post('foto');
+                    $foto1= $this->input->post('usuario_imagen1');
                 if (!empty($_FILES['usuario_imagen']['name']))
                 {
                     $this->load->library('image_lib');
                     $config['upload_path'] = './resources/images/usuarios/';
                     $config['allowed_types'] = 'gif|jpeg|jpg|png';
                     $config['max_size'] = 0;
-                    $config['max_width'] = 5900;
-                    $config['max_height'] = 5900;
+                    $config['max_width'] = 0;
+                    $config['max_height'] = 0;
 
                     $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
                     $config['file_name'] = $new_name; //.$extencion;
@@ -312,7 +304,7 @@ private function acceso($id_rol){
                     'usuario_nombre' => $this->input->post('usuario_nombre'),
                     'usuario_email' => $this->input->post('usuario_email'),
                     'usuario_login' => $this->input->post('usuario_login'),
-                    'usuario_clave' => $this->input->post('usuario_clave'),
+                    //'usuario_clave' => $this->input->post('usuario_clave'),
                     'usuario_imagen' => $foto,
                 );
 
@@ -322,7 +314,7 @@ private function acceso($id_rol){
             } else {
                 $this->load->model('Estado_model');
                 $data['all_estado'] = $this->Estado_model->get_all_estado_activo_inactivo();
-
+                $data['mensajelogin'] = "Este login de usuario ya existe.";
                 $this->load->model('Tipo_usuario_model');
                 $data['all_tipo_usuario'] = $this->Tipo_usuario_model->get_all_tipo_usuario();
                 $data['page_title'] = "Usuario";

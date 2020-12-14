@@ -28,6 +28,10 @@ function validar(e,opcion) {
     }
 
 }
+function boton_buscarestudiante() {
+    var parametro = document.getElementById('filtrar2').value;
+    buscarestudiante(parametro);
+}
 
 function buscarestudiante(parametro){
 	var base_url = document.getElementById('base_url').value;
@@ -82,6 +86,7 @@ function seleccionar_carrera(){
     var controlador = base_url+"inscripcion/buscar_carrera";
     var carrera_id = document.getElementById('carrera_id').value;
     var estudiante_id = document.getElementById('estudiante_id').value;
+    var planacad_id = document.getElementById('planacad_id').value;
     
     
    
@@ -108,7 +113,7 @@ function seleccionar_carrera(){
                     $("#carrera_matricula").val(registros[0].carrera_matricula);
                     $("#carrera_mensualidad").val(registros[0].carrera_mensualidad);
                     $("#carrera_nummeses").val(registros[0].carrera_nummeses);
-                    $("#inscripcion_fechainicio").val(registros[0].carrera_fechainicio);                
+                    //$("#inscripcion_fechainicio").val(registros[0].carrera_fechainicio);                
                 
                         $("#pagar_mensualidad").empty();
                     for (j = Number(registros[0].carrera_nummeses); j>=1 ; j--){
@@ -118,10 +123,11 @@ function seleccionar_carrera(){
                         $("#pagar_mensualidad").val(0) ;
                           
                     var mensualidades = document.getElementById('pagar_mensualidad').value;
-                    
+                    /*
+                    $("#total").val((Number(registros[0].carrera_matricula) + Number(registros[0].carrera_mensualidad * mensualidades)).toFixed(2));
                     $("#total_final").val((Number(registros[0].carrera_matricula) + Number(registros[0].carrera_mensualidad * mensualidades)).toFixed(2));
                     $("#efectivo").val((Number(registros[0].carrera_matricula) + Number(registros[0].carrera_mensualidad * mensualidades)).toFixed(2));
-
+                    */
                     
                 }
             },
@@ -137,7 +143,7 @@ function seleccionar_carrera(){
         $.ajax({
             url:controlador,
             type:"POST",
-            data:{carrera_id:carrera_id},
+            data:{planacad_id:planacad_id},
             success:function(respuesta){
                 
                 var registros = JSON.parse(respuesta);
@@ -305,6 +311,8 @@ function registrar_inscripcion(){
     var total = document.getElementById('total').value;
     var total_final = document.getElementById('total_final').value;
     var descuento = document.getElementById('descuento').value;
+    var efectivo  = document.getElementById('efectivo').value;
+    var cambio    = document.getElementById('cambio').value;
 
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/registrar_inscripcion";
@@ -328,7 +336,8 @@ function registrar_inscripcion(){
                     carrera_id:carrera_id, inscripcion_glosa:inscripcion_glosa,inscripcion_matricula:inscripcion_matricula,
                     inscripcion_mensualidad:inscripcion_mensualidad,carrera_nummeses:carrera_nummeses,
                     pagar_matricula:pagar_matricula, pagar_mensualidad:pagar_mensualidad, esfactura:esfactura,
-                    total:total, total_final:total_final, nit:nit, razon:razon, descuento:descuento
+                    total:total, total_final:total_final, nit:nit, razon:razon, descuento:descuento,
+                    efectivo:efectivo, cambio:cambio
                 },
             success:function(respuesta){
                 var kardexacad_id =  JSON.parse(respuesta);
@@ -356,6 +365,7 @@ function registrar_inscripcion(){
                        //cons += cons + ""
                     }
                 }*/
+                alert("Inscripción realizada con éxito");
                 //$("#boton_imprimir").click();
                 location.href = base_url+"inscripcion/inscribir/0";
                 if(kardexacad_id[1] > 0){
@@ -520,5 +530,195 @@ function ultimatransaccion(){
         }
         
     });
+}
+/* Obtiene los planes academicos de una determinada Carrera */
+function obtener_planacademico(carrera_id){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'plan_academico/get_plan_acadcarrera';
+    if(carrera_id >0){
+        document.getElementById('loader').style.display = 'block';
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{carrera_id:carrera_id},
+           success:function(respuesta){
+               
+                var registros =  JSON.parse(respuesta);
+                var html1 = "";
+                if (registros != null){
+                    var n = registros.length; //tamaño del arreglo de la consulta
+                        html1 = "";
+                        html1 += "<b><select name='planacad_id' class='form-control' onchange='seleccionar_carrera()' id='planacad_id' required>";
+                        html1 += "<option value=''>- PLAN ACADEMICO -</option>";
+                        for (var i = 0; i < n ; i++){
+                            html1 += "<option value='"+registros[i]['planacad_id']+"'>"+registros[i]['planacad_nombre']+"</option>";
+                        }
+                        html1 += "</select></b>";
+                        $("#elegirplanacad").html(html1);
+                        $("#carrera_nivel").val("-");
+                        $("#carrera_tiempoestudio").val("-");
+                        $("#carrera_codigo").val("-");
+                        $("#carrera_modalidad").val("-");
+                        $("#carrera_plan").val("-");
+                        $("#carrera_matricula").val("0.00");
+                        $("#carrera_mensualidad").val("0.00");
+                        $("#carrera_nummeses").val("0");
+                        $("#pagar_mensualidad").empty();
+                        $("#pagar_mensualidad").html("<option value='0'>- NINGUNA -</option>");
+                        $("#nivel_id").empty();
+                        $("#nivel_id").html("<option value='0'>- NIVEL -</option>");
+                        $("#tabla_materia").html("");
+                        $('#pagar_matricula').find('option:first').attr('selected', 'selected').parent('select');
+                        document.getElementById('loader').style.display = 'none';
+            }
+            document.getElementById('loader').style.display = 'none';
+        },
+        error:function(respuesta){
+           // alert("Algo salio mal...!!!");
+           html = "";
+           $("#elegirplanacad").html("");
+        },
+        complete: function (jqXHR, textStatus) {
+            document.getElementById('loader').style.display = 'none';
+        }
+    });   
+    }else{
+        var htmln = "";
+        htmln += "<select name='planacad_id' class='form-control' id='planacad_id' required>";
+        htmln += "<option value=''>- PLAN ACADEMICO -</option>";
+        htmln += "</select>";
+        $("#elegirplanacad").html(htmln);
+        document.getElementById('nuevo_plan').style.display = 'none';
+    }
+}
+/* modifica una inscripcion */
+function modificar_inscripcion(){
+    var tiene_factura = document.getElementById('tiene_factura').value;
+    var eschecked = document.getElementById('escheck').checked;
+    var esfactura = "";
+    var nit = "";
+    var razon = "";
+    if(eschecked == true){
+        esfactura = "si";
+        var nit   = document.getElementById('nit').value;
+        var razon = document.getElementById('razon').value;
+    }else{ esfactura = "no"; }
+    var tipousuario_id = document.getElementById('tipousuario_id').value;
+    var modif_kacademico = "no"
+    var modif_keconomico = "no"
+    if(tipousuario_id == 1){
+        var para_kacademico = $('#modif_kacademico').is(':checked');
+        var para_keconomico = $('#modif_keconomico').is(':checked');
+        if(para_kacademico){
+            modif_kacademico = "si"
+        }
+        if(para_keconomico){
+            modif_keconomico = "si"
+        }
+    }
+    var inscripcion_id = document.getElementById('inscripcion_id').value;
+    var kardexacad_id = document.getElementById('kardexacad_id').value;
+    var kardexeco_id = document.getElementById('kardexeco_id').value;
+    var estudiante_id = document.getElementById('estudiante_id').value;
+    var paralelo_id = document.getElementById('paralelo_id').value;
+    var nivel_id = document.getElementById('nivel_id').value;
+    var turno_id = document.getElementById('turno_id').value;
+    var inscripcion_fechainicio = document.getElementById('inscripcion_fechainicio').value;
+    var carrera_id = document.getElementById('carrera_id').value;
+    var inscripcion_glosa = document.getElementById('inscripcion_glosa').value;
+    
+    var inscripcion_matricula = document.getElementById('carrera_matricula').value;
+    var inscripcion_mensualidad = document.getElementById('carrera_mensualidad').value;
+    var carrera_nummeses = document.getElementById('carrera_nummeses').value;
+    var pagar_matricula = document.getElementById('pagar_matricula').value;
+    var pagar_mensualidad = document.getElementById('pagar_mensualidad').value;
+    var total = document.getElementById('total').value;
+    var total_final = document.getElementById('total_final').value;
+    var descuento = document.getElementById('descuento').value;
+    var efectivo  = document.getElementById('efectivo').value;
+    var cambio    = document.getElementById('cambio').value;
+
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+"inscripcion/modificar_inscripcion";
+    var materias = document.getElementsByName('mat');
+    
+    var ban = 0;
+    var men = "ERROR: ";
+    
+    if (estudiante_id<=0) { ban = 1; men = men + "Debe seleccionar un estudiante \n"; }
+    if (carrera_id<=0) { ban = 1; men = men + "Debe seleccionar la carrera \n"; }
+    if (turno_id<=0) { ban = 1; men = men + "Debe seleccionar un turno \n"; }
+    if (nivel_id<=0) { ban = 1; men = men + "Debe seleccionar un nivel \n"; }
+    if (paralelo_id<=0) { ban = 1; men = men + "Debe seleccionar un paralelo \n"; }
+
+    if (ban==0){
+        $.ajax({
+            url:controlador,
+            type:"POST",
+            data:{inscripcion_id:inscripcion_id, kardexacad_id:kardexacad_id, kardexeco_id:kardexeco_id,
+                    estudiante_id:estudiante_id, paralelo_id:paralelo_id, nivel_id:nivel_id, 
+                    turno_id:turno_id,inscripcion_fechainicio:inscripcion_fechainicio, 
+                    carrera_id:carrera_id, inscripcion_glosa:inscripcion_glosa,inscripcion_matricula:inscripcion_matricula,
+                    inscripcion_mensualidad:inscripcion_mensualidad,carrera_nummeses:carrera_nummeses,
+                    pagar_matricula:pagar_matricula, pagar_mensualidad:pagar_mensualidad, esfactura:esfactura,
+                    total:total, total_final:total_final, nit:nit, razon:razon, descuento:descuento,
+                    efectivo:efectivo, cambio:cambio, modif_kacademico:modif_kacademico, modif_keconomico:modif_keconomico
+                },
+            success:function(respuesta){
+                var kardexacad_id =  JSON.parse(respuesta);
+                /*alert($('input:checkbox[name=mat]:checked').val());
+                alert(materias.length+"BB");*/
+                if(modif_kacademico == "si"){
+                    $("input:checkbox:checked").each(
+                        function() {
+                            var thismateria_id = $(this).val();
+                            if(thismateria_id >0){
+                                var thisgrupo_id = 0;
+                                registrar_materiagrupo(kardexacad_id[0], thismateria_id, thisgrupo_id);
+                            }
+                        }
+                    );
+                }else{
+                    
+                }
+        
+                if(tiene_factura > 0 && kardexacad_id[1] > 0){
+                    alert("Esta modificacion de inscripcion genero otra Factura\n se le recomienda anular la factura anterior\n Modificacion exitosa!!");
+                }else if(tiene_factura >0){
+                    alert("Esta modificacion de inscripcion tiene Factura\n se le recomienda revisar la factura\n Modificacion exitosa!!");
+                }/*else if(kardexacad_id[1] > 0){
+                    alert("Esta modificacion de inscripcion tiene Factura\n se le recomienda revisar la factura\n Modificacion exitosa!!");
+                }*/else{
+                    alert("Modificacion exitosa!!");
+                }
+                //alert(kardexacad_id[1]);
+                /*
+                for(i=0; i<materias.length; i++){
+                    if (materias[i].checked){
+                        var thismateria_id = materias[i].value;
+                        var thisgrupo_id = 0; //document.getElementById('selgrupo'+thismateria_id).value;
+                        //if(thisgrupo_id >0){
+                            registrar_materiagrupo(kardexacad_id[0], thismateria_id, thisgrupo_id);
+                        //}
+                        //res = materias[i].value;
+                       //cons += cons + ""
+                    }
+                }*/
+                //$("#boton_imprimir").click();
+                location.href = base_url+"inscripcion";
+                if(kardexacad_id[1] > 0){
+                //window.open( base_url+"factura/factura_carta_id/"+kardexacad_id[1], "_blank");
+                    window.open( base_url+"factura/factura_carta_id/"+kardexacad_id[1], " _blank");
+                }else{
+                    window.open( base_url+"inscripcion/boleta_inscripcion/"+inscripcion_id, "_blank");
+                }
+            },
+            error:function(respuesta){
+                alert("proceso erroneo");
+            }
+        }); 
+    }
+    else{
+        alert(men);
+    }
 }
 

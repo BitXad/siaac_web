@@ -106,7 +106,7 @@ class Estudiante_model extends CI_Model
                 and (es.estudiante_nombre like '%".$parametro."%' 
                 or es.estudiante_apellidos like '%".$parametro."%')
 
-            ORDER BY `estudiante_id` DESC
+            ORDER BY es.estudiante_apellidos, es.estudiante_nombre
 
         ")->result_array();
 

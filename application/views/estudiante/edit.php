@@ -110,15 +110,15 @@
 						<div class="form-group">
 							<select name="estudiante_extci" class="form-control"  value="<?php echo $this->input->post('estudiante_extci'); ?>" id="estudiante_extci" required>
 							  <option value="">- EXTENSION -</option>
-							  <option value="CBBA" <?php if($estudiante['estudiante_extci']=='CBBA'){ ?> selected <?php } ?>>CBBA</option>
-							  <option value="LPZ" <?php if($estudiante['estudiante_extci']=='LPZ'){ ?> selected <?php } ?>>LPZ</option>
-							  <option value="POT" <?php if($estudiante['estudiante_extci']=='POT'){ ?> selected <?php } ?>>POT</option>
-							  <option value="ORU" <?php if($estudiante['estudiante_extci']=='ORU'){ ?> selected <?php } ?>>ORU</option>
-							  <option value="STCZ" <?php if($estudiante['estudiante_extci']=='STCZ'){ ?> selected <?php } ?>>STCZ</option>
-							  <option value="BEN" <?php if($estudiante['estudiante_extci']=='BEN'){ ?> selected <?php } ?>>BEN</option>
-							  <option value="PAN" <?php if($estudiante['estudiante_extci']=='PAN'){ ?> selected <?php } ?>>PAN</option>
-							  <option value="CHQ" <?php if($estudiante['estudiante_extci']=='CHQ'){ ?> selected <?php } ?>>CHQ</option>
-							  <option value="TRJ" <?php if($estudiante['estudiante_extci']=='TRJ'){ ?> selected <?php } ?>>TRJ</option>
+							  <option value="CB" <?php if($estudiante['estudiante_extci']=='CB'){ ?> selected <?php } ?>>CB</option>
+							  <option value="LP" <?php if($estudiante['estudiante_extci']=='LP'){ ?> selected <?php } ?>>LP</option>
+							  <option value="PT" <?php if($estudiante['estudiante_extci']=='PT'){ ?> selected <?php } ?>>PT</option>
+							  <option value="OR" <?php if($estudiante['estudiante_extci']=='OR'){ ?> selected <?php } ?>>OR</option>
+							  <option value="SC" <?php if($estudiante['estudiante_extci']=='SC'){ ?> selected <?php } ?>>SC</option>
+							  <option value="BN" <?php if($estudiante['estudiante_extci']=='BN'){ ?> selected <?php } ?>>BN</option>
+							  <option value="PN" <?php if($estudiante['estudiante_extci']=='PN'){ ?> selected <?php } ?>>PN</option>
+							  <option value="CH" <?php if($estudiante['estudiante_extci']=='CH'){ ?> selected <?php } ?>>CH</option>
+							  <option value="TJ" <?php if($estudiante['estudiante_extci']=='TJ'){ ?> selected <?php } ?>>TJ</option>
 							</select> 
 						</div>
 					</div>

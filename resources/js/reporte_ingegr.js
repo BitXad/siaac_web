@@ -110,11 +110,11 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                             totalegreso   += parseFloat(registros[i]['egreso']);
                             if(tituloegreso == 1){
                                 html += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
-                                html += "<th colspan='8' class='text-center'> - EGRESOS - </th>";
+                                html += "<th colspan='8' class='text-center'><span style='background-color: #aaaaaa;' class='fondoprint'> - EGRESOS - </span></th>";
                                 html += "</tr>";
                                 tituloegreso = 0;
                             }
-                            html += "<tr>";
+                            html += "<tr class='labj'>";
                         html += "<td>"+(i+1)+"</td>";
                         html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
                         html += "<td>"+registros[i]["recibo"]+"</td>";
@@ -138,11 +138,11 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                             totalbanca  += parseFloat(registros[i]['ingreso']);
                             if(titulobanca == 1){
                                 html += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
-                                html += "<th colspan='8' class='text-center'> - BANCA - </th>";
+                                html += "<th colspan='8' class='text-center'><span style='background-color: #aaaaaa;' class='fondoprint'> - BANCA - </span></th>";
                                 html += "</tr>";
                                 titulobanca = 0;
                             }
-                        html += "<tr>";
+                        html += "<tr class='labj'>";
                       
                         html += "<td>"+(i+1)+"</td>";
                         html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";
@@ -180,12 +180,11 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
                             totalingreso  += parseFloat(registros[i]['ingreso']);
                             if(tituloingreso == 1){
                                 html += "<tr style='border-bottom: 3px solid; border-bottom-color: #aaaaaa;'>";
-                                html += "<th colspan='8' class='text-center'> - INGRESOS - </th>";
-                                
+                                html += "<th colspan='8' class='text-center'><span style='background-color: #aaaaaa;' class='fondoprint'> - INGRESOS - </span></th>";
                                 html += "</tr>";
                                 tituloingreso = 0;
                             }
-                            html += "<tr>";
+                            html += "<tr class='labj'>";
 
                             html += "<td>"+(i+1)+"</td>";
                             html += "<td>"+moment(registros[i]["fecha"]).format("DD/MM/YYYY")+"</td>";

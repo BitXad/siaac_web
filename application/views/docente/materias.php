@@ -17,7 +17,7 @@
                   <td align="center">(FIS100)</td>
           				<td>NIVEL 1</td>
                   <td>TECNOLOGIA</td>
-          				<td align="center">II-2019</td>
+          				<td align="center">II-2020</td>
           			</tr>
                 
           			

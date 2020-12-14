@@ -1,6 +1,6 @@
 <link href="<?php echo base_url('resources/css/alejo.css'); ?>" rel="stylesheet">
 <div class="box-header">
-                <h3 class="box-title">Horarios Gestion II/2019</h3>
+                <h3 class="box-title">Horarios Gestion II/2020</h3>
            
 </div>
 <div class="box-body table-responsive">

@@ -87,7 +87,7 @@ class Estado_model extends CI_Model
                 `estado`
 
             WHERE
-                estado_tipo = 1
+                estado_tipo = $tipo
 
             ORDER BY `estado_id` ASC
         ")->result_array();

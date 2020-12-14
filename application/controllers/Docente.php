@@ -45,7 +45,7 @@ class Docente extends CI_Controller{
         if($this->acceso(54)){
             
 
-            $data['docente'] = $this->Docente_model->get_all_docente();
+            //$data['docente'] = $this->Docente_model->get_all_docente();
 
             $data['_view'] = 'docente/index';
             $this->load->view('layouts/main',$data);
@@ -425,6 +425,17 @@ class Docente extends CI_Controller{
             }
             else
                 show_error('The docente you are trying to delete does not exist.');
+        }
+    }
+    /* funcion que busca inscritos */
+    function buscar_docentes()
+    {
+        if($this->input->is_ajax_request()){
+            $filtro = $this->input->post('filtro');
+            $res_docentes = $this->Docente_model->get_all_docentes($filtro);
+            echo json_encode($res_docentes);
+        }else{
+            show_404();
         }
     }
     

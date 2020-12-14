@@ -76,12 +76,19 @@ class Materia_asignada_model extends CI_Model
     {
         return $this->db->delete('materia_asignada',array('materiaasig_id'=>$materiaasig_id));
     }
-    
+    /* funcion que elimina las materias asignadas de un determinado kardex academico */
+    function delete_matasignada_kardexacad($kardexacad_id)
+    {
+        return $this->db->delete('materia_asignada',array('kardexacad_id'=>$kardexacad_id));
+    }
+    /* funcion que devuelve las materias asignadas en na inscripcion,
+     * esto atravez de su kardex academico. Tambien se lo usa en modificar inscripcion
+     */
     function get_materia_asignada_frominscripcion($kardexacad_id)
     {
         $materiaasig = $this->db->query("
             SELECT
-                m.materiaasig_id
+                m.*
             FROM
                 `materia_asignada` m
             WHERE

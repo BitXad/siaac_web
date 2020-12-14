@@ -87,7 +87,7 @@ class Kardex_economico_model extends CI_Model
             LEFT JOIN estado es ON ke.estado_id=es.estado_id
 
             WHERE
-                
+                ke.estado_id = 1 
                  ".$dato."
 
             ORDER BY `kardexeco_id` DESC
@@ -185,5 +185,19 @@ class Kardex_economico_model extends CI_Model
         ",array($inscripcion_id))->row_array();
 
         return $kardex_academico['kardexeco_id'];
+    }
+    /* kardex economico dado una inscripcion */
+    function get_keconomico_frominscripcion($inscripcion_id)
+    {
+        $kardex_economico = $this->db->query("
+            SELECT
+                k.*
+            FROM
+                `kardex_economico` k
+            WHERE
+                k.inscripcion_id = ?
+        ",array($inscripcion_id))->row_array();
+
+        return $kardex_economico;
     }
 }

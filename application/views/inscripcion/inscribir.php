@@ -145,10 +145,13 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="row" id='loader'  style='display:none; text-align: center'>
+                            <img src="<?php echo base_url("resources/images/loader.gif"); ?>"  >
+                        </div>
+                        <div class="col-md-4">
                             <label for="carrera_id" class="control-label">Carrera</label>
                             <div class="form-group"> <b>
-                                <select name="carrera_id" id="carrera_id" class="form-control" onchange="seleccionar_carrera()">
+                                <select name="carrera_id" id="carrera_id" class="form-control" onchange="obtener_planacademico(this.value)">
                                     <option value="0">- CURSO/CARRERA -</option>
                                     <?php
                                     foreach($all_carrera as $carrera)
@@ -160,10 +163,20 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                 </select></b>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <label for="carrera_id" class="control-label">Plan Academico</label>
+                            <div class="form-group" id="elegirplanacad"><b>
+                                <select name="planacad_id" id="planacad_id" class="form-control" required>
+                                    <option value="0">- PLAN ACADEMICO -</option>
+                                </select></b>
+                            </div>
+                        </div>
                         <?php if($carrera_idinsc_est >0){ ?>
                             <script type="text/javascript">
                                 $(document).ready(function () {
-                                    seleccionar_carrera();
+                                    var carrera_id = document.getElementById('carrera_id').value;
+                                    obtener_planacademico(carrera_id);
+                                    //seleccionar_carrera();
                                 });
                             </script>
                         <?php } ?>
@@ -495,7 +508,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                 <div class="input-group" style="padding-top: 5px">
                                     <br>
                                     <label>&nbsp;</label>
-                                    <button class="btn btn-primary"><span class="fa fa-binoculars"></span> Buscar </button>
+                                    <button class="btn btn-primary" onclick="boton_buscarestudiante()"><span class="fa fa-binoculars"></span> Buscar </button>
                                 </div>
                <!--            ------------------- fin parametro de buscador ------------------- -->
                                    </div>

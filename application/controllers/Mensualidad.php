@@ -55,9 +55,11 @@ class Mensualidad extends CI_Controller{
               
               
               if ($hoy>$fechalimite) {
+                  $parametro_id = 1;
+                  $esteparametro = $this->Parametro_model->get_parametro($parametro_id);
                 $diff = $hoy->diff($fechalimite);
                 $dias =  $diff->days;
-                $multa = $dias*1;  //esto hay que parametrizar
+                $multa = $dias*$esteparametro['parametro_multadia'];  //esto hay que parametrizar
                 $sql = "UPDATE mensualidad SET mensualidad_mora = ".$dias.", mensualidad_multa = ".$multa."  WHERE mensualidad_id = ".$mens['mensualidad_id']." ";
                 $this->db->query($sql);
               }
@@ -192,6 +194,7 @@ class Mensualidad extends CI_Controller{
                     'mensualidad_fechalimite' => $this->input->post('mensualidad_fechalimite'),
                     'mensualidad_mes' => $this->input->post('mensualidad_mes'),
                     'mensualidad_mora' => 0,
+                    'mensualidad_glosa' => $this->input->post('mensualidad_glosa'),
 
                 );
 
@@ -358,7 +361,12 @@ class Mensualidad extends CI_Controller{
 
                 $sql = "update dosificacion set dosificacion_numfact = ".$factura_numero;
                 $this->Mensualidad_model->ejecutar($sql);
-                             
+                
+                $tamllave = substr($factura_llave, -1);
+                //var_dump($tamllave); $tamllave."QQ";
+                //break;
+                if("$tamllave" === chr(92)){ $factura_llave = $factura_llave."\\"; }
+                //$factura_llave = $factura_llave."\\";
                 $sql = "insert into factura(estado_id, mensualidad_id, factura_fechaventa, 
                     factura_fecha, factura_hora, factura_subtotal, 
                     factura_ice, factura_exento, factura_descuento, factura_total, 
@@ -463,7 +471,8 @@ class Mensualidad extends CI_Controller{
     }
     function planmensualidadest($kardexeco_id, $estudiante_id)
     {
-        if($this->acceso(60)){
+        // para el menu de estudiantes
+        if($this->acceso(135)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){

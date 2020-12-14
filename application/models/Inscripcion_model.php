@@ -182,7 +182,7 @@ class Inscripcion_model extends CI_Model
                 order by i.inscripcion_id desc
         ")->row_array();
 
-        return $inscripcion['carrera_id'];
+        return $inscripcion;
     }
     /*
      * Get grupos de una materia
@@ -252,6 +252,37 @@ class Inscripcion_model extends CI_Model
                       c.gestion_id = $gestion_id
                       and c.inscripcion_id = (select max(inscripcion_id) from inscripcion)";
         $resultado = $this->db->query($sql)->row_array();
+        return $resultado;
+    }
+    /*
+     * Get inscripcion by inscripcion_id pero que no este anulada
+     */
+    function get_inscripcion_noanulada($inscripcion_id)
+    {
+        $inscripcion = $this->db->query("
+            SELECT
+                *
+            FROM
+                `inscripcion`
+            WHERE
+                `estado_id` = 1
+                and `inscripcion_id` = ?
+        ",array($inscripcion_id))->row_array();
+
+        return $inscripcion;
+    }
+    /*  */
+    function get_losinscritos($gestion_id, $filtro)
+    {
+        $sql = "select c.*, f.factura_id
+                from consinscripcion c
+                left join factura f on c.inscripcion_id = f.inscripcion_id
+                where
+                c.gestion_id = $gestion_id 
+                ".$filtro." 
+                order by c.estudiante_apellidos, estudiante_nombre";
+        //echo $sql;
+        $resultado = $this->db->query($sql)->result_array();
         return $resultado;
     }
 }

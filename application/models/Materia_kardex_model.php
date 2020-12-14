@@ -42,5 +42,10 @@ class Materia_kardex_model extends CI_Model
 
         return $materiakardex;
     }
+    /* funcion que elimina kardex de materias de un determinado kardex academico */
+    function delete_materiak_kardexacad($kardexacad_id)
+    {
+        return $this->db->delete('materia_kardex',array('kardexacad_id'=>$kardexacad_id));
+    }
     
 }

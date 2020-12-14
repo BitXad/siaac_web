@@ -47,7 +47,13 @@ class Inscripcion extends CI_Controller{
         if($this->acceso(1)){
             $gestion_id = $this->session_data['gestion_id'];
             $data['parametro'] = $this->Parametro_model->get_parametro(1);
-            $data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($gestion_id);
+            
+            $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+            $this->load->model('Estado_model');
+            $data['estado'] = $this->Estado_model->get_all_estado_tipo(1);
+            $this->load->model('Usuario_model');
+            $data['usuario'] = $this->Usuario_model->get_all_usuario_activo(1);
+            //$data['inscripcion'] = $this->Inscripcion_model->get_inscripciones($gestion_id);
 
             $data['_view'] = 'inscripcion/index';
             $this->load->view('layouts/main',$data);
@@ -146,8 +152,12 @@ class Inscripcion extends CI_Controller{
                 if ($estudiante_id>0){
                     $data['estudiante'] = $this->Estudiante_model->get_estudiante_por_id($estudiante_id);
                     $this->load->model('Inscripcion_model');
-                    $data['carrera_idinsc_est'] = $this->Inscripcion_model->get_carreraid_inscripcion($estudiante_id);
-                    
+                    $res_carreraid = $this->Inscripcion_model->get_carreraid_inscripcion($estudiante_id);
+                    if(isset($res_carreraid)){
+                        $data['carrera_idinsc_est'] = $res_carreraid['carrera_id'];
+                    }else{
+                        $data['carrera_idinsc_est'] = 0;
+                    }
                     /*$this->load->model('Grupo_model');
                     $data['all_grupo'] = $this->Grupo_model->get_all_grupo_gestion($gestion_id);*/
                 }else{
@@ -171,18 +181,17 @@ class Inscripcion extends CI_Controller{
     }  
 
     /*
-     * Editing a inscripcion
+     * Editing a inscripcion, pero solo las que estan anuladas....
      */
     function edit($inscripcion_id)
     {
         if($this->acceso(3)){
-            // check if the inscripcion exists before trying to edit it
-            $data['inscripcion'] = $this->Inscripcion_model->get_inscripcion($inscripcion_id);
-
-            if(isset($data['inscripcion']['inscripcion_id']))
+            $inscripcion = $this->Inscripcion_model->get_inscripcion_noanulada($inscripcion_id);
+            if(isset($inscripcion) && count($inscripcion) >0)
             {
-                if(isset($_POST) && count($_POST) > 0)     
-                {   
+                $estudiante_id = $inscripcion["estudiante_id"];
+                /*if(isset($_POST) && count($_POST) > 0)     
+                {
                     $params = array(
                         'usuario_id' => $this->input->post('usuario_id'),
                         'gestion_id' => $this->input->post('gestion_id'),
@@ -194,36 +203,62 @@ class Inscripcion extends CI_Controller{
                         'inscripcion_hora' => $this->input->post('inscripcion_hora'),
                         'inscripcion_fechainicio' => $this->input->post('inscripcion_fechainicio'),
                     );
-
-                    $this->Inscripcion_model->update_inscripcion($inscripcion_id,$params);            
+                    $inscripcion_id = $this->Inscripcion_model->add_inscripcion($params);
                     redirect('inscripcion/index');
-                }
-                else
-                {
-                    $this->load->model('Usuario_model');
-                    $data['all_usuario'] = $this->Usuario_model->get_all_usuario();
+                }else{*/
+                    $gestion_id = $this->session_data['gestion_id'];
+                    $data["tipousuario_id"] = $this->session_data['tipousuario_id'];
+                    $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
+                    $this->load->model('Plan_academico_model');
+                    $data['all_plan_academico'] = $this->Plan_academico_model->get_plan_acad_carr($inscripcion["carrera_id"]);
+                    $nivel = $this->Nivel_model->get_nivel($inscripcion["nivel_id"]);
+                    $data["esteplanacad_id"] = $nivel["planacad_id"];
+                    $data["all_nivel"] = $this->Nivel_model->get_all_nivel_forplan($nivel["planacad_id"]);
+                    $data['carrerainscrita'] = $this->Carrera_model->get_carrera($inscripcion["carrera_id"]);
+                    $data['keconomico'] = $this->Kardex_economico_model->get_keconomico_frominscripcion($inscripcion_id);
+                    
+                    $data["inscripcion"] = $inscripcion;
+                    $this->load->model('Dosificacion_model');
+                    $data['dosificacion'] = $this->Dosificacion_model->get_dosificacion_activa();
+                    $tiene_factura = 0;
+                    if(isset($data['dosificacion']) && count($data['dosificacion']) > 0){
+                        $res_factura = $this->Factura_model->get_factura_frominscripcion($inscripcion_id);
+                        if(isset($res_factura) && count($res_factura) > 0){ $tiene_factura = $res_factura['factura_id']; }
+                    }
+                    $data['tiene_factura'] = $tiene_factura;
+        //			$this->load->model('Usuario_model');
+        //			$data['all_usuario'] = $this->Usuario_model->get_all_usuario();
 
                     $this->load->model('Gestion_model');
                     $data['all_gestion'] = $this->Gestion_model->get_all_gestion();
 
                     $this->load->model('Estudiante_model');
-                    $data['all_estudiante'] = $this->Estudiante_model->get_all_estudiante();
 
+                    $this->load->model('Grupo_model');
+                    $data['all_grupo'] = $this->Grupo_model->get_all_grupo_gestion($gestion_id);
+                    
+                    $data['estudiante'] = $this->Estudiante_model->get_estudiante_por_id($estudiante_id);
+                   
                     $this->load->model('Paralelo_model');
                     $data['all_paralelo'] = $this->Paralelo_model->get_all_paralelo();
-
-                    $this->load->model('Nivel_model');
-                    $data['all_nivel'] = $this->Nivel_model->get_all_nivel();
-
+                    
                     $this->load->model('Turno_model');
                     $data['all_turno'] = $this->Turno_model->get_all_turno();
-
+                    
+                    $nivel_id = $this->input->post('nivel_id');
+                    $data["all_materias"] = $this->Inscripcion_model->get_materias($inscripcion["nivel_id"]);
+                    $kardexacad_id = $this->Kardex_academico_model->get_kardex_academico_frominscripcion($inscripcion_id);
+                    $data["kardexacad_id"] = $kardexacad_id;
+                    $data["all_materia_asignada"] = $this->Materia_asignada_model->get_materia_asignada_frominscripcion($kardexacad_id);
+                    $data["num_pagados"] = $this->Mensualidad_model->get_menspagada_inscripcion($kardexacad_id);
+                    
                     $data['_view'] = 'inscripcion/edit';
                     $this->load->view('layouts/main',$data);
-                }
+                //}
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
+                $this->load->view('layouts/main',$data);
             }
-            else
-                show_error('The inscripcion you are trying to edit does not exist.');
         }
     } 
 
@@ -296,14 +331,15 @@ class Inscripcion extends CI_Controller{
             }
             
             $matricula_id = $this->Matricula_model->get_matricula_frominscripcion($inscripcion_id);
+            if(isset($matricula_id) and $matricula_id >0){
             $params = array(
                 'estado_id' => $estado_id,
                 'matricula_monto' => 0,
                 'matricula_descuento' => 0,
                 'matricula_total' => 0,
             );
-            $this->Matricula_model->update_matricula($matricula_id,$params);
-            
+            $this->Matricula_model->update_matricula($matricula_id['matricula_id'],$params);
+        }
             $factura_id = $this->Factura_model->get_factura_frominscripcion($inscripcion_id);
             if(isset($factura_id) and $factura_id >0){
                 $params = array(
@@ -317,7 +353,7 @@ class Inscripcion extends CI_Controller{
                     'factura_total' => 0,
                     'factura_codigocontrol' => 0,
                 );
-                $this->Factura_model->update_factura($factura_id,$params);
+                $this->Factura_model->update_factura($factura_id['factura_id'],$params);
             }
             
             
@@ -343,8 +379,8 @@ class Inscripcion extends CI_Controller{
         
     function buscar_nivel(){
         
-        $carrera_id = $this->input->post('carrera_id');
-        $nivel = $this->Nivel_model->get_nivel_por_carrera($carrera_id);
+        $planacad_id = $this->input->post('planacad_id');
+        $nivel = $this->Nivel_model->get_all_nivel_forplan($planacad_id);
         echo json_encode($nivel);
         
     }
@@ -443,6 +479,9 @@ class Inscripcion extends CI_Controller{
         //$kardexeco_hora = $this->input->post('inscripcion_fechainicio');
         $kardexeco_fecha = date("Y-m-d");
         $kardexeco_hora  = date("H:i:s");
+        $kardexeco_descuento = $this->input->post('descuento');
+        $kardexeco_efectivo  = $this->input->post('efectivo');
+        $kardexeco_cambio    = $this->input->post('cambio');
         /*if($pagar_matricula !=1){
             $kardexeco_matricula = 0;
         }*/
@@ -458,6 +497,11 @@ class Inscripcion extends CI_Controller{
             'kardexeco_hora' => $kardexeco_hora,
             'kardexeco_matriculapagada' => $kardexeco_matriculapagada,
             'kardexeco_mensualidadpagada' => $kardexeco_mensualidadpagada,
+            'kardexeco_total' => $kardexeco_matriculapagada+$kardexeco_mensualidadpagada,
+            'kardexeco_descuento' => $kardexeco_descuento,
+            'kardexeco_totalfinal' => ($kardexeco_matriculapagada+$kardexeco_mensualidadpagada)-$kardexeco_descuento,
+            'kardexeco_efectivo' => $kardexeco_efectivo,
+            'kardexeco_cambio' => $kardexeco_cambio,
             );
         $kardexeco_id = $this->Kardex_economico_model->add_kardex_economico($paramseco);
         
@@ -469,7 +513,6 @@ class Inscripcion extends CI_Controller{
                 
         for ($i = 1; $i<=$kardexeco_nummens; $i++){
             
-                       
             $estado_id = 8; // estado PENDIENTE
             
             $mes = date("m", strtotime($cuota_fechalimite));
@@ -521,9 +564,40 @@ class Inscripcion extends CI_Controller{
             'mensualidad_inscripcionpago' => 0,
             );
             $mensualidad_id = $this->Mensualidad_model->add_mensualidad($paramm);
+            //$cuota_fechalimitex = (strtotime("2020-07-01") + (31 * 1 * 24 * 60 * 60 ));
+            //$cuota_fechalimitex = (time() + ($intervalo * $i * 24 * 60 * 60 )); // fecha actual
+            $monthToAdd = $i;
+            $d1 = new DateTime($kardexeco_fechainicio);
+
+            $year = $d1->format('Y');
+            $month = $d1->format('n');
+            $day = $d1->format('d');
+
+            if ($monthToAdd > 0) {
+                $year += floor($monthToAdd/12);
+            } else {
+                $year += ceil($monthToAdd/12);
+            }
+            $monthToAdd = $monthToAdd%12;
+            $month += $monthToAdd;
+            if($month > 12) {
+                $year ++;
+                $month -= 12;
+            } elseif ($month < 1 ) {
+                $year --;
+                $month += 12;
+            }
             
-            $cuota_fechalimitex = (time() + ($intervalo * $i * 24 * 60 * 60 ));
-            $cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);
+            if(!checkdate($month, $day, $year)) {
+                $d2 = DateTime::createFromFormat('Y-n-j', $year.'-'.$month.'-1');
+                $d2->modify('last day of');
+            }else {
+                $d2 = DateTime::createFromFormat('Y-n-d', $year.'-'.$month.'-'.$day);
+            }
+            $cuota_fechalimite = $d2->format('Y-m-d');
+            
+            /*$cuota_fechalimitex = (strtotime($kardexeco_fechainicio) + ($intervalo * $i * 24 * 60 * 60 ));
+            $cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);*/
             
         }
         
@@ -732,8 +806,8 @@ class Inscripcion extends CI_Controller{
             'estado_id' => 1,
             'grupo_id' => $grupo_id,
             'kardexacad_id' => $kardexacad_id,
-            'materiakardex_nombre' => $$materia['materia_nombre'],
-            'materiakardex_codigo' => $$materia['materia_codigo'],
+            'materiakardex_nombre' => $materia['materia_nombre'],
+            'materiakardex_codigo' => $materia['materia_codigo'],
         );
         //$this->load->model('Materia_kardex_model');
         $materiakardex_id = $this->Materia_kardex_model->add_materia_kardex($param_mc);    
@@ -793,6 +867,457 @@ class Inscripcion extends CI_Controller{
         $gestion_id = $this->session_data['gestion_id'];
         $datos = $this->Inscripcion_model->get_ultima_notafactura($gestion_id);
         echo json_encode($datos);
+    }
+    /* registra la inscripcion modificada */
+    function modificar_inscripcion(){
+        //$session_data = $this->session->userdata('logged_in');
+        $usuario_id = $this->session_data['usuario_id'];
+        $gestion_id = $this->session_data['gestion_id'];
+        $this->load->model('Gestion_model');
+        $esta_gestion = $this->Gestion_model->get_gestion($gestion_id);
+        
+        $modif_kacademico = $this->input->post('modif_kacademico');
+        $modif_keconomico = $this->input->post('modif_keconomico');
+        
+        $inscripcion_id = $this->input->post('inscripcion_id');
+        $kardexacad_id = $this->input->post('kardexacad_id');
+        $kardexeco_id = $this->input->post('kardexeco_id');
+        $estudiante_id = $this->input->post('estudiante_id');
+        $paralelo_id = $this->input->post('paralelo_id');
+        $nivel_id = $this->input->post('nivel_id');
+        $turno_id = $this->input->post('turno_id');
+        $inscripcion_fecha = date('Y-m-d');
+        $inscripcion_hora = date('H:i:s');
+        $inscripcion_fechainicio = $this->input->post('inscripcion_fechainicio');
+        $carrera_id = $this->input->post('carrera_id');
+        $inscripcion_glosa = $this->input->post('inscripcion_glosa');
+        $pagar_matricula = $this->input->post('pagar_matricula');
+        $pagar_mensualidad = $this->input->post('pagar_mensualidad');
+        if($modif_kacademico == "si"){
+            $paramsi = array(
+                //'estado_id' => 1,
+                'usuario_id' => $usuario_id,
+                'gestion_id' => $gestion_id,
+                //'estudiante_id' => $estudiante_id,
+                'paralelo_id' => $paralelo_id,
+                'nivel_id' => $nivel_id,
+                'turno_id' => $turno_id,
+                //'inscripcion_fecha' => $inscripcion_fecha,
+                //'inscripcion_hora' => $inscripcion_hora,
+                'inscripcion_fechainicio' => $inscripcion_fechainicio,
+                'carrera_id' => $carrera_id,
+                'inscripcion_glosa' => $inscripcion_glosa,
+                //'inscripcion_numrecibo' => $esta_gestion['gestion_numingreso']+1,
+            );
+        }else{
+            $paramsi = array(
+                //'usuario_id' => $usuario_id,
+                //'gestion_id' => $gestion_id,
+                'paralelo_id' => $paralelo_id,
+                //'nivel_id' => $nivel_id,
+                'turno_id' => $turno_id,
+                'inscripcion_fechainicio' => $inscripcion_fechainicio,
+                //'carrera_id' => $carrera_id,
+                'inscripcion_glosa' => $inscripcion_glosa,
+            );
+        }
+        $this->Inscripcion_model->update_inscripcion($inscripcion_id, $paramsi);
+        /*
+        $paramg = array(
+            'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1,
+            );
+        $this->Gestion_model->update_gestion($gestion_id, $paramg);
+        */
+        /*$kardexacad_notfinal1 = 0;
+        $kardexacad_notfinal2 = 0;
+        $kardexacad_notfinal3 = 0;
+        $kardexacad_notfinal4 = 0;
+        $kardexacad_notfinal5 = 0;
+        $kardexacad_notfinal = 0;
+        $kardexacad_estado = 1;*/
+        $kardexeco_matriculapagada = 0;
+        if($pagar_matricula == 1){
+            $kardexeco_matriculapagada = $this->input->post('inscripcion_matricula');
+        }
+        
+        if($pagar_mensualidad > 0){
+            $kardexeco_mensualidadpagada = $pagar_mensualidad*$this->input->post('inscripcion_mensualidad');
+        }else{ $kardexeco_mensualidadpagada = 0; }
+        /*
+        $params = array(
+            //'inscripcion_id' => $inscripcion_id,
+            'kardexacad_notfinal1' => $kardexacad_notfinal1,
+            'kardexacad_notfinal2' => $kardexacad_notfinal2,
+            'kardexacad_notfinal3' => $kardexacad_notfinal3,
+            'kardexacad_notfinal4' => $kardexacad_notfinal4,
+            'kardexacad_notfinal5' => $kardexacad_notfinal5,
+            'kardexacad_notfinal' => $kardexacad_notfinal,
+            'kardexacad_estado' => $kardexacad_estado,
+            );
+            $this->Kardex_academico_model->update_kardex_academico($kardexacad_id, $params);
+        */
+        //Registro de kardex economico
+        
+        //$inscripcion_id = ;
+        $estado_id = 1;
+        $kardexeco_matricula = $this->input->post('inscripcion_matricula');
+        $kardexeco_mensualidad = $this->input->post('inscripcion_mensualidad');
+        $kardexeco_nummens = $this->input->post('carrera_nummeses');
+        $kardexeco_observacion = $this->input->post('inscripcion_glosa');
+        $kardexeco_fechainicio = $this->input->post('inscripcion_fechainicio');
+        //$kardexeco_hora = $this->input->post('inscripcion_fechainicio');
+        $kardexeco_fecha = date("Y-m-d");
+        $kardexeco_hora  = date("H:i:s");
+        $kardexeco_descuento = $this->input->post('descuento');
+        $kardexeco_efectivo  = $this->input->post('efectivo');
+        $kardexeco_cambio    = $this->input->post('cambio');
+        /*if($pagar_matricula !=1){
+            $kardexeco_matricula = 0;
+        }*/
+        if($modif_keconomico == "si"){
+            $paramseco = array(
+                //'inscripcion_id' => $inscripcion_id,
+                'estado_id' => $estado_id,
+                'kardexeco_matricula' => $kardexeco_matricula,
+                'kardexeco_mensualidad' => $kardexeco_mensualidad,
+                'kardexeco_nummens' => $kardexeco_nummens,
+                'kardexeco_observacion' => $kardexeco_observacion,
+                //'kardexeco_fecha' => $kardexeco_fecha,
+                //'kardexeco_hora' => $kardexeco_hora,
+                'kardexeco_matriculapagada' => $kardexeco_matriculapagada,
+                'kardexeco_mensualidadpagada' => $kardexeco_mensualidadpagada,
+                'kardexeco_total' => $kardexeco_matriculapagada+$kardexeco_mensualidadpagada,
+                'kardexeco_descuento' => $kardexeco_descuento,
+                'kardexeco_totalfinal' => ($kardexeco_matriculapagada+$kardexeco_mensualidadpagada)-$kardexeco_descuento,
+                'kardexeco_efectivo' => $kardexeco_efectivo,
+                'kardexeco_cambio' => $kardexeco_cambio,
+            );
+        }else{
+            $paramseco = array(
+                //'inscripcion_id' => $inscripcion_id,
+                //'estado_id' => $estado_id,
+                'kardexeco_matricula' => $kardexeco_matricula,
+                //'kardexeco_mensualidad' => $kardexeco_mensualidad,
+                //'kardexeco_nummens' => $kardexeco_nummens,
+                'kardexeco_observacion' => $kardexeco_observacion,
+                //'kardexeco_fecha' => $kardexeco_fecha,
+                //'kardexeco_hora' => $kardexeco_hora,
+                'kardexeco_matriculapagada' => $kardexeco_matriculapagada,
+                //'kardexeco_mensualidadpagada' => $kardexeco_mensualidadpagada,
+                'kardexeco_total' => $kardexeco_matriculapagada+$kardexeco_mensualidadpagada,
+                'kardexeco_descuento' => $kardexeco_descuento,
+                'kardexeco_totalfinal' => ($kardexeco_matriculapagada+$kardexeco_mensualidadpagada)-$kardexeco_descuento,
+                'kardexeco_efectivo' => $kardexeco_efectivo,
+                'kardexeco_cambio' => $kardexeco_cambio,
+            );
+        }
+        $this->Kardex_economico_model->update_kardex_economico($kardexeco_id, $paramseco);
+        
+        $intervalo = 30; //mensual
+        //$dia_pago = date('d');
+        $dia_pago = date("d", strtotime($kardexeco_fechainicio));
+        
+        $cuota_fechalimite = $kardexeco_fechainicio; // inicio de los pagos
+        if($modif_keconomico == "si"){
+            /* elimina las mensualidades que no hayan sido canceladas(pagadas) para despues volverlas a generar */
+            $this->Mensualidad_model->delete_menskardexeco($kardexeco_id);
+            // estado 27 = anulado
+            $paraman = array(
+                'estado_id' => 27,
+                'usuario_id' => $usuario_id,
+                'mensualidad_montoparcial' => 0,
+                'mensualidad_descuento' => 0,
+                'mensualidad_montototal' => 0,
+                'mensualidad_mora' => 0,
+                'mensualidad_montocancelado' => 0,
+                'mensualidad_saldo' => 0,
+                'mensualidad_nombre' => 0,
+                'mensualidad_ci' => 0,
+                'mensualidad_glosa' => 0,
+                'mensualidad_mes' => 0,
+                'mensualidad_inscripcionpago' => 0,
+                'mensualidad_multa' => 0,
+            );
+            $this->Mensualidad_model->anular_mensualidad($kardexeco_id, $paraman);
+            for ($i = 1; $i<=$kardexeco_nummens; $i++){
+                $estado_id = 8; // estado PENDIENTE
+                $mes = date("m", strtotime($cuota_fechalimite));
+                if($mes==1)  $nombremes = "ENERO";
+                if($mes==2)  $nombremes = "FEBRERO";
+                if($mes==3)  $nombremes = "MARZO";
+                if($mes==4)  $nombremes = "ABRIL";
+                if($mes==5)  $nombremes = "MAYO";
+                if($mes==6)  $nombremes = "JUNIO";
+                if($mes==7)  $nombremes = "JULIO";
+                if($mes==8)  $nombremes = "AGOSTO";
+                if($mes==9)  $nombremes = "SEPTIEMBRE";
+                if($mes==10)  $nombremes = "OCTUBRE";
+                if($mes==11)  $nombremes = "NOVIEMBRE";
+                if($mes==12)  $nombremes = "DICIEMBRE";
+                $anio = date("Y", strtotime($cuota_fechalimite));
+
+                //$kardexeco_id = ;
+                //$usuario_id = ;
+                $mensualidad_numero = $i;
+                $mensualidad_montoparcial = $kardexeco_mensualidad;
+                $mensualidad_descuento = 0;
+                $mensualidad_montototal = $kardexeco_mensualidad;
+                $mensualidad_fechalimite = $cuota_fechalimite;
+                $mensualidad_mora = 0;
+                $mensualidad_montocancelado = 0;
+                $mensualidad_saldo = 0;
+                //$mensualidad_fechapago = ;
+                //$mensualidad_horapago = ;
+                //$mensualidad_nombre = ;
+                //$mensualidad_ci = ;
+                //$mensualidad_glosa = ;
+                $mensualidad_mes = $nombremes."/".$anio;
+                $paramm = array(
+                'estado_id' => $estado_id,
+                'kardexeco_id' => $kardexeco_id,
+                'usuario_id' => $usuario_id,
+                'mensualidad_numero' => $mensualidad_numero,
+                'mensualidad_montoparcial' => $mensualidad_montoparcial,
+                'mensualidad_descuento' => $mensualidad_descuento,
+                'mensualidad_montototal' => $mensualidad_montototal,
+                'mensualidad_fechalimite' => $mensualidad_fechalimite,
+                'mensualidad_mora' => $mensualidad_mora,
+                'mensualidad_montocancelado' => $mensualidad_montocancelado,
+                'mensualidad_saldo' => $mensualidad_saldo,
+                'mensualidad_mes' => $mensualidad_mes,
+                'mensualidad_numrec' => 0,
+                'mensualidad_inscripcionpago' => 0,
+                );
+                $mensualidad_id = $this->Mensualidad_model->add_mensualidad($paramm);
+
+                //$cuota_fechalimitex = (time() + ($intervalo * $i * 24 * 60 * 60 ));
+                //$cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);
+                $monthToAdd = $i;
+            $d1 = new DateTime($kardexeco_fechainicio);
+
+            $year = $d1->format('Y');
+            $month = $d1->format('n');
+            $day = $d1->format('d');
+
+            if ($monthToAdd > 0) {
+                $year += floor($monthToAdd/12);
+            } else {
+                $year += ceil($monthToAdd/12);
+            }
+            $monthToAdd = $monthToAdd%12;
+            $month += $monthToAdd;
+            if($month > 12) {
+                $year ++;
+                $month -= 12;
+            } elseif ($month < 1 ) {
+                $year --;
+                $month += 12;
+            }
+            
+            if(!checkdate($month, $day, $year)) {
+                $d2 = DateTime::createFromFormat('Y-n-j', $year.'-'.$month.'-1');
+                $d2->modify('last day of');
+            }else {
+                $d2 = DateTime::createFromFormat('Y-n-d', $year.'-'.$month.'-'.$day);
+            }
+            $cuota_fechalimite = $d2->format('Y-m-d');
+            
+            }
+        }
+        if($pagar_matricula == 1){
+            //$this->Matricula_model->delete_matriculainscripcion($inscripcion_id);
+            $paramspm = array(
+                //'inscripcion_id' => $inscripcion_id,
+                //'estado_id' => 1,
+                'matricula_fechapago' => $kardexeco_fecha,
+                'matricula_horapago' => $kardexeco_hora,
+                //'matricula_fechalimite' => $kardexeco_mensualidad,
+                'matricula_monto' => $kardexeco_matricula,
+                'matricula_descuento' => 0,
+                'matricula_total' => $kardexeco_matricula,
+            );
+            $this->Matricula_model->update_matriculainscripcion($inscripcion_id, $paramspm);
+        }elseif($pagar_matricula == 2){
+            //$kardexeco_id
+        }
+        if($modif_keconomico == "si"){
+            if($pagar_mensualidad >0){
+                $estadomen_id = 9; //cancelado
+                $this->load->model('Estudiante_model');
+                $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
+
+                $thismensualidad = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
+                $cont = 0;
+                for($i = 1; $i <= $pagar_mensualidad; $i++){
+                    $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
+                    $parampm = array(
+                        'estado_id' => $estadomen_id,
+                        'mensualidad_montocancelado' => $this->input->post('inscripcion_mensualidad'),
+                        'mensualidad_fechapago' => $kardexeco_fecha,
+                        'mensualidad_horapago' => $kardexeco_hora,
+                        'mensualidad_nombre' => $thisestudiante['estudiante_nombre']." ".$thisestudiante['estudiante_apellidos'],
+                        'mensualidad_ci' => $thisestudiante['estudiante_ci'],
+                        'mensualidad_glosa' => "Se pago al momento de inscribirse",
+                        'mensualidad_numrec' => $mensualidad_numrec,
+                        'mensualidad_inscripcionpago' => 1,
+                    );
+                    $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
+
+                    $paramg = array(
+                    'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1+$i,
+                    );
+                    $this->Gestion_model->update_gestion($gestion_id, $paramg);
+                    $cont++;
+                }
+            }
+        }
+        
+        $esfacturado = $this->input->post('esfactura');
+        $esfactura_id = "";
+        if($esfacturado=="si"){ //si la inscripcion es es facturada
+            //$this->load->library('ControlCode');
+            $this->load->model('Dosificacion_model');
+            $dosificacion = $this->Dosificacion_model->get_dosificacion_activa();
+
+            if(isset($dosificacion) && count($dosificacion) > 0){ // ojo.. probar con dosificacion..
+            //if (sizeof($dosificacion)>0){ //si existe una dosificacion activa
+                
+                $estado_id = 1;
+                $fechahoy = date("Y-m-d");
+                $total = $this->input->post('total_final');
+                $descontar = $this->input->post('descuento');
+                $venta_efectivo        = $this->input->post('total_final');
+                $factura_fechaventa    = $fechahoy; //$this->input->post('mensualidad_fecha');
+                $factura_fecha         = "date(now())";
+                $factura_hora          = "time(now())";
+                $factura_subtotal      = $total-$descontar;
+                $factura_nit           = $this->input->post('nit');
+                $factura_razonsocial   = $this->input->post('razon');
+                $factura_ice           = 0;
+                $factura_exento        = 0;
+                $factura_descuento     = $descontar;
+                $factura_total         = $total;
+                $factura_numero        = $dosificacion[0]['dosificacion_numfact']+1;
+                $factura_autorizacion  = $dosificacion[0]['dosificacion_autorizacion'];
+                $factura_llave         = $dosificacion[0]['dosificacion_llave'];
+                $factura_fechalimite   = $dosificacion[0]['dosificacion_fechalimite'];
+                $factura_codigocontrol = $this->codigo_control($factura_llave, $factura_autorizacion, $factura_numero, $factura_nit, $factura_fechaventa, $factura_total);
+                $factura_leyenda1       = $dosificacion[0]['dosificacion_leyenda1'];
+                $factura_leyenda2       = $dosificacion[0]['dosificacion_leyenda2'];
+                $factura_nitemisor     = $dosificacion[0]['dosificacion_nitemisor'];
+                $factura_sucursal      = $dosificacion[0]['dosificacion_sucursal'];
+                $factura_sfc           = $dosificacion[0]['dosificacion_sfc'];
+                $factura_actividad     = $dosificacion[0]['dosificacion_actividad'];
+
+                $sql = "update dosificacion set dosificacion_numfact = ".$factura_numero;
+                $this->Mensualidad_model->ejecutar($sql);
+                             
+                $sql = "insert into factura(estado_id, inscripcion_id, factura_fechaventa, 
+                    factura_fecha, factura_hora, factura_subtotal, 
+                    factura_ice, factura_exento, factura_descuento, factura_total, 
+                    factura_numero, factura_autorizacion, factura_llave, 
+                    factura_fechalimite, factura_codigocontrol, factura_leyenda1, factura_leyenda2,
+                    factura_nit, factura_razonsocial, factura_nitemisor, factura_sucursal, factura_sfc, factura_actividad,
+                    usuario_id, tipotrans_id, factura_efectivo, factura_cambio) value(".
+                    $estado_id.",".$inscripcion_id.",'".$factura_fechaventa."',".
+                    $factura_fecha.",".$factura_hora.",".$factura_subtotal.",".
+                    $factura_ice.",".$factura_exento.",".$factura_descuento.",".$factura_total.",".
+                    $factura_numero.",".$factura_autorizacion.",'".$factura_llave."','".
+                    $factura_fechalimite."','".$factura_codigocontrol."','".$factura_leyenda1."','".$factura_leyenda2."',".
+                    $factura_nit.",'".$factura_razonsocial."','".$factura_nitemisor."','".
+                    $factura_sucursal."','".$factura_sfc."','".$factura_actividad."',".
+                    $usuario_id.",1,".$venta_efectivo.",0)";
+
+                $factura_id = $this->Mensualidad_model->ejecutar($sql);
+                $esfactura_id = $factura_id;
+            
+            $producto_id = 0;
+            $cantidad = 1;
+            $detallefact_codigo = "-";
+            $detallefact_cantidad = $cantidad;
+            $cadena = "";
+            if($pagar_mensualidad >0){
+                if($pagar_mensualidad == 1){
+                    $cadena = "MENSUALIDAD ".$pagar_mensualidad;
+                }else{
+                    $cadena = "MENSUALIDADES ".$pagar_mensualidad;
+                }
+            }
+            $this->load->model('Carrera_model');
+            $carrera = $this->Carrera_model->get_carrera($carrera_id);
+            $this->load->model('Estudiante_model');
+            $elestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
+            $masdetalle = "INSCRIPCION, ".$cadena.", ".$carrera["carrera_nombre"].", ".$elestudiante["estudiante_nombre"]." ".$elestudiante["estudiante_apellidos"];
+            $eslaglosa = $this->input->post('inscripcion_glosa');
+            if($eslaglosa == ""){
+                $eslaglosa = "";
+            }else{ $eslaglosa = ", ".$eslaglosa; }
+            $detallefact_descripcion = $masdetalle.$eslaglosa;
+            $unidad = "";
+            
+            $precio = $total-$descontar;
+            $detallefact_precio = $precio;
+            $detallefact_subtotal =  $precio;
+            $detallefact_descuento = 0;
+            $detallefact_total = $factura_subtotal;
+            $detallefact_preferencia =  "";
+            $detallefact_caracteristicas = "";
+            
+            $sql =  "insert into detalle_factura(
+            producto_id,
+            factura_id,
+            detallefact_codigo,
+            detallefact_unidad,
+            detallefact_cantidad,            
+            detallefact_descripcion,
+            detallefact_precio,
+            detallefact_subtotal,
+            detallefact_descuento,
+            detallefact_total,                
+            detallefact_preferencia,
+            detallefact_caracteristicas)
+            
+            value(
+            ".$producto_id.",
+            ".$factura_id.",
+            '".$detallefact_codigo."',
+            '".$unidad."',
+            ".$detallefact_cantidad.",            
+            '".$detallefact_descripcion."',
+            ".$detallefact_precio.",
+            ".$detallefact_subtotal.",
+            ".$detallefact_descuento.",
+            ".$detallefact_total.",                
+            '".$detallefact_preferencia."',
+            '".$detallefact_caracteristicas."')";
+
+            $this->Mensualidad_model->ejecutar($sql);
+            
+                $params = array(
+                'estudiante_nit' => $factura_nit,
+                'estudiante_razon' => $factura_razonsocial,
+                );
+                $this->Estudiante_model->update_estudiante($estudiante_id, $params);
+            }
+        }
+        if($modif_kacademico == "si"){
+            $this->Materia_asignada_model->delete_matasignada_kardexacad($kardexacad_id);
+            $this->Materia_kardex_model->delete_materiak_kardexacad($kardexacad_id);
+        }
+        $datos= array($kardexacad_id, $esfactura_id);
+        echo json_encode($datos);
+    }
+    /* funcion que busca inscritos */
+    function buscar_inscritos()
+    {
+        if($this->input->is_ajax_request()){
+            $gestion_id = $this->session_data['gestion_id'];
+            $filtro = $this->input->post('filtro');
+            $res_inscritos = $this->Inscripcion_model->get_losinscritos($gestion_id, $filtro);
+            echo json_encode($res_inscritos);
+        }else{
+            show_404();
+        }
     }
     
 }

@@ -77,7 +77,7 @@ class Mensualidad_model extends CI_Model
 
         return $mensualidad;
     }
-
+    /* tambien se lo esta usando en modificar inscripcion */
     function kardex_mensualidad($kardex_id)
     {
         $mensualidad = $this->db->query("
@@ -90,8 +90,9 @@ class Mensualidad_model extends CI_Model
             LEFT JOIN estado e on m.estado_id=e.estado_id
             LEFT JOIN factura f on m.mensualidad_id = f.mensualidad_id
             WHERE
-              
-                 m.kardexeco_id = ".$kardex_id."
+                 m.estado_id <> 27
+                 and m.estado_id <> 3
+                 and m.kardexeco_id = ".$kardex_id."
 
             ORDER BY m.mensualidad_numero, m.mensualidad_id  ASC
         ")->result_array();
@@ -269,6 +270,38 @@ class Mensualidad_model extends CI_Model
     {
         return $this->db->delete('mensualidad',array('mensualidad_id'=>$mensualidad_id));
     }
+    /*
+     * function to delete mensualidades de un kardex economico
+     * de los que no fueron cancelados
+     */
+    function delete_menskardexeco($kardexeco_id)
+    {
+        $mensualidad = $this->db->query("
+            DELETE FROM
+                `mensualidad`
+            WHERE
+                estado_id <> 9
+                and kardexeco_id = $kardexeco_id 
+                
+       ");
+        /*$this->db->query($mensualidad);
+        return $mensualidad;
+        $this->db->where('mensualidad_inscripcionpago', 0);
+        $this->db->where('estado_id', 8);
+        $this->db->or_where('estado_id', 3);
+        $this->db->where('kardexeco_id', $kardexeco_id);
+        return $this->db->delete('mensualidad');*/
+        //return $this->db->delete('mensualidad',array('kardexeco_id'=>$kardexeco_id));
+    }
+    /*
+     * function que anula mensualidades que hayan sido canceladas para ponerlos en anuladas
+     * de un determinado kardex economico para asi no perder el registro de numero de ingreso
+     */
+    function anular_mensualidad($kardexeco_id,$params)
+    {
+        $this->db->where('kardexeco_id',$kardexeco_id);
+        return $this->db->update('mensualidad',$params);
+    }
     
     function get_mensualidad_frominscripcion($kardexeco_id)
     {
@@ -281,6 +314,23 @@ class Mensualidad_model extends CI_Model
                 m.kardexeco_id = ?
         ",array($kardexeco_id))->result_array();
 
+        return $mensualidad;
+    }
+    /* obtiene el numero de mensualidades pagadas en el momento de la inscripcion,
+     * se lo usa en editar inscripcion
+     */
+    function get_menspagada_inscripcion($kardexeco_id)
+    {
+        $mensualidad = $this->db->query("
+            SELECT
+                count(m.mensualidad_inscripcionpago) as pagados
+            FROM
+               mensualidad m
+            WHERE
+                 m.mensualidad_inscripcionpago = 1
+                 and m.estado_id = 9
+                 and m.kardexeco_id = ".$kardexeco_id." 
+        ")->row_array();
         return $mensualidad;
     }
 }
