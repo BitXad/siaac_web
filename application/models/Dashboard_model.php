@@ -172,7 +172,7 @@ class Dashboard_model extends CI_Model
         return $carrera;
     }
 
-    function get_carreraest()
+    function get_carreraest($gestion_id)
     {
         $carrera = $this->db->query("
             SELECT
@@ -183,7 +183,7 @@ class Dashboard_model extends CI_Model
             LEFT JOIN             
 
             (SELECT  count(i.inscripcion_id) as cant, i.carrera_id
-            FROM inscripcion i group by i.carrera_id  ) AS insc
+            FROM inscripcion i where i.gestion_id = $gestion_id group by i.carrera_id  ) AS insc
             ON c.carrera_id=insc.carrera_id            
             ORDER BY c.carrera_id ASC 
 
@@ -192,7 +192,7 @@ class Dashboard_model extends CI_Model
         return $carrera;
     }
 
-    function get_inscritos($ultimos)
+    function get_inscritos($ultimos, $gestion_id)
     {
         $carrera = $this->db->query("
             SELECT
@@ -202,8 +202,8 @@ class Dashboard_model extends CI_Model
                 estudiante e, inscripcion i, carrera c
             WHERE
                 i.estudiante_id = e.estudiante_id  and
-                i.carrera_id = c.carrera_id
-           
+                i.carrera_id = c.carrera_id and
+                i.gestion_id = $gestion_id
 
             ORDER BY i.inscripcion_id DESC limit ".$ultimos."
         ")->result_array();

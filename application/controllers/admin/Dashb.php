@@ -23,6 +23,7 @@ class Dashb extends CI_Controller
     {
         $this->acceso();
         $data['page_title'] = ' - Bienvenido '.$this->session_data['usuario_nombre'];
+        $gestion_id = $this->session_data['gestion_id'];
         $data['inscripcion'] = $this->Dashboard_model->get_inscripcion();
         $data['docentes'] = $this->Dashboard_model->get_docentes();
         $data['estudiantes'] = $this->Dashboard_model->get_estudiantes();
@@ -31,10 +32,10 @@ class Dashb extends CI_Controller
         $data['kardex_eco'] = $this->Dashboard_model->get_kardex_eco();
         $data['kardex_aca'] = $this->Dashboard_model->get_kardex_aca();
         //$data['carrera_estudiante'] = $this->Dashboard_model->get_carrera();
-        $data['estudiante_carr'] = $this->Dashboard_model->get_carreraest();
+        $data['estudiante_carr'] = $this->Dashboard_model->get_carreraest($gestion_id);
         $data['usuario_inscripcion'] = $this->Dashboard_model->get_usuario_inscripcion();
         $data['montos_inscripcion'] = $this->Dashboard_model->get_montoinsc();
-        $data['inscritos_estudiante'] = $this->Dashboard_model->get_inscritos(10);
+        $data['inscritos_estudiante'] = $this->Dashboard_model->get_inscritos(10, $gestion_id);
         $data['institucion'] = $this->Institucion_model->get_institucion(1);
 
 
