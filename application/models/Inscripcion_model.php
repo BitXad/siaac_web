@@ -285,4 +285,23 @@ class Inscripcion_model extends CI_Model
         $resultado = $this->db->query($sql)->result_array();
         return $resultado;
     }
+    /*
+     * obtiene el historial de inscripciones de un estudiante
+     */
+    function get_historialinscripcion($estudiante_id)
+    {
+        $historial = $this->db->query("
+            SELECT
+                c.`kardexeco_id`,
+                CONCAT(c.`gestion_semestre`, '/', c.`gestion_descripcion`) as estagestion,
+                c.`carrera_nombre`, c.`carrera_codigo`, c.`nivel_descripcion`,
+                c.`esteestado_descripcion`
+            FROM
+                `consinscripcion` c
+            WHERE
+                c.`estudiante_id` = $estudiante_id
+        ")->result_array();
+
+        return $historial;
+    }
 }

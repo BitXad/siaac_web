@@ -99,6 +99,37 @@ $session_data = $this->session->userdata('logged_in'); ?>
             <b>Dirección: </b><?php echo $estudiante[0]["estudiante_direccion"]; ?>              
         </div>
     </div>
+    <?php
+    if($estudiante[0]["estudiante_id"] >0){
+        if(count($all_historial)>0){
+    ?>
+    <div class="panel panel-primary col-md-8" style="padding-top: 1px; padding-bottom: 1px; padding-left: 1px; padding-right: 1px">
+        <div class="text-center text-bold">Historial</div>
+        <!--<div class="box-body">-->
+            <table class="table table-striped table-responsive" id="mitabla">
+                <tr>
+                    <th style="padding: 0">Kardex</th>
+                    <th style="padding: 0">Gesti&oacute;n</th>
+                    <th style="padding: 0">Carrera</th>
+                    <th style="padding: 0">Cod.</th>
+                    <th style="padding: 0">Nivel</th>
+                    <th style="padding: 0">Estado</th>
+                </tr>
+                <?php
+                foreach($all_historial as $historial){ ?>
+                    <tr>
+                        <td class="text-center" style="padding: 0"><?php echo $historial['kardexeco_id']; ?></td>
+                        <td class="text-center" style="padding: 0"><?php echo $historial['estagestion']; ?></td>
+                        <td style="padding: 0"><?php echo $historial['carrera_nombre']; ?></td>
+                        <td class="text-center" style="padding: 0"><?php echo $historial['carrera_codigo']; ?></td>
+                        <td class="text-center" style="padding: 0"><?php echo $historial['nivel_descripcion']; ?></td>
+                        <td class="text-center" style="padding: 0"><?php echo $historial['esteestado_descripcion']; ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+        <!--</div>-->
+    </div>
+        <?php }} ?>
     <div class="box-tools">
         <center>            
             <a href="<?php echo base_url('estudiante/registrar/'); ?>" class="btn btn-success btn-foursquarexs"><font size="5"><span class="fa fa-user-plus"></span></font><br><small>Reg. Estudiante</small></a>

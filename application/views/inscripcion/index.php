@@ -73,7 +73,7 @@
         </div>
         <div class="col-md-4">
             <!--<label for="carrera_id" class="control-label">Carrera</label>-->
-            Carrera
+            Carrera:
             <div class="form-group"> <b>
                 <select name="carrera_id" id="carrera_id" class="btn btn-warning btn-sm form-control" onchange="obtener_planacademico(this.value)">
                     <option value="0">- CURSO/CARRERA -</option>
@@ -89,7 +89,7 @@
         </div>
         <div class="col-md-4">
             <!--<label for="carrera_id" class="control-label">Plan Academico</label>-->
-            Plan Academico
+            Plan Academico:
             <div class="form-group" id="elegirplanacad"><b>
                 <select name="planacad_id" id="planacad_id" class="btn btn-warning btn-sm  form-control" required>
                     <option value="0">- PLAN ACADEMICO -</option>
@@ -98,7 +98,7 @@
         </div>
         <div class="col-md-3">
             <!--<label for="nivel_id" class="control-label">Nivel</label>-->
-            Nivel
+            Nivel:
             <div class="form-group">
                 <select name="nivel_id" id="nivel_id" class=" btn btn-warning btn-sm form-control" onchange="mostrar_materias()">
                     <option value="0">- NIVEL -</option>
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="col-md-2">
-            Estado:             
+            Estado:
             <select  class="btn btn-warning btn-sm form-control" id="estado_id" >
                 <option value="0">-- TODOS --</option>
                 <?php foreach($estado as $es){?>
@@ -115,7 +115,7 @@
             </select>
         </div>
         <div class="col-md-2">
-            Usuario:             
+            Usuario:
             <select  class="btn btn-warning btn-sm form-control" id="usuario_id">
                     <option value="0">-- TODOS --</option>
                 <?php foreach($usuario as $us){?>
@@ -125,6 +125,7 @@
         </div>
         <!--<br>-->
         <div class="col-md-3">
+            &nbsp;
             <button class="btn btn-facebook btn-block" onclick="inscripciones_por_fecha()" >
                 <span class="fa fa-search"></span>   Buscar
           </button>

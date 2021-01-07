@@ -71,9 +71,9 @@ function buscarinscritos(e,opcion) {
     if (tecla==13){ 
      	if (opcion==1){   //si la pulsacion proviene del buscador de estudiantes
             var resfiltro = document.getElementById('filtrar').value;
-            filtro = " and c.estudiante_nombre like '%"+resfiltro+"%' or c.estudiante_apellidos like '%"+resfiltro+"%'"; 
+            filtro = " and (c.estudiante_nombre like '%"+resfiltro+"%' or c.estudiante_apellidos like '%"+resfiltro+"%'"; 
             filtro += " or c.estudiante_codigo like '%"+resfiltro+"%' or c.estudiante_ci like '%"+resfiltro+"%'";
-            filtro += " or c.estudiante_nit like '%"+resfiltro+"%' ";
+            filtro += " or c.estudiante_nit like '%"+resfiltro+"%') ";
             tabla_inscripcion(filtro);
         }
     }

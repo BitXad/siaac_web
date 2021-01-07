@@ -158,6 +158,8 @@ class Inscripcion extends CI_Controller{
                     }else{
                         $data['carrera_idinsc_est'] = 0;
                     }
+                    $historial_insc = $this->Inscripcion_model->get_historialinscripcion($estudiante_id);
+                    $data['all_historial'] = $historial_insc;
                     /*$this->load->model('Grupo_model');
                     $data['all_grupo'] = $this->Grupo_model->get_all_grupo_gestion($gestion_id);*/
                 }else{
