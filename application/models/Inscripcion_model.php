@@ -295,7 +295,7 @@ class Inscripcion_model extends CI_Model
                 c.`kardexeco_id`,
                 CONCAT(c.`gestion_semestre`, '/', c.`gestion_descripcion`) as estagestion,
                 c.`carrera_nombre`, c.`carrera_codigo`, c.`nivel_descripcion`,
-                c.`esteestado_descripcion`
+                c.`planacad_nombre`, c.`esteestado_descripcion`
             FROM
                 `consinscripcion` c
             WHERE

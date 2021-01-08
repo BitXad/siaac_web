@@ -54,7 +54,7 @@ function buscarestudiante(dato){
                         html += "<td align='center'>"+registros[i]["estudiante_ci"]+"  "+registros[i]["estudiante_extci"]+"</td>";
                         html += "<td align='center'>"+registros[i]["estudiante_codigo"]+"</td>";
                         html += "<td><b>"+registros[i]["carrera_nombre"]+"</b><br>"+registros[i]["nivel_descripcion"]+"</td>";
-                        html += "<td><b>"+registros[i]["gestion_semestre"]+"/"+registros[i]["gestion_descripcion"]+"</b></td>";
+                        html += "<td class='text-center'><b>"+registros[i]["gestion_semestre"]+"/"+registros[i]["gestion_descripcion"]+"</b></td>";
                         html += "<td align='right'><b>"+Number(registros[i]["kardexeco_matricula"]).toFixed(2)+"</b></td>";
                         html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"]).toFixed(2)+"</b></td>";
                         html += "<td align='center'><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";

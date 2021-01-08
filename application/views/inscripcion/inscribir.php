@@ -113,6 +113,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                     <th style="padding: 0">Carrera</th>
                     <th style="padding: 0">Cod.</th>
                     <th style="padding: 0">Nivel</th>
+                    <th style="padding: 0">Plan Acad.</th>
                     <th style="padding: 0">Estado</th>
                 </tr>
                 <?php
@@ -123,6 +124,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         <td style="padding: 0"><?php echo $historial['carrera_nombre']; ?></td>
                         <td class="text-center" style="padding: 0"><?php echo $historial['carrera_codigo']; ?></td>
                         <td class="text-center" style="padding: 0"><?php echo $historial['nivel_descripcion']; ?></td>
+                        <td class="text-center" style="padding: 0"><?php echo $historial['planacad_nombre']; ?></td>
                         <td class="text-center" style="padding: 0"><?php echo $historial['esteestado_descripcion']; ?></td>
                     </tr>
                 <?php } ?>
