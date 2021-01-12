@@ -122,5 +122,13 @@ class Gestion_model extends CI_Model
             return false;
         }
     }
+    
+    public function get_institucion(){
+        
+        $sql = "select * from institucion";
+        return $this->db->query($sql)->row_array();
+        
+    }
+    
 
 }
