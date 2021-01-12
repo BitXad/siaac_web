@@ -22,18 +22,19 @@ class Verificar extends CI_Controller
         $clave = $this->input->post('password');
         $gestion_id = $this->input->post('gestion');
         $tipo = $this->input->post('tipo');
+        
         if ($tipo==1) {//admin
-
-            redirect('verificar/index1/'.$username.'/'.$clave.'/'.$gestion_id);   
+                redirect('verificar/index1/'.$username.'/'.$clave.'/'.$gestion_id);
+                
         }elseif ($tipo==2) {// docente 
-
-                    redirect('verificar/index2/'.$username.'/'.$clave.'/'.$gestion_id);   
-        }elseif ($tipo==3) {// estudiante 
-            
-                    redirect('verificar/index3/'.$username.'/'.$clave.'/'.$gestion_id);   
+                redirect('verificar/index2/'.$username.'/'.$clave.'/'.$gestion_id);
+                
+        }elseif ($tipo==3) {// estudiante             
+                redirect('verificar/index3/'.$username.'/'.$clave.'/'.$gestion_id);   
         }
 
     }
+    
     function index1($username,$clave,$gestion_id)
     {
         
@@ -51,7 +52,7 @@ class Verificar extends CI_Controller
                 $tipousuario_nombre = $this->Tipo_usuario_model->get_tipousuario_nombre($result->tipousuario_id);
 
                 $gestion = $this->Gestion_model->get_gestion2($gestion_id);
-
+                
                 $sess_array = array(
                     'usuario_login' => $result->usuario_login,
                     'usuario_id' => $result->usuario_id,
@@ -91,7 +92,7 @@ class Verificar extends CI_Controller
             }
 
         } else {
-            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">USER o PASSWORD invalidos' . $result . '</div>');
+            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center" style="font-family:Arial; font-size:12px;">El usuario o la contraseña son incorrectos.' . $result . '</div>');
             redirect('login');
         }
 
@@ -140,7 +141,8 @@ class Verificar extends CI_Controller
 
 
         } else {
-            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">USER o PASSWORD invalidos' . $result . '</div>');
+//            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">USER o PASSWORD invalidos' . $result . '</div>');
+            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center" style="font-family:Arial; font-size:12px;">El usuario o la contraseña son incorrectos.' . $result . '</div>');
             redirect('login');
         }
 
@@ -189,7 +191,8 @@ class Verificar extends CI_Controller
 
 
         } else {
-            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">USER o PASSWORD invalidos' . $result . '</div>');
+            //$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">USER o PASSWORD invalidos' . $result . '</div>');
+            $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center" style="font-family:Arial; font-size:12px;">El usuario o la contraseña son incorrectos.' . $result . '</div>');
             redirect('login');
         }
 

@@ -71,7 +71,7 @@
                                     $carpeta = 'estudiantes';
                                 } ?>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo site_url('resources/images/'.$carpeta.'/'.$session_data['usuario_imagen']);?>" class="user-image" alt="Imagen de usuario">
+                                    <img src="<?php echo site_url('resources/images/'.$carpeta.'/'.$session_data['usuario_imagen']);?>" class="user-image">
                                     <span class="hidden-xs"><?php echo $session_data['usuario_nombre']?></span>
                                 </a>
                                 <ul class="dropdown-menu">

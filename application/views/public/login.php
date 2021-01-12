@@ -41,8 +41,15 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo" style="font-family: Arial; line-height: 10px">
-        <fa class="fa fa-mortar-board"></fa>    <b>esencial </b>
-        <h5><?php echo $institucion["institucion_nombre"]; ?></h5> 
+        <fa class="fa fa-mortar-board"></fa>    <b>esencial </b>            
+
+        <h5>
+            <?php
+                if (isset($institucion)){
+                    echo $institucion["institucion_nombre"];}
+            ?>        
+        </h5> 
+    
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
