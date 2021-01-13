@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/views/inscripcion/inscribir.php</file>
             <file>file:/C:/xampp/htdocs/siaac_web/application/views/grupo/index.php</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/resources/js/inscripcion.js</file>
-            <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Inscripcion.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/views/grupo/add.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/views/grupo/editar.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/resources/js/grupo_nuevo.js</file>
             <file>file:/C:/xampp/htdocs/siaac_web/application/controllers/Grupo.php</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/resources/js/grupo_editar.js</file>
             <file>file:/C:/xampp/htdocs/siaac_web/resources/js/grupo.js</file>
+            <file>file:/C:/xampp/htdocs/siaac_web/application/models/Grupo_model.php</file>
         </group>
     </open-files>
 </project-private>

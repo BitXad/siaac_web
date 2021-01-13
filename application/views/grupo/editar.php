@@ -1,6 +1,8 @@
-<script src="<?php echo base_url('resources/js/grupo_nuevo.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('resources/js/grupo_editar.js'); ?>" type="text/javascript"></script>
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
+<input type="hidden" name="get_informacion" id="get_informacion" value='<?php echo json_encode($get_informacion); ?>' />
+<input type="hidden" name="lacarrera" id="lacarrera" value='<?php echo json_encode($all_carrera); ?>' />
 <style type="text/css">
     #contieneimg{
         

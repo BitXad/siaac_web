@@ -65,47 +65,11 @@ class Grupo extends CI_Controller{
     function add()
     {
         if($this->acceso(41)){
-            if(isset($_POST) && count($_POST) > 0)     
-            {
-                $params = array(
-                    'horario_id' => $this->input->post('horario_id'),
-                    'docente_id' => $this->input->post('docente_id'),
-                    'gestion_id' => $this->input->post('gestion_id'),
-                    'usuario_id' => $this->input->post('usuario_id'),
-                    'aula_id' => $this->input->post('aula_id'),
-                    'materia_id' => $this->input->post('materia_id'),
-                    'grupo_nombre' => $this->input->post('grupo_nombre'),
-                    'grupo_descripcion' => $this->input->post('grupo_descripcion'),
-                    'grupo_horanicio' => $this->input->post('grupo_horanicio'),
-                    'grupo_horafin' => $this->input->post('grupo_horafin'),
-                );
+            $this->load->model('Carrera_model');
+            $data['all_carrera'] = $this->Carrera_model->get_all_carreras();
 
-                $grupo_id = $this->Grupo_model->add_grupo($params);
-                redirect('grupo/index');
-            }
-            else
-            {
-                $this->load->model('Horario_model');
-                $data['all_horario'] = $this->Horario_model->get_all_horario();
-
-                $this->load->model('Docente_model');
-                $data['all_docente'] = $this->Docente_model->get_all_docente();
-
-                $this->load->model('Gestion_model');
-                $data['all_gestion'] = $this->Gestion_model->get_all_gestion();
-
-                $this->load->model('Usuario_model');
-                $data['all_usuario'] = $this->Usuario_model->get_all_usuario();
-
-                $this->load->model('Aula_model');
-                $data['all_aula'] = $this->Aula_model->get_all_aula();
-
-                $this->load->model('Materia_model');
-                $data['all_materia'] = $this->Materia_model->get_all_materia();
-
-                $data['_view'] = 'grupo/add';
-                $this->load->view('layouts/main',$data);
-            }
+            $data['_view'] = 'grupo/add';
+            $this->load->view('layouts/main',$data);
         }
     }  
 
@@ -438,5 +402,96 @@ class Grupo extends CI_Controller{
             show_404();
         }
         
+    }
+    
+    /****obtener grupos de Materia ****/
+    function get_grupomateria()
+    {
+        if ($this->input->is_ajax_request())
+        {
+            $materia_id = $this->input->post('materia_id');
+            if ($materia_id != ""){
+                $datos = $this->Grupo_model->get_allgrupo_materia($materia_id);
+                echo json_encode($datos);
+            }
+            else echo json_encode(null);
+        }
+        else
+        {
+            show_404();
+        }
+        
+    }
+    /**** Registrar nuevo grupo docente ****/
+    function registrar_newgrupomateria()
+    {
+        if ($this->input->is_ajax_request())
+        {
+            $carrera_id   = $this->input->post('carrera_id');
+            $planacad_id  = $this->input->post('planacad_id');
+            $nivel_id     = $this->input->post('nivel_id');
+            $materia_id   = $this->input->post('materia_id');
+            $grupo_nombre = $this->input->post('grupo_nombre');
+            
+            $gestion_id = $this->session_data['gestion_id'];
+            $usuario_id = $this->session_data['usuario_id'];
+            
+            $yaregistrado = false;
+            $haygrupo = $this->Grupo_model->existe_grupomateria($materia_id, $gestion_id, $grupo_nombre);
+            if($haygrupo['res'] >0){
+                $yaregistrado = true;
+            }
+            
+            if($yaregistrado == false){
+                $params = array(
+                    'gestion_id'  => $gestion_id,
+                    'usuario_id'  => $usuario_id,
+                    'materia_id'  => $materia_id,
+                    'grupo_nombre'  => $grupo_nombre,
+                );
+                $grupo_id = $this->Grupo_model->add_grupo($params);
+                
+                echo json_encode("ok");
+            }else{
+                echo json_encode("no");
+            }
+            
+        }
+        else
+        {
+            show_404();
+        }
+        
+    }
+    /* eliminar grupo  */
+    function eliminar_grupo()
+    {
+        if ($this->input->is_ajax_request())
+        {
+            $grupo_id = $this->input->post('grupo_id');
+            if ($grupo_id!=""){
+                $this->Grupo_model->delete_grupo($grupo_id);
+                echo json_encode("ok");
+            }
+            else echo json_encode(null);
+        }
+        else
+        {
+            show_404();
+        }
+        
+    }
+    /* Editar un grupo */
+    function editar($grupo_id)
+    {
+        if($this->acceso(41)){
+            $this->load->model('Carrera_model');
+            $data['all_carrera'] = $this->Carrera_model->get_all_carreras();
+
+            $data['get_informacion'] = $this->Grupo_model->get_informaciongrupo($grupo_id);
+
+            $data['_view'] = 'grupo/editar';
+            $this->load->view('layouts/main',$data);
+        }
     }
 }
