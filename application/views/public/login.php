@@ -40,8 +40,16 @@
 </style>
 <body class="hold-transition login-page">
 <div class="login-box">
-    <div class="login-logo">
-        <b>ESENCIAL </b>WEB
+    <div class="login-logo" style="font-family: Arial; line-height: 10px">
+        <fa class="fa fa-mortar-board"></fa>    <b>esencial </b>            
+
+        <h5>
+            <?php
+                if (isset($institucion)){
+                    echo $institucion["institucion_nombre"];}
+            ?>        
+        </h5> 
+    
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -50,18 +58,54 @@
         <h2><?php  if(isset($msg)){ echo  $msg; }  ?> </h2>
 
         <?php echo form_open('verificar'); ?>
-            <div class="form-group">
-        
-<!--            <input type="radio" class="radio-btn" checked name="tipo" id="cbox1" value="1"><label for="cbox1"><i class="fa fa-check-square-o"></i> ADMINISTRATIVO </label>
-            <input type="radio" class="radio-btn" name="tipo" id="cbox2" value="2"><label for="cbox2"><i class="fa fa-check-square-o"></i> DOCENTE </label>
-            <input type="radio" class="radio-btn" name="tipo" id="cbox3" value="3"><label for="cbox3"><i class="fa fa-check-square-o"></i> ESTUDIANTE </label>-->
+<!--    //Radio Buttons antiguos
+        <div class="form-group">
         
         
             <input type="radio" class="radio-btn" checked name="tipo" id="cbox1" value="1"><label for="cbox1"><i class="fa fa-sitemap"></i> ADMINISTRATIVO </label>
             <input type="radio" class="radio-btn" name="tipo" id="cbox2" value="2"><label for="cbox2"><i class="fa fa-book"></i> DOCENTE </label>
             <input type="radio" class="radio-btn" name="tipo" id="cbox3" value="3" ><label for="cbox3" ><i class="fa fa-mortar-board"></i> ESTUDIANTE </label>
         
-            </div>
+        </div>-->
+        
+        <div>
+        
+        <!--Radio buttons-->
+        <?php 
+            $padding = "
+                        padding-top: 3px;
+                        padding-left: 3px;
+                        padding-bottom: 3px;
+                        padding-right: 3px;";
+        ?>
+        
+            <center>
+        <div class="btn-group" data-toggle="buttons">
+                
+            <label class="btn btn-primary active form-check-label" style="padding:<?php echo $padding; ?>">
+
+              <!--<input class="form-check-input" type="radio" checked autocomplete="off"> radio 1 (pre-checked)-->
+                <input type="radio" class="radio-btn" checked name="tipo" id="cbox1" value="1"><i class="fa fa-sitemap"></i> ADMINISTRATIVO 
+
+            </label>
+
+            <label class="btn btn-primary form-check-label" style="padding:<?php echo $padding; ?>">
+              <!--<input class="form-check-input" type="radio" autocomplete="off"> radio 2-->
+                <input type="radio" class="radio-btn" name="tipo" id="cbox2" value="2"><i class="fa fa-book"></i> DOCENTE 
+            </label>
+
+            <label class="btn btn-primary form-check-label" style="padding:<?php echo $padding; ?>">
+              <!--<input class="form-check-input" type="radio" autocomplete="off"> radio 3-->
+                <input type="radio" class="radio-btn" name="tipo" id="cbox3" value="3" ><i class="fa fa-mortar-board"></i> ESTUDIANTE
+            </label>
+        </div>
+            </center>
+        
+        <!--Radio buttons-->
+    
+        </div>
+        
+        
         <div class="form-group has-feedback">
                 <label for="gestion">Gestión</label>
                 <select class="form-control input-lg" name="gestion" id="gestion">
@@ -84,7 +128,7 @@
             <div class="row">
                 <!-- /.col -->
                 <div class="col-xs-12">
-                    <button type="submit" class="btn btn-success btn-block">Ingresar</button>
+                    <button type="submit" class="btn btn-primary btn-block"><fa class="fa fa-book"></fa> Ingresar</button>
                 </div>
                 <!-- /.col -->
             </div>
