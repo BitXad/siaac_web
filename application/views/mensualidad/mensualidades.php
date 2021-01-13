@@ -30,6 +30,8 @@ function cerrar() {
                 <div class="col-md-5">
                     <h5><b>Estudiante:</b> <?php echo $kardex_economico[0]['estudiante_nombre']." ". $kardex_economico[0]['estudiante_apellidos']; ?></h5>
                 <h5><b>Carrera:</b> <?php echo $kardex_economico[0]['carrera_nombre']; ?></h5>
+                <h5><b>Plan Acad.:</b> <?php echo $kardex_economico[0]['planacad_nombre']; ?></h5>
+                <h5><b>Semestre:</b> <?php echo $kardex_economico[0]['nivel_descripcion']; ?></h5>
                 </div>
                 <div class="col-md-5">
                 <h5><b>Matricula:</b> <?php echo number_format($kardex_economico[0]['kardexeco_matricula'], 2, ".", ","); ?></h5>

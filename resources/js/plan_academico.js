@@ -537,6 +537,9 @@ function materiasnivel(nivel_id){
                             res += "</button>";
                             res += "<a href='#' class='btn btn-danger' data-dismiss='modal'>";
                             res += "<i class='fa fa-times'></i> Cancelar</a>";
+                            /*res += "<button onclick='eliminar_materia("+registros[i]["materia_id"]+", "+nivel_id+", "+planacad_id+")' class='btn btn-danger' data-dismiss='modal'>";
+                            res += "<i class='fa fa-trash'></i> Eliminar";
+                            res += "</button>";*/
                             res += "</div>";
                             //html += "<?php echo form_close(); ?>";
                             res += "</div>";
@@ -1136,4 +1139,25 @@ function conectarMaterias() {
     jsPlumb.connect({source:"ST0243", target:"ST0244"},commcorr);
     jsPlumb.connect({source:"CB0236", target:"CB0231"},commcorr);
     jsPlumb.connect({source:"ST0250", target:"ST0251"},commcorr);*/
+}
+
+/* **************Eliminar MATERIA en un NIVEL***************** */
+function eliminar_materia(materia_id, nivel_id, planacad_id){
+    $('#modalmodificar_materia'+materia_id).modal('hide');
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'plan_academico/eliminar_materia';
+    $.ajax({url: controlador,
+            type:"POST",
+            data:{materia_id:materia_id},
+            success:function(respuesta){
+                var registros =  JSON.parse(respuesta);
+                    dibujar_nivel(planacad_id);
+            },
+            error:function(respuesta){
+               // alert("Algo salio mal...!!!");
+               html = "";
+            }
+        
+    });
+   
 }
