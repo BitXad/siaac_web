@@ -73,11 +73,11 @@
                 <a class="btn btn-success btn-sm" onclick="registrar_grupo()" ><span class="fa fa-check"></span> Registrar Grupo</a>
             </div>
         </div>
-        <div class="col-md-2">
+        <!--<div class="col-md-2">
             <div class="box-tools">
                 <a class="btn btn-danger btn-sm" onclick="resetearcamposgrupo(1)"><span class="fa fa-times"></span> Cancelar</a>
             </div>
-        </div>
+        </div>-->
     </div>
     
     <div class="row" id='loader' style='display:none; text-align: center'>

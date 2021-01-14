@@ -494,4 +494,43 @@ class Grupo extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }
+    /**** Registrar nuevo grupo docente ****/
+    function modificar_grupomateria()
+    {
+        if ($this->input->is_ajax_request())
+        {
+            $materia_id   = $this->input->post('materia_id');
+            $grupo_nombre = $this->input->post('grupo_nombre');
+            $grupo_id = $this->input->post('grupo_id');
+            
+            $gestion_id = $this->session_data['gestion_id'];
+            $usuario_id = $this->session_data['usuario_id'];
+            
+            $yaregistrado = false;
+            $haygrupo = $this->Grupo_model->existe_grupomateria($materia_id, $gestion_id, $grupo_nombre);
+            if($haygrupo['res'] >0){
+                $yaregistrado = true;
+            }
+            
+            if($yaregistrado == false){
+                $params = array(
+                    'gestion_id'  => $gestion_id,
+                    'usuario_id'  => $usuario_id,
+                    'materia_id'  => $materia_id,
+                    'grupo_nombre'  => $grupo_nombre,
+                );
+                $this->Grupo_model->update_grupo($grupo_id, $params);
+                
+                echo json_encode("ok");
+            }else{
+                echo json_encode("no");
+            }
+            
+        }
+        else
+        {
+            show_404();
+        }
+        
+    }
 }

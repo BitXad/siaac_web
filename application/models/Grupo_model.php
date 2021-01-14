@@ -249,7 +249,7 @@ class Grupo_model extends CI_Model
                 and n.`planacad_id` = p.`planacad_id`
                 and p.`carrera_id` = c.`carrera_id`
                 and g.`grupo_id` = $grupo_id
-        ")->result_array();
+        ")->row_array();
 
         return $grupo;
     }

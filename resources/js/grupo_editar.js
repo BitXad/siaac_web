@@ -1,10 +1,12 @@
 $(document).on("ready",inicio);
 function inicio(){
-    //var registros = JSON.parse(document.getElementById('lacarrera').value);
     var informacion = JSON.parse(document.getElementById('get_informacion').value);
     //alert(informacion);
-    get_carreras(informacion[0]["carrera_id"]);
-    get_planes_academicos(informacion[0]["carrera_id"]);
+    get_carreras(informacion["carrera_id"]);
+    get_planes_academicos1(informacion["carrera_id"], informacion["planacad_id"]);
+    elegir_niveles1(informacion["planacad_id"], informacion["nivel_id"]);
+    elegir_materias1(informacion["nivel_id"], informacion["materia_id"]);
+    mostrar_grupos(informacion["materia_id"]);
 }
 /* Carreras; seleccionar carrera */
 function get_carreras(carrera_id){
@@ -23,13 +25,70 @@ function get_carreras(carrera_id){
                         for (var i = 0; i < n ; i++){
                             if(registros[i]['carrera_id'] == carrera_id ){
                                 eslacarrera = "selected='selected'";
-                            }
-                            html += "<option value='"+registros[i]['carrera_id']+"'"+eslacarrera+">"+registros[i]['carrera_nombre']+"</option>";
+                            }else{ eslacarrera = ""; }
+                            html += "<option value='"+registros[i]['carrera_id']+"' "+eslacarrera+">"+registros[i]['carrera_nombre']+"</option>";
                         }
                         html += "</select>";
                         $("#carrera_id").html(html);
                     document.getElementById('loader').style.display = 'none';
             }
+}
+/* Elegir planes academicos */
+function get_planes_academicos1(carrera_id, planacad_id){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'grupo/get_planes_academicos';
+    if(carrera_id >0){
+        document.getElementById('loader').style.display = 'block';
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{carrera_id:carrera_id},
+           success:function(respuesta){
+               
+                var registros =  JSON.parse(respuesta);
+                var html = "";
+                var html1 = "";
+                if (registros != null){
+                    var n = registros.length; //tamaño del arreglo de la consulta
+                  //  if(n > 0){
+                        html1 = "";
+                        html1 += "<select name='planacad_id' class='form-control' onchange='elegir_niveles(this.value)' id='planacad_id' required>";
+                        html1 += "<option value=''>- PLAN ACADEMICO -</option>";
+                        var eselplanacad = "";
+                        for (var i = 0; i < n ; i++){
+                            if(registros[i]['planacad_id'] == planacad_id ){
+                                eselplanacad = "selected='selected'";
+                            }else{ eselplanacad = ""; }
+                            html1 += "<option value='"+registros[i]['planacad_id']+"' "+eselplanacad+">"+registros[i]['planacad_nombre']+"</option>";
+                        }
+                        html1 += "</select>";
+                        $("#elegirplanacad").html(html1);
+                        /*$("#imprimirplanacademico").html("");
+                        $("#dibujarniveles").html("");
+                        new_planacademico(carrera_id);*/
+                    document.getElementById('loader').style.display = 'none';
+            }
+
+            
+            document.getElementById('loader').style.display = 'none';
+        },
+        error:function(respuesta){
+           // alert("Algo salio mal...!!!");
+           html = "";
+           $("#elegirplanacad").html(html);
+        },
+        complete: function (jqXHR, textStatus) {
+            document.getElementById('loader').style.display = 'none';
+        }
+        
+    });   
+    }else{
+        var htmln = "";
+        htmln += "<select name='planacad_id' class='form-control' id='planacad_id' required>";
+        htmln += "<option value=''>- PLAN ACADEMICO -</option>";
+        htmln += "</select>";
+        
+        $("#elegirplanacad").html(htmln);
+    }
 }
 /* Elegir planes academicos */
 function get_planes_academicos(carrera_id){
@@ -92,6 +151,48 @@ function get_planes_academicos(carrera_id){
 }
 
 /* Elegir NIVELES de plan academico */
+function elegir_niveles1(planacad_id, nivel_id){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'grupo/get_niveles';
+    document.getElementById('loader').style.display = 'block';
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{planacad_id:planacad_id},
+           success:function(respuesta){
+               
+                var registros =  JSON.parse(respuesta);
+                var html1 = "";
+                if (registros != null){
+                    var n = registros.length; //tamaño del arreglo de la consulta
+                        html1 = "";
+                        html1 += "<select name='nivel_id' class='form-control' onchange='elegir_materias(this.value)' id='nivel_id' required>";
+                        html1 += "<option value=''>- NIVEL -</option>";
+                        var eselnivel = "";
+                        for (var i = 0; i < n ; i++){
+                            if(registros[i]['nivel_id'] == nivel_id ){
+                                eselnivel = "selected='selected'";
+                            }else{ eselnivel = ""; }
+                            html1 += "<option value='"+registros[i]['nivel_id']+"' "+eselnivel+">"+registros[i]['nivel_descripcion']+"</option>";
+                        }
+                        html1 += "</select>";
+                        $("#elegirnivel").html(html1);
+                    document.getElementById('loader').style.display = 'none';
+            }
+
+            
+            document.getElementById('loader').style.display = 'none';
+        },
+        error:function(respuesta){
+           html = "";
+           $("#elegirnivel").html(html);
+        },
+        complete: function (jqXHR, textStatus) {
+            document.getElementById('loader').style.display = 'none';
+        }
+        
+    });
+}
+/* Elegir NIVELES de plan academico */
 function elegir_niveles(planacad_id){
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+'grupo/get_niveles';
@@ -129,7 +230,49 @@ function elegir_niveles(planacad_id){
         
     });
 }
+/* Elegir Materias de Nivel */
+function elegir_materias1(nivel_id, materia_id){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+'grupo/get_materias';
+    document.getElementById('loader').style.display = 'block';
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{nivel_id:nivel_id},
+           success:function(respuesta){
+               
+                var registros =  JSON.parse(respuesta);
+                var html1 = "";
+                if (registros != null){
+                    var n = registros.length; //tamaño del arreglo de la consulta
+                        html1 = "";
+                        html1 += "<select name='materia_id' class='form-control' onchange='mostrar_grupos(this.value)' id='materia_id' required>";
+                        //html1 += "<select name='materia_id' class='form-control' id='materia_id' required>";
+                        html1 += "<option value=''>- MATERIA -</option>";
+                        var eslamateria = "";
+                        for (var i = 0; i < n ; i++){
+                            if(registros[i]['materia_id'] == materia_id ){
+                                eslamateria = "selected='selected'";
+                            }else{ eslamateria = ""; }
+                            html1 += "<option value='"+registros[i]['materia_id']+"' "+eslamateria+">"+registros[i]['materia_nombre']+"</option>";
+                        }
+                        html1 += "</select>";
+                        $("#elegirmateria").html(html1);
+                    document.getElementById('loader').style.display = 'none';
+            }
 
+            
+            document.getElementById('loader').style.display = 'none';
+        },
+        error:function(respuesta){
+           html = "";
+           $("#elegirmateria").html(html);
+        },
+        complete: function (jqXHR, textStatus) {
+            document.getElementById('loader').style.display = 'none';
+        }
+        
+    });
+}
 /* Elegir NIVELES de plan academico */
 function elegir_materias(nivel_id){
     var base_url = document.getElementById('base_url').value;
@@ -191,7 +334,7 @@ function mostrar_grupos(materia_id){
                         html += "<td>"+registros[i]['grupo_nombre']+"</td>";
                         html += "<td>"+registros[i]['gestion_descripcion']+"</td>";
                         html += "<td>"+registros[i]['usuario_nombre']+"</td>";
-                        html += "<td>";
+                        /*html += "<td>";
                         html += "<a href='"+base_url+"grupo/editar/"+registros[i]["grupo_id"]+"' class='btn btn-info btn-xs' title='modificar grupo'><span class='fa fa-pencil'></span> </a>";
                         //html += "<a href='"+base_url+"grupo/remove/"+registros[i]["grupo_id"]+"' class='btn btn-danger btn-xs' title='eliminar'><span class='fa fa-trash'></span> </a>";
                         html += "<a class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modaleliminargrupo"+registros[i]['grupo_id']+"' title='eliminar Grupo' ><span class='fa fa-trash'></span></a>";
@@ -221,7 +364,7 @@ function mostrar_grupos(materia_id){
                         html += "<!------------------------ FIN modal para confirmar Eliminación ------------------->";
                         
                         
-                        html += "</td>";
+                        html += "</td>";*/
                         html += "</tr>";
                     }
                     //html1 += "</select>";
@@ -244,8 +387,8 @@ function mostrar_grupos(materia_id){
     });
 }
 
-/* Registrar un grupo */
-function registrar_grupo(){
+/* Modificar un grupo */
+function modificar_grupo(){
     var band = true;
     var base_url = document.getElementById('base_url').value;
     var carrera_id = document.getElementById('carrera_id').value;
@@ -275,12 +418,13 @@ function registrar_grupo(){
         band = false;
     }
     if(band == true){
-    var controlador = base_url+'grupo/registrar_newgrupomateria';
+        var informacion = JSON.parse(document.getElementById('get_informacion').value);
+        var grupo_id = informacion["grupo_id"];
+    var controlador = base_url+'grupo/modificar_grupomateria';
     document.getElementById('loader').style.display = 'block';
     $.ajax({url: controlador,
            type:"POST",
-           data:{carrera_id:carrera_id, planacad_id:planacad_id, nivel_id:nivel_id,
-                 materia_id:materia_id, grupo_nombre:grupo_nombre},
+           data:{materia_id:materia_id, grupo_nombre:grupo_nombre, grupo_id:grupo_id},
            success:function(respuesta){
                 var registros =  JSON.parse(respuesta);
                 
