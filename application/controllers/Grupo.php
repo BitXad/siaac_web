@@ -422,7 +422,7 @@ class Grupo extends CI_Controller{
         }
         
     }
-    /**** Registrar nuevo grupo docente ****/
+    /**** Registrar nuevo grupo materia ****/
     function registrar_newgrupomateria()
     {
         if ($this->input->is_ajax_request())
@@ -494,7 +494,7 @@ class Grupo extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }
-    /**** Registrar nuevo grupo docente ****/
+    /**** Modifcar grupo materia ****/
     function modificar_grupomateria()
     {
         if ($this->input->is_ajax_request())
