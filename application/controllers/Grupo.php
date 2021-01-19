@@ -334,7 +334,7 @@ class Grupo extends CI_Controller{
             $carrera_id   = $this->input->post('carrera_id');
             $planacad_id  = $this->input->post('planacad_id');
             $nivel_id     = $this->input->post('nivel_id');
-            $docente_id   = $this->input->post('docente_id');
+            //$docente_id   = $this->input->post('docente_id');
             $materia_id   = $this->input->post('materia_id');
             $grupo_nombre = $this->input->post('grupo_nombre');
             /*$dia1 = $this->input->post('dia1');
@@ -366,10 +366,32 @@ class Grupo extends CI_Controller{
             $estado_id = 1;
             $yaregistrado = false;
             $yaregistradodoc = false;
-            for ($index = 1; $index < 8; $index++) {
+            
+            
+            //verificar si ese grupo existe
+            
+                
+            
+            //primero registrar al nuevo grupo
+            $paramsg = array(
+                'horario_id' => $horario_id,
+                'docente_id' => $docente_id,
+                'gestion_id' => $gestion_id,
+                'usuario_id' => $usuario_id,
+                'aula_id' => $this->input->post('aula'.$i),
+                'materia_id' => $materia_id,
+                'grupo_nombre' => $grupo_nombre,
+            );
+            $grupo_id = $this->Grupo_model->add_grupo($paramsg);
+            
+            
+            
+            /*for ($index = 1; $index < 8; $index++) {
+                
                 $aula    = $this->input->post('aula'.$index);
                 $periodo = $this->input->post('periodo'.$index);
                 $dia     = $this->input->post('dia'.$index);
+                
                 if(!empty($aula) && !empty($periodo) && !empty($dia)){
                     $hayregistrado = $this->Horario_model->existe_horario($aula, $periodo, $dia);
                     if($hayregistrado['res'] >0){
@@ -381,7 +403,9 @@ class Grupo extends CI_Controller{
                         $yaregistradodoc = true;
                     }
                 }
+                
             }
+            
             if($yaregistrado == false){
                 for ($i = 1; $i < 8; $i++) {
                     if($this->input->post('dia'.$i) != ""){
@@ -392,6 +416,7 @@ class Grupo extends CI_Controller{
                             'aula_id'    => $this->input->post('aula'.$i),
                         );
                         $horario_id = $this->Horario_model->add_horario($params);
+                        
                         $paramsg = array(
                             'horario_id' => $horario_id,
                             'docente_id' => $docente_id,
@@ -403,8 +428,8 @@ class Grupo extends CI_Controller{
                         );
                         $grupo_id = $this->Grupo_model->add_grupo($paramsg);
                     }
-                }
-            /*if($dia1 != ""){
+                } */
+            /*if($dia1 != ""){ //////////////
                 $params = array(
                     'estado_id'  => $estado_id,
                     'periodo_id' => $periodo1,
@@ -422,15 +447,16 @@ class Grupo extends CI_Controller{
                     'grupo_nombre' => $grupo_nombre,
                 );
                 $grupo_id = $this->Grupo_model->add_grupo($paramsg);
-            }*/
-                echo json_encode("ok");
+            }*//////////////
+                
+         /*       echo json_encode("ok");
             }else{
                 if($yaregistradodoc == true){
                     echo json_encode("sidoc");
                 }else{
                     echo json_encode("siaula");
                 }
-            }
+            }*/
             
         }
         else
