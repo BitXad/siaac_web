@@ -42,7 +42,7 @@
                     foreach($kardex as $c){ ?>
                     <tr>
                         <td><?php echo $i+1; ?></td>
-                        <td><?php echo $c['materia_nombre']; ?></td>
+                        <td><?php echo "00".$c['materia_id']." ".$c['materia_nombre']; ?></td>
                         <td><?php $nota1 = rand(40,100); echo $nota1; ?></td>
                         <td><?php $nota2 = rand(40,100); echo $nota2; ?></td>
                         <td><?php echo round(($nota1+$nota2)/2); ?></td>

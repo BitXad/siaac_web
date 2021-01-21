@@ -773,6 +773,32 @@ class Estudiante extends CI_Controller{
             }
         }
     }
+    
+    function materiales($estudiante_id)
+    {
+        if($this->acceso(133)&&$this->privado($estudiante_id)){
+            $usuario_id = $this->session_data['usuario_id'];
+            if($estudiante_id == $usuario_id){
+                $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+                if(isset($data['estudiante']['estudiante_id']))
+                {
+                    $this->load->model('Carrera_model');
+//                    $data['carrera'] = $this->Carrera_model->get_carrera_porestudante($estudiante_id);
+                    $data['material'] = $this->Carrera_model->get_material_estudio($estudiante_id);
+
+                    $data['_view'] = 'estudiante/material';
+                    $this->load->view('layouts/main',$data);
+                }
+                else
+                    show_error('The estudiante you are trying to edit does not exist.');
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
+                $this->load->view('layouts/main',$data);
+            }
+        }
+    }
+    
+    
     function knotas($estudiante_id)
     {
         if($this->acceso(134)&&$this->privado($estudiante_id)){

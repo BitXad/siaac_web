@@ -175,6 +175,7 @@ function mostrar_materias(){
     var controlador = base_url+"inscripcion/buscar_materias";
     var nivel_id = document.getElementById('nivel_id').value;
     var allgrupo = JSON.parse(document.getElementById('allgrupo').value);
+    //alert(allgrupo)
         $.ajax({
             url:controlador,
             type:"POST",
@@ -206,6 +207,7 @@ function mostrar_materias(){
                         //html += "<div id='mostrargrupo"+registros[j]['materia_id']+"'>";
                         
                         html += "<select id='selgrupo"+registros[j]['materia_id']+"' name='selgrupo"+registros[j]['materia_id']+"'>";
+                        //html += "<option value='0'>- AÑADIR GRUPO -</option>";
                         html += "<option value='0'>- GRUPO -</option>";
                         for (var i = 0; i < resgrupo ; i++){
                             if(registros[j]['materia_id'] == allgrupo[i]["materia_id"]){

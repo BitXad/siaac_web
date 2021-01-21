@@ -18,8 +18,10 @@
     }*/
 </style>
 <script type="text/javascript">
+    
 function toggle(source) {
   checkboxes = document.getElementsByClassName('checkbox');
+  
   for(var i=0, n=checkboxes.length;i<n;i++) {
     checkboxes[i].checked = source.checked;
     
@@ -32,6 +34,10 @@ function toggle(source) {
         $(".aulaselect").each(function(){
         	    $(this).prop('disabled', false)
         	});
+
+        $(".docenteselect").each(function(){
+        	    $(this).prop('disabled', false)
+        	});
         //$('#horario_id').prop('disabled', false);
     }else{
         $(".periodoselect").each(function(){
@@ -40,8 +46,12 @@ function toggle(source) {
         $(".aulaselect").each(function(){
         	    $(this).prop('disabled', true)
         	});
+        $(".docenteselect").each(function(){
+        	    $(this).prop('disabled', true)
+        	});
         //$('#horario_id').prop('disabled', true);
     }
+    
 }
 
 function sel_individual(source, dia_id) {
@@ -51,9 +61,11 @@ function sel_individual(source, dia_id) {
     if(estecheck.checked == true){
         $('#periodo_id'+dia_id).prop('disabled', false);
         $('#aula_id'+dia_id).prop('disabled', false);
+        $('#docente_id'+dia_id).prop('disabled', false);
     }else{
          $('#periodo_id'+dia_id).prop('disabled', true);
         $('#aula_id'+dia_id).prop('disabled', true);
+        $('#docente_id'+dia_id).prop('disabled', true);
     }
 }
 </script>
@@ -91,6 +103,7 @@ function sel_individual(source, dia_id) {
                 </select>
             </div>
         </div>
+        <!----------
         <div class="col-md-4">
             <div id="horizontal">
                 <div id="fotodocente"></div>
@@ -111,6 +124,8 @@ function sel_individual(source, dia_id) {
                 </div>
             </div>
         </div>
+        ---------->
+        
         <div class="col-md-4">
             <label for=´materia_id" class="control-label">Materia:</label>
             <div class="form-group" id="elegirmateria">
@@ -137,6 +152,31 @@ function sel_individual(source, dia_id) {
                 <label><?php echo $dia['dia_nombre']; ?><input class="checkbox checkdia" type="checkbox" name="<?php echo $dia['dia_id']; ?>" value="1" id="<?php echo $dia['dia_id']; ?>" onClick="sel_individual(this, <?php echo $dia['dia_id']; ?>)" /></label>&nbsp;&nbsp;&nbsp;
                 <!--<label for=´horario_id" class="control-label">Horario:</label>-->
                 <!--<div class="form-group" id="elegirhorario">-->
+                    
+<!--                    <div id="horizontal">
+                        <div id="fotodocente"></div>
+                        <div id="contieneimg">
+                            <label for="docente_id" class="control-label">Docente:</label>
+                            <div style="display: inline">-->
+                                <select name="docente_id<?php echo $dia['dia_id']; ?>" id="docente_id<?php echo $dia['dia_id']; ?>" class="form-control docenteselect" onchange="get_foto_docente(this.value); getgrupo_docente(this.value);" disabled>
+                                    
+                                    <option value="">- DOCENTE -</option>
+                                    <?php 
+                                    foreach($all_docente as $docente)
+                                    {
+                                        $selected = ($docente['docente_id'] == $this->input->post('docente_id')) ? ' selected="selected"' : "";
+                                        echo '<option value="'.$docente['docente_id'].'" '.$selected.'>'.$docente['docente_apellidos']." ".$docente['docente_nombre'].'</option>';
+                                    } 
+                                    ?>
+                                    
+                                </select>
+<!--                            </div>
+                        </div>
+                    </div>-->
+                
+                
+                
+                
                     <select name="periodo_id<?php echo $dia['dia_id']; ?>" id="periodo_id<?php echo $dia['dia_id']; ?>" class="form-control periodoselect" disabled>
                         <option value="">- PERIODO -</option>
                         <?php 
@@ -147,7 +187,8 @@ function sel_individual(source, dia_id) {
                         } 
                         ?>
                     </select>
-                <select name="aula_id<?php echo $dia['dia_id']; ?>" id="aula_id<?php echo $dia['dia_id']; ?>" class="form-control aulaselect" disabled>
+
+                    <select name="aula_id<?php echo $dia['dia_id']; ?>" id="aula_id<?php echo $dia['dia_id']; ?>" class="form-control aulaselect" disabled>
                         <option value="">- AULA -</option>
                         <?php 
                         foreach($all_aula as $aula)
@@ -162,20 +203,27 @@ function sel_individual(source, dia_id) {
                 
                 } 
                 ?>
+                
+  
+                    <div class="col-md-2">
+                    <br>
+                        <!--<div class="box-tools">-->
+                            <a class="btn btn-success btn-sm  form-control" onclick="registrar_grupo()" ><span class="fa fa-check"></span> Registrar Grupo</a>
+                    <br>
+                    <br>
+                            <a class="btn btn-danger btn-sm  form-control" onclick="resetearcamposgrupo(1)"><span class="fa fa-times"></span> Cancelar</a>
+                        <!--</div>-->
+                    </div>
+                    <br>
+                    <div class="col-md-2">
+                        <!--<div class="box-tools">-->
+                        <!--</div>-->
+                    </div>
+                    
+             
+                
                 </div>
         <!--</div>-->
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-2">
-            <div class="box-tools">
-                <a class="btn btn-success btn-sm" onclick="registrar_grupo()" ><span class="fa fa-check"></span> Registrar Grupo</a>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="box-tools">
-                <a class="btn btn-danger btn-sm" onclick="resetearcamposgrupo(1)"><span class="fa fa-times"></span> Cancelar</a>
-            </div>
-        </div>
     </div>
     
     <div class="row" id='loader' style='display:none; text-align: center'>

@@ -138,30 +138,38 @@ function cerrar() {
                     <?php $i=0;
                     $bandera=0;
                     foreach($mensualidad as $m){ 
-                    	$i=$i+1; ?>
+                    	$i=$i+1; 
+                    
+                        $color = "";
+                        if ($m['estado_id']==9){
+                            $color = "background: #888888;";
+                        }
+                        
+                    ?>
+                    
                     <tr>
     
-						<td><?php echo $i; ?></td>
-            <td><?php echo $m['mensualidad_numero']; ?></td>
-            <td><?php echo $m['mensualidad_mes']; ?></td>
-						<td><?php echo $m['estado_descripcion']; ?></td>
-						<td><?php echo $m['mensualidad_montoparcial']; ?></td>
-            <td><?php echo $m['mensualidad_mora']; ?></td>
-            <td><?php echo $m['mensualidad_multa']; ?></td>
-						<td><?php echo $m['mensualidad_descuento']; ?></td>
-						<td><?php echo $m['mensualidad_montototal']; ?></td>
-						<td><?php echo date('d/m/Y',strtotime($m['mensualidad_fechalimite'])); ?></td>
+						<td style="<?php echo $color; ?>"><?php echo $i; ?></td>
+            <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_numero']; ?></td>
+            <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_mes']; ?></td>
+						<td style="<?php echo $color; ?>"><?php echo $m['estado_descripcion']; ?></td>
+						<td style="<?php echo $color; ?>"><?php echo $m['mensualidad_montoparcial']; ?></td>
+            <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_mora']; ?></td>
+            <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_multa']; ?></td>
+						<td style="<?php echo $color; ?>"><?php echo $m['mensualidad_descuento']; ?></td>
+						<td style="<?php echo $color; ?>"><?php echo $m['mensualidad_montototal']; ?></td>
+						<td style="<?php echo $color; ?>"><?php echo date('d/m/Y',strtotime($m['mensualidad_fechalimite'])); ?></td>
 						
-						<td><?php echo $m['mensualidad_montocancelado']; ?></td>
-						<td><?php echo $m['mensualidad_saldo']; ?></td>
-						<td style="text-align: center;"><?php if ($m['mensualidad_fechapago']=='') { echo ("");
+						<td style="<?php echo $color; ?>"><?php echo $m['mensualidad_montocancelado']; ?></td>
+						<td style="<?php echo $color; ?>"><?php echo $m['mensualidad_saldo']; ?></td>
+						<td style="text-align: center;<?php echo $color; ?>"><?php if ($m['mensualidad_fechapago']=='') { echo ("");
                          
                         } else{ echo $fecha_format = date('d/m/Y', strtotime($m['mensualidad_fechapago'])); } ?> <?php echo $m['mensualidad_horapago']; ?></td>
-						<td><?php echo $m['mensualidad_nombre']; ?></br>
+						<td style="<?php echo $color; ?>"><?php echo $m['mensualidad_nombre']; ?></br>
 						<?php echo $m['mensualidad_ci']; ?></td>
-            <td><?php echo $m['mensualidad_numrec']; ?></td>
-						<td><?php echo $m['mensualidad_glosa']; ?></td>
-						<td> <?php if ($m['estado_id']==8) { ?>
+            <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_numrec']; ?></td>
+						<td style="<?php echo $color; ?>"><?php echo $m['mensualidad_glosa']; ?></td>
+						<td style="<?php echo $color; ?>"> <?php if ($m['estado_id']==8) { ?>
                       
                            
                              

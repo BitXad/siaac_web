@@ -71,7 +71,7 @@
                 $interlineado = "";
                 echo $interlineado; ?>
                 <h3><b><fa class="fa fa-list"></fa></b></h3>
-                <h5><b>CARRERAS</b></h5>
+                <h5><b>CURSOS/CARRERAS</b></h5>
             </div>
             <div class="icon">
                 <i class="fa fa-list"></i>              

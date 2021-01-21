@@ -282,7 +282,7 @@ function registrar_grupo(){
     var carrera_id = document.getElementById('carrera_id').value;
     var planacad_id = document.getElementById('planacad_id').value;
     var nivel_id = document.getElementById('nivel_id').value;
-    var docente_id = document.getElementById('docente_id').value;
+    //var docente_id = document.getElementById('docente_id').value;
     var materia_id = document.getElementById('materia_id').value;
     var grupo_nombre = document.getElementById('grupo_nombre').value;
     var dia1 = "";
@@ -306,9 +306,18 @@ function registrar_grupo(){
     var aula5 = "";
     var aula6 = "";
     var aula7 = "";
+    var docente1 = "";
+    var docente2 = "";
+    var docente3 = "";
+    var docente4 = "";
+    var docente5 = "";
+    var docente6 = "";
+    var docente7 = "";
+    
     var checkdias = document.getElementsByClassName('checkdia');
     var getdia = [];
     var ind = 0;
+    
     for(var i=0, n=checkdias.length;i<n;i++){
         if(checkdias[i].checked == true ){
             getdia[ind] = checkdias[i].name;
@@ -317,105 +326,165 @@ function registrar_grupo(){
         }
         //alert(checkdias[i].checked+" "+checkdias[i].name);
     }
+    
     for(var i=0, n=getdia.length;i<n;i++){
         //alert(getdia[i]);
         if(getdia[i] == 1){
                 dia1     = 1;
                 periodo1 = document.getElementById('periodo_id'+getdia[i]).value;
                 aula1    = document.getElementById('aula_id'+getdia[i]).value;
+                docente1    = document.getElementById('docente_id'+getdia[i]).value;
                 if(periodo1 == ""){
-                    alert("debe seleccioanr un periodo");
+                    alert("debe seleccionar un periodo");
                     band = false;
                 }
+                
                 if(aula1 == ""){
-                    alert("debe seleccioanr un aula");
+                    alert("debe seleccionar un aula");
                     band = false;
                 }
+
+                if(docente1 == ""){
+                    alert("debe seleccionar un docente");
+                    band = false;
+                }
+                
+                
             }else if(getdia[i] == 2){
                 dia2     = 2;
                 periodo2 = document.getElementById('periodo_id'+getdia[i]).value;
                 aula2    = document.getElementById('aula_id'+getdia[i]).value;
+                docente2 = document.getElementById('docente_id'+getdia[i]).value;
+                
                 if(periodo2 == ""){
-                    alert("debe seleccioanr un periodo");
+                    alert("debe seleccionar un periodo");
                     band = false;
                 }
                 if(aula2 == ""){
-                    alert("debe seleccioanr un aula");
+                    alert("debe seleccionar un aula");
                     band = false;
                 }
+
+                if(docente2 == ""){
+                    alert("debe seleccionar un docente");
+                    band = false;
+                }
+                                
             }else if(getdia[i] == 3){
                 dia3     = 3;
                 periodo3 = document.getElementById('periodo_id'+getdia[i]).value;
                 aula3    = document.getElementById('aula_id'+getdia[i]).value;
+                docente3    = document.getElementById('docente_id'+getdia[i]).value;
+                
                 if(periodo3 == ""){
-                    alert("debe seleccioanr un periodo");
+                    alert("debe seleccionar un periodo");
                     band = false;
                 }
                 if(aula3 == ""){
-                    alert("debe seleccioanr un aula");
+                    alert("debe seleccionar un aula");
                     band = false;
                 }
+                
+                if(docente3 == ""){
+                    alert("debe seleccionar un docente");
+                    band = false;
+                }
+                
+                
             }else if(getdia[i] == 4){
                 dia4     = 4;
                 periodo4 = document.getElementById('periodo_id'+getdia[i]).value;
                 aula4    = document.getElementById('aula_id'+getdia[i]).value;
+                docente4    = document.getElementById('docente_id'+getdia[i]).value;
+                
                 if(periodo4 == ""){
-                    alert("debe seleccioanr un periodo");
+                    alert("debe seleccionar un periodo");
                     band = false;
                 }
                 if(aula4 == ""){
-                    alert("debe seleccioanr un aula");
+                    alert("debe seleccionar un aula");
                     band = false;
                 }
+                
+                if(docente4 == ""){
+                    alert("debe seleccionar un docente");
+                    band = false;
+                }
+                
+                
             }else if(getdia[i] == 5){
                 dia5     = 5;
                 periodo5 = document.getElementById('periodo_id'+getdia[i]).value;
                 aula5    = document.getElementById('aula_id'+getdia[i]).value;
+                docente5    = document.getElementById('docente_id'+getdia[i]).value;
+                
                 if(periodo5 == ""){
-                    alert("debe seleccioanr un periodo");
+                    alert("debe seleccionar un periodo");
                     band = false;
                 }
                 if(aula5 == ""){
-                    alert("debe seleccioanr un aula");
+                    alert("debe seleccionar un aula");
                     band = false;
                 }
+                                
+                if(docente5 == ""){
+                    alert("debe seleccionar un docente");
+                    band = false;
+                }
+                
             }else if(getdia[i] == 6){
                 dia6     = 6;
                 periodo6 = document.getElementById('periodo_id'+getdia[i]).value;
                 aula6    = document.getElementById('aula_id'+getdia[i]).value;
+                docente6 = document.getElementById('docente_id'+getdia[i]).value;
+                
                 if(periodo6 == ""){
-                    alert("debe seleccioanr un periodo");
+                    alert("debe seleccionar un periodo");
                     band = false;
                 }
                 if(aula6 == ""){
-                    alert("debe seleccioanr un aula");
+                    alert("debe seleccionar un aula");
                     band = false;
                 }
+                
+                if(docente6 == ""){
+                    alert("debe seleccionar un docente");
+                    band = false;
+                }
+                
             }else if(getdia[i] == 7){
                 dia7     = 7;
                 periodo7 = document.getElementById('periodo_id'+getdia[i]).value;
                 aula7    = document.getElementById('aula_id'+getdia[i]).value;
+                docente7 = document.getElementById('docente_id'+getdia[i]).value;
+                
                 if(periodo7 == ""){
-                    alert("debe seleccioanr un periodo");
+                    alert("debe seleccionar un periodo");
                     band = false;
                 }
                 if(aula7 == ""){
-                    alert("debe seleccioanr un aula");
+                    alert("debe seleccionar un aula");
                     band = false;
                 }
+
+                if(docente7 == ""){
+                    alert("debe seleccionar un docente");
+                    band = false;
+                }
+                                
             }
     }
     
-    if(carrera_id == "" && planacad_id == "" && nivel_id == "" && docente_id == "" && materia_id == "" && grupo_nombre == ""){
+    if(carrera_id == "" && planacad_id == "" && nivel_id == "" && materia_id == "" && grupo_nombre == ""){
         alert("Debe: elegir una Carrera; elegir un Plan Academico; elegir un Nivel; elegir Docente; elegir Materia; nombre de Grupo no debe ser vacio");
         band = false;
-    }else if(planacad_id == "" && nivel_id == "" && docente_id == "" && materia_id == "" && grupo_nombre == ""){
+    }else if(planacad_id == "" && nivel_id == "" && materia_id == "" && grupo_nombre == ""){
         alert("Debe: elegir un Plan Academico; elegir un Nivel; elegir Docente; elegir Materia; nombre de Grupo no debe ser vacio");
         band = false;
-    }else if(nivel_id == "" && docente_id == "" && materia_id == "" && grupo_nombre == ""){
+    }else if(nivel_id == "" && materia_id == "" && grupo_nombre == ""){
         alert("Debe: elegir un Nivel; elegir Docente; elegir Materia; nombre de Grupo no debe ser vacio");
         band = false;
-    }else if(docente_id == "" && materia_id == "" && grupo_nombre == ""){
+    }else if(materia_id == "" && grupo_nombre == ""){
         alert("Debe: elegir Docente; elegir Materia; nombre de Grupo no debe ser vacio");
         band = false;
     }else if(materia_id == "" && grupo_nombre == ""){
@@ -428,12 +497,14 @@ function registrar_grupo(){
         alert("Por lo menos debe elegir un día");
         band = false;
     }
+    
     if(band == true){
     var controlador = base_url+'grupo/registrar_newgrupodocente';
     document.getElementById('loader').style.display = 'block';
     $.ajax({url: controlador,
            type:"POST",
-           data:{carrera_id:carrera_id, planacad_id:planacad_id, nivel_id:nivel_id, docente_id:docente_id,
+           data:{carrera_id:carrera_id, planacad_id:planacad_id, nivel_id:nivel_id, docente1:docente1,
+                 docente2:docente2,docente3:docente3,docente4:docente4,docente5:docente5,docente6:docente6,docente7:docente7,
                  materia_id:materia_id, grupo_nombre:grupo_nombre, periodo1:periodo1, periodo2:periodo2,
                  periodo3:periodo3, periodo4:periodo4, periodo5:periodo5, periodo6:periodo6, periodo7:periodo7,
                  aula1:aula1, aula2:aula2, aula3:aula3, aula4:aula4, aula5:aula5, aula6:aula6, aula7:aula7,
