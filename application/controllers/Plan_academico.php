@@ -519,5 +519,21 @@ class Plan_academico extends CI_Controller{
                 redirect('plan_academico');
            
     }
+    
+    /*** Eliminar Materia desde plan academico ****/
+    function eliminar_materia()
+    {
+        if ($this->input->is_ajax_request()){
+            $materia_id = $this->input->post('materia_id');
+                $this->load->model('Materia_model');
+                $this->Materia_model->delete_materia($materia_id);
+                //$datos = $this->Materia_model->get_all_materias_activo($nivel_id);
+                echo json_encode("ok");
+        }
+        else
+        {                 
+            show_404();
+        }
+    }
 }
 

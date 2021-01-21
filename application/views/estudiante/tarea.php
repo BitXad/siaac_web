@@ -57,10 +57,7 @@
                         <td <?php echo $estilo; ?>><?php echo number_format($c['carrera_matricula'],2); ?></td>
                         <td <?php echo $estilo; ?>><?php echo number_format($c['carrera_mensualidad'],2); ?></td>
                         <td <?php echo $estilo; ?>><?php echo $c['carrera_nummeses']; ?></td>
-                        <td <?php echo $estilo; ?>>
-                            <a href="<?php echo base_url("estudiante/materiales/".$c['estudiante_id']); ?>" class="btn btn-info btn-xs" ><fa class="fa fa-book"></fa> Material</a>
-                            <a href="<?php echo base_url("estudiante/tareas/".$c['estudiante_id']); ?>" class="btn btn-warning btn-xs" ><fa class="fa fa-pencil-square"></fa> Tareas</a>
-                        </td>
+                        <td <?php echo $estilo; ?>><a href="<?php ?>" class="btn btn-info btn-xs" ><fa class="fa fa-book"></fa> </a></td>
                         <!--<td>
                             <a href="<?php echo site_url('carrera/edit/'.$c['carrera_id']); ?>" class="btn btn-info btn-xs" title="Editar"><span class="fa fa-pencil"></span></a> -->
                             <!--<a href="<?php //echo site_url('carrera/remove/'.$c['carrera_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>-->

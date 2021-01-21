@@ -1,6 +1,8 @@
-<script src="<?php echo base_url('resources/js/grupo_nuevo.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('resources/js/grupo_editar.js'); ?>" type="text/javascript"></script>
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
+<input type="hidden" name="get_informacion" id="get_informacion" value='<?php echo json_encode($get_informacion); ?>' />
+<input type="hidden" name="lacarrera" id="lacarrera" value='<?php echo json_encode($all_carrera); ?>' />
 <style type="text/css">
     #contieneimg{
         
@@ -63,21 +65,21 @@
         <div class="col-md-4">
             <label for=´horario_id" class="control-label">Grupo:</label>
             <div class="form-group" id="elegirhorario">
-                <input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" autocomplete="off" required>
+                <input type="text" name="grupo_nombre" id="grupo_nombre" class="form-control" value="<?php echo $get_informacion["grupo_nombre"] ?>" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" autocomplete="off" required>
             </div>
         </div>
     </div>
     <div class="col-md-12">
         <div class="col-md-2">
             <div class="box-tools">
-                <a class="btn btn-success btn-sm" onclick="registrar_grupo()" ><span class="fa fa-check"></span> Registrar Grupo</a>
+                <a class="btn btn-success btn-sm" onclick="modificar_grupo()" ><span class="fa fa-check"></span> Modificar Grupo</a>
             </div>
         </div>
-        <!--<div class="col-md-2">
+        <div class="col-md-2">
             <div class="box-tools">
-                <a class="btn btn-danger btn-sm" onclick="resetearcamposgrupo(1)"><span class="fa fa-times"></span> Cancelar</a>
+                <a href="<?php echo site_url('grupo/add'); ?>" class="btn btn-danger btn-sm" ><span class="fa fa-times"></span> Cancelar</a>
             </div>
-        </div>-->
+        </div>
     </div>
     
     <div class="row" id='loader' style='display:none; text-align: center'>
@@ -101,7 +103,7 @@
                         <th>Grupo</th>
                         <th>Gestión</th>
                         <th>Usuario</th>
-                        <th></th>
+                        <!--<th></th>-->
                     </tr>
                     <tbody id="mostrargrupo"></tbody>
                 </table>

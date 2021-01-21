@@ -197,5 +197,60 @@ class Grupo_model extends CI_Model
 
         return $grupo;
     }
-    
+    /*
+     * Obtiene todos los grupos de una materia
+     */
+    function get_allgrupo_materia($materia_id)
+    {
+        $grupo = $this->db->query("
+            SELECT
+                g.grupo_id, g.grupo_nombre, ge.gestion_descripcion, u.usuario_nombre
+            FROM
+                grupo g
+            LEFT JOIN gestion ge on g.gestion_id = ge.gestion_id
+            LEFT JOIN usuario u  on g.usuario_id = u.usuario_id
+            LEFT JOIN materia m on g.materia_id = m.materia_id
+            where
+                g.materia_id = $materia_id
+        ")->result_array();
+
+        return $grupo;
+    }
+    /* verifica si ya esta registrado un grupo */
+    function existe_grupomateria($materia_id, $gestion_id, $grupo_nombre)
+    {
+        $horario = $this->db->query("
+            SELECT
+                count(g.grupo_id) as res
+                
+            FROM
+                grupo g
+            where
+                g.materia_id = $materia_id
+                and g.gestion_id = $gestion_id
+                and g.grupo_nombre = '".$grupo_nombre."'
+        ")->row_array();
+
+        return $horario;
+    }
+    /* obtiene informacion de un grupo */
+    function get_informaciongrupo($grupo_id)
+    {
+        $grupo = $this->db->query("
+            SELECT
+                g.`grupo_id`, g.`grupo_nombre`, g.`materia_id`,
+                m.`nivel_id`, n.`planacad_id`, p.`carrera_id`
+                
+            FROM
+                grupo g, materia m, nivel n, `plan_academico` p, `carrera` c
+            where
+                g.materia_id = m.`materia_id`
+                and m.`nivel_id` = n.`nivel_id`
+                and n.`planacad_id` = p.`planacad_id`
+                and p.`carrera_id` = c.`carrera_id`
+                and g.`grupo_id` = $grupo_id
+        ")->row_array();
+
+        return $grupo;
+    }
 }

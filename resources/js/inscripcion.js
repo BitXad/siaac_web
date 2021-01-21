@@ -175,7 +175,7 @@ function mostrar_materias(){
     var controlador = base_url+"inscripcion/buscar_materias";
     var nivel_id = document.getElementById('nivel_id').value;
     var allgrupo = JSON.parse(document.getElementById('allgrupo').value);
-    alert(allgrupo)
+    //alert(allgrupo)
         $.ajax({
             url:controlador,
             type:"POST",

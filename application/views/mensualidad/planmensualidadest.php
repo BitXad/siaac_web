@@ -76,24 +76,34 @@ function cerrar() {
                     foreach($mensualidad as $m){ 
                     	$i = $i+1; 
                         $subcancelados = $m['mensualidad_montocancelado']; 
-                        $cancelados = $subcancelados + $cancelados; ?>
+                        $cancelados = $subcancelados + $cancelados; 
+                        $color = "";
+                        
+                        if ($m['estado_id']==9){
+                            $color = "background: #888888;";
+                        }
+                        ?>
+                    
+                        
+                    
                     <tr>
-						
-						<td><?php echo $m['mensualidad_numero']; ?></td>
-						<td ><?php echo $m['mensualidad_id']; ?></td>
-						<td style="text-align: right;"><?php echo number_format($m['mensualidad_montoparcial'], 2, ".", ","); ?></td>
-						<td style="text-align: right;"><?php echo number_format($m['mensualidad_descuento'], 2, ".", ","); ?></td>
-						<td style="text-align: center;"><?php echo date('d/m/Y', strtotime($m['mensualidad_fechalimite'])); ?></td>
-						<td style="text-align: right;"><?php echo number_format($m['mensualidad_montototal'], 2, ".", ","); ?></td>
-                        <td style="text-align: right;"><?php echo number_format($m['mensualidad_montocancelado'], 2, ".", ","); ?></td>
-						<td style="text-align: right;"><?php echo number_format($m['mensualidad_saldo'], 2, ".", ","); ?></td>
-						<td style="text-align: center;"><?php if ($m['mensualidad_fechapago']=='') { echo ("NO PAGADO");
+                        			
+                            <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_numero']; ?></td>
+                            <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_mes']; ?></td>
+                            <td style="text-align: right;<?php echo $color; ?>"><?php echo number_format($m['mensualidad_montoparcial'], 2, ".", ","); ?></td>
+                            <td style="text-align: right;<?php echo $color; ?>"><?php echo number_format($m['mensualidad_descuento'], 2, ".", ","); ?></td>
+                            <td style="text-align: center;<?php echo $color; ?>"><?php echo date('d/m/Y', strtotime($m['mensualidad_fechalimite'])); ?></td>
+                            <td style="text-align: right;<?php echo $color; ?>"><?php echo number_format($m['mensualidad_montototal'], 2, ".", ","); ?></td>
+                            <td style="text-align: right;<?php echo $color; ?>"><?php echo number_format($m['mensualidad_montocancelado'], 2, ".", ","); ?></td>
+                            <td style="text-align: right;<?php echo $color; ?>"><?php echo number_format($m['mensualidad_saldo'], 2, ".", ","); ?></td>
+                            <td style="text-align: center;<?php echo $color; ?>"><?php if ($m['mensualidad_fechapago']=='') { echo ("NO PAGADO");
                          
                         } else{ echo $fecha_format = date('d/m/Y', strtotime($m['mensualidad_fechapago'])); } ?> <?php echo $m['mensualidad_horapago']; ?></td>
 					
-						<td><?php echo $m['mensualidad_nombre']; ?>
-						<?php echo $m['mensualidad_ci']; ?></td>
-						
+                            <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_nombre']; ?>
+                                
+                            <?php echo $m['mensualidad_ci']; ?></td>
+
 						
                     </tr>
                     <?php } ?>
