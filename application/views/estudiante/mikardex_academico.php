@@ -53,7 +53,7 @@
                                 
             </div>
         </div>
-        <a href="<?php echo site_url('estudiante/knotas/'.$estudiante['estudiante_id']); ?>" class="btn btn-danger">
+        <a href="<?php echo site_url('estudiante/knotas'); ?>" class="btn btn-danger">
             <i class="fa fa-times"></i> Cerrar</a>
     </div>
 </div>

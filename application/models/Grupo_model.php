@@ -100,6 +100,14 @@ class Grupo_model extends CI_Model
     {
         $grupo = $this->db->query("
             SELECT
+                g.grupo_id, g.grupo_nombre,
+                concat(ge.gestion_semestre, ' ', ge.gestion_descripcion) as descripcion_gestion,
+                m.materia_nombre, u.usuario_nombre
+            FROM grupo g
+            LEFT JOIN gestion ge on g.gestion_id = ge.gestion_id
+            LEFT JOIN usuario u  on g.usuario_id = u.usuario_id
+            LEFT JOIN materia m on g.materia_id = m.materia_id
+            /*
                 g.grupo_id, g.grupo_nombre, p.periodo_horainicio, p.periodo_horafin,
                 di.dia_nombre, a.aula_nombre, concat(ge.gestion_semestre, ' ', ge.gestion_descripcion) as descripcion_gestion,
                 concat(d.docente_apellidos, ' ', d.docente_nombre) as nombre_docente, m.materia_nombre, u.usuario_nombre
@@ -114,8 +122,10 @@ class Grupo_model extends CI_Model
             LEFT JOIN gestion ge on g.gestion_id = ge.gestion_id
             LEFT JOIN usuario u  on g.usuario_id = u.usuario_id
             LEFT JOIN materia m on g.materia_id = m.materia_id
+            
             where
                 d.docente_id = $docente_id
+                    */
             
         ")->result_array();
 

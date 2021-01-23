@@ -52,8 +52,9 @@ class Docente extends CI_Controller{
         }
     }
 
-    function dashboard($docente_id)
+    function dashboard()
     {
+        $docente_id = $this->session_data['usuario_id'];
         //menu docentes
         if($this->acceso(136)&&$this->privado($docente_id)){
             $data['docente'] = $this->Docente_model->get_docent($docente_id);
@@ -62,30 +63,34 @@ class Docente extends CI_Controller{
         }
     }
 
-    function grupos($docente_id)
+    function grupos()
     {
+        $docente_id = $this->session_data['usuario_id'];
         if($this->acceso(137)&&$this->privado($docente_id)){
             $data['grupos'] = $this->Grupo_model->get_allgrupo_docente($docente_id);
             $data['_view'] = 'docente/grupos';
             $this->load->view('layouts/main',$data);
         }
     }
-    function materias($docente_id)
+    function materias()
     {
+        $docente_id = $this->session_data['usuario_id'];
         if($this->acceso(138)&&$this->privado($docente_id)){
             $data['_view'] = 'docente/materias';
             $this->load->view('layouts/main',$data);
         }
     }
-    function horarios($docente_id)
+    function horarios()
     {
+        $docente_id = $this->session_data['usuario_id'];
         if($this->acceso(139)&&$this->privado($docente_id)){
             $data['_view'] = 'docente/horarios';
             $this->load->view('layouts/main',$data);
         }
     }
-    function notas($docente_id)
+    function notas()
     {
+        $docente_id = $this->session_data['usuario_id'];
         if($this->acceso(140)&&$this->privado($docente_id)){
             $data['_view'] = 'docente/notas';
             $this->load->view('layouts/main',$data);
@@ -352,10 +357,10 @@ class Docente extends CI_Controller{
     } 
 
 
-        function cuenta($docente_id)
+    function cuenta()
     {
+        $docente_id = $this->session_data['usuario_id'];
         if($this->acceso(136)&&$this->privado($docente_id)){
-             
             //usuario_id ===>id de docente
             $usuario_id = $this->session_data['usuario_id'];
             if($docente_id == $usuario_id){
@@ -376,7 +381,7 @@ class Docente extends CI_Controller{
                             );
 
                          $this->Docente_model->update_docente($docente_id,$params);
-                         redirect('docente/dashboard/'.$docente_id);
+                         redirect('docente/dashboard');
                         }else{
                             $data['mensaje'] = 'La clave antigua es incorrecta.';
                      $data['_view'] = 'docente/cuenta';

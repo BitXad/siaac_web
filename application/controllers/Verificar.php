@@ -135,7 +135,7 @@ class Verificar extends CI_Controller
                 $session_data = $this->session->userdata('logged_in');
 
      
-                    redirect('docente/dashboard/'.$result->docente_id);
+                    redirect('docente/dashboard');
              
                 
 
@@ -185,7 +185,7 @@ class Verificar extends CI_Controller
                 $session_data = $this->session->userdata('logged_in');
 
      
-                    redirect('estudiante/menu_estudiante/'.$result->estudiante_id);
+                    redirect('estudiante/menu_estudiante');
              
                 
 

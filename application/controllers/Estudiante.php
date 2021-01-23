@@ -690,9 +690,9 @@ class Estudiante extends CI_Controller{
                 show_error('The estudiante you are trying to delete does not exist.');
         }
     }
-    function menu_estudiante($estudiante_id)
+    function menu_estudiante()
     {
-        
+        $estudiante_id = $this->session_data['usuario_id'];
         if($this->acceso(131)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
@@ -708,8 +708,9 @@ class Estudiante extends CI_Controller{
          
     }
     /* puede cambiar su información basica */
-    function datos($estudiante_id)
+    function datos()
     {
+        $estudiante_id = $this->session_data['usuario_id'];
         if($this->acceso(132)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
@@ -734,7 +735,7 @@ class Estudiante extends CI_Controller{
                         //'estudiante_clave' => md5($this->input->post('estudiante_ci')),
                     );
                     $this->Estudiante_model->update_estudiante($estudiante_id,$params);            
-                    redirect('estudiante/menu_estudiante/'.$estudiante_id);
+                    redirect('estudiante/menu_estudiante');
                 }
                 else
                 {
@@ -751,8 +752,9 @@ class Estudiante extends CI_Controller{
         }
     }
     
-    function carreras($estudiante_id)
+    function carreras()
     {
+        $estudiante_id = $this->session_data['usuario_id'];
         if($this->acceso(133)&&$this->privado($estudiante_id)){
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
@@ -799,8 +801,9 @@ class Estudiante extends CI_Controller{
     }
     
     
-    function knotas($estudiante_id)
+    function knotas()
     {
+        $estudiante_id = $this->session_data['usuario_id'];
         if($this->acceso(134)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
@@ -847,8 +850,9 @@ class Estudiante extends CI_Controller{
             }
         }
     }
-    function keconomico($estudiante_id)
+    function keconomico()
     {
+        $estudiante_id = $this->session_data['usuario_id'];
         if($this->acceso(135)&&$this->privado($estudiante_id)){
             //usuario_id ===>id de estudiante
             $usuario_id = $this->session_data['usuario_id'];
@@ -870,8 +874,9 @@ class Estudiante extends CI_Controller{
        
     }
 
-    function cuenta($estudiante_id)
+    function cuenta()
     {
+        $estudiante_id = $this->session_data['usuario_id'];
         if($this->acceso(135)&&$this->privado($estudiante_id)){
              
             //usuario_id ===>id de estudiante
@@ -891,7 +896,7 @@ class Estudiante extends CI_Controller{
                                 'estudiante_clave' => md5($this->input->post('newpass')),
                             );
                             $this->Estudiante_model->update_estudiante($estudiante_id,$params);
-                            redirect('estudiante/menu_estudiante/'.$estudiante_id);
+                            redirect('estudiante/menu_estudiante');
                         }else{
                             $data['mensaje'] = 'La clave antigua es incorrecta.';
                             $data['_view'] = 'estudiante/cuenta';

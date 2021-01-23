@@ -68,7 +68,7 @@
             <div class="icon">
               <i class="fa fa-group"></i>              
             </div>
-            <a href="<?php echo base_url('docente/grupos/'.$docente["docente_id"]); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('docente/grupos'); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -88,7 +88,7 @@
             <div class="icon">
               <i class="fa fa-database"></i>              
             </div>
-            <a href="<?php echo base_url('docente/materias/'.$docente["docente_id"]); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('docente/materias'); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -109,7 +109,7 @@
             <div class="icon">
               <i class="fa fa-clock-o"></i>              
             </div>
-            <a href="<?php echo base_url('docente/horarios/'.$docente["docente_id"]); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('docente/horarios'); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -130,7 +130,7 @@
             <div class="icon">
               <i class="fa fa-clipboard"></i>              
             </div>
-            <a href="<?php echo base_url('docente/notas/'.$docente["docente_id"]); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('docente/notas'); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
  

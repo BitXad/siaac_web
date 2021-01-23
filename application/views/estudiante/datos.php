@@ -25,7 +25,7 @@
                      </td>
                 </tr>
             </table>
-            <?php echo form_open_multipart('estudiante/datos/'.$estudiante['estudiante_id']); ?>
+            <?php echo form_open_multipart('estudiante/datos'); ?>
             <div class="box-body">
                 <div class="row clearfix">
                 <div class="col-md-3">
@@ -103,7 +103,7 @@
             	<button type="submit" class="btn btn-success">
             		<i class="fa fa-check"></i> Guardar
             	</button>
-            	<a href="<?php echo site_url('estudiante/menu_estudiante/'.$estudiante['estudiante_id']); ?>" class="btn btn-danger">
+            	<a href="<?php echo site_url('estudiante/menu_estudiante'); ?>" class="btn btn-danger">
                                 <i class="fa fa-times"></i> Cancelar</a>
 	        </div>				
 			<?php echo form_close(); ?>
