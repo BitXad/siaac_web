@@ -277,6 +277,7 @@ function getgrupo_docente(docente_id){
 
 /* Registrar un grupo */
 function registrar_grupo(){
+    
     var band = true;
     var base_url = document.getElementById('base_url').value;
     var carrera_id = document.getElementById('carrera_id').value;
@@ -534,6 +535,7 @@ function registrar_grupo(){
         
     });
     }
+    
 }
 
 /* ****** Resetar campos de registro de GRUPO ********* */
