@@ -334,21 +334,30 @@ class Grupo extends CI_Controller{
             
             //verificar si ese grupo existe
             
-                
+            $sql = "select * 
+                    from grupo
+                    where 
+                    gestion_id = ".$gestion_id." and
+                    materia_id = ".$materia_id." and
+                    grupo_nombre = '".$grupo_nombre."'";
+            $resultado = $this->Grupo_model->consultar($sql);
+            
+            
             
             //primero registrar al nuevo grupo
-            $paramsg = array(
-                'horario_id' => $horario_id,
-                'docente_id' => $docente_id,
-                'gestion_id' => $gestion_id,
-                'usuario_id' => $usuario_id,
-                'aula_id' => $this->input->post('aula'.$i),
-                'materia_id' => $materia_id,
-                'grupo_nombre' => $grupo_nombre,
-            );
-            $grupo_id = $this->Grupo_model->add_grupo($paramsg);
-            
-            
+//            $paramsg = array(
+//                
+//                'horario_id' => $horario_id,
+//                'docente_id' => $docente_id,
+//                'gestion_id' => $gestion_id,
+//                'usuario_id' => $usuario_id,
+//                'aula_id' => $this->input->post('aula'.$i),
+//                'materia_id' => $materia_id,
+//                'grupo_nombre' => $grupo_nombre,
+//            );
+//            $grupo_id = $this->Grupo_model->add_grupo($paramsg);
+//            
+//            
             
             /*for ($index = 1; $index < 8; $index++) {
                 
