@@ -72,7 +72,7 @@
                                 
             </div>
         </div>
-        <a href="<?php echo site_url('estudiante/menu_estudiante/'.$estudiante['estudiante_id']); ?>" class="btn btn-danger">
+        <a href="<?php echo site_url('estudiante/menu_estudiante'); ?>" class="btn btn-danger">
             <i class="fa fa-times"></i> Cerrar</a>
     </div>
 </div>

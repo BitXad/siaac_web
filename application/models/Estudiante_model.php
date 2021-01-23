@@ -37,12 +37,13 @@ class Estudiante_model extends CI_Model
                 e.*, g.*, ec.*
 
             FROM
-                estudiante e, genero g, estado_civil ec
-
+                estudiante e
+            LEFT JOIN genero g on e.genero_id = g.genero_id
+            LEFT JOIN estado_civil ec on e.estadocivil_id = ec.estadocivil_id
             WHERE
                 e.estudiante_id = ".$estudiante_id."
-                and e.genero_id = g.genero_id
-                and e.estadocivil_id = ec.estadocivil_id
+                
+                
         ",array($estudiante_id))->row_array();
 
         return $estudiante;

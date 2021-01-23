@@ -498,42 +498,42 @@
                         <?php  ?>
                         <?php }elseif($session_data['tipousuario_id'] == 2){ ?>
                         <li>
-                            <a href="<?php echo site_url('docente/dashboard/'.$session_data['usuario_id']);?>"><i class="fa fa-home"></i> <span>Inicio</span></a>
+                            <a href="<?php echo site_url('docente/dashboard');?>"><i class="fa fa-home"></i> <span>Inicio</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('docente/grupos/'.$session_data['usuario_id']);?>"><i class="fa fa-users"></i> <span>Grupos</span></a>
+                            <a href="<?php echo site_url('docente/grupos');?>"><i class="fa fa-users"></i> <span>Grupos</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('docente/materias/'.$session_data['usuario_id']);?>"><i class="fa fa-database"></i> <span>Materias</span></a>
+                            <a href="<?php echo site_url('docente/materias');?>"><i class="fa fa-database"></i> <span>Materias</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('docente/horarios/'.$session_data['usuario_id']);?>"><i class="fa fa-calendar-check-o"></i> <span>Horarios</span></a>
+                            <a href="<?php echo site_url('docente/horarios');?>"><i class="fa fa-calendar-check-o"></i> <span>Horarios</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('docente/notas/'.$session_data['usuario_id']);?>"><i class="fa fa-list-alt"></i> <span>Notas</span></a>
+                            <a href="<?php echo site_url('docente/notas');?>"><i class="fa fa-list-alt"></i> <span>Notas</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('docente/cuenta/'.$session_data['usuario_id']);?>"><i class="fa fa-id-card"></i> <span>Administrar Cuenta</span></a>
+                            <a href="<?php echo site_url('docente/cuenta');?>"><i class="fa fa-id-card"></i> <span>Administrar Cuenta</span></a>
                         </li>
                         <?php  ?>
                         <?php }elseif($session_data['tipousuario_id'] == 3){ ?>
                         <li>
-                            <a href="<?php echo site_url('estudiante/menu_estudiante/'.$session_data['usuario_id']);?>"><i class="fa fa-home"></i> <span>Inicio</span></a>
+                            <a href="<?php echo site_url('estudiante/menu_estudiante');?>"><i class="fa fa-home"></i> <span>Inicio</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/datos/'.$session_data['usuario_id']);?>"><i class="fa fa-buysellads"></i> <span>Perfil</span></a>
+                            <a href="<?php echo site_url('estudiante/datos');?>"><i class="fa fa-buysellads"></i> <span>Perfil</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/carreras/'.$session_data['usuario_id']);?>"><i class="fa fa-user-circle"></i> <span>Carreras</span></a>
+                            <a href="<?php echo site_url('estudiante/carreras');?>"><i class="fa fa-user-circle"></i> <span>Carreras</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/knotas/'.$session_data['usuario_id']);?>"><i class="fa fa-user"></i> <span>Kardex Notas</span></a>
+                            <a href="<?php echo site_url('estudiante/knotas');?>"><i class="fa fa-user"></i> <span>Kardex Notas</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/keconomico/'.$session_data['usuario_id']);?>"><i class="fa fa-maxcdn"></i> <span>Kardex Económico</span></a>
+                            <a href="<?php echo site_url('estudiante/keconomico');?>"><i class="fa fa-maxcdn"></i> <span>Kardex Económico</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('estudiante/cuenta/'.$session_data['usuario_id']);?>"><i class="fa fa-id-card"></i> <span>Administrar Cuenta</span></a>
+                            <a href="<?php echo site_url('estudiante/cuenta');?>"><i class="fa fa-id-card"></i> <span>Administrar Cuenta</span></a>
                         </li>
                         <?php } ?>
                         

@@ -7,7 +7,7 @@
             <div class="box-header with-border">
               	<h3 class="box-title">Administrar Cuenta</h3>
             </div>
-			<?php echo form_open('estudiante/cuenta/'.$estudiante['estudiante_id']); ?>
+			<?php echo form_open('estudiante/cuenta'); ?>
 			<div class="box-body">
 				<div class="row clearfix">
 					
@@ -44,7 +44,7 @@
             	<button type="submit" class="btn btn-success">
 					<i class="fa fa-check"></i> Guardar
 				</button>
-				<a href="<?php echo site_url('estudiante/menu_estudiante/'.$estudiante['estudiante_id']); ?>" class="btn btn-danger">
+				<a href="<?php echo site_url('estudiante/menu_estudiante'); ?>" class="btn btn-danger">
                                 <i class="fa fa-times"></i> Cancelar</a>
 	        </div>				
 			<?php echo form_close(); ?>

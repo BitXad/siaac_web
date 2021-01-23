@@ -61,7 +61,7 @@
             <div class="icon">
                 <i class="fa fa-address-card"></i>              
             </div>
-            <a href="<?php  echo site_url('estudiante/datos/'.$estudiante['estudiante_id']); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php  echo site_url('estudiante/datos'); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -76,7 +76,7 @@
             <div class="icon">
                 <i class="fa fa-list"></i>              
             </div>
-            <a href="<?php  echo site_url('estudiante/carreras/'.$estudiante['estudiante_id']); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php  echo site_url('estudiante/carreras'); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -91,7 +91,7 @@
             <div class="icon">
                 <i class="fa fa-file-text"></i>              
             </div>
-            <a href="<?php  echo site_url('estudiante/knotas/'.$estudiante['estudiante_id']); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php  echo site_url('estudiante/knotas'); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-3 col-xs-6">
@@ -106,7 +106,7 @@
             <div class="icon">
                 <i class="ion ion-cash"></i>              
             </div>
-            <a href="<?php  echo site_url('estudiante/keconomico/'.$estudiante['estudiante_id']); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php  echo site_url('estudiante/keconomico'); ?>" class="small-box-footer">Ver <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </section>

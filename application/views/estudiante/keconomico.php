@@ -49,6 +49,6 @@
             </table>
         </div>
     </div>
-<a href="<?php echo site_url('estudiante/menu_estudiante/'.$estudiante['estudiante_id']); ?>" class="btn btn-danger no-print">
+<a href="<?php echo site_url('estudiante/menu_estudiante'); ?>" class="btn btn-danger no-print">
             <i class="fa fa-times"></i> Cerrar</a>
 </div>

@@ -1,6 +1,3 @@
-
-
-
 <div class="row">
     <div class="col-md-12">
       	<div class="box box-info">
@@ -10,10 +7,6 @@
 			<?php echo form_open('docente/cuenta/'.$docente['docente_id']); ?>
 			<div class="box-body">
 				<div class="row clearfix">
-					
-					
-
-				
 					<div class="col-md-4">
 						<label for="docente_login" class="control-label">Login docente</label>
 						<div class="form-group">
@@ -44,7 +37,7 @@
             	<button type="submit" class="btn btn-success">
 					<i class="fa fa-check"></i> Guardar
 				</button>
-				<a href="<?php echo site_url('docente/menu_docente/'.$docente['docente_id']); ?>" class="btn btn-danger">
+				<a href="<?php echo site_url('docente/dashboard'); ?>" class="btn btn-danger">
                                 <i class="fa fa-times"></i> Cancelar</a>
 	        </div>				
 			<?php echo form_close(); ?>
