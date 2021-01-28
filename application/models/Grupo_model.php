@@ -263,4 +263,23 @@ class Grupo_model extends CI_Model
 
         return $grupo;
     }
+    
+        
+    /*
+     * Consultar
+     */
+    function consultar($sql)
+    {
+        $resultado = $this->db->query($sql)->result_array();
+        return $resultado;
+    }    
+    /*
+     * Ejecutar
+     */
+    function ejecutar($sql)
+    {
+        echo $sql;
+        $id_insertado = $this->db->query($sql)->insert_id();
+        return $id_insertado;
+    }    
 }

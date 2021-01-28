@@ -332,16 +332,44 @@ class Grupo extends CI_Controller{
             $yaregistradodoc = false;
             
             
-            //verificar si ese grupo existe
+            //registrar grupo
             
-            $sql = "select * 
-                    from grupo
-                    where 
-                    gestion_id = ".$gestion_id." and
-                    materia_id = ".$materia_id." and
-                    grupo_nombre = '".$grupo_nombre."'";
-            $resultado = $this->Grupo_model->consultar($sql);
+            $sql = "insert into grupo (gestion_id, materia_id, grupo_nombre,usuario_id)"
+                    . " value(".$gestion_id.",".$materia_id.",'".$grupo_nombre."',".$usuario_id.")";
+            $grupo_id = $this->Grupo_model->ejecutar($sql);
             
+            //registrar horario
+            
+            for ($index = 1; $index <= 7; $index++) {
+                
+                if ($dia_seleccionado){
+
+                    $aula_id    = $this->input->post('aula'.$index);
+                    $periodo_id = $this->input->post('periodo'.$index);
+                    $dia_id     = $this->input->post('dia'.$index);
+
+                    $sql = "insert into horario(estado_id,periodo_id,dia_id,aula_id,docente_id,grupo_id)"
+                            . " value(1, ".$periodo_id.",".$dia_id.",".$aula_id.",".$docente_id.",".$grupo_id.")";
+                    echo $sql;
+                    $horario = $this->Grupo_model->ejecutar($sql);
+                    
+                }
+                
+                
+
+//                if(!empty($aula) && !empty($periodo) && !empty($dia)){
+//                    $hayregistrado = $this->Horario_model->existe_horario($aula, $periodo, $dia);
+//                    if($hayregistrado['res'] >0){
+//                        $yaregistrado = true;
+//                    }
+//                    $haydoc_dia_per = $this->Grupo_model->existe_docentedia_periodo($docente_id, $dia, $periodo);
+//                    if($haydoc_dia_per['res'] >0){
+//                        $yaregistrado = true;
+//                        $yaregistradodoc = true;
+//                    }
+//                }
+                
+            }            
             
             
             //primero registrar al nuevo grupo
