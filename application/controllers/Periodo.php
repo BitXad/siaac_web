@@ -41,7 +41,14 @@ class Periodo extends CI_Controller {
             $this->load->view('layouts/main',$data);
         }
     }
+    
+    function mostrar_periodos()
+    {
+            $res = $this->Periodo_model->get_all_periodo();            
+            echo json_encode($res);
+    }
 
+    
     public function nuevo()
     {
         if($this->acceso(110)){
