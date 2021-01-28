@@ -242,33 +242,40 @@ function sel_individual(source, dia_id) {
                 <h3 class="box-title" id="docente_grupo"></h3>
             </div>-->
             <div class="box-body table-responsive">
-                <table class="table table-striped" id="mitabla">
+                <table class="table table-condensed" id="mitabla">
                     <tr>
-                        <th>Materia</th>
+                        <th style="padding: 0; width: min-content"> </th>
+                        <th>Lunes</th>
+                        <th>Martes</th>
+                        <th>Miercoles</th>
+                        <th>Jueves</th>
+                        <th>Viernes</th>
+                        <th>Sabado</th>
+                        <th>Domingo</th>
+                        <!--<th></th>-->
+<!--                        <th>Materia</th>
                         <th>Grupo</th>
                         <th>Horario</th>
                         <th>Aula</th>
                         <th>Docente</th>
                         <th>Gestion</th>
                         <th>Usuario</th>
-                        <th></th>
+                        <th></th>-->
                     </tr>
+                    
                     <tbody id="mostrarhorariodocente">
-                    <?php /*foreach($grupo as $g){ ?>
+                    <?php foreach($all_periodo as $p){ ?>
                     <tr>
-                        <td><?php echo $g['grupo_nombre']; ?></td>
-                        <td><?php echo $g['horario_id']; ?></td>
-                        <td><?php echo $g['docente_id']; ?></td>
-                        <td><?php echo $g['gestion_id']; ?></td>
-                        <td><?php echo $g['usuario_id']; ?></td>
-                        <td><?php echo $g['aula_id']; ?></td>
-                        <td><?php echo $g['materia_id']; ?></td>
-                        <td>
-                            <a href="<?php echo site_url('grupo/edit/'.$g['grupo_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> </a> 
-                            <a href="<?php echo site_url('grupo/remove/'.$g['grupo_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> </a>
-                        </td>
+                        <th style="padding: 0; width: min-content"><?php echo $p['periodo_horainicio']." - ".$p['periodo_horafin']; ?></th>
+                        <td><div id="casilla<?php echo $p['periodo_id']."1"; ?>" > </div></td>
+                        <td><div id="casilla<?php echo $p['periodo_id']."2"; ?>" > </div></td>
+                        <td><div id="casilla<?php echo $p['periodo_id']."3"; ?>" > </div></td>
+                        <td><div id="casilla<?php echo $p['periodo_id']."4"; ?>" > </div></td>
+                        <td><div id="casilla<?php echo $p['periodo_id']."5"; ?>" > </div></td>
+                        <td><div id="casilla<?php echo $p['periodo_id']."6"; ?>" > </div></td>
+                        <td><div id="casilla<?php echo $p['periodo_id']."7"; ?>" > </div></td>
                     </tr>
-                    <?php } */ ?>
+                    <?php } ?>
                     </tbody>
                 </table>
                 

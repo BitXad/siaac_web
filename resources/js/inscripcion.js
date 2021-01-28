@@ -211,7 +211,7 @@ function mostrar_materias(){
                         html += "<option value='0'>- GRUPO -</option>";
                         for (var i = 0; i < resgrupo ; i++){
                             if(registros[j]['materia_id'] == allgrupo[i]["materia_id"]){
-                                html += "<option value='"+allgrupo[i]['grupo_id']+"'>"+allgrupo[i]['grupo_nombre']+"</option>";
+                                html += "<option value='"+allgrupo[i]['grupo_id']+"' selected>"+allgrupo[i]['grupo_nombre']+"</option>";
                             }
                         }
                         html += "</select>";

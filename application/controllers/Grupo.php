@@ -277,8 +277,10 @@ class Grupo extends CI_Controller{
         if ($this->input->is_ajax_request())
         {
             $docente_id = $this->input->post('docente_id');
+            $gestion_id = $this->session_data['gestion_id'];
+            
             if ($docente_id != ""){
-                $datos = $this->Grupo_model->get_allgrupo_docente($docente_id);
+                $datos = $this->Grupo_model->get_allgrupo_docente($docente_id, $gestion_id);
                 echo json_encode($datos);
             }
             else echo json_encode(null);
@@ -332,16 +334,81 @@ class Grupo extends CI_Controller{
             $yaregistradodoc = false;
             
             
-            //verificar si ese grupo existe
+            //registrar grupo
             
-            $sql = "select * 
-                    from grupo
-                    where 
-                    gestion_id = ".$gestion_id." and
-                    materia_id = ".$materia_id." and
-                    grupo_nombre = '".$grupo_nombre."'";
-            $resultado = $this->Grupo_model->consultar($sql);
+            $sql = "insert into grupo (gestion_id, materia_id, grupo_nombre,usuario_id)"
+                    . " value(".$gestion_id.",".$materia_id.",'".$grupo_nombre."',".$usuario_id.")";
+            $this->Grupo_model->ejecutar($sql);
             
+            
+            $sql = "select max(grupo_id) as grupo_id_max from grupo";
+            $grupos_id = $this->Grupo_model->consultar($sql);
+            $grupo_id = $grupos_id[0]["grupo_id_max"];
+            
+            //registrar horario
+            
+            for ($index = 1; $index <= 7; $index++) {
+                
+                $aula    = $this->input->post('aula'.$index);
+                $periodo = $this->input->post('periodo'.$index);
+                $dia     = $this->input->post('dia'.$index);
+                $docente     = $this->input->post('docente'.$index);
+                
+                if(!empty($aula) && !empty($periodo) && !empty($dia)){
+                    
+//                    $hayregistrado = $this->Horario_model->existe_horario($aula, $periodo, $dia);
+//                    if($hayregistrado['res'] >0){
+//                        $yaregistrado = true;
+//                    }
+//                    $haydoc_dia_per = $this->Grupo_model->existe_docentedia_periodo($docente_id, $dia, $periodo);
+//                    if($haydoc_dia_per['res'] >0){
+//                        $yaregistrado = true;
+//                        $yaregistradodoc = true;
+//                    }
+                    
+                    $aula_id    = $aula;
+                    $periodo_id = $periodo;
+                    $dia_id     = $dia;
+                    $docente_id     = $docente;
+
+                    $sql = "insert into horario(estado_id,periodo_id,dia_id,aula_id,docente_id,grupo_id)"
+                            . " value(1, ".$periodo_id.",".$dia_id.",".$aula_id.",".$docente_id.",".$grupo_id.")";
+                    echo $sql;
+                    $horario = $this->Grupo_model->ejecutar($sql);
+                    
+                }
+                
+                
+                
+//                
+//                if ($dia_seleccionado){
+//
+//                    $aula_id    = $this->input->post('aula'.$index);
+//                    $periodo_id = $this->input->post('periodo'.$index);
+//                    $dia_id     = $this->input->post('dia'.$index);
+//
+//                    $sql = "insert into horario(estado_id,periodo_id,dia_id,aula_id,docente_id,grupo_id)"
+//                            . " value(1, ".$periodo_id.",".$dia_id.",".$aula_id.",".$docente_id.",".$grupo_id.")";
+//                    echo $sql;
+//                    $horario = $this->Grupo_model->ejecutar($sql);
+//                    
+//                }
+                
+                
+
+//                if(!empty($aula) && !empty($periodo) && !empty($dia)){
+//                    $hayregistrado = $this->Horario_model->existe_horario($aula, $periodo, $dia);
+//                    if($hayregistrado['res'] >0){
+//                        $yaregistrado = true;
+//                    }
+//                    $haydoc_dia_per = $this->Grupo_model->existe_docentedia_periodo($docente_id, $dia, $periodo);
+//                    if($haydoc_dia_per['res'] >0){
+//                        $yaregistrado = true;
+//                        $yaregistradodoc = true;
+//                    }
+//                }
+                
+            }            
             
             
             //primero registrar al nuevo grupo
@@ -431,7 +498,7 @@ class Grupo extends CI_Controller{
                 }
             }*/
             
-        }
+        }   
         else
         {
             show_404();
