@@ -115,13 +115,19 @@
                             <img src="<?php echo site_url('resources/images/'.$carpeta.'/'.$session_data['usuario_imagen']);?>" class="img-circle" alt="Imagen de usuario">
                         </div>
                         <div class="pull-left info">
-                            <p><?php echo $session_data['usuario_nombre']?></p>
-                            <a href="<?php echo site_url();?>admin/dashb"><i class="fa fa-circle text-success"></i> <?php echo $session_data['tipousuario_descripcion']?></a>
+                            <div  style=" white-space: normal; word-wrap: break-word;"><?php echo $session_data['usuario_nombre']?></div>
+                            <a href="<?php echo site_url();?>admin/dashb"><i class="fa fa-circle text-success"></i> online<?php //echo $session_data['tipousuario_descripcion']?></a>
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="header">Men&uacute;</li>
+                        <!--<li class="header">-->
+                        <li>
+                            <a href="#">
+                                <span style="font-family: Arial; font-size: 15pt; color: yellow">GESTION <?php echo $session_data['semestre']."/".$session_data['gestion']?></span>
+                            </a>
+                        </li>
+                        <!--<li class="header">Men&uacute;</li>-->
                         <?php if($session_data['tipousuario_id'] == 1){ ?>
                         <li>
                             <a href="<?php echo site_url();?>admin/dashb">
