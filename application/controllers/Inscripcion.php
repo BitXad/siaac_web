@@ -419,6 +419,7 @@ class Inscripcion extends CI_Controller{
         $inscripcion_glosa = $this->input->post('inscripcion_glosa');
         $pagar_matricula = $this->input->post('pagar_matricula');
         $pagar_mensualidad = $this->input->post('pagar_mensualidad');
+        
         $paramsi = array(
             'estado_id' => 1,
             'usuario_id' => $usuario_id,
@@ -789,6 +790,7 @@ class Inscripcion extends CI_Controller{
     }
     
     function registrar_matasignada(){
+        
         $this->load->model('Materia_model');
         //$this->load->model('Materia_asignada_model');
         $kardexacad_id = $this->input->post('kardexacad_id');
@@ -796,6 +798,7 @@ class Inscripcion extends CI_Controller{
         $grupo_id      =  0; //$this->input->post('grupo_id');
         $materia = $this->Materia_model->get_materia($materia_id);
         $estado_id = 1;
+        
         $params = array(
             'estado_id' => $estado_id,
             'kardexacad_id' => $kardexacad_id,
@@ -804,6 +807,7 @@ class Inscripcion extends CI_Controller{
             'materia_id' => $materia_id,
             'grupo_id' => $grupo_id,
         );
+        
         $materiaasig_id = $this->Materia_asignada_model->add_materia_asignada($params);
         
         $param_mc = array(
