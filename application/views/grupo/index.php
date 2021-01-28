@@ -242,9 +242,9 @@ function sel_individual(source, dia_id) {
                 <h3 class="box-title" id="docente_grupo"></h3>
             </div>-->
             <div class="box-body table-responsive">
-                <table class="table table-striped" id="mitabla">
+                <table class="table table-condensed" id="mitabla">
                     <tr>
-                        <th></th>
+                        <th style="padding: 0; width: min-content"> </th>
                         <th>Lunes</th>
                         <th>Martes</th>
                         <th>Miercoles</th>
@@ -266,7 +266,7 @@ function sel_individual(source, dia_id) {
                     <tbody id="mostrarhorariodocente">
                     <?php foreach($all_periodo as $p){ ?>
                     <tr>
-                        <td><?php echo $p['periodo_horainicio']."-".$p['periodo_horafin']; ?></td>
+                        <th style="padding: 0; width: min-content"><?php echo $p['periodo_horainicio']." - ".$p['periodo_horafin']; ?></th>
                         <td><div id="casilla<?php echo $p['periodo_id']."1"; ?>" > </div></td>
                         <td><div id="casilla<?php echo $p['periodo_id']."2"; ?>" > </div></td>
                         <td><div id="casilla<?php echo $p['periodo_id']."3"; ?>" > </div></td>
