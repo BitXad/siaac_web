@@ -252,4 +252,16 @@ class Estudiante_model extends CI_Model
 
         return $kardex_economico;
     }
+
+    /*
+    * Obtener todos los estudiantes por orden alfavetico 
+    */
+    function get_all_estudiantes(){
+        $estudiantes = $this->db->query(
+            "SELECT *
+            FROM estudiante
+            ORDER BY estudiante_apellidos"
+        )->result_array();
+        return $estudiantes;
+    }
 }

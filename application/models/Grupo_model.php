@@ -98,36 +98,6 @@ class Grupo_model extends CI_Model
      */
     function get_allgrupo_docente($docente_id, $gestion_id)
     {
-//            $sql = "SELECT
-//                g.grupo_id, g.grupo_nombre,
-//                concat(ge.gestion_semestre, ' ', ge.gestion_descripcion) as descripcion_gestion,
-//                m.materia_nombre, u.usuario_nombre
-//            FROM grupo g
-//            LEFT JOIN gestion ge on g.gestion_id = ge.gestion_id
-//            LEFT JOIN usuario u  on g.usuario_id = u.usuario_id
-//            LEFT JOIN materia m on g.materia_id = m.materia_id
-//            /*
-//                g.grupo_id, g.grupo_nombre, p.periodo_horainicio, p.periodo_horafin,
-//                di.dia_nombre, a.aula_nombre, concat(ge.gestion_semestre, ' ', ge.gestion_descripcion) as descripcion_gestion,
-//                concat(d.docente_apellidos, ' ', d.docente_nombre) as nombre_docente, m.materia_nombre, u.usuario_nombre
-//            FROM
-//                grupo g
-//            LEFT JOIN docente d  on g.docente_id = d.docente_id
-//            LEFT JOIN horario h  on g.horario_id = h.horario_id
-//            LEFT JOIN aula    a  on g.aula_id = a.aula_id
-//            LEFT JOIN aula    b  on h.aula_id = b.aula_id
-//            LEFT JOIN periodo p  on h.periodo_id = p.periodo_id
-//            LEFT JOIN dia     di on h.dia_id = di.dia_id
-//            LEFT JOIN gestion ge on g.gestion_id = ge.gestion_id
-//            LEFT JOIN usuario u  on g.usuario_id = u.usuario_id
-//            LEFT JOIN materia m on g.materia_id = m.materia_id
-//            
-//            where
-//                d.docente_id = $docente_id
-//                    */
-//            ";
-            
-   
         $sql = "select 
                 d.*, m.materia_id, m.materia_nombre, m.materia_codigo, a.aula_nombre, a.aula_capacidad,
                 h.*, g.grupo_nombre

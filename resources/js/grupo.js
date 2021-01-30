@@ -197,64 +197,11 @@ function elegir_materias(nivel_id){
     });
 }
 
-
-function limpiar_casillas(){
-    
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'periodo/mostrar_periodos';
-
-
-    $.ajax({url: controlador,
-           type:"POST",
-           data:{},
-           success:function(respuesta){
-                
-               var registros =  JSON.parse(respuesta);                
-                if (registros != null){
-                    
-                    var html = "";
-                    var n = registros.length; //tamaño del arreglo de la consulta
-                     
-                    for (var i = 0; i < n ; i++){
-                        for (var j = 1; j <=7 ; j++){
-
-                            periodo_id = registros[i]['periodo_id'];
-                            dia_id = j;
-                            $("#casilla"+periodo_id+dia_id).html(html);
-                        }                        
-                    }
-                    
-            }
-            
-            document.getElementById('loader').style.display = 'none';
-        },
-        error:function(respuesta){
-           html = "";
-           $("#mostrarhorariodocente").html(html);
-        },
-        complete: function (jqXHR, textStatus) {
-            document.getElementById('loader').style.display = 'none';
-        }
-        
-    });
-    
-    
-}
-
-
-
 /* Elegir grupos de un docente */
 function getgrupo_docente(docente_id){
-    
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+'grupo/get_grupodocente';
     document.getElementById('loader').style.display = 'block';
-    
-    
-    limpiar_casillas();
-    
-    
-    
     $.ajax({url: controlador,
            type:"POST",
            data:{docente_id:docente_id},
@@ -267,20 +214,6 @@ function getgrupo_docente(docente_id){
                         //html1 += "<select name='materia_id' class='form-control' onchange='mostrar_grupos(this.value)' id='materia_id' required>";
                         //html1 += "<option value=''>- MATERIA -</option>";
                     for (var i = 0; i < n ; i++){
-                            
-                         periodo_id = registros[i]['periodo_id'];
-                         dia_id = registros[i]['dia_id'];
-                         html = "";
-                         html += "<font style='font-size:8px;'>";
-                         html += "<b>COD.: </b>"+registros[i]['materia_codigo']+"<br>";
-                         html += "<b>MAT.:  </b>"+registros[i]['materia_nombre']+"<br>";
-                         html += "<b>GRUPO.:  </b>"+registros[i]['grupo_nombre']+"<br>";
-                         html += "<b>AULA:  </b>"+registros[i]['aula_nombre']+"<br>";
-                         html += "<b>DOC:  </b>"+registros[i]['docente_nombre']+" "+registros[i]['docente_apellidos']+"<br>";
-                         html += "</font>";
-                            
-                         $("#casilla"+periodo_id+dia_id).html(html);
-                         
 //                        html += "<tr>";
 //                        html += "<td>"+registros[i]['materia_nombre']+"</td>";
 //                        html += "<td>"+registros[i]['grupo_nombre']+"</td>";
@@ -342,8 +275,6 @@ function getgrupo_docente(docente_id){
         }
         
     });
-    
-    
 }
 
 /* Registrar un grupo */
@@ -387,12 +318,10 @@ function registrar_grupo(){
     var docente7 = "";
     
     var checkdias = document.getElementsByClassName('checkdia');
-    
     var getdia = [];
     var ind = 0;
     
     for(var i=0, n=checkdias.length;i<n;i++){
-        
         if(checkdias[i].checked == true ){
             getdia[ind] = checkdias[i].name;
             //getdia[ind] = getdia.push(checkdias[i].name);
@@ -404,7 +333,6 @@ function registrar_grupo(){
     for(var i=0, n=getdia.length;i<n;i++){
         //alert(getdia[i]);
         if(getdia[i] == 1){
-            
                 dia1     = 1;
                 periodo1 = document.getElementById('periodo_id'+getdia[i]).value;
                 aula1    = document.getElementById('aula_id'+getdia[i]).value;

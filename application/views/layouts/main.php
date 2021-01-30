@@ -25,7 +25,8 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="<?php echo site_url('resources/css/_all-skins.min.css');?>">
-
+        <!-- Estilos de notificacion para estudiante  -->
+        <link rel="stylesheet" href="<?= site_url('resources/css/style_main.css') ?>">
         <!-- jQuery 2.2.3 -->
         <script src="<?php echo site_url('resources/js/jquery-2.2.3.min.js');?>"></script>
         <script type="text/javascript"> 
@@ -58,10 +59,26 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-
+                    
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                         <!-- User Account: style can be found in dropdown.less -->
+                        <?php if($session_data['tipousuario_id'] == 3){ ?>
+                            <li class="nav-link user user-menu">
+                            <div class="box_notification">
+                                <div class="notification">
+                                    <a href="<?= site_url('estudiante/notificaciones') ?>" class="nav-item" title="Notificaciones">
+                                        <i class="fa fa-bell" aria-hidden="true"></i>
+                                        <?php if(true){ 
+                                        ?>
+                                            <span class="num">4</span>
+                                        <?php } ?>
+                                        
+                                    </a>
+                                </div>
+                            </div>
+                            </li>
+                        <?php } ?>
                             <li class="dropdown user user-menu">
                                 <?php if ($session_data['tipousuario_id']==1) {
                                     $carpeta = 'usuarios';
@@ -516,6 +533,9 @@
                             <a href="<?php echo site_url('docente/horarios');?>"><i class="fa fa-calendar-check-o"></i> <span>Horarios</span></a>
                         </li>
                         <li>
+                            <a href="<?php echo site_url('citacion/index');?>"><i class="fa fa-users" aria-hidden="true"></i> <span>Citaciones</span></a>
+                        </li>
+                        <li>
                             <a href="<?php echo site_url('docente/notas');?>"><i class="fa fa-list-alt"></i> <span>Notas</span></a>
                         </li>
                         <li>
@@ -531,6 +551,9 @@
                         </li>
                         <li>
                             <a href="<?php echo site_url('estudiante/carreras');?>"><i class="fa fa-user-circle"></i> <span>Carreras</span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('estudiante/horario');?>"><i class="fa fa-calendar-check-o"></i> <span>Horario</span></a>
                         </li>
                         <li>
                             <a href="<?php echo site_url('estudiante/knotas');?>"><i class="fa fa-user"></i> <span>Kardex Notas</span></a>

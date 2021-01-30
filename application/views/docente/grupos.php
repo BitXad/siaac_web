@@ -8,6 +8,7 @@
                     <tr>
                     	<th>Grupo</th>
                         <th>Materia</th>
+                        <th>Nivel</th>
                         <th>Gestion</th>
                     </tr>
                     <?php
@@ -17,6 +18,7 @@
           			<tr>
           				<td><?php echo $g['grupo_nombre']; ?></td>
           				<td><?php echo $g['materia_nombre']; ?></td>
+          				<td><?php echo $g['nivel_descripcion']; ?></td>
           				<td align="center"><?php echo $g['descripcion_gestion']; ?></td>
           			</tr>
               <?php } ?>

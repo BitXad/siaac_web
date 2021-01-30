@@ -10,6 +10,8 @@ class Estudiante extends CI_Controller{
         parent::__construct();
         $this->load->model('Estudiante_model');
         $this->load->model('Cliente_model');
+        $this->load->model('Carrera_model');
+        $this->load->model('Tarea_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -759,8 +761,7 @@ class Estudiante extends CI_Controller{
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
                 $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
-                if(isset($data['estudiante']['estudiante_id']))
-                {
+                if(isset($data['estudiante']['estudiante_id'])){
                     $this->load->model('Carrera_model');
                     $data['carrera'] = $this->Carrera_model->get_carrera_porestudante($estudiante_id);
 
@@ -776,7 +777,7 @@ class Estudiante extends CI_Controller{
         }
     }
     
-    function materiales($estudiante_id)
+    function materiales($estudiante_id, $nivel_id)
     {
         if($this->acceso(133)&&$this->privado($estudiante_id)){
             $usuario_id = $this->session_data['usuario_id'];
@@ -786,7 +787,7 @@ class Estudiante extends CI_Controller{
                 {
                     $this->load->model('Carrera_model');
 //                    $data['carrera'] = $this->Carrera_model->get_carrera_porestudante($estudiante_id);
-                    $data['material'] = $this->Carrera_model->get_material_estudio($estudiante_id);
+                    $data['material'] = $this->Carrera_model->get_material_estudio($nivel_id);
 
                     $data['_view'] = 'estudiante/material';
                     $this->load->view('layouts/main',$data);
@@ -1036,5 +1037,44 @@ class Estudiante extends CI_Controller{
         echo 'No se han encontrado estudiantes';
         exit;        
      }}
+
+    function tareas($estudiante_id, $nivel_id){
+        if($this->acceso(133)&&$this->privado($estudiante_id)){
+            $usuario_id = $this->session_data['usuario_id'];
+            if($estudiante_id == $usuario_id){
+                $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+                if(isset($data['estudiante']['estudiante_id'])){
+                    $data['tareas'] = $this->Tarea_model->get_tareas($nivel_id);
+                    $data['_view'] = 'estudiante/tarea';
+                    $this->load->view('layouts/main',$data);
+                }else
+                    show_error('The estudiante you are trying to edit does not exist.');
+            }else{
+                $data['_view'] = 'login/mensajeacceso';
+                $this->load->view('layouts/main',$data);
+            }
+        }
+        
+        if($this->acceso(133)&&$this->privado($estudiante_id)){
+            $estudiante_id = $this->session_data['usuario_id'];      
+        }
+    }
+
+    function horario(){
+        $data['_view'] = 'estudiante/horario';
+        $this->load->view('layouts/main',$data);
+    }
+
+    function notificaciones(){
+        $estudiante_id = $this->session_data['usuario_id'];
+        if($this->acceso(133)&&$this->privado($estudiante_id)){
+            $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+                if(isset($data['estudiante']['estudiante_id'])){
+                    // $data['tareas'] = $this->Tarea_model->get_tareas($nivel_id);
+                    $data['_view'] = 'estudiante/citacion';
+                    $this->load->view('layouts/main',$data);
+                }
+        }
+    }
     
 }

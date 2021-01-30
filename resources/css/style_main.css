@@ -1,0 +1,25 @@
+.notification{
+    width:40px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    text-align:center;
+}
+.notification .fa{
+    color: #fff;
+    line-height: 50px;
+    font-size: 20px;
+}
+.notification .num{
+    position:absolute;
+    top: 8px;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: rgb(255, 133, 18);
+    color: #fff;
+    line-height: 15px;
+    text-align: center;
+    font-size: 11px;
+}
+    

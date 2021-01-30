@@ -76,6 +76,7 @@ class Docente extends CI_Controller{
     {
         $docente_id = $this->session_data['usuario_id'];
         if($this->acceso(138)&&$this->privado($docente_id)){
+            $data['materias'] = $this->Docente_model->get_allmaterias($docente_id);
             $data['_view'] = 'docente/materias';
             $this->load->view('layouts/main',$data);
         }

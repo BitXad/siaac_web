@@ -16,7 +16,7 @@
 <!-------------------------------------------------------->
 <div class="box-header">
     <h3 class="box-title"><span class="text-bold">Estudiante: </span><?php echo $estudiante['estudiante_nombre']." ".$estudiante['estudiante_apellidos']."(".$estudiante['estudiante_codigo'].")"; ?></h3>
-    <h3 class="box-title"><span class="text-bold">Materia: </span><?php echo "100".$material[0]['materia_id']." ".$material[0]['materia_nombre']; ?></h3>
+    <!-- <h3 class="box-title"><span class="text-bold">Materia: </span><?php echo "100".$material[0]['materia_id']." ".$material[0]['materia_nombre']; ?></h3> -->
 </div>
 <!--<div class="input-group">
     <span class="input-group-addon">Buscar</span>
@@ -51,7 +51,8 @@
                         ?>
                     <tr>
                         <td <?php echo $estilo; ?>><?php echo $i+1; ?></td>
-                        <td <?php echo $estilo; ?>><a href="<?php echo $c['material_enlace']; ?>" class="btn btn-warning btn-xs" target="_BLANK"><fa class="fa fa-<?php echo $c['material_tipo']; ?>"></fa> </a><b><?php echo $c['material_descripcion']; ?></b> 
+                        <td <?php echo $estilo; ?>><a href="<?php echo $c['material_enlace']; ?>" class="btn btn-warning btn-xs" target="_BLANK"><fa class="fa fa-<?php echo $c['material_tipo']; ?>"></fa> </a><b><?php echo $c['material_titulo']; ?></b> 
+                            <br><?php echo $c['material_descripcion']; ?>
                             <br><?php echo $c['material_recomendacion']; ?>
                         </td>
                         
@@ -59,7 +60,7 @@
                         <td <?php echo $estilo; ?>><?php echo $c['material_fecha']; ?></td>
                         <td <?php echo $estilo; ?>>
                             <img src="<?php echo base_url("resources/images/docentes/jose.jpg"); ?>" class="img img-circle" width="50px;" height="50px;">
-                                <?php echo $c['material_docente']; ?>
+                                <?= "{$c['docente_apellidos']} {$c['docente_nombre']}"; ?>
                         </td>
                         
                         

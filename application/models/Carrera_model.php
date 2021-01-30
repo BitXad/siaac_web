@@ -108,7 +108,7 @@ class Carrera_model extends CI_Model
     function get_carrera_porestudante($estudiante_id)
     {
         $carrera = $this->db->query("
-            Select c.*, ac.areacarrera_nombre, n.nivel_descripcion, e.estudiante_id
+            Select c.*, ac.areacarrera_nombre, n.nivel_id,n.nivel_descripcion, e.estudiante_id
             FROM
                 estudiante e
             LEFT JOIN inscripcion i on e.estudiante_id = i.estudiante_id
@@ -122,15 +122,20 @@ class Carrera_model extends CI_Model
 
         return $carrera;
     }
-    
-    function get_material_estudio($estudiante_id)
+    /*
+    * Obtener todo material activo
+    */
+    function get_material_estudio($nivel_id)
     {
-        $carrera = $this->db->query("select * from 
-            material_estudio m, materia t, estudiante e
-            WHERE
-                m.estudiante_id = e.estudiante_id and
-                m.materia_id = t.materia_id and
-                m.estudiante_id = $estudiante_id
+        $carrera = $this->db->query(
+        "SELECT m.*, t.`materia_nombre`, d.`docente_nombre`, d.`docente_apellidos`
+        FROM material_estudio m
+        LEFT JOIN materia as t on m.`materia_id` = t.`materia_id`
+        LEFT JOIN nivel as n on t.`nivel_id` = n.`nivel_id`
+        LEFT JOIN docente as d on d.docente_id = m.`docente_id`
+        WHERE  m.materia_id = t.materia_id 
+        AND m.`estado_id` = 1
+        AND t.`nivel_id` = $nivel_id
         ")->result_array();
 
         return $carrera;

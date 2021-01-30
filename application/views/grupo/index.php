@@ -96,7 +96,7 @@ function sel_individual(source, dia_id) {
             </div>
         </div>
         <div class="col-md-4">
-            <label for=´nivel_id" class="control-label">Nivel:</label>
+            <label for="nivel_id" class="control-label">Nivel:</label>
             <div class="form-group" id="elegirnivel">
                 <select name="nivel_id" id="nivel_id" class="form-control">
                     <option value="">- NIVEL -</option>
