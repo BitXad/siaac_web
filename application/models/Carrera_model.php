@@ -107,8 +107,8 @@ class Carrera_model extends CI_Model
     
     function get_carrera_porestudante($estudiante_id)
     {
-        $carrera = $this->db->query("
-            Select c.*, ac.areacarrera_nombre, n.nivel_id,n.nivel_descripcion, e.estudiante_id
+        $carrera = $this->db->query(
+            "SELECT c.*, ac.areacarrera_nombre, n.nivel_id,n.nivel_descripcion, e.estudiante_id
             FROM
                 estudiante e
             LEFT JOIN inscripcion i on e.estudiante_id = i.estudiante_id
@@ -125,17 +125,20 @@ class Carrera_model extends CI_Model
     /*
     * Obtener todo material activo
     */
-    function get_material_estudio($nivel_id)
+    function get_material_estudio($estudiante_id)
     {
         $carrera = $this->db->query(
-        "SELECT m.*, t.`materia_nombre`, d.`docente_nombre`, d.`docente_apellidos`
-        FROM material_estudio m
-        LEFT JOIN materia as t on m.`materia_id` = t.`materia_id`
-        LEFT JOIN nivel as n on t.`nivel_id` = n.`nivel_id`
-        LEFT JOIN docente as d on d.docente_id = m.`docente_id`
-        WHERE  m.materia_id = t.materia_id 
-        AND m.`estado_id` = 1
-        AND t.`nivel_id` = $nivel_id
+        "SELECT me.*, m.materia_nombre, d.`docente_nombre`, d.`docente_apellidos`
+        from inscripcion as i
+        left join kardex_academico as ka on i.`inscripcion_id` = ka.`inscripcion_id`
+        left join materia_asignada as ma on ka.`kardexacad_id` = ma.`kardexacad_id`
+        left join horario as h on h.`grupo_id` = ma.`grupo_id`
+        left join material_estudio as me on me.`docente_id` = h.`docente_id`
+        left join materia as m on me.`materia_id` =  m.materia_id
+        left join docente as d on d.`docente_id` = h.`docente_id`
+        where i.`estudiante_id` = $estudiante_id
+        AND me.`estado_id` = 1
+        group by me.`materialest_id`
         ")->result_array();
 
         return $carrera;

@@ -12,6 +12,8 @@ class Estudiante extends CI_Controller{
         $this->load->model('Cliente_model');
         $this->load->model('Carrera_model');
         $this->load->model('Tarea_model');
+        $this->load->model('Citacion_model');
+        $this->load->model('Respuesta_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -260,7 +262,7 @@ class Estudiante extends CI_Controller{
     {
         //rol viene desde inscripcion
         if($this->acceso(1)){
-            $this->load->library('form_validation');
+            $this->load->library('form_validation'); 
             $this->form_validation->set_rules('estudiante_nombre','Estudiante Nombre','required');
             $this->form_validation->set_rules('estudiante_apellidos','Estudiante Apellidos','required');
             $this->form_validation->set_rules('estudiante_ci','estudiante_ci','is_unique[estudiante.estudiante_ci]', array('is_unique' => 'Este C.I. ya fue Registrado'));
@@ -767,7 +769,7 @@ class Estudiante extends CI_Controller{
 
                     $data['_view'] = 'estudiante/carreras';
                     $this->load->view('layouts/main',$data);
-                }
+                }   
                 else
                     show_error('The estudiante you are trying to edit does not exist.');
             }else{
@@ -777,8 +779,9 @@ class Estudiante extends CI_Controller{
         }
     }
     
-    function materiales($estudiante_id, $nivel_id)
+    function materiales()
     {
+        $estudiante_id = $this->session_data['usuario_id'];
         if($this->acceso(133)&&$this->privado($estudiante_id)){
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
@@ -787,7 +790,7 @@ class Estudiante extends CI_Controller{
                 {
                     $this->load->model('Carrera_model');
 //                    $data['carrera'] = $this->Carrera_model->get_carrera_porestudante($estudiante_id);
-                    $data['material'] = $this->Carrera_model->get_material_estudio($nivel_id);
+                    $data['material'] = $this->Carrera_model->get_material_estudio($estudiante_id);
 
                     $data['_view'] = 'estudiante/material';
                     $this->load->view('layouts/main',$data);
@@ -1038,17 +1041,19 @@ class Estudiante extends CI_Controller{
         exit;        
      }}
 
-    function tareas($estudiante_id, $nivel_id){
+    function tareas(){
+        $estudiante_id = $this->session_data['usuario_id'];
         if($this->acceso(133)&&$this->privado($estudiante_id)){
             $usuario_id = $this->session_data['usuario_id'];
             if($estudiante_id == $usuario_id){
                 $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
                 if(isset($data['estudiante']['estudiante_id'])){
-                    $data['tareas'] = $this->Tarea_model->get_tareas($nivel_id);
+                    // $data['estado_tarea_estudiante'] = $this->Respuesta_model->estado_tarea($tarea_id,$estudiante_id);
+                    $data['tareas'] = $this->Tarea_model->get_tareas($estudiante_id);
                     $data['_view'] = 'estudiante/tarea';
                     $this->load->view('layouts/main',$data);
                 }else
-                    show_error('The estudiante you are trying to edit does not exist.');
+                    show_error('The estudiante you are trying does not exist.');
             }else{
                 $data['_view'] = 'login/mensajeacceso';
                 $this->load->view('layouts/main',$data);
@@ -1070,11 +1075,85 @@ class Estudiante extends CI_Controller{
         if($this->acceso(133)&&$this->privado($estudiante_id)){
             $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
                 if(isset($data['estudiante']['estudiante_id'])){
-                    // $data['tareas'] = $this->Tarea_model->get_tareas($nivel_id);
+                    $data['citaciones'] = $this->Citacion_model->get_all_citaciones($estudiante_id);
                     $data['_view'] = 'estudiante/citacion';
                     $this->load->view('layouts/main',$data);
-                }
+                }else
+                show_error('The estudiante you are trying to edit does not exist.');
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
         }
     }
-    
+
+    function respuesta($tarea_id, $materia_id){
+        $estudiante_id = $this->session_data['usuario_id'];
+        // if($this->acceso(49)){
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('respuesta_estudiante','Respuesta Estudiante','required');
+            if (!empty($_FILES['respuesta_estudiante']['name'])){
+                /* *********************INICIO imagen***************************** */
+                    $foto="";
+                            $this->load->library('image_lib');
+
+                            $config['upload_path'] = './resources/respuestas_tareas/';
+                            $img_full_path = $config['upload_path'];
+                            $config['allowed_types'] = 'gif|jpeg|jpg|png';
+                            $config['max_size'] = 0;
+
+                            $new_name = time(); //str_replace(" ", "_", $this->input->post('proveedor_nombre'));
+                            $config['file_name'] = $new_name; //.$extencion;
+                            $config['file_ext_tolower'] = TRUE;
+
+                            $this->load->library('upload', $config);
+                            $this->upload->do_upload('respuesta_estudiante');
+
+                            $img_data = $this->upload->data();
+                            $extension = $img_data['file_ext'];
+                            /* ********************INICIO para resize***************************** */
+                            if ($img_data['file_ext'] == ".jpg" || $img_data['file_ext'] == ".png" || $img_data['file_ext'] == ".jpeg" || $img_data['file_ext'] == ".gif") {
+                                $conf['image_library'] = 'gd2';
+                                $conf['source_image'] = $img_data['full_path'];
+                                $conf['new_image'] = './resources/respuestas_tareas/';
+                                $conf['maintain_ratio'] = TRUE;
+                                $conf['create_thumb'] = FALSE;
+                                $conf['width'] = 800;
+                                $conf['height'] = 600;
+                                $this->image_lib->clear();
+                                $this->image_lib->initialize($conf);
+                                if(!$this->image_lib->resize()){
+                                    echo $this->image_lib->display_errors('','');
+                                }
+                            }
+                            /* ********************F I N  para resize***************************** */
+                            $confi['image_library'] = 'gd2';
+                            $confi['source_image'] = './resources/respuestas_tareas/'.$new_name.$extension;
+
+                            $this->image_lib->clear();
+                            $this->image_lib->initialize($confi);
+                            $this->image_lib->resize();
+
+                            $foto = $new_name.$extension;
+                        
+                /* *********************FIN imagen***************************** */               
+                $params = array(
+                    'respuesta_foto' => $foto,
+                    'respuesta_fecha_entregada' => date("Y-m-d"),
+                    'respuesta_hora_entregada' => date('H:i:s'),
+                    'materia_id' => $materia_id,
+                    'estudiante_id' => $estudiante_id,
+                    'tarea_id' => $tarea_id,
+                );
+                $respuesta_id = $this->Respuesta_model->add_respuesta($params);
+                
+                redirect('estudiante/tareas');
+            }else{
+                $data['tarea'] = $this->Tarea_model->get_tarea_estudiante($tarea_id);
+                $data['_view'] = 'estudiante/respuesta';
+                $this->load->view('layouts/main',$data);
+            }
+        // }
+
+    }
+
 }

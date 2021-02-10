@@ -9,6 +9,7 @@ class Tarea extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Tarea_model');
+        $this->load->model('Respuesta_model');
         $this->load->model('Material_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
@@ -100,5 +101,12 @@ class Tarea extends CI_Controller{
             }else
                 show_error('The tarea you are trying to edit does not exist.');
         // }
+    }
+
+    function tarea_entregadas($tarea_id){
+        $docente_id = $this->session_data['usuario_id'];
+        $data['tareas'] = $this->Respuesta_model->get_respuestas($tarea_id);
+        $data['_view'] = 'tarea/tarea_entregadas';
+        $this->load->view('layouts/main',$data);
     }
 }

@@ -7,22 +7,28 @@
             <?php echo form_open('citacion/add'); ?>
             <div class="box-body">
                 <div class="row clearfix">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<label for="citacion_titulo" class="control-label">T&iacute;tulo</label>
 						<div class="form-group">
 							<input type="text" name="citacion_titulo" value="<?php echo $this->input->post('citacion_titulo'); ?>" class="form-control" id="citacion_titulo" required/>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-4">
 						<label for="citacion_razon" class="control-label">Raz&oacute;n</label>
 						<div class="form-group">
 							<input type="text" name="citacion_razon" value="<?php echo $this->input->post('citacion_razon'); ?>" class="form-control" id="citacion_razon"/>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-2">
 						<label for="citacion_fecha" class="control-label">Fecha</label>
 						<div class="form-group">
 							<input type="date" name="citacion_fecha" value="<?php echo $this->input->post('citacion_fecha'); ?>" class="form-control" id="citacion_fecha"/>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<label for="citacion_hora" class="control-label">Fecha</label>
+						<div class="form-group">
+							<input type="time" name="citacion_hora" value="<?php echo $this->input->post('citacion_hora'); ?>" class="form-control" id="citacion_hora"/>
 						</div>
 					</div>
 					<div class="col-md-4">

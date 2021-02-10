@@ -48,9 +48,17 @@
                             <td><?= $tarea['tarea_titulo'] ?></td>
                             <td><?= $tarea['materia_nombre'] ?></td>
                             <td><?= ("{$tarea['docente_nombre']} {$tarea['docente_apellidos']}") ?></td>
-                            <td> No entregado </td>
+                            <td class="text-center" style="font-size:10pt;">
+                                <?php
+                                    if($tarea['respondido'] == 1){
+                                        echo("Enviada");
+                                    }else{
+                                        echo("pendiente");
+                                    }
+                                ?>
+                            </td>
                             <td>
-                                <a href="<?= site_url("tarea/respuesta/{$tarea['tarea_id']}") ?>" class="btn btn-xs btn-info">Responder</a>
+                                <a href="<?= site_url("estudiante/respuesta/{$tarea['tarea_id']}/{$tarea['materia_id']}") ?>" class="btn btn-xs btn-info">Responder</a>
                             </td>
                         </tr>
                         <?php $i+=1; } ?>

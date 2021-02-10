@@ -266,5 +266,22 @@ class Grupo_model extends CI_Model
         //echo $sql;
         $this->db->query($sql);
         return 1;
-    }    
+    }
+    /*
+    * Grupos docente 
+    */    
+    function get_grupos_docente($docente_id, $gestion_id){
+        return $this->db->query(
+            "SELECT ge.`gestion_descripcion`, m.`materia_nombre`, g.`grupo_nombre`, n.`nivel_descripcion`
+            FROM horario AS h
+            LEFT JOIN docente AS d ON h.`docente_id` = d.`docente_id`
+            LEFT JOIN grupo AS g ON g.`grupo_id` = h.`grupo_id`
+            LEFT JOIN gestion AS ge ON ge.`gestion_id` = g.`gestion_id`
+            LEFT JOIN materia AS m ON m.materia_id = g.`materia_id`
+            LEFT JOIN nivel AS n ON m.`nivel_id` = n.`nivel_id`
+            WHERE d.`docente_id` = $docente_id
+            AND ge.gestion_id = $gestion_id
+            GROUP BY g.`grupo_id`
+            ")->result_array();
+    }
 }

@@ -66,8 +66,9 @@ class Docente extends CI_Controller{
     function grupos()
     {
         $docente_id = $this->session_data['usuario_id'];
+        $gestion_id = $this->session_data['gestion_id'];
         if($this->acceso(137)&&$this->privado($docente_id)){
-            $data['grupos'] = $this->Grupo_model->get_allgrupo_docente($docente_id);
+            $data['grupos'] = $this->Grupo_model->get_grupos_docente($docente_id, $gestion_id);
             $data['_view'] = 'docente/grupos';
             $this->load->view('layouts/main',$data);
         }
@@ -75,8 +76,9 @@ class Docente extends CI_Controller{
     function materias()
     {
         $docente_id = $this->session_data['usuario_id'];
+        $gestion_id = $this->session_data['gestion_id'];
         if($this->acceso(138)&&$this->privado($docente_id)){
-            $data['materias'] = $this->Docente_model->get_allmaterias($docente_id);
+            $data['materias'] = $this->Docente_model->get_allmaterias($docente_id, $gestion_id);
             $data['_view'] = 'docente/materias';
             $this->load->view('layouts/main',$data);
         }

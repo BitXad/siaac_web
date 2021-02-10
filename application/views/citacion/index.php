@@ -17,12 +17,12 @@
 <div class="box-header">
     <h3 class="box-title">Citaciones</h3>
     <div class="box-tools">
-        <a href="<?php echo site_url('citacion/add'); ?>" class="btn btn-success btn-sm">Agregar Material de Estudio</a> 
+        <a href="<?php echo site_url('citacion/add'); ?>" class="btn btn-success btn-sm">Realziar una citaci&oacute;n<a> 
     </div>
 </div>
 <div class="input-group">
     <span class="input-group-addon">Buscar</span>
-    <input type="text" name="nombre" class="form-control" id="nombre" autocomplete="off" onkeypress="validar(event,1)"  placeholder="Material, Tipo, Estado" />
+    <input type="text" name="nombre" class="form-control" id="nombre" autocomplete="off" onkeypress="validar(event,1)"  placeholder="Título, Razón, Estado" />
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -64,7 +64,6 @@
                         <?php $cont += 1; } ?>
                     </tbody>
                 </table>
-                                
             </div>
         </div>
     </div>

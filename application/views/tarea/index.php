@@ -34,7 +34,7 @@
                         <th>Tarea - T&iacute;tulo</th>
                         <th>Descripci&oacute;n</th>
                         <th>Fecha de Entrega</th>
-                        <th>Entregas</th>
+                        <!-- <th>Entregas</th> -->
                         <th>Estado</th>
                         <th>Acci&oacute;n</th>
                     </tr>
@@ -46,12 +46,12 @@
                             <td><?= $tarea['tarea_titulo'] ?></td>
                             <td><span title="<?= $tarea['tarea_descripcion']?>"><?= substr($tarea['tarea_descripcion'],0,50) ?>... [ver m&aacute;s]</span></td>
                             <td class="text-center"><?= $tarea['tarea_fecha_entrega'] ?></td>
-                            <td class="text-center">15/20</td>
+                            <!-- <td class="text-center">15/20</td> -->
                             <td class="text-center"><?= $tarea['estado_descripcion'] ?></td>
                             <td>
                                 <a href="<?= $tarea['tarea_enlace'] ?>" class="btn btn-xs btn-info" title="Ir al enlace" target="_blanck"><i class="fa fa-link" aria-hidden="true"></i></a>
                                 <a href="<?= site_url('tarea/edit/'.$tarea['tarea_id'])?>" class="btn btn-xs btn-info" title="Editar Tarea"><span class="fa fa-pencil"></span></a>
-                                <a href="#" class="btn btn-xs btn-success" title="Respuestas de la Tarea"><i class="fa fa-sticky-note-o" aria-hidden="true"></i></a>
+                                <a href="<?= site_url("tarea/tarea_entregadas/{$tarea['tarea_id']}"); ?>" class="btn btn-xs btn-success" title="Tareas entregadas"><i class="fa fa-sticky-note-o" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                         <?php $cont += 1;?>

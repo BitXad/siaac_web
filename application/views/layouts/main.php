@@ -69,9 +69,9 @@
                                 <div class="notification">
                                     <a href="<?= site_url('estudiante/notificaciones') ?>" class="nav-item" title="Notificaciones">
                                         <i class="fa fa-bell" aria-hidden="true"></i>
-                                        <?php if(true){ 
+                                        <?php if($session_data['total_citacion']['total_citaciones'] > 0){ 
                                         ?>
-                                            <span class="num">4</span>
+                                            <span class="num"><?=  $session_data['total_citacion']['total_citaciones']; ?></span>
                                         <?php } ?>
                                         
                                     </a>

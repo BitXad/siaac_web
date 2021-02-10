@@ -14,6 +14,7 @@ class Verificar extends CI_Controller
         $this->load->model('Gestion_model');
         $this->load->model('Rol_usuario_model');
         $this->load->model('Tipo_usuario_model');
+        $this->load->model('Citacion_model');
     }
 
     function index()
@@ -163,7 +164,7 @@ class Verificar extends CI_Controller
                 $rolusuario = $this->Rol_usuario_model->getall_rolusuario($result->tipousuario_id);
                 $tipousuario_nombre = $this->Tipo_usuario_model->get_tipousuario_nombre($result->tipousuario_id);
                 $gestion = $this->Gestion_model->get_gestion2($gestion_id);
-
+                $total_citacion = $this->Citacion_model->total_citaciones($result->estudiante_id);
                 $sess_array = array(
                     'usuario_login' => $result->estudiante_login,
                     'usuario_id' => $result->estudiante_id,
@@ -178,7 +179,8 @@ class Verificar extends CI_Controller
                     'rol' => $rolusuario,
                     'semestre' => $gestion->gestion_semestre,
                     'gestion' => $gestion->gestion_descripcion,
-                    'gestion_id' => $gestion->gestion_id
+                    'gestion_id' => $gestion->gestion_id,
+                    'total_citacion' => $total_citacion
                 );
 
                 $this->session->set_userdata('logged_in', $sess_array);

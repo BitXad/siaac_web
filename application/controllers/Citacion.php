@@ -11,6 +11,8 @@ class Citacion extends CI_Controller{
         $this->load->model('Citacion_model');
         $this->load->model('Materia_model');
         $this->load->model('Estudiante_model');
+        $this->load->model('Docente_model');
+        $this->load->model('Citacion_model');
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }else {
@@ -48,12 +50,14 @@ class Citacion extends CI_Controller{
     function add(){
         // if($this->acceso(66)){
             $docente_id = $this->session_data['usuario_id'];
+            $gestion_id = $this->session_data['gestion_id'];
             if(isset($_POST) && count($_POST) > 0){   
                 $params = array(
                     'citacion_titulo' => $this->input->post('citacion_titulo'),
                     'citacion_razon' => $this->input->post('citacion_razon'),
                     'citacion_descripcion' => $this->input->post('citacion_descripcion'),
                     'citacion_fecha' => $this->input->post('citacion_fecha'),
+                    'citacion_hora' => $this->input->post('citacion_hora'),
                     'docente_id' => $docente_id,
                     'materia_id' => $this->input->post('materia_id'),
                     'estudiante_id' => $this->input->post('estudiante'),
@@ -63,8 +67,8 @@ class Citacion extends CI_Controller{
                 redirect('citacion/index');
             }else{
                 // $data['estados'] = 
-                $data['materias'] = $this->Materia_model->get_all_materia();
-                $data['estudiantes'] = $this->Estudiante_model->get_all_estudiante_count();
+                $data['materias'] = $this->Docente_model->get_allmaterias($docente_id, $gestion_id);//materias del docente
+                $data['estudiantes'] = $this->Estudiante_model->get_all_estudiantes();//estudiantes del docente
                 $data['estados'] = $this->Citacion_model->get_estado();
                 $data['_view'] = 'citacion/add';
                 $this->load->view('layouts/main',$data);
@@ -86,6 +90,7 @@ class Citacion extends CI_Controller{
                     'citacion_razon' => $this->input->post('citacion_razon'),
                     'citacion_descripcion' => $this->input->post('citacion_descripcion'),
                     'citacion_fecha' => $this->input->post('citacion_fecha'),
+                    'citacion_hora' => $this->input->post('citacion_hora'),
                     // 'docente_id' => $docente_id,
                     'materia_id' => $this->input->post('materia_id'),
                     'estudiante_id' => $this->input->post('estudiante'),
@@ -106,5 +111,22 @@ class Citacion extends CI_Controller{
         // }
         // }
     }
-    
+    /* 
+    * Ver citaciones 
+    */
+    function ver_citacion($citacion_id){
+        $estudiante_id = $this->session_data['usuario_id'];
+        // if($this->acceso(133)&&$this->privado($estudiante_id)){
+            $data['estudiante'] = $this->Estudiante_model->get_esteestudiante($estudiante_id);
+            if(isset($data['estudiante']['estudiante_id'])){
+                $data['citacion'] = $this->Citacion_model->get_citacion_estudiante($citacion_id);
+                $data['_view'] = 'citacion/ver_citacion';
+                $this->load->view('layouts/main',$data);
+            }else
+            show_error('The estudiante you are trying to edit does not exist.');
+        // }else{
+        //     $data['_view'] = 'login/mensajeacceso';
+        //     $this->load->view('layouts/main',$data);
+        // }
+    }
 }

@@ -58,17 +58,36 @@ class Tarea_model extends CI_Model
     /*
     * Obtener todas las tareas activas por el nivel que estudiante
     */
-    function get_tareas($nivel_id){
+    function get_tareas($estudiante_id){
         $tareas = $this->db->query(
-            "SELECT m.*, t.`materia_nombre`, d.`docente_nombre`, d.`docente_apellidos`
-            FROM tarea as m
-            LEFT JOIN materia as t on m.`materia_id` = t.`materia_id`
-            LEFT JOIN nivel as n on t.`nivel_id` = n.`nivel_id`
-            LEFT JOIN docente as d on d.docente_id = m.`docente_id`
-            WHERE m.materia_id = t.materia_id 
-            AND m.estado_id =  1
-            AND t.`nivel_id` = $nivel_id"
+            "SELECT t.*, m.materia_nombre, d.`docente_nombre`, d.`docente_apellidos`,if(count(r.tarea_id) > 0, 1, 0) AS respondido
+            FROM inscripcion as i
+            LEFT JOIN kardex_academico AS ka ON i.`inscripcion_id` = ka.`inscripcion_id`
+            LEFT JOIN materia_asignada AS ma ON ka.`kardexacad_id` = ma.`kardexacad_id`
+            LEFT JOIN horario AS h ON h.`grupo_id` = ma.`grupo_id`
+            LEFT JOIN tarea AS t ON t.`docente_id` = h.`docente_id`
+            LEFT JOIN materia AS m ON t.`materia_id` =  m.materia_id
+            LEFT JOIN docente AS d ON d.`docente_id` = h.`docente_id`
+            LEFT JOIN (
+              select res.* 
+              from respuesta res
+              where res.estudiante_id = $estudiante_id
+            ) r ON (r.tarea_id = t.tarea_id)
+            WHERE i.`estudiante_id` = $estudiante_id
+            AND t.`estado_id` = 1
+            GROUP BY t.`tarea_id`"
         )->result_array();
         return $tareas;
+    }
+    /*
+    * Obtener tarea de estudiante 
+    */
+    function get_tarea_estudiante($tarea_id){
+        return $this->db->query(
+            "select t.*, e.`estado_descripcion`
+            from tarea as t
+            left join estado as e on e.`estado_id` = t.`estado_id`
+            where t.tarea_id = $tarea_id
+            ")->row_array();
     }
 }

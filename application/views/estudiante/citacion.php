@@ -30,13 +30,29 @@
                 <table class="table table-striped" id="mitabla">
                     <tr>
                         <th>#</th>
-                        <th>Descripcion</th>
+                        <th>Motivo de la reuni&oacute;n</th>
                         <th>Materia</th>
                         <th>profesor</th>
-                        <!-- <th>Fecha</th> -->
+                        <th>Fecha de Reni&oacute;n <br> y Hora</th>
+                        <th></th>
                     </tr>
                     <tbody class="buscar">
-                    
+                        <?php $cont = 1;?>
+                        <?php foreach ($citaciones as $citacion){?>
+                            <tr>
+                                <td><?= $cont; ?></td>
+                                <td><?= $citacion['citacion_razon'] ?></td>
+                                <td><?= $citacion['materia_nombre'] ?></td>
+                                <td><?= "{$citacion['docente_apellidos']} {$citacion['docente_nombre']}" ?></td>
+                                <td class="text-center"><?= "{$citacion['citacion_fecha']}<br>{$citacion['citacion_hora']}" ?></td>
+                                <td>
+                                    <a href="<?= site_url('citacion/ver_citacion/'.$citacion['citacion_id']) ?>" class="btn btn-xs btn-info" title="Ver más">
+                                        <i class="fa fa-eye" aria-hidden="true"></i> Ver
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php $cont += 1;?>
+                        <?php } ?>
                     </tbody>
                 </table>
                                 

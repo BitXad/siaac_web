@@ -75,4 +75,44 @@ class Citacion_model extends CI_Model{
             and c.`estudiante_id` = $estudiante_id"
         )->row_array();
     }
+
+    /*
+    * Obtener todas las citaciones de un estudiante 
+    */
+    function get_all_citaciones($estudiante_id){
+        return $this->db->query(
+            "SELECT c.*, m.`materia_nombre`, d.`docente_nombre`, d.`docente_apellidos`
+            FROM citacion as c
+            LEFT JOIN docente AS d ON c.`docente_id` = d.`docente_id`
+            LEFT JOIN materia AS m ON c.`materia_id` = m.`materia_id`
+            WHERE c.`estudiante_id` = $estudiante_id
+            ORDER BY c.`citacion_fecha` DESC"
+        )->result_array();
+    }
+    /* 
+    * Obtener citacion 
+    */
+    function get_citacion_estudiante($citacion_id){
+        return $this->db->query(
+            "SELECT c.*, m.`materia_nombre`, d.`docente_nombre`, d.`docente_apellidos`
+            FROM citacion AS c
+            LEFT JOIN docente AS d ON c.`docente_id` = d.`docente_id`
+            LEFT JOIN materia AS m ON c.`materia_id` = m.`materia_id`
+            WHERE c.`citacion_id` = 1
+            "
+        )->row_array();
+    }
+    /* 
+    *  Obtener el total de Citaciones de un estudiante
+    */
+    function total_citaciones($estudiante_id){
+        $fecha_actual = date("Y-m-d");
+        $total_citacion = $this->db->query(
+            "SELECT IF(COUNT(c.`citacion_titulo`)>0,COUNT(c.`citacion_titulo`),0) as total_citaciones
+            FROM citacion as c
+            WHERE '$fecha_actual' <= c.`citacion_fecha`
+            AND c.`estudiante_id` = $estudiante_id 
+            ")->row_array();
+        return $total_citacion;
+    }
 }

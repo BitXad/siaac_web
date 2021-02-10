@@ -182,7 +182,7 @@ class Docente_model extends CI_Model
     /*
     * Obtener materias de docente 
     */
-    function get_allmaterias($docente_id){
+    function get_allmaterias($docente_id, $gestion_id){
         return $this->db->query(
             "SELECT m.materia_id, m.`materia_nombre`, m.`materia_codigo` ,n.`nivel_descripcion`,g.`grupo_nombre`, p.`paralelo_descripcion`, ge.`gestion_descripcion`
             ,am.`area_nombre`
@@ -197,7 +197,7 @@ class Docente_model extends CI_Model
             LEFT JOIN gestion AS ge ON ge.`gestion_id` = g.`gestion_id`
             LEFT JOIN area_materia AS am ON am.`area_id` = m.`area_id`
             WHERE d.docente_id = $docente_id
-            AND g.`gestion_id` = 1
+            AND g.`gestion_id` = $gestion_id
             GROUP BY m.`materia_nombre`
             ORDER BY m.`materia_nombre`"
         )->result_array();
