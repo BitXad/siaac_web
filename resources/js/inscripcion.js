@@ -244,13 +244,65 @@ function mostrar_materias(){
 
 function calcular(){
     
-    var matricula = Number(document.getElementById('carrera_matricula').value);
-    var mensualidad = Number(document.getElementById('carrera_mensualidad').value);    
-    var pagar_matricula = Number(document.getElementById('pagar_matricula').value);
-    var pagar_mensualidad = Number(document.getElementById('pagar_mensualidad').value);
+    var matricula = Number(document.getElementById('carrera_matricula').value); //costo matric
+    var mensualidad = Number(document.getElementById('carrera_mensualidad').value);    //costo mens
+    var pagar_matricula = Number(document.getElementById('pagar_matricula').value); //opcion
+    var pagar_mensualidad = Number(document.getElementById('pagar_mensualidad').value); //opcion
+    var check_acuenta = document.getElementById("check_acuenta").checked; //acuenta mensualdiad
+    var calculo_total = 0; //total a cancelar
+    var matricula_acuenta = 0; //matricula a cuenta
     
+    if (pagar_matricula==1 && pagar_mensualidad>=1){
+        calculo_total = (matricula) + (mensualidad * pagar_mensualidad) ; //total a cancelar
+    }else{
+        
+    
+        if (pagar_matricula==2 && pagar_mensualidad>=1){ //Pagar matricula despues
+            calculo_total = mensualidad * pagar_mensualidad; //total a cancelar
+        }else{
+        
+            if (pagar_matricula==3 && pagar_mensualidad>=1){ //Pagar matricula a cuenta
+                
+                matricula_acuenta = Number(document.getElementById('matricula_acuenta').value); //opcion
+                calculo_total = matricula_acuenta + mensualidad * pagar_mensualidad; //total a cancelar
+                
+            }else{
+                
+                if (pagar_matricula==3 && check_acuenta){ //Pagar matricula a cuenta
+                    matricula_acuenta = Number(document.getElementById('matricula_acuenta').value); //opcion
+                    calculo_total = matricula_acuenta + mensualidad * pagar_mensualidad; //total a cancelar
+                }    
+                
+            }
 
-    var calculo_total = (matricula * pagar_matricula) + (mensualidad * pagar_mensualidad) ;
+        }
+    }
+
+
+    if (pagar_matricula == 3){ //Pagar matricula a cuenta
+        
+        //$("#matricula_acuenta").val("0.00");
+        document.getElementById("div_acuenta").style.display = "block";
+        
+    }else{
+        
+        $("#matricula_acuenta").val("0.00");
+        document.getElementById("div_acuenta").style.display = "none";
+        
+    }
+    
+    
+    if(check_acuenta && pagar_mensualidad == 1){
+        //$("#mensualidad_acuenta").val("0.00");
+        document.getElementById("div_mensualidad").style.display = "block";
+        
+    }else{
+        
+        $("#mensualidad_acuenta").val("0.00");
+        document.getElementById("div_mensualidad").style.display = "none";
+        
+    }         
+    
     
     $("#total").val(Number(calculo_total).toFixed(2));
     $("#total_final").val(Number(calculo_total).toFixed(2));
@@ -270,7 +322,10 @@ function calcular(){
     cambio = efectivo - (total_final);
     $("#cambio").val(cambio);
     
+    
 }
+
+
 function calcularcambio(){
     
     var efectivo = Number(document.getElementById('efectivo').value);
@@ -315,6 +370,9 @@ function registrar_inscripcion(){
     var descuento = document.getElementById('descuento').value;
     var efectivo  = document.getElementById('efectivo').value;
     var cambio    = document.getElementById('cambio').value;
+    var matricula_acuenta    = document.getElementById('matricula_acuenta').value;
+    var mensualidad_acuenta    = document.getElementById('mensualidad_acuenta').value;
+    var check_acuenta    = document.getElementById('mensualidad_acuenta').checked;
 
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/registrar_inscripcion";
@@ -328,6 +386,8 @@ function registrar_inscripcion(){
     if (turno_id<=0) { ban = 1; men = men + "Debe seleccionar un turno \n"; }
     if (nivel_id<=0) { ban = 1; men = men + "Debe seleccionar un nivel \n"; }
     if (paralelo_id<=0) { ban = 1; men = men + "Debe seleccionar un paralelo \n"; }
+    if (pagar_matricula==3 && matricula_acuenta<=0) { ban = 1; men = men + "El monto de la matricula a cuenta, no puede ser CERO \n"; }
+    if (pagar_mensualidad==1 && mensualidad_acuenta<=0 && check_acuenta) { ban = 1; men = men + "El monto de la mensualidad a cuenta no puede ser CERO \n"; }
 
     if (ban==0){
         $.ajax({
@@ -724,3 +784,13 @@ function modificar_inscripcion(){
     }
 }
 
+
+function calcular_totales(e){
+   var tecla = (document.all) ? e.keyCode : e.which; 
+   //alert(venta_cambio);
+   
+   if (tecla==13){ 
+        calcular();
+   }
+    
+}

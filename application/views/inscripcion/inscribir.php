@@ -258,13 +258,13 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         <div class="col-md-2" <?php echo $atributos; ?>>
                             <label for="carrera_matricula" class="control-label">Matrícula Bs</label>
                             <div class="form-group">
-                                <input type="number" step="any" min="0" name="carrera_matricula" id="carrera_matricula" value="<?php echo ($this->input->post('carrera_matricula') ? $this->input->post('carrera_matricula') : number_format(0,2)); ?>" class="form-control" placeholder="0.00" <?php echo $atributos2; ?>/>
+                                <input type="number" step="any" min="0" name="carrera_matricula" id="carrera_matricula" value="<?php echo ($this->input->post('carrera_matricula') ? $this->input->post('carrera_matricula') : number_format(0,2)); ?>" class="form-control" placeholder="0.00" <?php echo $atributos2; ?> onkeyup="calcular_totales(event)" />
                             </div>
                         </div>
                         <div class="col-md-2" <?php echo $atributos; ?>>
                             <label for="carrera_mensualidad" class="control-label">Mensualidad Bs</label>
                             <div class="form-group">
-                                <input type="number" step="any" min="0" name="carrera_mensualidad" id="carrera_mensualidad" value="<?php echo ($this->input->post('carrera_mensualidad') ? $this->input->post('carrera_mensualidad') : number_format(0,2)); ?>" class="form-control" placeholder="0.00" <?php echo $atributos2; ?>/>
+                                <input type="number" step="any" min="0" name="carrera_mensualidad" id="carrera_mensualidad" value="<?php echo ($this->input->post('carrera_mensualidad') ? $this->input->post('carrera_mensualidad') : number_format(0,2)); ?>" class="form-control" placeholder="0.00" <?php echo $atributos2; ?> onkeyup="calcular_totales(event)"/>
                             </div>
                         </div>
                         <div class="col-md-2" <?php echo $atributos; ?>>
@@ -355,19 +355,59 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                                     <select id="pagar_matricula" name="pagar_matricula"  class="form-control" onchange="calcular()">
                                                         <option value="0">- NO - PAGAR MATRICULA</option>
                                                         <option value="1">PAGAR MATRICULA</option>
-                                                        <option value="0">PAGAR MATRICULA DESPUES</option>
-                                                    </select>
+                                                        <option value="2">PAGAR MATRICULA DESPUES</option>
+                                                        <option value="3">PAGAR A CUENTA</option>
+                                                    </select>                                                    
+                                                </div>
+                                                
+                                                <div id="div_acuenta" style="display: none">
+
+                                                        <div class="col-md-2" id="div_acuenta">
+                                                            <label for="div_acuenta" class="control-label">Bs</label>
+                                                        </div>
+
+                                                        <div class="col-md-10">
+                                                                <!--<label for="pagar_mensualidad" class="control-label">Matric. a Cuenta</label>-->
+                                                                <div class="form-group">
+                                                                    <input type="text" value="0.00" class="form-control" id="matricula_acuenta" style="background-color: #46b8da">
+                                                                </div>
+                                                        </div>
                                                 </div>
 					</div>
 
 					<div class="col-md-3">
-						<label for="pagar_mensualidad" class="control-label">Pagar Mensualidad</label>
+                                            <label for="pagar_mensualidad" class="control-label">Mensualidad <span class="btn btn-info btn-xs" style="padding: 0;"> <input type="checkbox" onchange="calcular()" id="check_acuenta"> A cuenta </span>   </label>
 						<div class="form-group">
                                                     <select id="pagar_mensualidad" name="pagar_mensualidad" class="form-control" onchange="calcular()">
                                                         <option value="0">- NINGUNA -</option>                                                        
                                                     </select>
                                                 </div>
+
+                                                
+                                                <div id="div_mensualidad" style="display: none">
+
+                                                        <div class="col-md-2" id="div_acuenta">
+                                                            <label for="div_acuenta" class="control-label">Bs</label>
+                                                        </div>
+
+                                                        <div class="col-md-10">
+                                                                <!--<label for="pagar_mensualidad" class="control-label">Matric. a Cuenta</label>-->
+                                                                <div class="form-group">
+                                                                    <input type="text" value="0.00" class="form-control" id="mensualidad_acuenta" style="background-color: #46b8da">
+                                                                </div>
+                                                        </div>
+                                                </div>                                            
+                                            
+<!--                                                
+                                                <div class="col-md-12" id="div_mensualidad" style="display: block;">
+                                                        <label for="pagar_mensualidad" class="control-label">Matric. a Cuenta</label>
+                                                        <div class="form-group">
+                                                            <input type="text" value="0.00" class="form-control" id="mensualidad_acuenta" style="background-color: orange">
+                                                        </div>
+                                                </div>                                            
+                                            -->
 					</div>
+
 
 					<div class="col-md-6">
 						<label for="inscripcion_glosa" class="control-label">Observaciones</label>
