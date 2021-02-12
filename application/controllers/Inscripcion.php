@@ -402,6 +402,7 @@ class Inscripcion extends CI_Controller{
     }
         
     function registrar_inscripcion(){
+        
         //$session_data = $this->session->userdata('logged_in');
         $usuario_id = $this->session_data['usuario_id'];
         $gestion_id = $this->session_data['gestion_id'];
@@ -420,6 +421,8 @@ class Inscripcion extends CI_Controller{
         $pagar_matricula = $this->input->post('pagar_matricula');
         $pagar_mensualidad = $this->input->post('pagar_mensualidad');
         
+        //************* Registrar inscripcion ******//
+        
         $paramsi = array(
             'estado_id' => 1,
             'usuario_id' => $usuario_id,
@@ -437,10 +440,15 @@ class Inscripcion extends CI_Controller{
             );
         $inscripcion_id = $this->Inscripcion_model->add_inscripcion($paramsi);
         
+        
+        //************ Actualiza el numero de recibo de inscripcion ********************//
         $paramg = array(
             'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1,
             );
         $this->Gestion_model->update_gestion($gestion_id, $paramg);
+        
+        
+        //************** Registrar Kardex academico ****************//
         
         $kardexacad_notfinal1 = 0;
         $kardexacad_notfinal2 = 0;
@@ -450,6 +458,7 @@ class Inscripcion extends CI_Controller{
         $kardexacad_notfinal = 0;
         $kardexacad_estado = 1;
         $kardexeco_matriculapagada = 0;
+        
         if($pagar_matricula == 1){
             $kardexeco_matriculapagada = $this->input->post('inscripcion_matricula');
         }
@@ -470,7 +479,9 @@ class Inscripcion extends CI_Controller{
             );
             $kardexacad_id = $this->Kardex_academico_model->add_kardex_academico($params);
         
-        //Registro de kardex economico
+        // Fin registro kardex academico
+       
+        //****************** Registro de kardex economico *****************//
         
         //$inscripcion_id = ;
         $estado_id = 1;
@@ -507,6 +518,11 @@ class Inscripcion extends CI_Controller{
             'kardexeco_cambio' => $kardexeco_cambio,
             );
         $kardexeco_id = $this->Kardex_economico_model->add_kardex_economico($paramseco);
+        
+        //*************** Fin kardex economico ************************//
+        
+        
+        //******************* Registro Mensualidades kardex *************//
         
         $intervalo = 30; //mensual
         //$dia_pago = date('d');
@@ -604,6 +620,9 @@ class Inscripcion extends CI_Controller{
             
         }
         
+        
+        //**************** Registrar pago matricula **************************//
+        
         if($pagar_matricula == 1){
             $paramspm = array(
                 'inscripcion_id' => $inscripcion_id,
@@ -619,6 +638,8 @@ class Inscripcion extends CI_Controller{
         }elseif($pagar_matricula == 2){
             //$kardexeco_id
         }
+        
+        //********************** Registrar pago mensualidad **********************//
         if($pagar_mensualidad >0){
             $estadomen_id = 9; //cancelado
             $this->load->model('Estudiante_model');
@@ -648,6 +669,8 @@ class Inscripcion extends CI_Controller{
                 $cont++;
             }
         }
+        
+        //******************** Registrar factura ********************//
         
         $esfacturado = $this->input->post('esfactura');
         $esfactura_id = "";
@@ -715,6 +738,7 @@ class Inscripcion extends CI_Controller{
             $detallefact_codigo = "-";
             $detallefact_cantidad = $cantidad;
             $cadena = "";
+            
             if($pagar_mensualidad >0){
                 if($pagar_mensualidad == 1){
                     $cadena = "MENSUALIDAD ".$pagar_mensualidad;
@@ -722,6 +746,7 @@ class Inscripcion extends CI_Controller{
                     $cadena = "MENSUALIDADES ".$pagar_mensualidad;
                 }
             }
+            
             $this->load->model('Carrera_model');
             $carrera = $this->Carrera_model->get_carrera($carrera_id);
             $this->load->model('Estudiante_model');
@@ -734,7 +759,7 @@ class Inscripcion extends CI_Controller{
             $detallefact_descripcion = $masdetalle.$eslaglosa;
             $unidad = "";
             
-            $precio = $total-$descontar;
+            $precio = $total - $descontar;
             $detallefact_precio = $precio;
             $detallefact_subtotal =  $precio;
             $detallefact_descuento = 0;
