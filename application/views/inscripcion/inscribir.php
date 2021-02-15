@@ -369,14 +369,14 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                                         <div class="col-md-10">
                                                                 <!--<label for="pagar_mensualidad" class="control-label">Matric. a Cuenta</label>-->
                                                                 <div class="form-group">
-                                                                    <input type="text" value="0.00" class="form-control" id="matricula_acuenta" style="background-color: #46b8da">
+                                                                    <input type="text" value="0.00" class="form-control" id="matricula_acuenta" style="background-color: #46b8da" onchange="calcular()">
                                                                 </div>
                                                         </div>
                                                 </div>
 					</div>
 
 					<div class="col-md-3">
-                                            <label for="pagar_mensualidad" class="control-label">Mensualidad <span class="btn btn-info btn-xs" style="padding: 0;"> <input type="checkbox" onchange="calcular()" id="check_acuenta"> A cuenta </span>   </label>
+                                            <label for="pagar_mensualidad" class="control-label">Mensualidad <!--span class="btn btn-info btn-xs" style="padding: 0;"> <input type="checkbox" onchange="calcular()" id="check_acuenta"> A cuenta </span-->   </label>
 						<div class="form-group">
                                                     <select id="pagar_mensualidad" name="pagar_mensualidad" class="form-control" onchange="calcular()">
                                                         <option value="0">- NINGUNA -</option>                                                        
@@ -393,7 +393,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                                                         <div class="col-md-10">
                                                                 <!--<label for="pagar_mensualidad" class="control-label">Matric. a Cuenta</label>-->
                                                                 <div class="form-group">
-                                                                    <input type="text" value="0.00" class="form-control" id="mensualidad_acuenta" style="background-color: #46b8da">
+                                                                    <input type="text" value="0.00" class="form-control" id="mensualidad_acuenta" name="mensualidad_acuenta" style="background-color: #46b8da" onchange="calcular()">
                                                                 </div>
                                                         </div>
                                                 </div>                                            

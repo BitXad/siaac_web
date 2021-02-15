@@ -116,10 +116,11 @@ function seleccionar_carrera(){
                     //$("#inscripcion_fechainicio").val(registros[0].carrera_fechainicio);                
                 
                         $("#pagar_mensualidad").empty();
-                    for (j = Number(registros[0].carrera_nummeses); j>=1 ; j--){
-                        $("#pagar_mensualidad").prepend("<option  value="+j+">"+j+" CUOTA/MES");
-                    }
+                        for (j = Number(registros[0].carrera_nummeses); j>=1 ; j--){
+                            $("#pagar_mensualidad").prepend("<option  value="+j+">"+j+" CUOTA/MES");
+                        }
                         $("#pagar_mensualidad").prepend("<option  value="+0+">- NINGUNA -");
+                        $("#pagar_mensualidad").prepend("<option  value='-1'> 1 CUENTA/MES");
                         $("#pagar_mensualidad").val(0) ;
                           
                     var mensualidades = document.getElementById('pagar_mensualidad').value;
@@ -248,59 +249,56 @@ function calcular(){
     var mensualidad = Number(document.getElementById('carrera_mensualidad').value);    //costo mens
     var pagar_matricula = Number(document.getElementById('pagar_matricula').value); //opcion
     var pagar_mensualidad = Number(document.getElementById('pagar_mensualidad').value); //opcion
-    var check_acuenta = document.getElementById("check_acuenta").checked; //acuenta mensualdiad
+    // var check_acuenta = document.getElementById("check_acuenta").checked; //acuenta mensualdiad
     var calculo_total = 0; //total a cancelar
-    var matricula_acuenta = 0; //matricula a cuenta
+    var matricula_acuenta = Number(document.getElementById('matricula_acuenta').value); //matricula a cuenta
+    var mensualidad_acuenta = Number(document.getElementById('mensualidad_acuenta').value);
     
     if (pagar_matricula==1 && pagar_mensualidad>=1){
         calculo_total = (matricula) + (mensualidad * pagar_mensualidad) ; //total a cancelar
     }else{
-        
-    
-        if (pagar_matricula==2 && pagar_mensualidad>=1){ //Pagar matricula despues
-            calculo_total = mensualidad * pagar_mensualidad; //total a cancelar
+        if (pagar_matricula==1 && pagar_mensualidad == -1){
+            calculo_total = (matricula) + mensualidad_acuenta ; //total a cancelar
         }else{
-        
-            if (pagar_matricula==3 && pagar_mensualidad>=1){ //Pagar matricula a cuenta
-                
-                matricula_acuenta = Number(document.getElementById('matricula_acuenta').value); //opcion
-                calculo_total = matricula_acuenta + mensualidad * pagar_mensualidad; //total a cancelar
-                
+            if (pagar_matricula==2 && pagar_mensualidad>=1){ //Pagar matricula despues
+                calculo_total = mensualidad * pagar_mensualidad; //total a cancelar
             }else{
-                
-                if (pagar_matricula==3 && check_acuenta){ //Pagar matricula a cuenta
+                if (pagar_matricula==3 && pagar_mensualidad>=1){ //Pagar matricula a cuenta
+                    
                     matricula_acuenta = Number(document.getElementById('matricula_acuenta').value); //opcion
-                    calculo_total = matricula_acuenta + mensualidad * pagar_mensualidad; //total a cancelar
-                }    
-                
+                    calculo_total = matricula_acuenta + mensualidad * pagar_mensualidad; //total a cancelar  
+                }else{
+                    // if (pagar_matricula==3 && check_acuenta){ //Pagar matricula a cuenta
+                    if(pagar_matricula==3 && pagar_mensualidad == 0){
+                        matricula_acuenta = Number(document.getElementById('matricula_acuenta').value); //opcion
+                        calculo_total = matricula_acuenta + mensualidad * pagar_mensualidad; //total a cancelar
+                    }else{
+                        if (pagar_matricula==3 && pagar_mensualidad == -1){ //Pagar matricula a cuenta
+                            mensualidad_acuenta = Number(document.getElementById('mensualidad_acuenta').value); //opcion
+                            calculo_total = matricula_acuenta + mensualidad_acuenta; //total a cancelar
+                        }   
+                    }
+                }
             }
-
         }
     }
 
 
     if (pagar_matricula == 3){ //Pagar matricula a cuenta
-        
         //$("#matricula_acuenta").val("0.00");
         document.getElementById("div_acuenta").style.display = "block";
-        
     }else{
-        
         $("#matricula_acuenta").val("0.00");
         document.getElementById("div_acuenta").style.display = "none";
-        
     }
     
     
-    if(check_acuenta && pagar_mensualidad == 1){
+    if(pagar_mensualidad == -1){
         //$("#mensualidad_acuenta").val("0.00");
         document.getElementById("div_mensualidad").style.display = "block";
-        
     }else{
-        
         $("#mensualidad_acuenta").val("0.00");
         document.getElementById("div_mensualidad").style.display = "none";
-        
     }         
     
     
@@ -372,7 +370,7 @@ function registrar_inscripcion(){
     var cambio    = document.getElementById('cambio').value;
     var matricula_acuenta    = document.getElementById('matricula_acuenta').value;
     var mensualidad_acuenta    = document.getElementById('mensualidad_acuenta').value;
-    var check_acuenta    = document.getElementById('mensualidad_acuenta').checked;
+    // var check_acuenta    = document.getElementById('mensualidad_acuenta').checked;
 
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/registrar_inscripcion";
@@ -387,7 +385,8 @@ function registrar_inscripcion(){
     if (nivel_id<=0) { ban = 1; men = men + "Debe seleccionar un nivel \n"; }
     if (paralelo_id<=0) { ban = 1; men = men + "Debe seleccionar un paralelo \n"; }
     if (pagar_matricula==3 && matricula_acuenta<=0) { ban = 1; men = men + "El monto de la matricula a cuenta, no puede ser CERO \n"; }
-    if (pagar_mensualidad==1 && mensualidad_acuenta<=0 && check_acuenta) { ban = 1; men = men + "El monto de la mensualidad a cuenta no puede ser CERO \n"; }
+    // if (pagar_mensualidad==1 && mensualidad_acuenta<=0 && check_acuenta) { ban = 1; men = men + "El monto de la mensualidad a cuenta no puede ser CERO \n"; }
+    if (pagar_mensualidad== -1 && mensualidad_acuenta<=0 ) { ban = 1; men = men + "El monto de la mensualidad a cuenta no puede ser CERO \n"; }
 
     if (ban==0){
         $.ajax({
@@ -399,7 +398,7 @@ function registrar_inscripcion(){
                     inscripcion_mensualidad:inscripcion_mensualidad,carrera_nummeses:carrera_nummeses,
                     pagar_matricula:pagar_matricula, pagar_mensualidad:pagar_mensualidad, esfactura:esfactura,
                     total:total, total_final:total_final, nit:nit, razon:razon, descuento:descuento,
-                    efectivo:efectivo, cambio:cambio
+                    efectivo:efectivo, cambio:cambio, mensualidad_acuenta:mensualidad_acuenta, matricula_acuenta:matricula_acuenta,
                 },
             success:function(respuesta){
                 var kardexacad_id =  JSON.parse(respuesta);

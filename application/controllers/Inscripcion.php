@@ -458,14 +458,22 @@ class Inscripcion extends CI_Controller{
         $kardexacad_notfinal = 0;
         $kardexacad_estado = 1;
         $kardexeco_matriculapagada = 0;
+        $kardexeco_mensualidadpagada = 0;
         
         if($pagar_matricula == 1){
             $kardexeco_matriculapagada = $this->input->post('inscripcion_matricula');
+        }else{
+            if($pagar_matricula == 3){
+                $kardexeco_matriculapagada = $this->input->post('matricula_acuenta');
+            }
         }
         
         if($pagar_mensualidad > 0){
             $kardexeco_mensualidadpagada = $pagar_mensualidad*$this->input->post('inscripcion_mensualidad');
-        }else{ $kardexeco_mensualidadpagada = 0; }
+        }else{
+            if($pagar_mensualidad < 0)
+            $kardexeco_mensualidadpagada = $this->input->post('mensualidad_acuenta'); 
+        }
         
         $params = array(
             'inscripcion_id' => $inscripcion_id,
