@@ -55,24 +55,18 @@ class Kardex_academico_model extends CI_Model
     {
         $kardex_economico = $this->db->query("
             SELECT
-                i.*, ka.*, c.*, e.*, n.*, g.*
-
+                i.*, ka.*, c.*, e.*, n.*, g.*, es.`estado_color`, es.`estado_descripcion`
             FROM
                 inscripcion i
-
             LEFT JOIN kardex_academico ka ON i.inscripcion_id=ka.inscripcion_id
             LEFT JOIN carrera c ON i.carrera_id=c.carrera_id
             LEFT JOIN estudiante e ON i.estudiante_id=e.estudiante_id
             LEFT JOIN nivel n ON i.nivel_id=n.nivel_id
             LEFT JOIN gestion g ON i.gestion_id=g.gestion_id
-            LEFT JOIN gestion g ON i.gestion_id=g.gestion_id
-            
-
+            LEFT JOIN estado es ON ka.kardexacad_estado=es.estado_id
             WHERE
-                
                  ".$dato."
-
-            ORDER BY `kardexeco_id` DESC
+            ORDER BY `kardexacad_id` DESC
         ")->result_array();
 
         return $kardex_economico;
@@ -116,5 +110,62 @@ class Kardex_academico_model extends CI_Model
         ",array($inscripcion_id))->row_array();
 
         return $kardex_academico['kardexacad_id'];
+    }
+    function get_kardexestudiante($kardexacad_id)
+    {
+        $kardex_academico = $this->db->query("
+            SELECT
+                n.`nivel_descripcion`, t.`turno_nombre`, c.`carrera_nombre`,
+                p.`planacad_nombre`, e.`estudiante_nombre`, e.`estudiante_apellidos`,
+                g.`gestion_semestre`, g.`gestion_descripcion`, `es`.`estado_color`,
+                es.`estado_descripcion`
+            FROM
+                inscripcion i
+            LEFT JOIN kardex_academico ka ON i.inscripcion_id=ka.inscripcion_id
+            LEFT JOIN carrera c ON i.carrera_id=c.carrera_id
+            LEFT JOIN plan_academico p ON c.carrera_id=p.carrera_id
+            LEFT JOIN estudiante e ON i.estudiante_id=e.estudiante_id
+            LEFT JOIN nivel n ON i.nivel_id=n.nivel_id
+            LEFT JOIN gestion g ON i.gestion_id=g.gestion_id
+            LEFT JOIN estado es ON ka.kardexacad_estado=es.estado_id
+            LEFT JOIN turno t on i.`turno_id` = t.`turno_id`
+            WHERE
+                 ka.kardexacad_id = $kardexacad_id
+            ORDER BY `kardexacad_id` DESC
+        ")->row_array();
+
+        return $kardex_academico;
+    }
+    function get_materiaestudiante($kardexacad_id)
+    {
+        $kardex_academico = $this->db->query("
+            SELECT
+                `ma`.`materia_id`, `ma`.`materiaasig_nombre`, `ma`.`materiaasig_codigo`,
+                m.materia_numareas, n.nota_pond1_mat, n.nota_pond2_mat, n.nota_pond3_mat,
+                n.nota_pond4_mat, n.nota_pond5_mat,n.nota_pond6_mat, n.nota_pond7_mat
+            FROM
+                materia_asignada ma
+            LEFT JOIN materia m on ma.materia_id = m.materia_id
+            LEFT JOIN nota n on ma.`materiaasig_id` = n.`materiaasig_id`
+            WHERE
+                 ma.kardexacad_id = $kardexacad_id
+            order by ma.`materiaasig_nombre`
+        ")->result_array();
+
+        return $kardex_academico;
+    }
+    function get_max_numareas($kardexacad_id)
+    {
+        $kardex_academico = $this->db->query("
+            SELECT
+                max(m.materia_numareas) as max_numareas
+            FROM
+                materia_asignada ma
+            LEFT JOIN materia m on ma.materia_id = m.materia_id
+            WHERE
+                 ma.kardexacad_id = $kardexacad_id
+        ")->row_array();
+
+        return $kardex_academico;
     }
 }

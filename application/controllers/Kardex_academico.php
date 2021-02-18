@@ -151,4 +151,21 @@ class Kardex_academico extends CI_Controller{
         }
     }
     
+    function kardex($kardexacad_id)
+    {
+        if($this->acceso(33)){
+            $data['semestre'] = $this->session_data['semestre'];
+            $data['gestion']  = $this->session_data['gestion'];
+            $this->load->model('Institucion_model');
+            $data['kardex_estudiante'] = $this->Kardex_academico_model->get_kardexestudiante($kardexacad_id);
+            $data['materias_estudiante'] = $this->Kardex_academico_model->get_materiaestudiante($kardexacad_id);
+            $data['max_numareas'] = $this->Kardex_academico_model->get_max_numareas($kardexacad_id);
+            //$this->load->model('Notum_model');
+            //$data['estudiante'] = $this->Notum_model->get_estudiantes(1);
+            $data['institucion'] = $this->Institucion_model->get_institucion(1);
+            $data['_view'] = 'kardex_academico/kardex';
+            $this->load->view('layouts/main',$data);
+        }
+    }
+    
 }

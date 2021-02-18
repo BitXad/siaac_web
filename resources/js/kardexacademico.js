@@ -33,7 +33,7 @@ if (tecla==13){
 
 function buscarestudiante(dato){
 	var base_url = document.getElementById('base_url').value;
-	var controlador = base_url+'kardex_economico/busqueda';
+	var controlador = base_url+'kardex_academico/busqueda';
 		$.ajax({url:controlador,
             type:"POST",
             data:{dato:dato},
@@ -57,8 +57,8 @@ function buscarestudiante(dato){
                         html += "<td align='center'><b>"+registros[i]["gestion_descripcion"]+"</b></td>";
                         html += "<td align='center'><b>6</b></td>";
                         html += "<td><b>"+registros[i]["estado_descripcion"]+"</b></td>";
-                        html += "<td><a href='#' target='_blank' class='btn btn-success btn-xs' title='NOTAS'><i class='fa fa-list'></i></a>"; 
-                        html += " <a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-xs' title='VER KARDEX'><i class='fa fa-print'></i></a></td>";
+                        html += "<td><a href='"+base_url+"kardex_academico/kardex/"+registros[i]["kardexacad_id"]+"' target='_blank' class='btn btn-success btn-xs' title='Ver kardex'><i class='fa fa-list'></i></a>"; 
+                        html += " <a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexacad_id"]+"' target='_blank' class='btn btn-info btn-xs' title='VER KARDEX'><i class='fa fa-print'></i></a></td>";
                         html += "</tr>";  
                         }     
                         
