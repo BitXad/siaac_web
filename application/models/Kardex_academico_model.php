@@ -140,9 +140,9 @@ class Kardex_academico_model extends CI_Model
     {
         $kardex_academico = $this->db->query("
             SELECT
-                `ma`.`materia_id`, `ma`.`materiaasig_nombre`, `ma`.`materiaasig_codigo`,
+                `ma`.`materiaasig_id`, `ma`.`materia_id`, `ma`.`materiaasig_nombre`, `ma`.`materiaasig_codigo`,
                 m.materia_numareas, n.nota_pond1_mat, n.nota_pond2_mat, n.nota_pond3_mat,
-                n.nota_pond4_mat, n.nota_pond5_mat,n.nota_pond6_mat, n.nota_pond7_mat
+                n.nota_pond4_mat, n.nota_pond5_mat,n.nota_pond6_mat, n.nota_pond7_mat, n.`nota_id`
             FROM
                 materia_asignada ma
             LEFT JOIN materia m on ma.materia_id = m.materia_id

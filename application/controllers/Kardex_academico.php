@@ -167,5 +167,58 @@ class Kardex_academico extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }
-    
+    function modificar_notas()
+    {
+        //permiso de modificar notas: rol #70
+        if($this->acceso(70)){
+            if ($this->input->is_ajax_request()) {
+                $materia_numareas = $this->input->post('materia_numareas');
+                $lasnotas = $this->input->post('lasnotas');
+                $nota_id = $this->input->post('nota_id');
+                $i = 1;
+                $this->load->model('Notum_model');
+                foreach ($lasnotas as $notas) {
+                    $params = array(
+                        'nota_pond'.$i.'_mat' => $notas,
+                    );
+                    $this->Notum_model->update_notum($nota_id,$params);
+                    $i++;
+                }
+                echo json_encode("ok");
+            }else{                 
+               echo json_encode(null);
+            }
+        }
+    }
+    /* crea el registro de notas, y despues guarda las notas */
+    function generar_notas()
+    {
+        //permiso de registrar notas: rol #69
+        if($this->acceso(69)){
+            if ($this->input->is_ajax_request()) {
+                $materia_numareas = $this->input->post('materia_numareas');
+                $lasnotas = $this->input->post('lasnotas');
+                $materiaasig_id = $this->input->post('materiaasig_id');
+                $this->load->model('Notum_model');
+                $estado_id = 1;
+                $params = array(
+                    'materiaasig_id' => $materiaasig_id,
+                    'estado_id' => $estado_id,
+                );
+                $nota_id = $this->Notum_model->add_notum($params);
+                $i = 1;
+                foreach ($lasnotas as $notas) {
+                    $params = array(
+                        'nota_pond'.$i.'_mat' => $notas,
+                    );
+                    $this->Notum_model->update_notum($nota_id,$params);
+                    $i++;
+                }
+                echo json_encode("ok");
+            }else{                 
+               echo json_encode(null);
+            }
+        }
+       
+    }
 }

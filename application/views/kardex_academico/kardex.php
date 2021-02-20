@@ -74,8 +74,14 @@
                 }
             }
             ?>
-            <td><a onclick='cargarnotas(<?php echo json_encode($m); ?>)' class="btn btn-info btn-xs" title="Modifcar notas">
+            <td>
+                <?php if($m["nota_id"] == 0 || $m["nota_id"] == "" || $m["nota_id"] == null){ ?>
+                <a onclick='generarnotas(<?php echo json_encode($m); ?>)' class="btn btn-success btn-xs" title="Generar notas">
+                    <i class="fa fa-file-text-o"></i></a>
+                <?php }else{?>
+                <a onclick='cargarnotas(<?php echo json_encode($m); ?>)' class="btn btn-info btn-xs" title="Modificar notas">
                     <i class="fa fa-file-text"></i></a>
+                <?php } ?>
             </td>
         </tr>
         <?php
@@ -96,7 +102,7 @@
     </div>
  </center>
 
-<!------------------------ INICIO modal para Seleccioanr nuevo asociado ------------------->
+<!------------------------ INICIO modal para modificar notas ------------------->
 <div class="modal fade" id="modalmodificarnota" tabindex="-1" role="dialog" aria-labelledby="modalmodificarnotalabel">
     <div class="modal-dialog" role="document">
         <br><br>
@@ -108,15 +114,46 @@
             </div>
             <div class="modal-body">
                 <!------------------------------------------------------------------->
+                <input type="hidden" name="materia_numareas" id="materia_numareas" />
+                <input type="hidden" name="nota_id" id="nota_id" />
                 <div class="box-body table-responsive">
                     <div id="tablaresultados"></div>
                 </div>
                 <!------------------------------------------------------------------->
             </div>
-            <div class="modal-footer aligncenter">
+            <div class="modal-footer" style="text-align: center">
+                <a onclick="guardarmodificacion()" class="btn btn-success"><span class="fa fa-check"></span> Guardar</a>
                 <a href="#" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Cancelar</a>
             </div>
         </div>
     </div>
 </div>
-<!------------------------ FIN modal para Seleccionar nuevo asociado ------------------->
+<!------------------------ FIN modal para modificar notas ------------------->
+
+<!------------------------ INICIO modal para generar notas ------------------->
+<div class="modal fade" id="modalgenerarnotas" tabindex="-1" role="dialog" aria-labelledby="modalgenerarnotaslabel">
+    <div class="modal-dialog" role="document">
+        <br><br>
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                <span class="text-bold">Generar notas de la materia:</span><br>
+                <span class="text-bold" id="nombrede_materiagen"></span>
+            </div>
+            <div class="modal-body">
+                <!------------------------------------------------------------------->
+                <input type="hidden" name="materia_numareasgen" id="materia_numareasgen" />
+                <input type="hidden" name="materiaasig_id" id="materiaasig_id" />
+                <div class="box-body table-responsive">
+                    <div id="tablaresultadosgen"></div>
+                </div>
+                <!------------------------------------------------------------------->
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <a onclick="registrar_nuevasnotas()" class="btn btn-success"><span class="fa fa-check"></span> Generar Notas</a>
+                <a href="#" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span> Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------ FIN modal para generar notas ------------------->

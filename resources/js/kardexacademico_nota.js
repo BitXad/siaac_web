@@ -1,6 +1,4 @@
 function cargarnotas(registro){
-    JSON.stringify(registro);
-    
     $('#nombrede_materia').html(registro.materiaasig_nombre);
     var html = "";
     if(registro.materia_numareas > 0 || registro.materia_numareas != null){
@@ -13,139 +11,97 @@ function cargarnotas(registro){
             html += "</div>";
             html += "</div>";
         }
+        $('#nota_id').val(registro.nota_id);
+        $('#materia_numareas').val(registro.materia_numareas);
     }
     
     $('#tablaresultados').html(html);
     $('#modalmodificarnota').modal('show');
 }
-
-
-
-
-
-
-
-
-
-
-
-/* Funcion que busca asociados segun vaya escribiendo en nuevo descuento */
-function buscar_asociado(e, opcion){
-    tecla = (document.all) ? e.keyCode : e.which;
-    if (tecla==13 && opcion == 2){
-        $("#nom_desc").select();
-        seleccionar_asociado();
-        alert("Asociado modificado con exito!");
+/* Funcion que MODIFICA las notas de una materia, de un determinado estudiante */
+function guardarmodificacion(){
+    var materia_numareas = document.getElementById('materia_numareas').value;
+    var nota_id = document.getElementById('nota_id').value;
+    if(nota_id == 0 || nota_id == "" || nota_id == null){
+        alert("No hay notas para esta materia");
     }else{
-        var id_asoc = document.getElementById('id_asoc').value;
-        var base_url = document.getElementById('base_url').value;
-        var controlador = base_url+"descuento/buscar_asociado/";
-        $.ajax({url: controlador,
-            type:"POST",
-            data:{id_asoc:id_asoc},
-            success:function(respuesta){
-                resultado = JSON.parse(respuesta);
-                n = resultado.length;
-                html = "";
-                for(var i = 0; i<n; i++)
-                {
-                    html += "<option value='" +resultado[i]["id_asoc"]+"' label='"+resultado[i]["apellidos_asoc"]+" "+resultado[i]["nombres_asoc"]+"'>";
-                    html += resultado[i]["apellidos_asoc"]+" "+resultado[i]["nombres_asoc"]+"</option>";
-                }    
-                $("#lista_asociado").html(html);
-                
-            },
-            error: function(respuesta){
+        if(materia_numareas == 0 || materia_numareas == "" || materia_numareas == null){
+            alert("No hay limite de notas para esta materia");
+        }else{
+            var lasnotas = [];
+            for (var i = 0; i < materia_numareas; i++) {
+                var numnota = i+1;
+                lasnotas.push($("#nota_pond"+numnota+"_mat").val());
+                //nota_pond+numnota = $("#nota_pond"+numnota+"_mat").val();
+                //eval("var nota_pond"+numnota+"_mat = "+$("#nota_pond"+numnota+"_mat").val());
+                //alert(nota_pond3_mat);
             }
-        });
-    }
-}
-/* selecciona un asociado en nuevo descuento */
-function seleccionar_asociado(){
-    var id_asoc = document.getElementById('id_asoc').value;
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+"descuento/seleccionar_asociado/";
-        $.ajax({url: controlador,
-            type:"POST",
-            data:{id_asoc:id_asoc},
-            success:function(respuesta){
-                resultado = JSON.parse(respuesta);
-                tam = resultado.length;
-                if (tam>=1){
-                    $("#id_asoc").val(resultado[0]["apellidos_asoc"]+" "+resultado[0]["nombres_asoc"]);
-                    $("#esteid_asoc").val(resultado[0]["id_asoc"]);
-                    //$('#detalleserv_descripcion').focus();
+            var base_url = document.getElementById('base_url').value;
+            var controlador = base_url+"kardex_academico/modificar_notas/";
+            $.ajax({url: controlador,
+                type:"POST",
+                data:{materia_numareas:materia_numareas, lasnotas:lasnotas, nota_id:nota_id},
+                success:function(respuesta){
+                    if(respuesta != null){
+                        location.reload();
+                    }else{
+                        alert("posiblemente no tenga permisos de modificación, consulte con su administrador!.");
+                    }
+                },
+                error: function(respuesta){
                 }
-                
+            });
+        }
+    }
+}
+
+function generarnotas(registro){
+    $('#nombrede_materiagen').html(registro.materiaasig_nombre);
+    var html = "";
+    if(registro.materia_numareas > 0 || registro.materia_numareas != null){
+        for (var i = 0; i < registro.materia_numareas; i++) {
+            var numnota = i+1;
+            html += "<div class='col-md-6'>";
+            html += "<label for='nota"+numnota+"' class='control-label'>Nota "+numnota+"</label>";
+            html += "<div class='form-group'>";
+            html += "<input type='number' name='nota_pond"+numnota+"_mat' value='0' class='form-control' id='nota_pond"+numnota+"_mat' />";
+            html += "</div>";
+            html += "</div>";
+        }
+        $('#materiaasig_id').val(registro.materiaasig_id);
+        $('#materia_numareasgen').val(registro.materia_numareas);
+    }
+    
+    $('#tablaresultadosgen').html(html);
+    $('#modalgenerarnotas').modal('show');
+}
+
+/* Funcion que REGISTRA las notas de una materia, de un determinado estudiante */
+function registrar_nuevasnotas(){
+    var materia_numareas = document.getElementById('materia_numareasgen').value;
+    var materiaasig_id = document.getElementById('materiaasig_id').value;
+    if(materia_numareas == 0 || materia_numareas == "" || materia_numareas == null){
+        alert("No hay limite de notas para esta materia");
+    }else{
+        var lasnotas = [];
+        for (var i = 0; i < materia_numareas; i++) {
+            var numnota = i+1;
+            lasnotas.push($("#nota_pond"+numnota+"_mat").val());
+        }
+        var base_url = document.getElementById('base_url').value;
+        var controlador = base_url+"kardex_academico/generar_notas/";
+        $.ajax({url: controlador,
+            type:"POST",
+            data:{materia_numareas:materia_numareas, lasnotas:lasnotas, materiaasig_id:materiaasig_id},
+            success:function(respuesta){
+                if(respuesta != null){
+                    location.reload();
+                }else{
+                    alert("posiblemente no tenga permisos de generar notas, consulte con su administrador!.");
+                }
             },
             error: function(respuesta){
             }
         });
-    
-}
-function iniciar_busqueda(e) {
-    tecla = (document.all) ? e.keyCode : e.which;
-    if (tecla==13){
-        tabla_asociados();
     }
-}
-
-//Tabla resultados de la busqueda en asociados
-function tabla_asociados(){
-    var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+'descuento/buscar_asociado/';
-    var parametro = document.getElementById('buscarasociado').value;        
-
-    $.ajax({url: controlador,
-           type:"POST",
-           data:{id_asoc:parametro},
-           success:function(respuesta){
-                $("#encontrados").val("- 0 -");
-               var registros =  JSON.parse(respuesta);
-
-               if (registros != null){
-                    var n = registros.length; //tamaño del arreglo de la consulta
-                    $("#encontrados").val("- "+n+" -");
-                    html = "";
-                    for (var i = 0; i < n ; i++){
-                        html += "<tr>";
-                        html += "<td>"+(i+1)+"</td>";
-                        html += "<td>";
-                        html += "<div style='color: #0073b7'>";
-                        if(registros[i]["foto_asoc"] != null && registros[i]["foto_asoc"] !=""){
-                            html += "<img src='"+base_url+"resources/images/asociados/thumb_"+registros[i]["foto_asoc"]+"' width='50' height='50' />";
-                        }else{
-                            html += "<i class='fa fa-user fa-3x'></i>";
-                        }
-                        html += "</div>";
-                        html += "</td>";
-                        html += "<td>";
-                        var esteasociado = registros[i]["apellidos_asoc"]+" "+registros[i]["nombres_asoc"];
-                        html += "<b>"+esteasociado+"</b>";
-                        html += "</td>";
-                        html += "<td>";
-                        html += "<button class='btn btn-success' onclick='asignarasociado("+JSON.stringify(registros[i])+", "+registros[i]["id_asoc"]+")' >";
-                        html += "<i class='fa fa-check'></i> Seleccionar";
-                        html += "</button>";
-                        html += "</td>";
-                        html += "</tr>";
-                   }
-                   $("#tablaresultados").html(html);
-            }
-        },
-        error:function(respuesta){
-           html = "";
-           $("#tablaresultados").html(html);
-        }
-    });
-}
-/* asignamos al asociado elegido en el nuevo descuento */
-function asignarasociado(nombres_asoc, id_asoc){
-    $("#id_asoc").val(nombres_asoc["apellidos_asoc"]+" "+nombres_asoc["nombres_asoc"]);
-    $("#esteid_asoc").val(id_asoc);
-    $("#encontrados").val("- 0 -");
-    $('#modalbuscarasociado').modal('hide');
-    $('#modalbuscarasociado').on('hidden.bs.modal', function () {
-        $('#tablaresultados').html('');
-    });
 }
