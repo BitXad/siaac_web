@@ -551,8 +551,23 @@ class Inscripcion extends CI_Controller{
         //     }
         // }
         $aux_cont = 0;
-        if($pagar_matricula == 3){
+        $estado_id = 9; // estado PENDIENTE
+        if($pagar_matricula == 1){
+            $aux_cont = 1;
             $estado_id = 9; // estado PENDIENTE
+        }else{
+            if($pagar_matricula == 2){
+                $aux_cont = 1;
+                $estado_id = 8; // PENDIENTE
+            }else{
+                if($pagar_matricula == 3){
+                    $aux_cont = 0;
+                    $estado_id = 9; // estado PENDIENTE
+                }
+            }
+        }
+        if($pagar_matricula >= 1 && $pagar_matricula <= 3){
+            
             for ($j = $aux_cont; $j <= 1; $j++){
                 $nombremes = "MATRICULA";
                 //$kardexeco_id = ;
@@ -752,10 +767,10 @@ class Inscripcion extends CI_Controller{
         //         $estadomen_id = 8; //pendiente
         //         $repeticiones = 0;
         //     }else{
-        //         if($pagar_matricula == 3){
-        //             $estadomen_id = 9; //cancelado
-        //             $repeticiones = 2;
-        //         }
+                if($pagar_matricula == 3){
+                    $estadomen_id = 9; //cancelado
+                    $repeticiones = 2;
+                }
         //     }
         // }
         
@@ -823,7 +838,7 @@ class Inscripcion extends CI_Controller{
             if($pagar_matricula == 3){
                 $cont = 2;
             }else{
-                $cont = 0;
+                $cont = 1;
             }
             for($i = 1; $i <= $pagar_mensualidad; $i++){
                 $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
@@ -850,61 +865,63 @@ class Inscripcion extends CI_Controller{
                 // $kardexeco_mensualidad_pagada = $this->input->post('inscripcion_mensualidad');
             }
         }else{
-            $estadomen_id = 9; //cancelado
-            // $kardexeco_matricula_acuenta = 0;
-            $this->load->model('Estudiante_model');
-            $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
-            
-            $thismensualidad = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
-            $aux_kardexeco_mensualidadpagada = $kardexeco_mensualidadpagada;
-            $aux_kardexeco_mensualidad = $kardexeco_mensualidad;
-            $aux_mensualidad_saldo = $aux_kardexeco_mensualidad - $kardexeco_mensualidadpagada;
-            $aux_kardexeco_fecha= $kardexeco_fecha;
-            $aux_kardexeco_hora= $kardexeco_hora;
-            $aux_nombre= $thisestudiante['estudiante_nombre']." ".$thisestudiante['estudiante_apellidos'];
-            $aux_estudiante_ci= $thisestudiante['estudiante_ci'];
-            $aux_glosa= "Se pago al momento de inscribirse";
-            $aux_mensualidad_numrec= $esta_gestion['gestion_numingreso'];
-
-            if($pagar_matricula == 3){
-                $cont = 2;
-            }else{
-                $cont = 0;
-            }
-            for($i = 1; $i <= ($pagar_mensualidad*-1)+1; $i++){
-                // $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
-                $parampm = array(
-                    'estado_id' => $estadomen_id,
-                    'mensualidad_montocancelado' => $aux_kardexeco_mensualidadpagada,
-                    'mensualidad_saldo' => $aux_mensualidad_saldo,
-                    'mensualidad_montoparcial' => $aux_kardexeco_mensualidad,
-                    'mensualidad_montototal' => $aux_kardexeco_mensualidad,
-                    'mensualidad_fechapago' => $aux_kardexeco_fecha,
-                    'mensualidad_horapago' => $aux_kardexeco_hora,
-                    'mensualidad_nombre' => $aux_nombre,
-                    'mensualidad_ci' => $aux_estudiante_ci,
-                    'mensualidad_glosa' => $aux_glosa,
-                    'mensualidad_numrec' => $aux_mensualidad_numrec,
-                    'mensualidad_inscripcionpago' => 1,
-                    'kardexeco_matricula_acuenta' => 0
-                );
-                $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
+            if($pagar_mensualidad < 0){
+                $estadomen_id = 9; //cancelado
+                // $kardexeco_matricula_acuenta = 0;
+                $this->load->model('Estudiante_model');
+                $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
                 
-                $paramg = array(
-                'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1+$i,
-                );
-                $this->Gestion_model->update_gestion($gestion_id, $paramg);
-                $cont++;
-                $aux_kardexeco_mensualidad = $aux_mensualidad_saldo;
-                $aux_mensualidad_saldo = 0;
-                $aux_kardexeco_mensualidadpagada = 0;
-                $aux_kardexeco_fecha = "";
-                $aux_glosa = "";
-                $aux_estudiante_ci = "";
-                $aux_nombre = "";
-                $aux_mensualidad_numrec = "";
-                $estadomen_id = 8;
-                // $kardexeco_mensualidad_pagada = $this->input->post('inscripcion_mensualidad');
+                $thismensualidad = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
+                $aux_kardexeco_mensualidadpagada = $kardexeco_mensualidadpagada;
+                $aux_kardexeco_mensualidad = $kardexeco_mensualidad;
+                $aux_mensualidad_saldo = $aux_kardexeco_mensualidad - $kardexeco_mensualidadpagada;
+                $aux_kardexeco_fecha= $kardexeco_fecha;
+                $aux_kardexeco_hora= $kardexeco_hora;
+                $aux_nombre= $thisestudiante['estudiante_nombre']." ".$thisestudiante['estudiante_apellidos'];
+                $aux_estudiante_ci= $thisestudiante['estudiante_ci'];
+                $aux_glosa= "Se pago al momento de inscribirse";
+                $aux_mensualidad_numrec= $esta_gestion['gestion_numingreso'];
+    
+                if($pagar_matricula == 3){
+                    $cont = 2;
+                }else{
+                    $cont = 1;
+                }
+                for($i = 1; $i <= ($pagar_mensualidad*-1)+1; $i++){
+                    // $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
+                    $parampm = array(
+                        'estado_id' => $estadomen_id,
+                        'mensualidad_montocancelado' => $aux_kardexeco_mensualidadpagada,
+                        'mensualidad_saldo' => $aux_mensualidad_saldo,
+                        'mensualidad_montoparcial' => $aux_kardexeco_mensualidad,
+                        'mensualidad_montototal' => $aux_kardexeco_mensualidad,
+                        'mensualidad_fechapago' => $aux_kardexeco_fecha,
+                        'mensualidad_horapago' => $aux_kardexeco_hora,
+                        'mensualidad_nombre' => $aux_nombre,
+                        'mensualidad_ci' => $aux_estudiante_ci,
+                        'mensualidad_glosa' => $aux_glosa,
+                        'mensualidad_numrec' => $aux_mensualidad_numrec,
+                        'mensualidad_inscripcionpago' => 1,
+                        'kardexeco_matricula_acuenta' => 0
+                    );
+                    $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
+                    
+                    $paramg = array(
+                    'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1+$i,
+                    );
+                    $this->Gestion_model->update_gestion($gestion_id, $paramg);
+                    $cont++;
+                    $aux_kardexeco_mensualidad = $aux_mensualidad_saldo;
+                    $aux_mensualidad_saldo = 0;
+                    $aux_kardexeco_mensualidadpagada = 0;
+                    $aux_kardexeco_fecha = "";
+                    $aux_glosa = "";
+                    $aux_estudiante_ci = "";
+                    $aux_nombre = "";
+                    $aux_mensualidad_numrec = "";
+                    $estadomen_id = 8;
+                    // $kardexeco_mensualidad_pagada = $this->input->post('inscripcion_mensualidad');
+                }
             }
         }
         //******************** Registrar factura ********************//

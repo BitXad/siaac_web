@@ -276,7 +276,12 @@ function calcular(){
                         if (pagar_matricula==3 && pagar_mensualidad == -1){ //Pagar matricula a cuenta
                             mensualidad_acuenta = Number(document.getElementById('mensualidad_acuenta').value); //opcion
                             calculo_total = matricula_acuenta + mensualidad_acuenta; //total a cancelar
-                        }   
+                        }else{
+                            if(pagar_matricula==2 && pagar_mensualidad == -1){
+                                // mensualidad_acuenta = Number(document.getElementById('mensualidad_acuenta').value); //opcion
+                                calculo_total = mensualidad_acuenta; //total a cancelar
+                            }
+                        } 
                     }
                 }
             }
