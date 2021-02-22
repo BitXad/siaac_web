@@ -471,8 +471,9 @@ class Inscripcion extends CI_Controller{
         if($pagar_mensualidad > 0){
             $kardexeco_mensualidadpagada = $pagar_mensualidad*$this->input->post('inscripcion_mensualidad');
         }else{
-            if($pagar_mensualidad < 0)
-            $kardexeco_mensualidadpagada = $this->input->post('mensualidad_acuenta'); 
+            if($pagar_mensualidad < 0){
+                $kardexeco_mensualidadpagada = $this->input->post('mensualidad_acuenta');
+            }
         }
         
         $params = array(
@@ -537,9 +538,105 @@ class Inscripcion extends CI_Controller{
         $dia_pago = date("d", strtotime($kardexeco_fechainicio));
         
         $cuota_fechalimite = $kardexeco_fechainicio; // inicio de los pagos
+        $cuota_fechalimite_mat = $kardexeco_fechainicio; // inicio de los pagos
+        // if($pagar_matricula == 1){
+        //     $aux_cont = 1;
+        // }else{
+        //     if($pagar_matricula == 2){
+        //         $aux_cont = 1;
+        //     }else{
+        //         if($pagar_matricula == 3){
+        //             $aux_cont = 0;
+        //         }
+        //     }
+        // }
+        $aux_cont = 0;
+        if($pagar_matricula == 3){
+            $estado_id = 9; // estado PENDIENTE
+            for ($j = $aux_cont; $j <= 1; $j++){
+                $nombremes = "MATRICULA";
+                //$kardexeco_id = ;
+                //$usuario_id = ;
+                $mensualidad_numero = 0;
+                $mensualidad_montoparcial = $kardexeco_matricula;
+                $mensualidad_descuento = 0;
+                $mensualidad_montototal = $kardexeco_matricula;
+                $mensualidad_fechalimite = $cuota_fechalimite_mat;
+                $mensualidad_mora = 0;
+                $mensualidad_montocancelado = 0;
+                $mensualidad_saldo = 0;
+                //$mensualidad_fechapago = ;
+                //$mensualidad_horapago = ;
+                //$mensualidad_nombre = ;
+                //$mensualidad_ci = ;
+                //$mensualidad_glosa = ;
+                $matricula_acuenta = $nombremes;
+                $paramm = array(
+                'estado_id' => $estado_id,
+                'kardexeco_id' => $kardexeco_id,
+                'usuario_id' => $usuario_id,
+                'mensualidad_numero' => $mensualidad_numero,
+                'mensualidad_montoparcial' => $mensualidad_montoparcial,
+                'mensualidad_descuento' => $mensualidad_descuento,
+                'mensualidad_montototal' => $mensualidad_montototal,
+                'mensualidad_fechalimite' => $mensualidad_fechalimite,
+                'mensualidad_mora' => $mensualidad_mora,
+                'mensualidad_montocancelado' => $mensualidad_montocancelado,
+                'mensualidad_saldo' => $mensualidad_saldo,
+                'mensualidad_mes' => $matricula_acuenta,
+                'mensualidad_numrec' => 0,
+                'mensualidad_inscripcionpago' => 0,
+                );
+                $mensualidad_id = $this->Mensualidad_model->add_mensualidad($paramm);
+                //$cuota_fechalimitex = (strtotime("2020-07-01") + (31 * 1 * 24 * 60 * 60 ));
+                //$cuota_fechalimitex = (time() + ($intervalo * $i * 24 * 60 * 60 )); // fecha actual
+                $monthToAdd = $j;
+                $d1 = new DateTime($kardexeco_fechainicio);
+    
+                $year = $d1->format('Y');
+                $month = $d1->format('n');
+                $day = $d1->format('d');
+    
+                if ($monthToAdd > 0) {
+                    $year += floor($monthToAdd/12);
+                } else {
+                    $year += ceil($monthToAdd/12);
+                }
+                $monthToAdd = $monthToAdd%12;
+                $month += $monthToAdd;
+                if($month > 12) {
+                    $year ++;
+                    $month -= 12;
+                } elseif ($month < 1 ) {
+                    $year --;
+                    $month += 12;
+                }
                 
+                if(!checkdate($month, $day, $year)) {
+                    $d2 = DateTime::createFromFormat('Y-n-j', $year.'-'.$month.'-1');
+                    $d2->modify('last day of');
+                }else {
+                    $d2 = DateTime::createFromFormat('Y-n-d', $year.'-'.$month.'-'.$day);
+                }
+                $cuota_fechalimite_mat = $d2->format('Y-m-d');
+                
+                $kardexeco_matricula_acuenta = 0;
+                $mensualidad_montocancelado = 0;
+                $mensualidad_saldo = 0;
+                $kardexeco_matricula_acuenta = 0;
+                $estado_id = 8;
+                /*$cuota_fechalimitex = (strtotime($kardexeco_fechainicio) + ($intervalo * $i * 24 * 60 * 60 ));
+                $cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);*/
+                
+            }
+        }
+
+        if($pagar_mensualidad < 0){
+            $auxcont = true;
+        }else{
+            $auxcont = false;
+        }
         for ($i = 1; $i<=$kardexeco_nummens; $i++){
-            
             $estado_id = 8; // estado PENDIENTE
             
             $mes = date("m", strtotime($cuota_fechalimite));
@@ -591,8 +688,11 @@ class Inscripcion extends CI_Controller{
             'mensualidad_inscripcionpago' => 0,
             );
             $mensualidad_id = $this->Mensualidad_model->add_mensualidad($paramm);
-            //$cuota_fechalimitex = (strtotime("2020-07-01") + (31 * 1 * 24 * 60 * 60 ));
-            //$cuota_fechalimitex = (time() + ($intervalo * $i * 24 * 60 * 60 )); // fecha actual
+
+            if($auxcont){
+                $i -= 1;
+                $auxcont = false; 
+            }
             $monthToAdd = $i;
             $d1 = new DateTime($kardexeco_fechainicio);
 
@@ -622,10 +722,6 @@ class Inscripcion extends CI_Controller{
                 $d2 = DateTime::createFromFormat('Y-n-d', $year.'-'.$month.'-'.$day);
             }
             $cuota_fechalimite = $d2->format('Y-m-d');
-            
-            /*$cuota_fechalimitex = (strtotime($kardexeco_fechainicio) + ($intervalo * $i * 24 * 60 * 60 ));
-            $cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);*/
-            
         }
         
         
@@ -646,15 +742,89 @@ class Inscripcion extends CI_Controller{
         }elseif($pagar_matricula == 2){
             //$kardexeco_id
         }
+        // ***********************************************************************//
+        // **********************Registrar pago a cuenta matricula****************//
+        // if($pagar_matricula == 1){
+        //     $estadomen_id = 9; //cancelado
+        //     $repeticiones = 1;
+        // }else{
+        //     if($pagar_matricula == 2){
+        //         $estadomen_id = 8; //pendiente
+        //         $repeticiones = 0;
+        //     }else{
+        //         if($pagar_matricula == 3){
+        //             $estadomen_id = 9; //cancelado
+        //             $repeticiones = 2;
+        //         }
+        //     }
+        // }
         
-        //********************** Registrar pago mensualidad **********************//
-        if($pagar_mensualidad >0){
-            $estadomen_id = 9; //cancelado
+        $estadomen_id = 9; //cancelado
+        if($pagar_matricula == 3){
+            // $kardexeco_matricula_acuenta = 0;
             $this->load->model('Estudiante_model');
             $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
             
             $thismensualidad = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
             $cont = 0;
+            $aux_mensualidad_montoparcial = $kardexeco_matricula;
+            $aux_mensualidad_saldo = $kardexeco_matricula -$kardexeco_matriculapagada;
+            $aux_kardexeco_matriculapagada = $kardexeco_matriculapagada;
+            $aux_kardexeco_hora = $kardexeco_hora;
+            $aux_nombre = $thisestudiante['estudiante_nombre']." ".$thisestudiante['estudiante_apellidos'];
+            $aux_estudiante_ci = $thisestudiante['estudiante_ci'];
+            $aux_glosa = "Se pago al momento de inscribirse";
+            $aux_kardexeco_fecha = $kardexeco_fecha;
+            $aux_mensualidad_numrec = $esta_gestion['gestion_numingreso'];
+            for($i = 1; $i <= $repeticiones; $i++){
+                $parampm = array(
+                    'estado_id' => $estadomen_id,
+                    'mensualidad_montocancelado' => $aux_kardexeco_matriculapagada,
+                    'mensualidad_saldo' => $aux_mensualidad_saldo,
+                    'mensualidad_montoparcial' => $aux_mensualidad_montoparcial,
+                    'mensualidad_montototal' => $aux_mensualidad_montoparcial,
+                    'mensualidad_fechapago' => $aux_kardexeco_fecha,
+                    'mensualidad_horapago' => $aux_kardexeco_hora,
+                    'mensualidad_nombre' => $aux_nombre,
+                    'mensualidad_ci' => $aux_estudiante_ci,
+                    'mensualidad_glosa' => $aux_glosa,
+                    'mensualidad_numrec' => $aux_mensualidad_numrec,
+                    'mensualidad_inscripcionpago' => 1,
+                    'kardexeco_matricula_acuenta' => 0
+                );
+                $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
+                
+                $paramg = array(
+                'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1+$i,
+                );
+                $this->Gestion_model->update_gestion($gestion_id, $paramg);
+                $cont++;
+                $estadomen_id = 8;
+                $aux_mensualidad_montoparcial = $aux_mensualidad_saldo;
+                $aux_mensualidad_saldo = 0;
+                $aux_kardexeco_matriculapagada = 0;
+                $aux_kardexeco_fecha = "";
+                $aux_glosa = "";
+                $aux_estudiante_ci = "";
+                $aux_nombre = "";
+                $aux_mensualidad_numrec = "";
+            }
+        }
+        // ***********************************************************************//
+
+        //********************** Registrar pago mensualidad **********************//
+        if($pagar_mensualidad >0){
+            $estadomen_id = 9; //cancelado
+            // $kardexeco_matricula_acuenta = 0;
+            $this->load->model('Estudiante_model');
+            $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
+            
+            $thismensualidad = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
+            if($pagar_matricula == 3){
+                $cont = 2;
+            }else{
+                $cont = 0;
+            }
             for($i = 1; $i <= $pagar_mensualidad; $i++){
                 $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
                 $parampm = array(
@@ -667,6 +837,7 @@ class Inscripcion extends CI_Controller{
                     'mensualidad_glosa' => "Se pago al momento de inscribirse",
                     'mensualidad_numrec' => $mensualidad_numrec,
                     'mensualidad_inscripcionpago' => 1,
+                    'kardexeco_matricula_acuenta' => 0
                 );
                 $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
                 
@@ -675,9 +846,67 @@ class Inscripcion extends CI_Controller{
                 );
                 $this->Gestion_model->update_gestion($gestion_id, $paramg);
                 $cont++;
+                // $estadomen_id = 9;
+                // $kardexeco_mensualidad_pagada = $this->input->post('inscripcion_mensualidad');
+            }
+        }else{
+            $estadomen_id = 9; //cancelado
+            // $kardexeco_matricula_acuenta = 0;
+            $this->load->model('Estudiante_model');
+            $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
+            
+            $thismensualidad = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
+            $aux_kardexeco_mensualidadpagada = $kardexeco_mensualidadpagada;
+            $aux_kardexeco_mensualidad = $kardexeco_mensualidad;
+            $aux_mensualidad_saldo = $aux_kardexeco_mensualidad - $kardexeco_mensualidadpagada;
+            $aux_kardexeco_fecha= $kardexeco_fecha;
+            $aux_kardexeco_hora= $kardexeco_hora;
+            $aux_nombre= $thisestudiante['estudiante_nombre']." ".$thisestudiante['estudiante_apellidos'];
+            $aux_estudiante_ci= $thisestudiante['estudiante_ci'];
+            $aux_glosa= "Se pago al momento de inscribirse";
+            $aux_mensualidad_numrec= $esta_gestion['gestion_numingreso'];
+
+            if($pagar_matricula == 3){
+                $cont = 2;
+            }else{
+                $cont = 0;
+            }
+            for($i = 1; $i <= ($pagar_mensualidad*-1)+1; $i++){
+                // $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
+                $parampm = array(
+                    'estado_id' => $estadomen_id,
+                    'mensualidad_montocancelado' => $aux_kardexeco_mensualidadpagada,
+                    'mensualidad_saldo' => $aux_mensualidad_saldo,
+                    'mensualidad_montoparcial' => $aux_kardexeco_mensualidad,
+                    'mensualidad_montototal' => $aux_kardexeco_mensualidad,
+                    'mensualidad_fechapago' => $aux_kardexeco_fecha,
+                    'mensualidad_horapago' => $aux_kardexeco_hora,
+                    'mensualidad_nombre' => $aux_nombre,
+                    'mensualidad_ci' => $aux_estudiante_ci,
+                    'mensualidad_glosa' => $aux_glosa,
+                    'mensualidad_numrec' => $aux_mensualidad_numrec,
+                    'mensualidad_inscripcionpago' => 1,
+                    'kardexeco_matricula_acuenta' => 0
+                );
+                $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
+                
+                $paramg = array(
+                'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1+$i,
+                );
+                $this->Gestion_model->update_gestion($gestion_id, $paramg);
+                $cont++;
+                $aux_kardexeco_mensualidad = $aux_mensualidad_saldo;
+                $aux_mensualidad_saldo = 0;
+                $aux_kardexeco_mensualidadpagada = 0;
+                $aux_kardexeco_fecha = "";
+                $aux_glosa = "";
+                $aux_estudiante_ci = "";
+                $aux_nombre = "";
+                $aux_mensualidad_numrec = "";
+                $estadomen_id = 8;
+                // $kardexeco_mensualidad_pagada = $this->input->post('inscripcion_mensualidad');
             }
         }
-        
         //******************** Registrar factura ********************//
         
         $esfacturado = $this->input->post('esfactura');

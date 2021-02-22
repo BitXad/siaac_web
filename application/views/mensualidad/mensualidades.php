@@ -120,7 +120,6 @@ function cerrar() {
                       <th>#</th>
                       <th>No. <br>Mens.</th>
                       <th>Mes</th>
-                      <th>Matricula <br> <span style="font-size:7pt;">Can. / Fal.</span> </th>
                       <th>Estado</th>
                       <th>Montoparcial</th>
                       <th>Mora</th>
@@ -161,7 +160,6 @@ function cerrar() {
                       <td style="<?php echo $color; ?>"><?php echo $i; ?></td>
                       <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_numero']; ?></td>
                       <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_mes']; ?></td>
-                      <td style="<?php echo $color; ?>"><?php if($kardex_economico[0]['kardexeco_matricula'] - $aux_matricula == 0){ echo "CANCELADO"; }else{ echo "$aux_matricula / {$kardex_economico[0]['kardexeco_matricula']}"; }  ?></td>
                       <td style="<?php echo $color; ?>"><?php echo $m['estado_descripcion']; ?></td>
                       <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_montoparcial']; ?></td>
                       <td style="<?php echo $color; ?>"><?php echo $m['mensualidad_mora']; ?></td>

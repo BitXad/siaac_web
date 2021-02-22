@@ -331,7 +331,7 @@ class Mensualidad extends CI_Controller{
             $facturado = $this->input->post('factura'.$mensualidad_id);
             if($facturado=="on"){ //si la venta es facturada
 
-            $dosificacion = $this->Dosificacion_model->get_dosificacion_activa();
+                $dosificacion = $this->Dosificacion_model->get_dosificacion_activa();
 
   //          if (sizeof($dosificacion)>0){ //si existe una dosificacion activa
                 
