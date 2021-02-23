@@ -635,10 +635,8 @@ class Inscripcion extends CI_Controller{
                 }
                 $cuota_fechalimite_mat = $d2->format('Y-m-d');
                 
-                $kardexeco_matricula_acuenta = 0;
                 $mensualidad_montocancelado = 0;
                 $mensualidad_saldo = 0;
-                $kardexeco_matricula_acuenta = 0;
                 $estado_id = 8;
                 /*$cuota_fechalimitex = (strtotime($kardexeco_fechainicio) + ($intervalo * $i * 24 * 60 * 60 ));
                 $cuota_fechalimite = date('Y-m-'.$dia_pago, $cuota_fechalimitex);*/
@@ -751,7 +749,7 @@ class Inscripcion extends CI_Controller{
                 //'matricula_fechalimite' => $kardexeco_mensualidad,
                 'matricula_monto' => $kardexeco_matricula,
                 'matricula_descuento' => 0,
-                'matricula_total' => $kardexeco_matricula,
+                'matricula_total' => $kardexeco_matricula
             );
             $matricula_id = $this->Matricula_model->add_matricula($paramspm);
         }elseif($pagar_matricula == 2){
@@ -776,7 +774,6 @@ class Inscripcion extends CI_Controller{
         
         $estadomen_id = 9; //cancelado
         if($pagar_matricula == 3){
-            // $kardexeco_matricula_acuenta = 0;
             $this->load->model('Estudiante_model');
             $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
             
@@ -804,8 +801,7 @@ class Inscripcion extends CI_Controller{
                     'mensualidad_ci' => $aux_estudiante_ci,
                     'mensualidad_glosa' => $aux_glosa,
                     'mensualidad_numrec' => $aux_mensualidad_numrec,
-                    'mensualidad_inscripcionpago' => 1,
-                    'kardexeco_matricula_acuenta' => 0
+                    'mensualidad_inscripcionpago' => 1
                 );
                 $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
                 
@@ -830,7 +826,6 @@ class Inscripcion extends CI_Controller{
         //********************** Registrar pago mensualidad **********************//
         if($pagar_mensualidad >0){
             $estadomen_id = 9; //cancelado
-            // $kardexeco_matricula_acuenta = 0;
             $this->load->model('Estudiante_model');
             $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
             
@@ -851,8 +846,7 @@ class Inscripcion extends CI_Controller{
                     'mensualidad_ci' => $thisestudiante['estudiante_ci'],
                     'mensualidad_glosa' => "Se pago al momento de inscribirse",
                     'mensualidad_numrec' => $mensualidad_numrec,
-                    'mensualidad_inscripcionpago' => 1,
-                    'kardexeco_matricula_acuenta' => 0
+                    'mensualidad_inscripcionpago' => 1
                 );
                 $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
                 
@@ -867,7 +861,6 @@ class Inscripcion extends CI_Controller{
         }else{
             if($pagar_mensualidad < 0){
                 $estadomen_id = 9; //cancelado
-                // $kardexeco_matricula_acuenta = 0;
                 $this->load->model('Estudiante_model');
                 $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
                 
@@ -901,8 +894,7 @@ class Inscripcion extends CI_Controller{
                         'mensualidad_ci' => $aux_estudiante_ci,
                         'mensualidad_glosa' => $aux_glosa,
                         'mensualidad_numrec' => $aux_mensualidad_numrec,
-                        'mensualidad_inscripcionpago' => 1,
-                        'kardexeco_matricula_acuenta' => 0
+                        'mensualidad_inscripcionpago' => 1
                     );
                     $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
                     
