@@ -6,16 +6,25 @@
 <!-------------------------------------------------------->
 <input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
 <div class="cuerpo">
-    <div class="columna_derecha">
+    <div class="columna_derecha"  style="width:40%;">
         <center> 
-            <b>(E-2)</b>
+            <h3 class="box-title">NOTAS<br>
+            <?php //echo $kardex_economico[0]['kardexeco_id']; ?></h3>
         </center>
+        <!--<b>CARRERA: <?php //echo $kardex_economico[0]['carrera_nombre']; ?></b>-->
     </div>
     <div class="columna_izquierda">
-       <center> <img src="<?php echo base_url("resources/images/institucion/")."thumb_".$institucion["institucion_logo"]; ?>">    <font size="2"><b>CENTRALIZADOR DE EVALUACION</b></font></center>
-     </div>
+        <center>
+            <img src="<?php echo base_url('resources/images/institucion/'.$institucion['institucion_logo']); ?>" width="100" height="60"><br>
+        </center>
+    </div>
     <div class="columna_central">
-        <center> GESTION <?php echo $kardex_estudiante['gestion_semestre']."/".$kardex_estudiante['gestion_descripcion']; ?> </center>
+        <center>
+            <font size="3"><b><u><?php echo $institucion['institucion_nombre']; ?></u></b></font><br>
+            <?php echo $institucion['institucion_zona']; ?> - <?php echo $institucion['institucion_direccion']; ?><br>
+            <?php echo $institucion['institucion_telefono']; ?><br>
+            <?php echo $institucion['institucion_departamento']; ?> - BOLIVIA
+        </center>
     </div>
 </div>
 <div class="cuerpo">
@@ -51,8 +60,7 @@
                 }
             }
             ?>
-            <th></th>
-
+            <th class="no-print"></th>
         </tr>
         <?php
         $cont = 0;
@@ -74,7 +82,7 @@
                 }
             }
             ?>
-            <td>
+            <td class="no-print">
                 <?php if($m["nota_id"] == 0 || $m["nota_id"] == "" || $m["nota_id"] == null){ ?>
                 <a onclick='generarnotas(<?php echo json_encode($m); ?>)' class="btn btn-success btn-xs" title="Generar notas">
                     <i class="fa fa-file-text-o"></i></a>
