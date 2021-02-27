@@ -833,7 +833,11 @@ class Inscripcion extends CI_Controller{
             if($pagar_matricula == 3){
                 $cont = 2;
             }else{
-                $cont = 1;
+                if($pagar_matricula == 0){
+                    $cont = 0;
+                }else{
+                    $cont = 1;
+                }
             }
             for($i = 1; $i <= $pagar_mensualidad; $i++){
                 $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
@@ -878,7 +882,11 @@ class Inscripcion extends CI_Controller{
                 if($pagar_matricula == 3){
                     $cont = 2;
                 }else{
-                    $cont = 1;
+                    if($pagar_matricula == 0){
+                        $cont = 0;
+                    }else{
+                        $cont = 1;
+                    }
                 }
                 for($i = 1; $i <= ($pagar_mensualidad*-1)+1; $i++){
                     // $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;

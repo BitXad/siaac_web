@@ -253,45 +253,38 @@ function calcular(){
     var calculo_total = 0; //total a cancelar
     var matricula_acuenta = Number(document.getElementById('matricula_acuenta').value); //matricula a cuenta
     var mensualidad_acuenta = Number(document.getElementById('mensualidad_acuenta').value);
-    
-    if (pagar_matricula==1 && pagar_mensualidad>=1){
-        calculo_total = (matricula) + (mensualidad * pagar_mensualidad) ; //total a cancelar
+    var total_matricula;
+    var total_mensualidad;
+
+    // *********************** TOTAL DE MATRICULA *******************************
+    if(pagar_matricula==1){
+        total_matricula = matricula;
     }else{
-        if (pagar_matricula==1 && pagar_mensualidad == -1){
-            calculo_total = (matricula) + mensualidad_acuenta ; //total a cancelar
+        if(pagar_matricula==2){
+            total_matricula = 0;
         }else{
-            if (pagar_matricula==2 && pagar_mensualidad>=1){ //Pagar matricula despues
-                calculo_total = mensualidad * pagar_mensualidad; //total a cancelar
+            if(pagar_matricula==3){
+                total_matricula = matricula_acuenta;
             }else{
-                if (pagar_matricula==3 && pagar_mensualidad>=1){ //Pagar matricula a cuenta
-                    
-                    matricula_acuenta = Number(document.getElementById('matricula_acuenta').value); //opcion
-                    calculo_total = matricula_acuenta + mensualidad * pagar_mensualidad; //total a cancelar  
-                }else{
-                    // if (pagar_matricula==3 && check_acuenta){ //Pagar matricula a cuenta
-                    if(pagar_matricula==3 && pagar_mensualidad == 0){
-                        matricula_acuenta = Number(document.getElementById('matricula_acuenta').value); //opcion
-                        calculo_total = matricula_acuenta + mensualidad * pagar_mensualidad; //total a cancelar
-                    }else{
-                        if (pagar_matricula==3 && pagar_mensualidad == -1){ //Pagar matricula a cuenta
-                            mensualidad_acuenta = Number(document.getElementById('mensualidad_acuenta').value); //opcion
-                            calculo_total = matricula_acuenta + mensualidad_acuenta; //total a cancelar
-                        }else{
-                            if(pagar_matricula==2 && pagar_mensualidad == -1){
-                                // mensualidad_acuenta = Number(document.getElementById('mensualidad_acuenta').value); //opcion
-                                calculo_total = mensualidad_acuenta; //total a cancelar
-                            }else{
-                                if(pagar_matricula==1 && pagar_mensualidad == 0){
-                                    calculo_total = matricula; //total a cancelar
-                                }
-                            }
-                        } 
-                    }
-                }
+                total_matricula = 0;
             }
         }
     }
-
+    // *********************** FIN TOTAL DE MATRICULA****************************
+    // *********************** TOTAL DE MENSUALIDAD *****************************
+    if(pagar_mensualidad>=1){
+        total_mensualidad = mensualidad * pagar_mensualidad;
+    }else{
+        if(pagar_mensualidad==0){
+            total_mensualidad = 0;
+        }else{
+            total_mensualidad = mensualidad_acuenta;
+        }
+    }
+    // *********************** FIN TOTAL DE MENSUALIDAD *************************
+    // ************************ CALCULO TOTAL ***********************************
+    calculo_total = total_matricula + total_mensualidad;
+    // ************************ FIN CALCULO TOTAL *******************************
 
     if (pagar_matricula == 3){ //Pagar matricula a cuenta
         //$("#matricula_acuenta").val("0.00");
