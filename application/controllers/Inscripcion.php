@@ -757,10 +757,10 @@ class Inscripcion extends CI_Controller{
         }
         // ***********************************************************************//
         // **********************Registrar pago a cuenta matricula****************//
-        // if($pagar_matricula == 1){
-        //     $estadomen_id = 9; //cancelado
-        //     $repeticiones = 1;
-        // }else{
+        if($pagar_matricula == 1){
+            $estadomen_id = 9; //cancelado
+            $repeticiones = 1;
+        }else{
         //     if($pagar_matricula == 2){
         //         $estadomen_id = 8; //pendiente
         //         $repeticiones = 0;
@@ -770,10 +770,10 @@ class Inscripcion extends CI_Controller{
                     $repeticiones = 2;
                 }
         //     }
-        // }
+        }
         
-        $estadomen_id = 9; //cancelado
-        if($pagar_matricula == 3){
+        // $estadomen_id = 9; //cancelado
+        if($pagar_matricula == 3 || $pagar_matricula == 1){
             $this->load->model('Estudiante_model');
             $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
             

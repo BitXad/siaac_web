@@ -280,6 +280,10 @@ function calcular(){
                             if(pagar_matricula==2 && pagar_mensualidad == -1){
                                 // mensualidad_acuenta = Number(document.getElementById('mensualidad_acuenta').value); //opcion
                                 calculo_total = mensualidad_acuenta; //total a cancelar
+                            }else{
+                                if(pagar_matricula==1 && pagar_mensualidad == 0){
+                                    calculo_total = matricula; //total a cancelar
+                                }
                             }
                         } 
                     }
