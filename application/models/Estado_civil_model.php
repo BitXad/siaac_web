@@ -45,7 +45,7 @@ class Estado_civil_model extends CI_Model
             WHERE
                 1 = 1
 
-            ORDER BY `estadocivil_id` DESC
+            ORDER BY `estadocivil_descripcion` DESC
         ")->result_array();
 
         return $estado_civil;

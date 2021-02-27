@@ -517,8 +517,9 @@ function registrar_grupo(){
                 
                 if (registros != null){
                     if(registros == "ok"){
-                        getgrupo_docente(docente_id);
-                        resetearcamposgrupo(2);
+                        //getgrupo_docente(docente_id);
+                        //getgrupo_materia(materia_id);
+                        resetearcamposgrupo();
                     }else if(registros == "siaula"){
                         alert("El Horario Seleccionado ya se encuentra ocupado, por favor revise sus datos.");
                     }else if(registros == "sidoc"){
@@ -541,13 +542,26 @@ function registrar_grupo(){
 }
 
 /* ****** Resetar campos de registro de GRUPO ********* */
-function resetearcamposgrupo(reseteardocente){
+function resetearcamposgrupo(){
     $('#carrera_id').find('option:first').attr('selected', 'selected').parent('select');
     $('#planacad_id').find('option:first').attr('selected', 'selected').parent('select');
     $('#nivel_id').find('option:first').attr('selected', 'selected').parent('select');
-    if(reseteardocente == 1){
-        $('#docente_id').find('option:first').attr('selected', 'selected').parent('select');
-    }
+    //if(reseteardocente == 1){
+    $('#docente_id1').find('option:first').attr('selected', 'selected').parent('select');
+    $('#docente_id1').prop("disabled", true);
+    $('#docente_id2').find('option:first').attr('selected', 'selected').parent('select');
+    $('#docente_id2').prop("disabled", true);
+    $('#docente_id3').find('option:first').attr('selected', 'selected').parent('select');
+    $('#docente_id3').prop("disabled", true);
+    $('#docente_id4').find('option:first').attr('selected', 'selected').parent('select');
+    $('#docente_id4').prop("disabled", true);
+    $('#docente_id5').find('option:first').attr('selected', 'selected').parent('select');
+    $('#docente_id5').prop("disabled", true);
+    $('#docente_id6').find('option:first').attr('selected', 'selected').parent('select');
+    $('#docente_id6').prop("disabled", true);
+    $('#docente_id7').find('option:first').attr('selected', 'selected').parent('select');
+    $('#docente_id7').prop("disabled", true);
+    //}
     $('#materia_id').find('option:first').attr('selected', 'selected').parent('select');
     $('#grupo_nombre').val('');
     $('#select_all').prop("checked", false);

@@ -413,7 +413,8 @@ function registrar_inscripcion(){
                     function() {
                         var thismateria_id = $(this).val();
                         if(thismateria_id >0){
-                            var thisgrupo_id = 0;
+                            var thisgrupo_id = document.getElementById('selgrupo'+thismateria_id).value;
+                            //var thisgrupo_id = 0;
                             registrar_materiagrupo(kardexacad_id[0], thismateria_id, thisgrupo_id);
                         }
                     }

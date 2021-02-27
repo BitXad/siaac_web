@@ -373,7 +373,7 @@ class Grupo extends CI_Controller{
 
                     $sql = "insert into horario(estado_id,periodo_id,dia_id,aula_id,docente_id,grupo_id)"
                             . " value(1, ".$periodo_id.",".$dia_id.",".$aula_id.",".$docente_id.",".$grupo_id.")";
-                    echo $sql;
+                    //echo $sql;
                     $horario = $this->Grupo_model->ejecutar($sql);
                     
                 }
@@ -497,7 +497,7 @@ class Grupo extends CI_Controller{
                     echo json_encode("siaula");
                 }
             }*/
-            
+            echo json_encode("ok");
         }   
         else
         {

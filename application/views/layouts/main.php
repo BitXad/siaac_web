@@ -387,6 +387,13 @@
                                     <a href="<?php echo site_url('genero');?>"><i class="fa fa-venus-mars"></i>Genero</a>
                                 </li>
                                 <?php
+                                }
+                                if($rolusuario[100-1]['rolusuario_asignado'] == 1){
+                                ?>
+                                <li>
+                                    <a href="<?php echo site_url('grupo/add');?>"><i class="fa fa-cubes"></i>Grupo(Registrar)</a>
+                                </li>
+                                <?php
                                 } ?>
 
                                 <?php

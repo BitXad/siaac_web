@@ -42,7 +42,7 @@
 						<label for="genero_id" class="control-label">Genero</label>
 						<div class="form-group">
 							<select name="genero_id" class="form-control">
-								<option value="">- GENERO -</option>
+								<!--<option value="">- GENERO -</option>-->
 								<?php 
 								foreach($all_genero as $genero)
 								{
@@ -58,7 +58,7 @@
 						<label for="estadocivil_id" class="control-label">Estado Civil</label>
 						<div class="form-group">
 							<select name="estadocivil_id" class="form-control">
-								<option value="">- ESTADO CIVIL -</option>
+								<!--<option value="">- ESTADO CIVIL -</option>-->
 								<?php 
 								foreach($all_estado_civil as $estado_civil)
 								{
