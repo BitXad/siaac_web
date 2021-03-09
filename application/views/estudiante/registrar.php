@@ -26,14 +26,14 @@
           			<div class="col-md-6">
 						<label for="estudiante_nombre" class="control-label"><span class="text-danger">*</span>Nombre</label>
 						<div class="form-group">
-							<input type="text" name="estudiante_nombre" value="<?php echo $this->input->post('estudiante_nombre'); ?>" class="form-control" id="estudiante_nombre" required/>
+							<input type="text" name="estudiante_nombre" value="<?php echo $this->input->post('estudiante_nombre'); ?>" class="form-control" id="estudiante_nombre" autofocus required autocomplete="off" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
 							<span class="text-danger"><?php echo form_error('estudiante_nombre');?></span>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<label for="estudiante_apellidos" class="control-label"><span class="text-danger">*</span>Apellidos</label>
 						<div class="form-group">
-							<input type="text" name="estudiante_apellidos" value="<?php echo $this->input->post('estudiante_apellidos'); ?>" class="form-control" id="estudiante_apellidos" required/>
+							<input type="text" name="estudiante_apellidos" value="<?php echo $this->input->post('estudiante_apellidos'); ?>" class="form-control" id="estudiante_apellidos" required autocomplete="off" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
 							<span class="text-danger"><?php echo form_error('estudiante_apellidos');?></span>
 						</div>
 					</div>

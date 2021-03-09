@@ -26,14 +26,14 @@
 					<div class="col-md-6">
 						<label for="estudiante_nombre" class="control-label"><span class="text-danger">*</span>Nombre</label>
 						<div class="form-group">
-							<input type="text" name="estudiante_nombre" value="<?php echo ($this->input->post('estudiante_nombre') ? $this->input->post('estudiante_nombre') : $estudiante['estudiante_nombre']); ?>" class="form-control" id="estudiante_nombre" />
+                                                    <input type="text" name="estudiante_nombre" value="<?php echo ($this->input->post('estudiante_nombre') ? $this->input->post('estudiante_nombre') : $estudiante['estudiante_nombre']); ?>" class="form-control" id="estudiante_nombre" required onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
 							<span class="text-danger"><?php echo form_error('estudiante_nombre');?></span>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<label for="estudiante_apellidos" class="control-label"><span class="text-danger">*</span>Apellidos</label>
 						<div class="form-group">
-							<input type="text" name="estudiante_apellidos" value="<?php echo ($this->input->post('estudiante_apellidos') ? $this->input->post('estudiante_apellidos') : $estudiante['estudiante_apellidos']); ?>" class="form-control" id="estudiante_apellidos" />
+							<input type="text" name="estudiante_apellidos" value="<?php echo ($this->input->post('estudiante_apellidos') ? $this->input->post('estudiante_apellidos') : $estudiante['estudiante_apellidos']); ?>" class="form-control" id="estudiante_apellidos" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" />
 							<span class="text-danger"><?php echo form_error('estudiante_apellidos');?></span>
 						</div>
 					</div>
@@ -41,7 +41,7 @@
 						<label for="estado_id" class="control-label">Estado</label>
 						<div class="form-group">
 							<select name="estado_id" class="form-control">
-								<option value="">- ESTADO -</option>
+								<!--<option value="">- ESTADO -</option>-->
 								<?php 
 								foreach($all_estado as $estado)
 								{
@@ -57,7 +57,7 @@
 						<label for="genero_id" class="control-label">Genero</label>
 						<div class="form-group">
 							<select name="genero_id" class="form-control">
-								<option value="">- GENERO -</option>
+								<!--<option value="">- GENERO -</option>-->
 								<?php 
 								foreach($all_genero as $genero)
 								{
@@ -73,7 +73,7 @@
 						<label for="estadocivil_id" class="control-label">Estado Civil</label>
 						<div class="form-group">
 							<select name="estadocivil_id" class="form-control">
-								<option value="">- ESTADO CIVIL -</option>
+								<!--<option value="">- ESTADO CIVIL -</option>-->
 								<?php 
 								foreach($all_estado_civil as $estado_civil)
 								{
