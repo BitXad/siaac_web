@@ -93,7 +93,7 @@ function facturar(mensualidad){
                     </div>
                     </div>
 							<div class="col-md-4">
-								<label for="ingreso_nombre" class="control-label">Nombre</label>
+								<label for="ingreso_nombre" class="control-label">Recibi de</label>
 								<div class="form-group">
 									<input type="text" name="ingreso_nombre" value="<?php echo $this->input->post('ingreso_nombre'); ?>" class="form-control" id="ingreso_nombre" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" autofocus required/>
 								</div>
@@ -102,7 +102,7 @@ function facturar(mensualidad){
 							
 							
 							<div class="col-md-2">
-								<label for="ingreso_monto" class="control-label">Monto</label>
+								<label for="ingreso_monto" class="control-label">La suma de</label>
 								<div class="form-group">
 									<input type="number" step="any" min="0" name="ingreso_monto" value="<?php echo $this->input->post('ingreso_monto'); ?>" class="form-control" id="ingreso_monto" required/>
 								</div>
@@ -117,7 +117,7 @@ function facturar(mensualidad){
 								</div>
 
 								<div class="col-md-4">
-									<label for="ingreso_categoria" class="control-label">Categoria</label>
+									<label for="ingreso_categoria" class="control-label">Por concepto de</label>
 									<div class="form-group">
 										
 										<select name="ingreso_categoria" class="form-control" >
@@ -135,7 +135,7 @@ function facturar(mensualidad){
 								</div>
 							
 							<div class="col-md-4">
-								<label for="ingreso_concepto" class="control-label">Concepto/Detalle</label>
+								<label for="ingreso_concepto" class="control-label">Detalle</label>
 								<div class="form-group">
 									<input type="text" name="ingreso_concepto" value="<?php echo $this->input->post('ingreso_concepto'); ?>" class="form-control" id="ingreso_concepto" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" required/>
 								</div>

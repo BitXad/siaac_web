@@ -103,7 +103,7 @@ border-bottom : 1px solid #aaa;
                    
 
                 <font size="3" face="arial"><b>INGRESO</b></font> <br>
-                <font size="1" face="arial"><b>NUMERO:  00<?php echo $ingreso[0]['ingreso_id']; ?> </b></font> <br>            
+                <font size="1" face="arial"><b>NUMERO:  00<?php echo $ingreso[0]['ingreso_numero']; ?> </b></font> <br>            
                              
                 _______________________________________________
                 <br> 
@@ -168,7 +168,7 @@ border-bottom : 1px solid #aaa;
      
     <tr >
           <td>
-             No. TRANSACCION:  <b> 00<?php echo $ingreso[0]['ingreso_numero']; ?> </b><br>
+             No. Trans.:  <b> 00<?php echo $ingreso[0]['ingreso_id']; ?> </b><br>
                     
                USUARIO: <b><?php echo $ingreso[0]['usuario_nombre']; ?></b>
             

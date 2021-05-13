@@ -98,9 +98,8 @@ class Egreso extends CI_Controller{
         if($this->acceso(20)){
             if ($this->session->userdata('logged_in')) {
                 $session_data = $this->session->userdata('logged_in');
-                if($session_data['tipousuario_id']==1) {
                    $data = array(
-                        'page_title' => 'Admin >> Mi Cuenta'
+                        'page_title' => 'Admin >> Registrar Egreso'
                     );
                     $usuario_id = $session_data['usuario_id'];
                     $gestion = $session_data['gestion_id'];
@@ -110,50 +109,38 @@ class Egreso extends CI_Controller{
                         'egreso_nombre', 'egreso_nombre',
                         'required');
 
-           if($this->form_validation->run())      
-            {   
-              $numrec = $this->Egreso_model->numero();
-               $numero = $numrec[0]['gestion_numegreso'] + 1;
-
-
-                $params = array(
-            'usuario_id' => $usuario_id,
-            'egreso_categoria' => $this->input->post('egreso_categoria'),
-            'egreso_numero' => $numero,
-            'egreso_nombre' => $this->input->post('egreso_nombre'),
-            'egreso_monto' => $this->input->post('egreso_monto'),
-            'egreso_moneda' => $this->input->post('egreso_moneda'),
-            'egreso_concepto' => $this->input->post('egreso_concepto'),
-            'egreso_fecha' => $this->input->post('egreso_fecha'),
-
-                );
-
-
-
-                $egreso_id = $this->Egreso_model->add_egreso($params);
-                $sql = "UPDATE gestion SET gestion_numegreso=gestion_numegreso+1 WHERE gestion_id = ".$gestion.""; 
-                $this->db->query($sql);
-                redirect('egreso/index');
-
-            }
-            else
-            {
-             $this->load->model('Categoria_egreso_model');
-               $data['all_categoria_egreso'] = $this->Categoria_egreso_model->get_all_categoria_egreso();
-               $this->load->model('Parametro_model');
-               $data['parametro'] = $this->Parametro_model->get_all_parametro();
-                $data['_view'] = 'egreso/add';
-                $this->load->view('layouts/main',$data);
-            }
+                if($this->form_validation->run())      
+                {   
+                    $numrec = $this->Egreso_model->numero($gestion);
+                    $numero = $numrec[0]['gestion_numegreso'] + 1;
+                    $params = array(
+                        'usuario_id' => $usuario_id,
+                        'egreso_categoria' => $this->input->post('egreso_categoria'),
+                        'egreso_numero' => $numero,
+                        'egreso_nombre' => $this->input->post('egreso_nombre'),
+                        'egreso_monto' => $this->input->post('egreso_monto'),
+                        'egreso_moneda' => $this->input->post('egreso_moneda'),
+                        'egreso_concepto' => $this->input->post('egreso_concepto'),
+                        'egreso_fecha' => $this->input->post('egreso_fecha'),
+                    );
+                    $egreso_id = $this->Egreso_model->add_egreso($params);
+                    $sql = "UPDATE gestion SET gestion_numegreso=gestion_numegreso+1 WHERE gestion_id = ".$gestion.""; 
+                    $this->db->query($sql);
+                    redirect('egreso/index');
+                }else
+                {
+                    $this->load->model('Categoria_egreso_model');
+                    $data['all_categoria_egreso'] = $this->Categoria_egreso_model->get_all_categoria_egreso();
+                    $this->load->model('Parametro_model');
+                    $data['parametro'] = $this->Parametro_model->get_all_parametro();
+                    $data['_view'] = 'egreso/add';
+                    $this->load->view('layouts/main',$data);
                 }
-                else{
-                    redirect('alerta');
-                }
-            } else {
+            }else{
                 redirect('', 'refresh');
             }
         }
-    } 
+    }
 
     /*
      * Editegr a egreso

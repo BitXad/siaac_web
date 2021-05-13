@@ -14,13 +14,13 @@
 					
 							
 							<div class="col-md-4">
-								<label for="egreso_nombre" class="control-label">Nombre</label>
+								<label for="egreso_nombre" class="control-label">Entregue a</label>
 								<div class="form-group">
 									<input type="text" name="egreso_nombre" value="<?php echo $this->input->post('egreso_nombre'); ?>" class="form-control" id="egreso_nombre" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" autofocus required/>
 								</div>
 							</div>
 							<div class="col-md-2">
-								<label for="egreso_monto" class="control-label">Monto</label>
+								<label for="egreso_monto" class="control-label">La suma de</label>
 								<div class="form-group">
 									<input type="number" step="any" min="0" name="egreso_monto" value="<?php echo $this->input->post('egreso_monto'); ?>" class="form-control" id="egreso_monto" required/>
 								</div>
@@ -35,7 +35,7 @@
 									</div>
 								</div>
 							<div class="col-md-4">
-									<label for="egreso_categoria" class="control-label">Categoria</label>
+									<label for="egreso_categoria" class="control-label">Por concepto de</label>
 									<div class="form-group">
 										
 										<select name="egreso_categoria" class="form-control">
@@ -52,7 +52,7 @@
 									</div>
 								</div>
 							<div class="col-md-4">
-								<label for="egreso_concepto" class="control-label">Concepto</label>
+								<label for="egreso_concepto" class="control-label">Detalle</label>
 								<div class="form-group">
 									<input type="text" name="egreso_concepto" value="<?php echo $this->input->post('egreso_concepto'); ?>" class="form-control" id="egreso_concepto" onkeyup="var start = this.selectionStart; var end = this.selectionEnd; this.value = this.value.toUpperCase(); this.setSelectionRange(start, end);" required/>
 								</div>

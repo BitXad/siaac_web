@@ -292,7 +292,7 @@ class Mensualidad extends CI_Controller{
         if($this->acceso(48)){
             $usuario_id = $this->session_data['usuario_id'];
             $gestion = $this->session_data['gestion_id'];
-            $numrec = $this->Mensualidad_model->numero();
+            $numrec = $this->Mensualidad_model->numero($gestion);
             $numero = $numrec[0]['gestion_numingreso'] + 1;
             $mensualidad_id = $this->input->post('mensualidad_id');
             $kardexeco_id = $this->input->post('kardexeco_id');

@@ -90,10 +90,13 @@ class Ingreso_model extends CI_Model
         return $numrec;
     }*/
 
-    function numero()
+    function numero($gestion_id)
     {
-        
-        $numrec = $this->db->query("SELECT * FROM gestion")->result_array();
+        $numrec = $this->db->query("
+            select g.`gestion_numingreso`
+            from gestion g
+            where g.gestion_id = $gestion_id
+        ")->result_array();
         return $numrec;
     }
 

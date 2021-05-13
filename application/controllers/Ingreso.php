@@ -97,7 +97,7 @@ class Ingreso extends CI_Controller{
         {   
           /*$numrec = $this->Ingreso_model->numero();
           $numero = $numrec[0]['parametro_numrecing'] + 1;*/
-          $numrec = $this->Ingreso_model->numero();
+          $numrec = $this->Ingreso_model->numero($gestion);
           $numero = $numrec[0]['gestion_numingreso'] + 1;
 
             $params = array(

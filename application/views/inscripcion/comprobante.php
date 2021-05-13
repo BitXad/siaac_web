@@ -58,7 +58,7 @@
             <center>
                 <font size="3" face="Arial"><b>COMPROBANTE</b></font><br>
                 <font size="2" face="Arial"><b>DE INSCRIPCION</b></font><br>
-                <font size="3" face="Arial"><b>Nº: 00<?php echo $inscripcion[0]['inscripcion_id']; ?></b></font><br>
+                <font size="3" face="Arial"><b>Nº: 00<?php echo $inscripcion[0]['inscripcion_numrecibo']; ?></b></font><br>
                 <font size="1" face="Arial"><b><?php echo $fecha_d_m_a; ?></b></font>
                 
             </center>
@@ -187,7 +187,8 @@
     </tr>
     <tr>
         <td>
-        <b>USUARIO: </b><?php echo $inscripcion[0]['usuario_nombre']; ?><br>
+        <b>USUARIO: </b><?php echo $inscripcion[0]['usuario_nombre'];
+        echo "<b> / Trans.: </b>".$inscripcion[0]['inscripcion_id']; ?><br>
         </td>
     </tr>
 </table>

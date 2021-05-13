@@ -256,10 +256,13 @@ class Mensualidad_model extends CI_Model
         return $this->db->update('mensualidad',$params);
     }
 
-    function numero()
+    function numero($gestion_id)
     {
-        
-        $num = $this->db->query("SELECT * FROM gestion")->result_array();
+        $num = $this->db->query("
+            select g.`gestion_numingreso`
+            from gestion g
+            where g.gestion_id = $gestion_id
+        ")->result_array();
         return $num;
     }
     

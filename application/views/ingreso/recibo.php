@@ -62,7 +62,7 @@ border-top: 0px;
             
                 <br>
                 <font size="3" face="arial"><b>RECIBO DE INGRESO</b></font> <br>
-                <font size="2" face="arial"><b>Nº: 00<?php echo $ingresos[0]['ingreso_id']; ?></b></font> <br>
+                <font size="2" face="arial"><b>Nº: 00<?php echo $ingresos[0]['ingreso_numero']; ?></b></font> <br>
                 <font size="1" face="arial"><?php echo date("d/m/Y   H:i:s  ") ; ?></font>
                  <br>
                 
@@ -157,6 +157,6 @@ border-top: 0px;
 </table>
 </div>
 <div class="row" style="padding-left: 7%;padding-top: 0.5%">
-     <font size="1" face="Arial"><b>Nº Trans.:</b> 00<?php echo $ingresos[0]['ingreso_numero']; ?></font>              
+     <font size="1" face="Arial"><b>Nº Trans.:</b> 00<?php echo $ingresos[0]['ingreso_id']; ?></font>              
 </div>
 </div>

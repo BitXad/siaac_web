@@ -103,7 +103,7 @@ border-bottom : 1px solid #aaa;
                    
 
                 <font size="3" face="arial"><b>EGRESO</b></font> <br>
-                <font size="1" face="arial"><b>NUMERO:  00<?php echo $egreso[0]['egreso_id']; ?> </b></font> <br>            
+                <font size="1" face="arial"><b>NUMERO:  00<?php echo $egreso[0]['egreso_numero']; ?> </b></font> <br>            
                              
                 _______________________________________________
                 <br> 
@@ -168,7 +168,7 @@ border-bottom : 1px solid #aaa;
      
     <tr >
           <td>
-             No. TRANSACCION:  <b> 00<?php echo $egreso[0]['egreso_numero']; ?> </b><br>
+             N°. Trans.:  <b> 00<?php echo $egreso[0]['egreso_id']; ?> </b><br>
                     
                USUARIO: <b><?php echo $egreso[0]['usuario_nombre']; ?></b>
             
