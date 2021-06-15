@@ -443,6 +443,13 @@
                         if($rolusuario[119-1]['rolusuario_asignado'] == 1){
                         ?>
                         <li>
+                            <a href="<?php echo site_url('reportes/rdeudas');?>"><i class="fa fa-money"></i> <span>Deudas por Cobrar</span></a>
+                        </li>
+                        <?php
+                        }
+                        if($rolusuario[119-1]['rolusuario_asignado'] == 1){
+                        ?>
+                        <li>
                             <a href="<?php echo site_url('reportes/rinscripcion');?>"><i class="fa fa-check-square-o"></i> <span>Inscripciones</span></a>
                         </li>
                         <?php

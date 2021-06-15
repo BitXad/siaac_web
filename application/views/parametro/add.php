@@ -63,6 +63,12 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <label for="parametro_fechainicio" class="control-label">FECHA INICIO</label>
+                    <div class="form-group">
+                        <input type="date" name="parametro_fechainicio" value="<?php echo ($this->input->post('parametro_fechainicio') ? $this->input->post('parametro_fechainicio') : date("Y-m-d")); ?>" class="form-control" id="parametro_fechainicio" />
+                    </div>
+                </div>
             </div><hr>
             <div class="box-body" style="margin-top: -20px;margin-bottom: -20px; background: rgba(0, 255, 0, 0.3);"><u><b>CREDITOS</b></u><br>
                 <div class="col-md-2">

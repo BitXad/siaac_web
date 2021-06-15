@@ -26,13 +26,13 @@
 <!-- ---------------------------------------------------- -->
 <div class="box-header">
 <!--                <h3 class="box-title">Usuarios</h3>-->
-              <div class="box-tools">
+            	<div class="box-tools">
                     <a href="<?php echo site_url('usuario/add'); ?>" class="btn btn-success btn-sm">+ Añadir</a> 
                 </div>
-        <div class="box-header">
+        
             <font size='4' face='Arial'><b>Usuarios</b></font>
             <br><font size='2' face='Arial' id="encontrados">Registros Encontrados:<?php echo sizeof($usuario);  ?></font> 
-        </div>
+        
 </div>
 
 
@@ -73,23 +73,32 @@
                       $thumb = $path_parts['filename'] . '_thumb.' . $path_parts['extension'];
                       */
                   ?>
-
                     <tr>
-            <td><?php echo $cont ?><?php $session_data = $this->session->userdata('logged_in');
-            if ($session_data['tipousuario_id']==1) {
-                                    $carpeta = 'usuarios';
-                                } elseif ($session_data['tipousuario_id']==2) {
-                                    $carpeta = 'docentes';
-                                } elseif ($session_data['tipousuario_id']==3) {
-                                    $carpeta = 'estudiantes';
-                                } ?></td>
-                                                <td><center> <?php echo "<img src='".site_url()."/resources/images/".$carpeta."/".$u['usuario_imagen']."' width='40' height='40' class='img-circle'"; ?></center></td>
-                                                <td><font face="Arial" size="3"><b><?php echo $u['usuario_nombre']; ?></b></font>
-                                                    <br>
-                                                    <?php echo $u['tipousuario_descripcion']; ?></td>
+                        <td><?php echo $cont ?><?php $session_data = $this->session->userdata('logged_in');
+                            if ($session_data['tipousuario_id']==1) {
+                                $carpeta = 'usuarios';
+                            } elseif ($session_data['tipousuario_id']==2) {
+                                $carpeta = 'docentes';
+                            } elseif ($session_data['tipousuario_id']==3) {
+                                $carpeta = 'estudiantes';
+                            } ?>
+                        </td>
+                        <td>
+                            <center> <?php
+                            if($u['usuario_imagen'] != "" || $u['usuario_imagen'] != null){
+                                echo "<img src='".site_url()."/resources/images/".$carpeta."/".$u['usuario_imagen']."' width='40' height='40' class='img-circle'";
+                            }else{
+                                echo "<img src='".site_url()."/resources/images/".$carpeta."/thumb_default.jpg"."' width='40' height='40' class='img-circle'";
+                            }
+                            ?>
+                            </center>
+                        </td>
+                        <td><font face="Arial" size="3"><b><?php echo $u['usuario_nombre']; ?></b></font>
+                            <br>
+                            <?php echo $u['tipousuario_descripcion']; ?>
+                        </td>
                         <td><?php echo $u['usuario_email']; ?></td>
-            <td><?php echo $u['usuario_login']; ?></td>
-                        
+                        <td><?php echo $u['usuario_login']; ?></td>
                         <td style="background-color: #<?php echo $u['estado_color']; ?>"><?php echo $u['estado_descripcion']; ?></td>
 
                         <td>
