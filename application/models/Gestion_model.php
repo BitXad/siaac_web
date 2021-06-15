@@ -130,5 +130,22 @@ class Gestion_model extends CI_Model
         
     }
     
-
+    /*
+     * Get all gestiones activos
+     */
+    function get_all_gestion_activo()
+    {
+        $gestion = $this->db->query("
+            SELECT
+                g.*, e.`estado_descripcion`, e.`estado_color`
+            FROM
+                gestion g, estado e
+            WHERE
+            	g.estado_id = e.estado_id
+                and g.estado_id = 1
+            ORDER BY g.`gestion_id` DESC
+        ")->result_array();
+        return $gestion;
+    }
+    
 }

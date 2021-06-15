@@ -138,8 +138,10 @@ class Inscripcion extends CI_Controller{
                 $data['all_carrera'] = $this->Carrera_model->get_all_carrera();
                 $this->load->model('Dosificacion_model');
                 $data['dosificacion'] = $this->Dosificacion_model->get_dosificacion_activa();
-    //			$this->load->model('Usuario_model');
-    //			$data['all_usuario'] = $this->Usuario_model->get_all_usuario();
+                
+                $this->load->model('Parametro_model');
+                $parametro_id = 1;
+                $data['parametro'] = $this->Parametro_model->get_parametro($parametro_id);
 
                 $this->load->model('Gestion_model');
                 $data['all_gestion'] = $this->Gestion_model->get_all_gestion();

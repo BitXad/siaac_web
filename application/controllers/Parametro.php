@@ -86,6 +86,7 @@ class Parametro extends CI_Controller{
                     'parametro_diasentrega' => $this->input->post('parametro_diasentrega'),
                     'parametro_segservicio' => $this->input->post('parametro_segservicio'),
                     'parametro_multadia' => $this->input->post('parametro_multadia'),
+                    'parametro_fechainicio' => $this->input->post('parametro_fechainicio'),
                
             );
             
@@ -150,6 +151,7 @@ class Parametro extends CI_Controller{
                     'parametro_diasentrega' => $this->input->post('parametro_diasentrega'),
                     'parametro_segservicio' => $this->input->post('parametro_segservicio'),
                     'parametro_multadia' => $this->input->post('parametro_multadia'),
+                    'parametro_fechainicio' => $this->input->post('parametro_fechainicio'),
                 );
 
                 $this->Parametro_model->update_parametro($parametro_id,$params);            

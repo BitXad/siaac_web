@@ -11,13 +11,9 @@
               
                 <table class="table table-striped table-condensed" id="mitabla" style="text-align: center; font-size: 11px;color:black;">
                     <?php foreach($parametros as $p){ ?>
-                    
-                          
-                            
-                    
                     <tr>
-                        <th style="font-size: 12px;color:black;background: rgba(0, 0, 255, 0.3);" rowspan="2" ><u>CONFIGURACION</u></th>
-						<th style="font-size: 11px;color:black;background: rgba(0, 0, 255, 0.3);">No. EGRESO</th>
+                        <th style="font-size: 12px;color:black;background: rgba(0, 0, 255, 0.3);" rowspan="4" ><u>CONFIGURACION</u></th>
+                        <th style="font-size: 11px;color:black;background: rgba(0, 0, 255, 0.3);">No. EGRESO</th>
                         <th style="font-size: 11px;color:black;background: rgba(0, 0, 255, 0.3);">No. INGRESO</th>
                         <th style="font-size: 11px;color:black;background: rgba(0, 0, 255, 0.3);">No.COPIAS FACTURAS</th>
                         <th style="font-size: 11px;color:black;background: rgba(0, 0, 255, 0.3);">TIPO DE IMPRESORA</th>
@@ -38,7 +34,12 @@
                         <td><?php echo $p['parametro_tituldoc']; ?></td>-->
                         <td><?php  if ($p['parametro_permisocredito']==1){ echo 'TODOS'; }else{ echo'INDIVIDUAL'; } ?></td>
                     </tr>
-                  
+                    <tr>
+                        <th style="font-size: 11px;color:black;background: rgba(0, 0, 255, 0.3);">FECHA INICIO</th>
+                    </tr>
+                    <tr>
+                        <td><?php echo date("d/m/Y", strtotime($p['parametro_fechainicio'])); ?></td>
+                    </tr>
                     <tr>
                         <th style="font-size: 12px;color:black; background: rgba(0, 255, 0, 0.3);" rowspan="2" ><u>CREDITOS</u></th>
                         <th style="font-size: 11px;color:black; background: rgba(0, 255, 0, 0.3);">No. CUOTAS</th>
