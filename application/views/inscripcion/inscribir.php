@@ -286,7 +286,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                             <label for="turno_id" class="control-label">Turno</label>
                             <div class="form-group">
                                 <select name="turno_id" id="turno_id" class="form-control">
-                                    <option value="">- TURNO -</option>
+                                    <!--<option value="">- TURNO -</option>-->
                                     <?php 
                                     foreach($all_turno as $turno)
                                     {
@@ -301,7 +301,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         <label for="paralelo_id" class="control-label">Paralelo</label>
                             <div class="form-group">
                                 <select name="paralelo_id" class="form-control" id="paralelo_id">
-                                    <option value="">- PARALELO -</option>
+                                    <!--<option value="">- PARALELO -</option>-->
                                     <?php 
                                     foreach($all_paralelo as $paralelo)
                                     {
@@ -316,9 +316,9 @@ $session_data = $this->session->userdata('logged_in'); ?>
                             <label for="inscripcion_fechainicio" class="control-label">Fecha Inicio</label>
                             <div class="form-group">
                                 <?php  
-                                    $fecha_inicio = $all_gestion[0]["gestion_inicio"];
+                                    //$fecha_inicio = $all_gestion[0]["gestion_inicio"];
                                 ?>
-                                <input type="date" name="inscripcion_fechainicio" value="<?php echo date("Y-m-d"); ?>" class="form-control" id="inscripcion_fechainicio" />
+                                <input type="date" name="inscripcion_fechainicio" value="<?php echo $parametro["parametro_fechainicio"]; ?>" class="form-control" id="inscripcion_fechainicio" />
                             </div>
                         </div>
 
