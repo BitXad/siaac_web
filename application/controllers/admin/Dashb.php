@@ -57,8 +57,12 @@ class Dashb extends CI_Controller
         $fecha_inicial=date("Y-m-d H:i:s", strtotime($anio."-".$mes."-".$primer_dia) );
         $fecha_final=date("Y-m-d H:i:s", strtotime($anio."-".$mes."-".$ultimo_dia) );
         $fechas = "SELECT i.inscripcion_fecha, round(k.kardexeco_matricula,2) as matricula_totalfinal FROM inscripcion i, kardex_economico k where i.inscripcion_id=k.inscripcion_id and i.inscripcion_fecha >= '".$anio."-".$mes."-01' and  i.inscripcion_fecha <= '".$anio."-".$mes."-31' ";
+        
+        //echo $fechas;
         $result= $this->db->query($fechas)->result_array();
-        $fechasven = "SELECT m.mensualidad_fechapago, round(m.mensualidad_montocancelado,2) as mesualidad_total FROM mensualidad m where m.estado_id=4 and  m.mensualidad_fechapago >= '".$anio."-".$mes."-01' and  m.mensualidad_fechapago <= '".$anio."-".$mes."-31' ";
+        $fechasven = "SELECT m.mensualidad_fechapago, round(m.mensualidad_montocancelado,2) as mesualidad_total FROM mensualidad m where m.estado_id=9 and  m.mensualidad_fechapago >= '".$anio."-".$mes."-01' and  m.mensualidad_fechapago <= '".$anio."-".$mes."-31' ";
+        
+        //echo $fechasven;
         $resultven= $this->db->query($fechasven)->result_array();
         //$result=$data['result'];
         $ct=count($result);

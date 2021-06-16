@@ -94,20 +94,18 @@ $.ajax({url: controlador,
            type:"POST",
            data:{},
            success:function(respuesta){
-var datos= JSON.parse(respuesta);
-var totaldias=datos.totaldias;
-var registrosdia=datos.registrosdia;
-var registrosven=datos.registrosven;
-var i=0;
+            var datos= JSON.parse(respuesta);
+            var totaldias=datos.totaldias;
+            var registrosdia=datos.registrosdia;
+            var registrosven=datos.registrosven;
+            var i=0;
+        //alert(datos.length);
+        
 	for(i=1;i<=totaldias;i++){
 	
-	options.series[0].data.push( Math.round(registrosdia[i]*100)/100 );
-	
-    options.series[1].data.push( Math.round(registrosven[i]*100)/100 );
-    
-    options.xAxis.categories.push(i);
-
-
+            options.series[0].data.push( Math.round(registrosdia[i]*100)/100 );
+            options.series[1].data.push( Math.round(registrosven[i]*100)/100 );
+            options.xAxis.categories.push(i);
 
 	}
 
