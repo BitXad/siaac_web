@@ -252,7 +252,7 @@ function cerrar() {
                             <div class="col-md-4">
                                 <label for="mensualidad_descuento" class="control-label">Descuento</label>
                                 <div class="form-group">
-                                    <input type="number" onkeyup="descontar(<?php echo $m['mensualidad_id']; ?>)" name="mensualidad_descuento" value="0" min="0"class="form-control" id="mensualidad_descuento<?php echo $m['mensualidad_id']; ?>" />
+                                    <input type="number" onkeyup="descontar(<?php echo $m['mensualidad_id']; ?>)" name="mensualidad_descuento" value="0" min="0" step="any" class="form-control" id="mensualidad_descuento<?php echo $m['mensualidad_id']; ?>" />
                                 </div>
                             </div>
                             <div class="col-md-4" >
