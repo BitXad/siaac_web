@@ -317,8 +317,9 @@ $session_data = $this->session->userdata('logged_in'); ?>
                             <div class="form-group">
                                 <?php  
                                     //$fecha_inicio = $all_gestion[0]["gestion_inicio"];
+                                
                                 ?>
-                                <input type="date" name="inscripcion_fechainicio" value="<?php echo $parametro["parametro_fechainicio"]; ?>" class="form-control" id="inscripcion_fechainicio" />
+                                <input type="date" name="inscripcion_fechainicio" value="<?php if($parametro["parametro_fechainicio"] == null || $parametro["parametro_fechainicio"] =="0000-00-00"){ echo date("Y-m-d"); }else{ echo $parametro["parametro_fechainicio"]; } ?>" class="form-control" id="inscripcion_fechainicio" />
                             </div>
                         </div>
 
