@@ -396,7 +396,7 @@ class Mensualidad extends CI_Controller{
             $detallefact_descripcion = $this->input->post('factura_detalle'.$mensualidad_id);
             $unidad = "";
             
-            $precio = ($this->input->post('mensualidad_montocancelado'))-$descontar;
+            $precio = ($this->input->post('mensualidad_montocancelado'));
             $detallefact_precio = $precio;
             $detallefact_subtotal =  $precio;
             $detallefact_descuento = 0;
