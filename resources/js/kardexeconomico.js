@@ -1,3 +1,12 @@
+$(document).on("ready",inicio);
+function inicio(){
+        
+   //alert("holaaa");     
+     $("#estudiante").select();          
+     $("#estudiante").focus();          
+        
+}
+
 function validar(e) {
 var opcion = document.getElementById('opcion').value;
  tecla = (document.all) ? e.keyCode : e.which;
@@ -49,8 +58,8 @@ function buscarestudiante(dato){
 
                         html += "<tr>";
                         html += "<td>"+cont+"</td>";
-                        html += "<td><b>"+registros[i]["estudiante_nombre"]+"</b></td>";
-                        html += "<td><b>"+registros[i]["estudiante_apellidos"]+"</b></td>";
+//                        html += "<td><b>"+registros[i]["estudiante_nombre"]+"</b></td>";
+                        html += "<td><b style='font-size:14px;'>"+registros[i]["estudiante_apellidos"]+"</b><br>"+registros[i]["estudiante_nombre"]+"</td>";
                         html += "<td align='center'>"+registros[i]["estudiante_ci"]+"  "+registros[i]["estudiante_extci"]+"</td>";
                         html += "<td align='center'>"+registros[i]["estudiante_codigo"]+"</td>";
                         html += "<td><b>"+registros[i]["carrera_nombre"]+"</b><br>"+registros[i]["nivel_descripcion"]+"</td>";
@@ -59,7 +68,8 @@ function buscarestudiante(dato){
                         html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"]).toFixed(2)+"</b></td>";
                         html += "<td align='center'><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
                         html += "<td align='center'><b>"+registros[i]["estado_descripcion"]+"</b></td>";
-                        html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-xs' title='COBRAR'><i class='fa fa-usd'></i></a> <a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-xs' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
+                        html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-xs' title='COBRAR'><i class='fa fa-money'></i> Cobrar</a> ";
+                        html += "<a href='"+base_url+"mensualidad/planmensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-info btn-xs' title='VER PLAN DE PAGOS'><i class='fa fa-print'></i></a></td>";
                         html += "</tr>";  
                         }     
                         
