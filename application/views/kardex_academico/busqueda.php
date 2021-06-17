@@ -24,16 +24,10 @@
 <div class="box">
 <input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
           
-          <div class="box-body">  
-        <div class="col-md-4">
-            <label for="Buscar" class="control-label">Buscar</label>
-            <div class="form-group">
-                <input type="text" name="estudiante" class="form-control" id="estudiante"   autocomplete="off" onkeypress="validar(event)"  />
-            </div>
-        </div>
-
+        <div class="box-body">  
+        
         <div class="col-md-2">
-            <label for="nose" class="control-label">Filtro</label>
+            <label for="nose" class="control-label">Filtro por</label>
             <div class="form-group">
                 <select class="form-control" name="opcion" id="opcion">
                     <option value="2">Nombre</option>
@@ -44,6 +38,13 @@
             </div>
         </div>
     
+        <div class="col-md-4">
+            <label for="Buscar" class="control-label">Buscar</label>
+            <div class="form-group">
+                <input type="text" name="estudiante" class="form-control" id="estudiante"   autocomplete="off" onkeypress="validar(event)"  />
+            </div>
+        </div>
+
         <!--<div class="col-md-3">
             <label for="estudiante_ci" class="control-label">C.I.</label>
             <div class="form-group">
