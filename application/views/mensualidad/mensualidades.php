@@ -334,16 +334,16 @@ function cerrar() {
                                 </div>
                             </div>
                             <div class="col-md-4">
+                                <label for="mensualidad_ci" class="control-label">NIT/C.I.</label>
+                                <div class="form-group">
+                                    <input type="text" name="mensualidad_ci" value="<?php echo $kardex_economico[0]['estudiante_nit']?>" class="form-control" id="mensualidad_ci" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <label for="mensualidad_nombre" class="control-label">Razon Soc./Nombre</label>
                                 <div class="form-group">
                                     <input type="text" name="mensualidad_nombre" value="<?php echo $kardex_economico[0]['estudiante_razon']?>" class="form-control" id="mensualidad_nombre" />
                                     <input type="hidden"  name="mensualidad_mes" value="<?php echo $m['mensualidad_mes']; ?>" class="form-control" id="mensualidad_mes<?php echo $m['mensualidad_id']; ?>" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="mensualidad_ci" class="control-label">NIT/C.I.</label>
-                                <div class="form-group">
-                                    <input type="text" name="mensualidad_ci" value="<?php echo $kardex_economico[0]['estudiante_nit']?>" class="form-control" id="mensualidad_ci" />
                                 </div>
                             </div>
                             <div class="col-md-12">

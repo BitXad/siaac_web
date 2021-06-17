@@ -1,3 +1,12 @@
+$(document).on("ready",inicio);
+function inicio(){
+        
+   //alert("holaaa");     
+     $("#estudiante").select();          
+     $("#estudiante").focus();          
+        
+}
+
 function validar(e) {
 var opcion = document.getElementById('opcion').value;
  tecla = (document.all) ? e.keyCode : e.which;
