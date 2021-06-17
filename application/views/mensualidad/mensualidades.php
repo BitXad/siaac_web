@@ -17,6 +17,8 @@ function cerrar() {
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
+<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>" />
+<input type="hidden" name="elkardex_economico" id="elkardex_economico" value='<?php echo json_encode($kardex_economico); ?>' />
 <div class="row">
     
     <div class="col-md-12">
@@ -226,7 +228,8 @@ function cerrar() {
                             if ($m['estado_id']==8) { ?>
                                           <?php //if ($bandera==0) { ?>
                                         
-                                          <a href="#" data-toggle="modal" data-target="#pagar<?php echo $i; ?>" class="btn btn-success btn-xs"><span class="fa fa-dollar" title="COBRAR"></span> Cobrar</a>
+                                          <!--<a href="#" data-toggle="modal" data-target="#pagar<?php //echo $i; ?>" class="btn btn-success btn-xs"><span class="fa fa-dollar" title="COBRAR"></span> Cobrar</a>-->
+                          <a onclick='mostrarmodalpagar(<?php echo json_encode($m); ?>)' class="btn btn-success btn-xs"><span class="fa fa-dollar" title="COBRAR"></span> Cobrar</a>
               <?php //} $bandera=1; ?>
                                               <div class="modal fade" id="myModal<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel<?php echo $i; ?>">
                                                 <div class="modal-dialog" role="document">
@@ -262,120 +265,7 @@ function cerrar() {
                                     <?php } ?>
                                   </td>  
                                 <?php } ?>
-                              
-            <!---------------------------------MODAL DE PAGAR------------------------->
-            <div class="modal fade" id="pagar<?php echo $i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            
-                            <h5 style="font-family: Arial;"><b> <i class="fa fa-money"></i> 
-                                Cobrar Mensualidad                                
-                                </b>
-                            </h5>
-                        </div>
-                        <form action="<?php echo base_url('mensualidad/pagar/'.$m['mensualidad_id']); ?>" method="POST" class="form" id="saldar">
-                        
-                            <div class="modal-body">
-                                <center>
-                                    
-                                    
-                                    <b style="font-family: Arial; font-size: 14px;"><?php echo $m['mensualidad_mes']; ?></b>
-                                    
-                                    <h2 style="font-family: Arial; margin: 0;">
-                                        <b> 
-                                            Monto Bs: <?php echo number_format($m['mensualidad_montototal'],2,".",","); ?>
-                                        </b>
-                                    </h2>
-                                    
-                                    <?php if(count($dosificacion) >0){ ?>
-                                        <button class="btn btn-info btn-xs" type="button">
-                                            <input type="checkbox" name="factura<?php echo $m['mensualidad_id']; ?>" id="factura<?php echo $m['mensualidad_id']; ?>"  onclick="facturar(<?php echo $m['mensualidad_id'] ?>)"  />
-                                            <label for="factura<?php echo $m['mensualidad_id']; ?>"> Generar Factura</label>
-                                        </button>
-                                    <?php  }else{ echo "<span class='text-bold text-red'>Dosificación no activa</span>"; } ?>
-                                </center>
-                            </div>
-                        
-                        <div class="col-md-12">
-                            <input type="hidden" name="mensualidad_id" value="<?php echo $m['mensualidad_id']; ?>" class="form-control" id="mensualidad_id" />
-                            <input type="hidden" name="estado_id" value="9" class="form-control" id="estado_id" />
-                            <div class="col-md-4">
-                                <label for="mensualidad_descuento" class="control-label">Descuento</label>
-                                <div class="form-group">
-                                    <input type="number" onkeyup="descontar(<?php echo $m['mensualidad_id']; ?>)" name="mensualidad_descuento" value="0" min="0" step="any" class="form-control" id="mensualidad_descuento<?php echo $m['mensualidad_id']; ?>" />
-                                </div>
-                            </div>
-                            <div class="col-md-4" >
-                                <label for="mensualidad_multa" class="control-label">Multa</label>
-                                <div class="form-group">
-                                    <input type="text" name="mensualidad_multa" value="<?php echo number_format($m['mensualidad_multa'],2,".",","); ?>" class="form-control" id="mensualidad_multa<?php echo $m['mensualidad_id']; ?>" readonly/>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="mensualidad_montocancelado" class="control-label">Monto Cancelado</label>
-                                <div class="form-group">
-                                    <input type="number" step="any" onkeyup="calcular(<?php echo $m['mensualidad_id']; ?>)" name="mensualidad_montocancelado" value="<?php echo number_format($m['mensualidad_montoparcial']+$m['mensualidad_multa'],2,".",","); ?>" class="form-control" id="mensualidad_montocancelado<?php echo $m['mensualidad_id']; ?>" min="0"/>
-                                    <input type="hidden"  name="mensualidad_montototal" value="<?php echo number_format($m['mensualidad_montoparcial']+$m['mensualidad_multa'],2,".",","); ?>" class="form-control" id="mensualidad_montototal<?php echo $m['mensualidad_id']; ?>" />
-                                    <input type="hidden"  name="kardexeco_id" value="<?php echo $m['kardexeco_id']; ?>" class="form-control" id="kardexeco_id" />
-                                </div>
-                            </div>
-                            <div class="col-md-4" >
-                                <label for="mensualidad_saldo" class="control-label">Saldo</label>
-                                <div class="form-group">
-                                    <input type="number" step="any" name="mensualidad_saldo" value="0.00" class="form-control" id="mensualidad_saldo<?php echo $m['mensualidad_id']; ?>" />
-                                    <input type="hidden" name="mensualidad_numero" value="<?php echo $m['mensualidad_numero']; ?>" class="form-control" id="mensualidad_numero" />
-                                    <input type="hidden" name="mensualidad_fechalimite" value="<?php echo $m['mensualidad_fechalimite']; ?>" class="form-control" id="mensualidad_fechalimite" />
-                                    <input type="hidden" name="mensualidad_fecha" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="mensualidad_fecha" />
-                                    <input type="hidden" name="mensualidad_hora" value="<?php echo date('H:i:s'); ?>" class="form-control" id="mensualidad_hora" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="mensualidad_ci" class="control-label">NIT/C.I.</label>
-                                <div class="form-group">
-                                    <input type="text" name="mensualidad_ci" value="<?php echo $kardex_economico[0]['estudiante_nit']?>" class="form-control" id="mensualidad_ci" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="mensualidad_nombre" class="control-label">Razon Soc./Nombre</label>
-                                <div class="form-group">
-                                    <input type="text" name="mensualidad_nombre" value="<?php echo $kardex_economico[0]['estudiante_razon']?>" class="form-control" id="mensualidad_nombre" />
-                                    <input type="hidden"  name="mensualidad_mes" value="<?php echo $m['mensualidad_mes']; ?>" class="form-control" id="mensualidad_mes<?php echo $m['mensualidad_id']; ?>" />
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="mensualidad_glosa" class="control-label">Glosa</label>
-                                <div class="form-group">
-                                    <input type="text" name="mensualidad_glosa" value="" class="form-control" id="mensualidad_glosa" />
-                                </div>
-                            </div>
-                            <div id="clinit<?php echo $m['mensualidad_id']; ?>" style="display: none">
-                                <div class="col-md-12">
-                                    <label for="factura_detalle" class="control-label">Detalle Factura</label>
-                                    <div class="form-group">
-                                        <textarea class="form-control" type="text" rows="2" name="factura_detalle<?php echo $m['mensualidad_id']; ?>" id="factura_detalle<?php echo $m['mensualidad_id']; ?>"><?php echo 'MENSUALIDAD No.'. $m['mensualidad_numero'].','.$m['mensualidad_mes'].','.$kardex_economico[0]['carrera_nombre'].','.$kardex_economico[0]['estudiante_nombre'].' '.$kardex_economico[0]['estudiante_apellidos'];?> </textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                            
-                        <div class="modal-footer" align="right">
-                            <button class="btn btn-success"  type="submit">
-                                <span class="fa fa-money"></span>   Cobrar
-                            </button>
-                            <button class="btn btn-danger" data-dismiss="modal">
-                                <span class="fa fa-close"></span>   Cancelar
-                            </button>
-                        </div>
-                      </form>
-
-                      </div>
-                    </div>
-                  </div>
-                  <!---------------------------------FIN MODAL DE PAGAR------------------------->
+                                  
                       </tr>
                     </tbody>
                     <?php } ?>
@@ -462,3 +352,129 @@ Deudas por Ventas
     </div>
 </div>
 <a href="javascript:cerrar();" class="btn btn-danger no-print">Cerrar</a>
+
+<!---------------------------------MODAL DE PAGAR------------------------->
+<div class="modal fade" id="pagar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 style="font-family: Arial;"><b> <i class="fa fa-money"></i> 
+                    Cobrar Mensualidad                                
+                    </b>
+                </h5>
+            </div>
+            <form action="<?php //echo base_url('mensualidad/pagar/'.$m['mensualidad_id']); ?>" method="POST" class="form" id="saldar1">
+                <div class="modal-body">
+                    <center>
+                        <b style="font-family: Arial; font-size: 14px;"><span id="mes_mensualidad"></span><?php //echo $m['mensualidad_mes']; ?></b>
+                        <h2 style="font-family: Arial; margin: 0;">
+                            <b> 
+                                Monto Bs: <span id="mes_montototal"></span><?php //echo number_format($m['mensualidad_montototal'],2,".",","); ?>
+                            </b>
+                        </h2>
+
+                        <?php if(count($dosificacion) >0){ ?>
+                            <button class="btn btn-info btn-xs" type="button">
+                                <span id="lafactura"></span>
+                                <!--<input type="checkbox" name="factura<?php //echo $m['mensualidad_id']; ?>" id="factura<?php //echo $m['mensualidad_id']; ?>"  onclick="facturar(<?php //echo $m['mensualidad_id'] ?>)"  />-->
+                                <label for="factura<?php //echo $m['mensualidad_id']; ?>"> Generar Factura</label>
+                            </button>
+                        <?php  }else{ echo "<span class='text-bold text-red'>Dosificación no activa</span>"; } ?>
+                    </center>
+                </div>
+
+            <div class="col-md-12">
+                <input type="hidden" name="mensualidad_id" value="<?php //echo $m['mensualidad_id']; ?>" class="form-control" id="mensualidad_id" />
+                <input type="hidden" name="estado_id" value="9" class="form-control" id="estado_id" />
+                <div class="col-md-4">
+                    <label for="mensualidad_descuento" class="control-label">Descuento</label>
+                    <div class="form-group">
+                        <span id="eldescuento"></span>
+                        <!--<input type="number" onkeyup="descontar(<?php //echo $m['mensualidad_id']; ?>)" name="mensualidad_descuento" value="0" min="0" step="any" class="form-control" id="mensualidad_descuento<?php //echo $m['mensualidad_id']; ?>" />-->
+                    </div>
+                </div>
+                <div class="col-md-4" >
+                    <label for="mensualidad_multa" class="control-label">Multa</label>
+                    <div class="form-group">
+                        <span id="lamulta"></span>
+                        <!--<input type="text" name="mensualidad_multa" value="<?php //echo number_format($m['mensualidad_multa'],2,".",","); ?>" class="form-control" id="mensualidad_multa<?php //echo $m['mensualidad_id']; ?>" readonly/>-->
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="mensualidad_montocancelado" class="control-label">Monto Cancelado</label>
+                    <div class="form-group">
+                        <span id="elmontocancelado"></span>
+                        <!--<input type="number" step="any" onkeyup="calcular(<?php //echo $m['mensualidad_id']; ?>)" name="mensualidad_montocancelado" value="<?php //echo number_format($m['mensualidad_montoparcial']+$m['mensualidad_multa'],2,".",","); ?>" class="form-control" id="mensualidad_montocancelado<?php //echo $m['mensualidad_id']; ?>" min="0"/>-->
+                        <span id="lamensualidad_montototal"></span>
+                        <!--<input type="hidden"  name="mensualidad_montototal" value="<?php //echo number_format($m['mensualidad_montoparcial']+$m['mensualidad_multa'],2,".",","); ?>" class="form-control" id="mensualidad_montototal<?php //echo $m['mensualidad_id']; ?>" />-->
+                        <input type="hidden"  name="kardexeco_id" value="<?php //echo $m['kardexeco_id']; ?>" class="form-control" id="kardexeco_id" />
+                    </div>
+                </div>
+                <div id="detalledesc">
+                    <div class="col-md-12">
+                        <label for="detalle_descuento" class="control-label">Detalle Descuento</label>
+                        <div class="form-group">
+                            <!--<span id="eldetalledescuento"></span>-->
+                            <textarea class="form-control" type="text" rows="2" name="detalle_descuento" id="detalle_descuento">Descuento: </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" >
+                    <label for="mensualidad_saldo" class="control-label">Saldo</label>
+                    <div class="form-group">
+                        <span id="lamensualidadsaldo"></span>
+                        <!--<input type="number" step="any" name="mensualidad_saldo" value="0.00" class="form-control" id="mensualidad_saldo<?php //echo $m['mensualidad_id']; ?>" />-->
+                        <input type="hidden" name="mensualidad_numero" value="<?php //echo $m['mensualidad_numero']; ?>" class="form-control" id="mensualidad_numero" />
+                        <input type="hidden" name="mensualidad_fechalimite" value="<?php //echo $m['mensualidad_fechalimite']; ?>" class="form-control" id="mensualidad_fechalimite" />
+                        <input type="hidden" name="mensualidad_fecha" value="<?php //echo date('Y-m-d'); ?>" class="form-control" id="mensualidad_fecha" />
+                        <input type="hidden" name="mensualidad_hora" value="<?php //echo date('H:i:s'); ?>" class="form-control" id="mensualidad_hora" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="mensualidad_ci" class="control-label">NIT/C.I.</label>
+                    <div class="form-group">
+                        <input type="text" name="mensualidad_ci" value="<?php //echo $kardex_economico[0]['estudiante_nit']?>" class="form-control" id="mensualidad_ci" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="mensualidad_nombre" class="control-label">Razon Soc./Nombre</label>
+                    <div class="form-group">
+                        <input type="text" name="mensualidad_nombre" value="<?php //echo $kardex_economico[0]['estudiante_razon']?>" class="form-control" id="mensualidad_nombre" />
+                        <span id="lamensualidadmes"></span>
+                        <!--<input type="hidden"  name="mensualidad_mes" value="<?php //echo $m['mensualidad_mes']; ?>" class="form-control" id="mensualidad_mes<?php //echo $m['mensualidad_id']; ?>" />-->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label for="mensualidad_glosa" class="control-label">Glosa</label>
+                    <div class="form-group">
+                        <input type="text" name="mensualidad_glosa" value="" class="form-control" id="mensualidad_glosa" />
+                    </div>
+                </div>
+                <div id="clinit" style="display: none">
+                    <div class="col-md-12">
+                        <label for="factura_detalle" class="control-label">Detalle Factura</label>
+                        <div class="form-group">
+                            <span id="eldetallefactura"></span>
+                            <!--<textarea class="form-control" type="text" rows="2" name="factura_detalle<?php //echo $m['mensualidad_id']; ?>" id="factura_detalle<?php //echo $m['mensualidad_id']; ?>"><?php //echo 'MENSUALIDAD No.'. $m['mensualidad_numero'].','.$m['mensualidad_mes'].','.$kardex_economico[0]['carrera_nombre'].','.$kardex_economico[0]['estudiante_nombre'].' '.$kardex_economico[0]['estudiante_apellidos'];?> </textarea>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" align="right">
+                <button class="btn btn-success"  type="submit">
+                    <span class="fa fa-money"></span>   Cobrar
+                </button>
+                <button class="btn btn-danger" data-dismiss="modal">
+                    <span class="fa fa-close"></span>   Cancelar
+                </button>
+            </div>
+          </form>
+
+          </div>
+        </div>
+      </div>
+      <!---------------------------------FIN MODAL DE PAGAR------------------------->
