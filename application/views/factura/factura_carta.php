@@ -382,6 +382,8 @@ border-bottom : 1px solid #aaa;
                                  if ($factura[0]['ingreso_id']>0) echo $factura[0]['factura_id'].".".$factura[0]['ingreso_id']."C"; 
                                  if ($factura[0]['servicio_id']>0) echo $factura[0]['factura_id'].".".$factura[0]['servicio_id']."C"; 
                                  if ($factura[0]['cuota_id']>0) echo $factura[0]['factura_id'].".".$factura[0]['cuota_id']."C"; 
+                                 if ($factura[0]['mensualidad_id']>0) echo $factura[0]['factura_id'].".".$factura[0]['mensualidad_id']."M"; 
+                                 if ($factura[0]['inscripcion_id']>0) echo $factura[0]['factura_id'].".".$factura[0]['inscripcion_id']."I"; 
                             ?></b>
 
                     </td>  

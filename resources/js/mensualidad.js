@@ -24,6 +24,8 @@ function mostrarmodalpagar(mensualidad){
     $("#mensualidad_hora").val(moment($.now()).format("HH:mm:ss"));
     $("#mensualidad_ci").val(kardex_economico[0]['estudiante_nit']);
     $("#mensualidad_nombre").val(kardex_economico[0]['estudiante_razon']);
+    document.getElementById("mensualidad_ci").required = false;
+    document.getElementById("mensualidad_nombre").required = false;
     var lamensualidadmes = "<input type='hidden' name='mensualidad_mes' value='"+mensualidad["mensualidad_mes"]+"' class=form-control id=mensualidad_mes"+mensualidad["mensualidad_id"]+"' />";
     $("#lamensualidadmes").html(lamensualidadmes);
     var eldetallefactura = "<textarea class='form-control' type='text' rows='2' name='factura_detalle"+mensualidad["mensualidad_id"]+"' id='factura_detalle"+mensualidad["mensualidad_id"]+"'>";

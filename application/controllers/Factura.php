@@ -1068,7 +1068,70 @@ class Factura extends CI_Controller{
         }    
         
     }
+    /* impresion en oficio original y copia */
+    function factura_oficioambos_id($factura_id)
+    {
+        if($this->acceso(8)){
+        //**************** inicio contenido ***************           
     
-    
+        $usuario_id = $this->session_data['usuario_id'];
+        
+        $data['tipousuario_id'] = $this->session_data['tipousuario_id'];
+        
+//        $data['venta'] = $this->Detalle_venta_model->get_venta($venta_id);
+//        
+        // se usa detalle_venta para no modifcar el detalle de factura que ya estaba echo
+        $data['detalle_factura'] = $this->Detalle_venta_model->get_detalle_factura_id($factura_id);
+        $data['empresa'] = $this->Empresa_model->get_empresa(1);
+        $data['page_title'] = "Factura";
+        $factura = $this->Factura_model->get_factura_id($factura_id);
+        $data['factura'] = $factura;
+        $data['parametro'] = $this->Parametro_model->get_parametros();
+        
+        if(sizeof($factura)>=1){
+        
+        $nit_emisor    = $factura[0]['factura_nitemisor'];
+        $num_fact      = $factura[0]['factura_numero'];
+        $autorizacion  = $factura[0]['factura_autorizacion'];
+        $fecha_factura = $factura[0]['factura_fechaventa'];
+        $total         = $factura[0]['factura_total'];
+        $codcontrol    = $factura[0]['factura_codigocontrol'];
+        $nit           = $factura[0]['factura_nit'];
+        
+        $cadenaQR = $nit_emisor.'|'.$num_fact.'|'.$autorizacion.'|'.$fecha_factura.'|'.$total.'|'.$total.'|'.$codcontrol.'|'.$nit.'|0|0|0|0';
+               
+        $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
+        //Generador de Codigo QR
+                //cargamos la librería	
+         $this->load->library('ciqrcode');
+                  
+         //hacemos configuraciones
+         $params['data'] = $cadenaQR;//$this->random(30);
+         $params['level'] = 'H';
+         $params['size'] = 5;
+         //decimos el directorio a guardar el codigo qr, en este 
+         //caso una carpeta en la raíz llamada qr_code
+         $params['savename'] = FCPATH.'resources/images/qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png'; 
+         //generamos el código qr
+         $this->ciqrcode->generate($params); 
+         //echo '<img src="'.base_url().'resources/images/qrcode.png" />';
+        //fin generador de codigo QR
+         
+        
+        $data['codigoqr'] = base_url('resources/images/qrcode'.$usuario_id.'.png');
+        
+        $data['_view'] = 'factura/factura_oficioambos';
+        $this->load->view('layouts/main',$data);
+        
+        }
+        else
+        {
+            echo "<script type='text/javascript>alert('La mensualidad no contiene una factura asociada...!'); </script>'";
+            redirect('kardexeconomico/busqueda');
+        }
+        		
+        //**************** fin contenido ***************
+        }
+    }
     
 }
