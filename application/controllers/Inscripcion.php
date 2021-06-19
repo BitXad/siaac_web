@@ -479,14 +479,14 @@ class Inscripcion extends CI_Controller{
         }
         
         $params = array(
-            'inscripcion_id' => $inscripcion_id,
-            'kardexacad_notfinal1' => $kardexacad_notfinal1,
-            'kardexacad_notfinal2' => $kardexacad_notfinal2,
-            'kardexacad_notfinal3' => $kardexacad_notfinal3,
-            'kardexacad_notfinal4' => $kardexacad_notfinal4,
-            'kardexacad_notfinal5' => $kardexacad_notfinal5,
-            'kardexacad_notfinal' => $kardexacad_notfinal,
-            'kardexacad_estado' => $kardexacad_estado,
+                'inscripcion_id' => $inscripcion_id,
+                'kardexacad_notfinal1' => $kardexacad_notfinal1,
+                'kardexacad_notfinal2' => $kardexacad_notfinal2,
+                'kardexacad_notfinal3' => $kardexacad_notfinal3,
+                'kardexacad_notfinal4' => $kardexacad_notfinal4,
+                'kardexacad_notfinal5' => $kardexacad_notfinal5,
+                'kardexacad_notfinal' => $kardexacad_notfinal,
+                'kardexacad_estado' => $kardexacad_estado,
             );
             $kardexacad_id = $this->Kardex_academico_model->add_kardex_academico($params);
         
