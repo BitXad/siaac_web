@@ -323,7 +323,12 @@ border-bottom : 1px solid #aaa;
                                     $total_final += $d['detallefact_total']; 
                         ?>
                        <tr style="border-top-style: solid;  border-color: black;  border-top-width: 1px;">
-                           <td align="center" style="padding: 0;"><font style="size:7px; font-family: arial"> <?php echo $d['detallefact_cantidad']; ?></font></td>
+                           <td align="center" style="padding: 0;"><font style="size:7px; font-family: arial"> 
+                                <?php if ($d['detallefact_cantidad']>0){ 
+                                            echo $d['detallefact_cantidad']; 
+                                    }else{ echo "";}
+                                    ?></font>
+                           </td>
                             <td colspan="2" style="padding: 0; line-height: 10px;"><font style="size:7px; font-family: arial;"> 
                                 <?php echo $d['detallefact_descripcion']; ?>
                                 <?php if(isset($d['detallefact_preferencia']) && $d['detallefact_preferencia']!='null' && $d['detallefact_preferencia']!='-' ) {
@@ -340,7 +345,7 @@ border-bottom : 1px solid #aaa;
                                 </font></td>
                             <td align="right" style="padding: 0;"><font style="size:7px; font-family: arial"> <?php echo number_format($d['detallefact_precio']+$d['detallefact_descuento'],2,'.',','); ?></font></td>
                             <td></td>
-                            <td align="right" style="padding: 0;"><font style="size:7px; font-family: arial"> <?php echo number_format($d['detallefact_subtotal'],2,'.',','); ?></font></td>
+                            <td align="right" style="padding: 0;"><font style="size:7px; font-family: arial"> <?php echo number_format($d['detallefact_total']+($d['detallefact_descuento']*$d['detallefact_cantidad']),2,'.',','); ?></font></td>
                             <td></td>
                        </tr>
                        <?php }} ?>

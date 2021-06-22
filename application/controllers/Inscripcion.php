@@ -974,12 +974,14 @@ class Inscripcion extends CI_Controller{
                 $estado_id = 1;
                 $fechahoy = date("Y-m-d");
                 $total = $this->input->post('total_final');
-                $descontar = $this->input->post('descuento') * $kardexeco_mensualidadpagada;
+                
+                $descontar = $this->input->post('descuento') * $pagar_mensualidad;
+                
                 $venta_efectivo        = $this->input->post('total_final');
                 $factura_fechaventa    = $fechahoy; //$this->input->post('mensualidad_fecha');
                 $factura_fecha         = "date(now())";
                 $factura_hora          = "time(now())";
-                $factura_subtotal      = $total; //-$descontar;
+                $factura_subtotal      = $total + $descontar; //-$descontar;
                 $factura_nit           = $this->input->post('nit');
                 $factura_razonsocial   = $this->input->post('razon');
                 $factura_ice           = 0;
@@ -1024,6 +1026,71 @@ class Inscripcion extends CI_Controller{
                 $factura_id = $this->Mensualidad_model->ejecutar($sql);
                 $esfactura_id = $factura_id;
             
+                //*************************************************************************
+                //      REGISTRAR MATRICULA
+                //*************************************************************************
+
+                if($pagar_matricula==1 || $pagar_matricula==3){
+                    
+                    
+                    if($pagar_matricula == 1)
+                            $cadena = "MATRICULA ";                    
+                            
+                    if($pagar_matricula == 3)
+                            $cadena = "A CUENTA POR MATRICULA ";
+   
+                    $precio = $kardexeco_matriculapagada;
+                
+                    $producto_id = 0;
+                    $cantidad =  1;
+                    $detallefact_codigo = "MAT01";
+                    $detallefact_cantidad = $cantidad;
+                    $unidad = "MATRICULA";
+                    $detallefact_descripcion = $cadena;
+                    $detallefact_precio = $precio;
+                    $detallefact_subtotal =  $precio * $cantidad;
+                    $detallefact_descuento = 0;
+                    $detallefact_total = $precio *  $cantidad;
+                    $detallefact_preferencia =  "";
+                    $detallefact_caracteristicas = "";
+
+                    $sql =  "insert into detalle_factura(
+                    producto_id,
+                    factura_id,
+                    detallefact_codigo,
+                    detallefact_unidad,
+                    detallefact_cantidad,            
+                    detallefact_descripcion,
+                    detallefact_precio,
+                    detallefact_subtotal,
+                    detallefact_descuento,
+                    detallefact_total,                
+                    detallefact_preferencia,
+                    detallefact_caracteristicas)
+
+                    value(
+                    ".$producto_id.",
+                    ".$factura_id.",
+                    '".$detallefact_codigo."',
+                    '".$unidad."',
+                    ".$detallefact_cantidad.",            
+                    '".$detallefact_descripcion."',
+                    ".$detallefact_precio.",
+                    ".$detallefact_subtotal.",
+                    ".$detallefact_descuento.",
+                    ".$detallefact_total.",                
+                    '".$detallefact_preferencia."',
+                    '".$detallefact_caracteristicas."')";
+
+                    $this->Mensualidad_model->ejecutar($sql);
+                
+                }
+                //*************************************************************************
+                //      FIN REGISTRO MATRICULA
+                //*************************************************************************
+
+                
+                
             $producto_id = 0;
             $cantidad =  $pagar_mensualidad;
             $detallefact_codigo = "-";
@@ -1051,13 +1118,15 @@ class Inscripcion extends CI_Controller{
             }else{ $eslaglosa = ", ".$eslaglosa; }
             $detallefact_descripcion = $masdetalle.$eslaglosa;
             $unidad = "MENSUALIDAD";
+            $detallefact_codigo = "MENS001";
             
 //            $precio = $total - $descontar;
-            $precio = $kardexeco_mensualidad;
+            $precio = $kardexeco_mensualidad - $kardexeco_descuento;
+            
             $detallefact_precio = $precio;
-            $detallefact_subtotal =  $precio;
+            $detallefact_subtotal =  $precio*$cantidad;
             $detallefact_descuento = $kardexeco_descuento;
-            $detallefact_total = ($precio - $kardexeco_descuento)*$cantidad;
+            $detallefact_total = $precio*$cantidad;
             $detallefact_preferencia =  "";
             $detallefact_caracteristicas = "";
             
@@ -1091,12 +1160,74 @@ class Inscripcion extends CI_Controller{
 
             $this->Mensualidad_model->ejecutar($sql);
             
+            
+            //Actualizar nit y razon social
                 $params = array(
                 'estudiante_nit' => $factura_nit,
                 'estudiante_razon' => $factura_razonsocial,
                 );
                 $this->Estudiante_model->update_estudiante($estudiante_id, $params);
             }
+            
+                //*************************************************************************
+                //      REGISTRAR DESCUENTO
+                //*************************************************************************
+
+                if($descontar>0){
+                    
+                    $cadena = "DESCUENTO LEY Nº 1070/2021";
+   
+                    $precio = $descontar * -1;
+                
+                    $producto_id = 0;
+                    $cantidad =  0;
+                    
+                    $detallefact_codigo = "DESC01";
+                    $detallefact_cantidad = $cantidad;
+                    $unidad = "DESCUENTO";
+                    $detallefact_descripcion = $cadena;
+                    $detallefact_precio = $precio;
+                    $detallefact_subtotal =  $precio;
+                    $detallefact_descuento = 0;
+                    $detallefact_total = $precio;
+                    $detallefact_preferencia =  "";
+                    $detallefact_caracteristicas = "";
+
+                    $sql =  "insert into detalle_factura(
+                    producto_id,
+                    factura_id,
+                    detallefact_codigo,
+                    detallefact_unidad,
+                    detallefact_cantidad,            
+                    detallefact_descripcion,
+                    detallefact_precio,
+                    detallefact_subtotal,
+                    detallefact_descuento,
+                    detallefact_total,                
+                    detallefact_preferencia,
+                    detallefact_caracteristicas)
+
+                    value(
+                    ".$producto_id.",
+                    ".$factura_id.",
+                    '".$detallefact_codigo."',
+                    '".$unidad."',
+                    ".$detallefact_cantidad.",            
+                    '".$detallefact_descripcion."',
+                    ".$detallefact_precio.",
+                    ".$detallefact_subtotal.",
+                    ".$detallefact_descuento.",
+                    ".$detallefact_total.",                
+                    '".$detallefact_preferencia."',
+                    '".$detallefact_caracteristicas."')";
+
+                    $this->Mensualidad_model->ejecutar($sql);
+                
+                }
+                //*************************************************************************
+                //      FIN REGISTRO DESCUENTO
+                //*************************************************************************
+            
         }
         $datos= array($kardexacad_id, $esfactura_id);
         echo json_encode($datos);
