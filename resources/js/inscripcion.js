@@ -1,6 +1,13 @@
 $(document).on("ready",inicio);
 function inicio(){
-    ultimatransaccion();
+
+    //ultimatransaccion(); no se sabe exactamente que hace;
+    var estudiante_id = document.getElementById("estudiante_id").value;
+    
+    if (Number(estudiante_id)<=0){
+        $("#modalbuscarclie").click();
+    }
+    
 }
 
 function validar(e,opcion) {
@@ -88,11 +95,7 @@ function seleccionar_carrera(){
     var estudiante_id = document.getElementById('estudiante_id').value;
     var planacad_id = document.getElementById('planacad_id').value;
     
-    
-   
     if(estudiante_id>0){
-    
-    
     
     //alert(controlador);
         $.ajax({
@@ -124,6 +127,16 @@ function seleccionar_carrera(){
                         $("#pagar_mensualidad").val(0) ;
                           
                     var mensualidades = document.getElementById('pagar_mensualidad').value;
+                    
+                    var matricula = document.getElementById("carrera_matricula").value;
+                    
+                    
+                    if (Number(matricula)>0){
+                        document.getElementById("pagar_matricula").selectedIndex = 1;
+                    }else{
+                        document.getElementById("pagar_matricula").selectedIndex = 0;
+                    }
+                    
                     /*
                     $("#total").val((Number(registros[0].carrera_matricula) + Number(registros[0].carrera_mensualidad * mensualidades)).toFixed(2));
                     $("#total_final").val((Number(registros[0].carrera_matricula) + Number(registros[0].carrera_mensualidad * mensualidades)).toFixed(2));
@@ -139,7 +152,7 @@ function seleccionar_carrera(){
             
         controlador = base_url+"inscripcion/buscar_nivel";
         $("#nivel_id").empty();
-        $("#nivel_id").prepend("<option value='0'>- NIVEL -</option>");
+        $("#nivel_id").prepend("<option value='0'>- GRADO -</option>");
         
         $.ajax({
             url:controlador,
@@ -162,16 +175,18 @@ function seleccionar_carrera(){
         }); 
     
     calcular(); 
+
     
     }
     else{
         $("#modalbuscarclie").click();
         //alert("ERROR: Debe seleccionar/registrar un estudiante...!!");
     }
-  
+
 }
 
 function mostrar_materias(){
+    
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"inscripcion/buscar_materias";
     var nivel_id = document.getElementById('nivel_id').value;
@@ -309,10 +324,16 @@ function calcular(){
     
     var total = document.getElementById('total').value;
     
-    var descuento = document.getElementById('descuento').value;
+    //alert(total);
+    var pagar_meses = 0;
+    
+    pagar_meses = document.getElementById('pagar_mensualidad').value;
+    var descuento = Number(document.getElementById('descuento').value) * Number(pagar_meses);
     
 //    var efectivo = document.getElementById('efectivo').value;
+    //alert(total+" - "+descuento);
     var total_final = total - descuento;
+    
     $("#total_final").val(Number(total_final).toFixed(2));
     $("#efectivo").val(Number(total_final).toFixed(2));
     
@@ -608,14 +629,27 @@ function obtener_planacademico(carrera_id){
                
                 var registros =  JSON.parse(respuesta);
                 var html1 = "";
+                var seleccionado = "";
+                
                 if (registros != null){
                     var n = registros.length; //tamaño del arreglo de la consulta
                         html1 = "";
                         html1 += "<b><select name='planacad_id' class='form-control' onchange='seleccionar_carrera()' id='planacad_id' required>";
                         html1 += "<option value=''>- PLAN ACADEMICO -</option>";
                         for (var i = 0; i < n ; i++){
-                            html1 += "<option value='"+registros[i]['planacad_id']+"'>"+registros[i]['planacad_nombre']+"</option>";
+                            
+                                if (i==0)
+                                { 
+                                    seleccionado = "";
+                                    //seleccionado = "selected='true'";
+                                    //seleccionar_carrera();
+                                    
+                                }
+                            
+                           
+                            html1 += "<option value='"+registros[i]['planacad_id']+"' "+seleccionado+">"+registros[i]['planacad_nombre']+"</option>";
                         }
+                        
                         html1 += "</select></b>";
                         $("#elegirplanacad").html(html1);
                         $("#carrera_nivel").val("-");
@@ -633,6 +667,8 @@ function obtener_planacademico(carrera_id){
                         $("#tabla_materia").html("");
                         $('#pagar_matricula').find('option:first').attr('selected', 'selected').parent('select');
                         document.getElementById('loader').style.display = 'none';
+                        
+                       
             }
             document.getElementById('loader').style.display = 'none';
         },
@@ -653,6 +689,9 @@ function obtener_planacademico(carrera_id){
         $("#elegirplanacad").html(htmln);
         document.getElementById('nuevo_plan').style.display = 'none';
     }
+    
+  //  calcular();
+     
 }
 /* modifica una inscripcion */
 function modificar_inscripcion(){
@@ -788,6 +827,7 @@ function modificar_inscripcion(){
 
 
 function calcular_totales(e){
+    
    var tecla = (document.all) ? e.keyCode : e.which; 
    //alert(venta_cambio);
    
@@ -795,4 +835,12 @@ function calcular_totales(e){
         calcular();
    }
     
+}
+
+function enfocar_cursor(){
+
+$('#modalbuscar').on('shown.bs.modal', function () {
+    $('#filtrar2').focus();
+})  
+
 }

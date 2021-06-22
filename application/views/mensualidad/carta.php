@@ -105,7 +105,7 @@
     </tr>
     <tr>
         <td style="width: 2cm;"></td>
-        <td <?php echo $padding; ?>><b>MENSUALIDAD No.:</b></td>
+        <td <?php echo $padding; ?>><b>CUOTA No.:</b></td>
         <td <?php echo $padding; ?>><?php echo $mensualidad[0]['mensualidad_numero']; ?></td>
     </tr>
 
@@ -117,14 +117,22 @@
 
     <tr>
         <td style="width: 2cm;"></td>
-        <td <?php echo $padding; ?>><b>MENSUALIDAD MONTO Bs:</b></td>
-        <td <?php echo $padding; ?>><?php echo number_format($mensualidad[0]['mensualidad_montocancelado'],2,".",","); ?></td>
+        <td <?php echo $padding; ?>><b>MENSUALIDAD Bs:</b></td>
+        <td <?php echo $padding; ?>><?php echo number_format($mensualidad[0]['mensualidad_montoparcial'],2,".",","); ?></td>
+    </tr>
+    
+    <?php if ($mensualidad[0]['mensualidad_descuento']>0){ ?>
+    <tr>
+        <td style="width: 2cm;"></td>
+        <td <?php echo $padding; ?>><b>DESCUENTO Bs:</b></td>
+        <td <?php echo $padding; ?>><?php echo number_format($mensualidad[0]['mensualidad_descuento'],2,".",","); ?></td>
     </tr>
 
+    <?php } ?>
    
     <tr>
         <td style="padding: 0;"></td>
-        <td colspan="2" style="padding: 0;">__________________________________________________________</td>
+        <td colspan="2" style="padding: 0;">______________________________________________________________________________</td>
             
     </tr>
     <tr>

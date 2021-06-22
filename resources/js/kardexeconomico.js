@@ -41,6 +41,7 @@ if (tecla==13){
 }
 
 function buscarestudiante(dato){
+    
 	var base_url = document.getElementById('base_url').value;
 	var controlador = base_url+'kardex_economico/busqueda';
 		$.ajax({url:controlador,
@@ -65,7 +66,7 @@ function buscarestudiante(dato){
                         html += "<td><b>"+registros[i]["carrera_nombre"]+"</b><br>"+registros[i]["nivel_descripcion"]+"</td>";
                         html += "<td class='text-center'><b>"+registros[i]["gestion_semestre"]+"/"+registros[i]["gestion_descripcion"]+"</b></td>";
                         html += "<td align='right'><b>"+Number(registros[i]["kardexeco_matricula"]).toFixed(2)+"</b></td>";
-                        html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"]).toFixed(2)+"</b></td>";
+                        html += "<td align='right'><b>"+Number(registros[i]["kardexeco_mensualidad"] - registros[i]["kardexeco_descuento"]).toFixed(2)+"</b></td>";
                         html += "<td align='center'><b>"+registros[i]["kardexeco_nummens"]+"</b></td>";
                         html += "<td align='center'><b>"+registros[i]["estado_descripcion"]+"</b></td>";
                         html += "<td><a href='"+base_url+"mensualidad/mensualidad/"+registros[i]["kardexeco_id"]+"' target='_blank' class='btn btn-success btn-xs' title='COBRAR'><i class='fa fa-money'></i> Cobrar</a> ";
@@ -83,21 +84,24 @@ function buscarestudiante(dato){
 }
 
 function buscar(e,opcion) {
- tecla = (document.all) ? e.keyCode : e.which;
-if (tecla==13){ 
+    
+    tecla = (document.all) ? e.keyCode : e.which;
+    
+    if (tecla==13){ 
         if (opcion==1){   //si la pulsacion proviene del codigo
             var carrera = document.getElementById('carrera').value;
             sql = "c.carrera_nombre like '%"+carrera+"%' ";
             buscargrupos(sql);
-        }
-  
+        }  
     }
 
 }
       
 function buscargrupos(dato){
+    
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+'kardex_economico/carrera';
+    
         $.ajax({url:controlador,
             type:"POST",
             data:{dato:dato},
