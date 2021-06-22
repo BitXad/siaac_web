@@ -118,7 +118,7 @@
                 <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" name="username" id="username" class="form-control input-lg" placeholder="usuario" autocomplete="off"  required>
+                <input type="text" name="username" id="username" class="form-control input-lg" placeholder="usuario" autocomplete="off" autofocus required>
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
