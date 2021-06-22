@@ -135,7 +135,8 @@ $session_data = $this->session->userdata('logged_in'); ?>
     <div class="box-tools">
         <center>            
             <a href="<?php echo base_url('estudiante/registrar/'); ?>" class="btn btn-success btn-foursquarexs"><font size="5"><span class="fa fa-user-plus"></span></font><br><small>Reg. Estudiante</small></a>
-            <a href="#" data-toggle="modal" data-target="#modalbuscar" id="modalbuscarclie" class="btn btn-warning btn-foursquarexs"><font size="5"><span class="fa fa-search"></span></font><br><small>Buscar Estud.</small></a>
+            <!--<a href="#" data-toggle="modal" data-target="#modalbuscar" id="modalbuscarclie" class="btn btn-warning btn-foursquarexs"><font size="5"><span class="fa fa-search"></span></font><br><small>Buscar Estud.</small></a>-->
+            <button data-toggle="modal" data-target="#modalbuscar" id="modalbuscarclie" class="btn btn-warning btn-foursquarexs" onclick="enfocar_cursor()"><font size="5"><span class="fa fa-search"></span></font><br><small>Buscar Estud.</small></button>
             <!--<a href="" class="btn btn-info btn-foursquarexs"><font size="5"><span class="fa fa-cubes"></span></font><br><small>Productos</small></a>-->            
         </center>            
     </div>
@@ -182,7 +183,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                             <img src="<?php echo base_url("resources/images/loader.gif"); ?>"  >
                         </div>
                         <div class="col-md-4">
-                            <label for="carrera_id" class="control-label">Carrera</label>
+                            <label for="carrera_id" class="control-label">Curso/Carrera</label>
                             <div class="form-group"> <b>
                                 <select name="carrera_id" id="carrera_id" class="form-control" onchange="obtener_planacademico(this.value)">
                                     <option value="0">- CURSO/CARRERA -</option>
@@ -275,10 +276,10 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         </div>
 <!--------------------- FIN ------------------------------------>
                         <div class="col-md-3">
-                            <label for="nivel_id" class="control-label">Nivel</label>
+                            <label for="nivel_id" class="control-label">Grado</label>
                             <div class="form-group">
                                 <select name="nivel_id" id="nivel_id" class="form-control" onchange="mostrar_materias()">
-                                    <option value="0">- NIVEL -</option>
+                                    <option value="0">- GRADO -</option>
                                 </select>
                             </div>
                         </div>
@@ -461,15 +462,15 @@ $session_data = $this->session->userdata('logged_in'); ?>
                             NIT:
                         </td>
                         <td style="border: 0px; padding: 0px">
-                            <input type="text" name="nit" value="<?php echo $estudiante[0]["estudiante_nit"]; ?>" id="nit"/>
+                            <input type="text" name="nit" value="<?php echo $estudiante[0]["estudiante_nit"]; ?>" id="nit" onkeypress="validar(event,9)"  onchange="seleccionar_cliente()"/>
                         </td>
                     </tr>
                     <tr>
                         <td style="font-weight: bold; text-align: right; border: 0px; padding: 0px; padding-top: 3px; padding-right: 4px">
-                            RAZON:
+                            RAZÓN:
                         </td>
                         <td style="border: 0px; padding: 0px">
-                            <input type="text" name="razon" value="<?php echo $estudiante[0]["estudiante_razon"]; ?>" id="razon"/>
+                            <input type="text" name="razon" value="<?php echo $estudiante[0]["estudiante_razon"]; ?>" id="razon" onkeypress="validar(event,9)"  onchange="seleccionar_cliente()"/>
                         </td>
                     </tr>
                 </table>
@@ -489,7 +490,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                     
                     <tr>
                         <td  style="padding: 0" align="right">                           
-                            <b>DESC. Bs </b>
+                            <b>DESC.MENS. Bs </b>
                         </td>
                         <td></td>
                         <td style="padding: 0">                                        

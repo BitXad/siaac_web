@@ -28,7 +28,7 @@
 <!-------------------------------------------------------->
 <input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
 <?php $padding = "style='padding:0; '"; 
-    $ancho = "16cm";
+    $ancho = "18cm";
     
     $logo = base_url("resources/images/institucion/").$institucion[0]['institucion_logo'];
     $logo_thumb = base_url("resources/images/institucion/")."thumb_".$institucion[0]['institucion_logo'];
@@ -105,7 +105,7 @@
     </tr>
     <tr>
         <td style="width: 2cm;"></td>
-        <td <?php echo $padding; ?>><b>CARRERA:</b></td>
+        <td <?php echo $padding; ?>><b>CURSO/CARRERA:</b></td>
         <td <?php echo $padding; ?>><?php echo $inscripcion[0]['carrera_nombre']; ?></td>
     </tr>
 
@@ -130,9 +130,19 @@
     <tr>
         <td style="width: 2cm;"></td>
         <td <?php echo $padding; ?>><b>MENSUALIDAD Bs:</b></td>
-        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_mensualidadpagada'],2,".",","); ?></td>
+        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_mensualidad'],2,".",","); ?>
+            <?php if ($inscripcion[0]['kardexeco_descuento']>0) {?>
+            <b> DESC. Bs: </b><?php echo number_format($inscripcion[0]['kardexeco_descuento'],2,".",","); ?>
+            <?php } ?>
+        
+        </td>
     </tr>
 
+    <tr>
+        <td style="width: 2cm;"></td>
+        <td <?php echo $padding; ?>><b>MENS. CANCELADAS:</b></td>
+        <td <?php echo $padding; ?>><?php echo number_format($inscripcion[0]['kardexeco_mensualidadpagada'],2,".",","); ?></td>
+    </tr>
 
     <tr>
         <td style="width: 2cm;"></td>
@@ -152,10 +162,21 @@
     </tr>
     <tr>
         <td></td>
-        <td>
-            <font face="Arial" size="3"><b>TOTAL FINAL Bs</b></font>
+        <td style="line-height: 14px; text-align: right;">
+            <font face="Arial" size="1"><b>TOTAL FINAL Bs: </b></font><br>
+            <?php if ($inscripcion[0]['kardexeco_descuento']>0){ ?>
+                <font face="Arial" size="1"><b>DESCUENTO Bs: </b></font><br>
+            <?php } ?>
+            
+            <font face="Arial" size="3"><b>TOTAL FINAL Bs: </b></font>
         </td>
-        <td><font face="Arial" size="3"><b><?php echo number_format($inscripcion[0]['kardexeco_matriculapagada']+$inscripcion[0]['kardexeco_mensualidadpagada'],2,".",","); ?></b></font></td>
+        <td style="line-height: 14px; text-align: left;">
+            <font face="Arial" size="1"><b><?php echo number_format($inscripcion[0]['kardexeco_total'],2,".",","); ?></b></font><br>
+            <?php if ($inscripcion[0]['kardexeco_descuento']>0){ ?>
+                <font face="Arial" size="1"><b><?php echo number_format($inscripcion[0]['kardexeco_descuento'] * $inscripcion[0]['kardexeco_mensualidadpagada'],2,".",","); ?></b></font><br>
+            <?php } ?>
+            <font face="Arial" size="3"><b><?php echo number_format($inscripcion[0]['kardexeco_totalfinal'],2,".",","); ?></b></font>
+        </td>
     </tr>
     <!--</tbody>-->
 </table>   

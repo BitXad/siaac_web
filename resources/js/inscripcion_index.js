@@ -175,54 +175,63 @@ function tabla_inscripcion(filtro){
 
 /* Obtiene los planes academicos de una determinada Carrera */
 function obtener_planacademico(carrera_id){
+    
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+'plan_academico/get_plan_acadcarrera';
+    
     if(carrera_id >0){
+    
         document.getElementById('loader').style.display = 'block';
-    $.ajax({url: controlador,
-           type:"POST",
-           data:{carrera_id:carrera_id},
-           success:function(respuesta){
-               
-                var registros =  JSON.parse(respuesta);
-                var html1 = "";
-                if (registros != null){
-                    var n = registros.length; //tamaño del arreglo de la consulta
-                        html1 = "";
-                        html1 += "<b><select name='planacad_id' class='btn btn-warning btn-sm  form-control' onchange='obtener_niveles(this.value)' id='planacad_id' required>";
-                        html1 += "<option value=''>- PLAN ACADEMICO -</option>";
-                        for (var i = 0; i < n ; i++){
-                            html1 += "<option value='"+registros[i]['planacad_id']+"'>"+registros[i]['planacad_nombre']+"</option>";
-                        }
-                        html1 += "</select></b>";
-                        $("#elegirplanacad").html(html1);
-                        $("#carrera_nivel").val("-");
-                        $("#carrera_tiempoestudio").val("-");
-                        $("#carrera_codigo").val("-");
-                        $("#carrera_modalidad").val("-");
-                        $("#carrera_plan").val("-");
-                        $("#carrera_matricula").val("0.00");
-                        $("#carrera_mensualidad").val("0.00");
-                        $("#carrera_nummeses").val("0");
-                        $("#pagar_mensualidad").empty();
-                        $("#pagar_mensualidad").html("<option value='0'>- NINGUNA -</option>");
-                        $("#nivel_id").empty();
-                        $("#nivel_id").html("<option value='0'>- NIVEL -</option>");
-                        $("#tabla_materia").html("");
-                        $('#pagar_matricula').find('option:first').attr('selected', 'selected').parent('select');
-                        document.getElementById('loader').style.display = 'none';
+        $.ajax({url: controlador,
+               type:"POST",
+               data:{carrera_id:carrera_id},
+               success:function(respuesta){
+
+                    var registros =  JSON.parse(respuesta);
+                    var html1 = "";
+                    
+
+                    if (registros != null){
+                        var n = registros.length; //tamaño del arreglo de la consulta
+                            html1 = "";
+                            html1 += "<b><select name='planacad_id' class='btn btn-warning btn-sm  form-control' onchange='obtener_niveles(this.value)' id='planacad_id' required>";
+                            html1 += "<option value=''>- PLAN ACADEMICO -</option>";
+
+                            for (var i = 0; i < n ; i++){
+
+                                html1 += "<option value='"+registros[i]['planacad_id']+"' "+seleccionado+">"+registros[i]['planacad_nombre']+"</option>";
+                            }
+                            html1 += "</select></b>";
+                            $("#elegirplanacad").html(html1);
+                            $("#carrera_nivel").val("-");
+                            $("#carrera_tiempoestudio").val("-");
+                            $("#carrera_codigo").val("-");
+                            $("#carrera_modalidad").val("-");
+                            $("#carrera_plan").val("-");
+                            $("#carrera_matricula").val("0.00");
+                            $("#carrera_mensualidad").val("0.00");
+                            $("#carrera_nummeses").val("0");
+                            $("#pagar_mensualidad").empty();
+                            $("#pagar_mensualidad").html("<option value='0'>- NINGUNA -</option>");
+                            $("#nivel_id").empty();
+                            $("#nivel_id").html("<option value='0'>- NIVEL -</option>");
+                            $("#tabla_materia").html("");
+                            $('#pagar_matricula').find('option:first').attr('selected', 'selected').parent('select');
+                            document.getElementById('loader').style.display = 'none';
+
+
+                }
+                document.getElementById('loader').style.display = 'none';
+            },
+            error:function(respuesta){
+               // alert("Algo salio mal...!!!");
+               html = "";
+               $("#elegirplanacad").html("");
+            },
+            complete: function (jqXHR, textStatus) {
+                document.getElementById('loader').style.display = 'none';
             }
-            document.getElementById('loader').style.display = 'none';
-        },
-        error:function(respuesta){
-           // alert("Algo salio mal...!!!");
-           html = "";
-           $("#elegirplanacad").html("");
-        },
-        complete: function (jqXHR, textStatus) {
-            document.getElementById('loader').style.display = 'none';
-        }
-    });   
+        });   
     }else{
         var htmln = "";
         htmln += "<select name='planacad_id' class='form-control' id='planacad_id' required>";
@@ -254,27 +263,6 @@ function obtener_niveles(planacad_id){
         }, 
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function validar(e,opcion) {

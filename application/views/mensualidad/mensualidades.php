@@ -390,21 +390,21 @@ Deudas por Ventas
                 <input type="hidden" name="mensualidad_id" value="<?php //echo $m['mensualidad_id']; ?>" class="form-control" id="mensualidad_id" />
                 <input type="hidden" name="estado_id" value="9" class="form-control" id="estado_id" />
                 <div class="col-md-4">
-                    <label for="mensualidad_descuento" class="control-label">Descuento</label>
+                    <label for="mensualidad_descuento" class="control-label">Descuento Bs</label>
                     <div class="form-group">
                         <span id="eldescuento"></span>
                         <!--<input type="number" onkeyup="descontar(<?php //echo $m['mensualidad_id']; ?>)" name="mensualidad_descuento" value="0" min="0" step="any" class="form-control" id="mensualidad_descuento<?php //echo $m['mensualidad_id']; ?>" />-->
                     </div>
                 </div>
                 <div class="col-md-4" >
-                    <label for="mensualidad_multa" class="control-label">Multa</label>
+                    <label for="mensualidad_multa" class="control-label">Multa Bs</label>
                     <div class="form-group">
                         <span id="lamulta"></span>
                         <!--<input type="text" name="mensualidad_multa" value="<?php //echo number_format($m['mensualidad_multa'],2,".",","); ?>" class="form-control" id="mensualidad_multa<?php //echo $m['mensualidad_id']; ?>" readonly/>-->
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label for="mensualidad_montocancelado" class="control-label">Monto Cancelado</label>
+                    <label for="mensualidad_montocancelado" class="control-label">Monto Cancelado Bs</label>
                     <div class="form-group">
                         <span id="elmontocancelado"></span>
                         <!--<input type="number" step="any" onkeyup="calcular(<?php //echo $m['mensualidad_id']; ?>)" name="mensualidad_montocancelado" value="<?php //echo number_format($m['mensualidad_montoparcial']+$m['mensualidad_multa'],2,".",","); ?>" class="form-control" id="mensualidad_montocancelado<?php //echo $m['mensualidad_id']; ?>" min="0"/>-->
@@ -418,12 +418,13 @@ Deudas por Ventas
                         <label for="detalle_descuento" class="control-label">Detalle Descuento</label>
                         <div class="form-group">
                             <!--<span id="eldetalledescuento"></span>-->
-                            <textarea class="form-control" type="text" rows="2" name="detalle_descuento" id="detalle_descuento">Descuento: </textarea>
+                            <textarea class="form-control" type="text" rows="2" name="detalle_descuento" id="detalle_descuento">DESCUENTO </textarea>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-4" >
-                    <label for="mensualidad_saldo" class="control-label">Saldo</label>
+                    <label for="mensualidad_saldo" class="control-label">Saldo Bs</label>
                     <div class="form-group">
                         <span id="lamensualidadsaldo"></span>
                         <!--<input type="number" step="any" name="mensualidad_saldo" value="0.00" class="form-control" id="mensualidad_saldo<?php //echo $m['mensualidad_id']; ?>" />-->
@@ -433,6 +434,7 @@ Deudas por Ventas
                         <input type="hidden" name="mensualidad_hora" value="<?php //echo date('H:i:s'); ?>" class="form-control" id="mensualidad_hora" />
                     </div>
                 </div>
+                
                 <div class="col-md-4">
                     <label for="mensualidad_ci" class="control-label">NIT/C.I.</label>
                     <div class="form-group">
