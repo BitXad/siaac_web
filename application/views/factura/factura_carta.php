@@ -343,7 +343,12 @@ border-bottom : 1px solid #aaa;
                                 
                                 
                                 </font></td>
-                            <td align="right" style="padding: 0;"><font style="size:7px; font-family: arial"> <?php echo number_format($d['detallefact_precio']+$d['detallefact_descuento'],2,'.',','); ?></font></td>
+                            <td align="right" style="padding: 0;"><font style="size:7px; font-family: arial"> 
+                                <?php 
+                                    if ($d['detallefact_precio']>0){
+                                    echo number_format($d['detallefact_precio']+$d['detallefact_descuento'],2,'.',',');} 
+                                ?>
+                                </font></td>
                             <td></td>
                             <td align="right" style="padding: 0;"><font style="size:7px; font-family: arial"> <?php echo number_format($d['detallefact_total']+($d['detallefact_descuento']*$d['detallefact_cantidad']),2,'.',','); ?></font></td>
                             <td></td>

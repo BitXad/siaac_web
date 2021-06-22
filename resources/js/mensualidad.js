@@ -1,4 +1,5 @@
 function mostrarmodalpagar(mensualidad){
+    
     var base_url = document.getElementById('base_url').value;
     var kardex_economico = JSON.parse(document.getElementById('elkardex_economico').value);
     
@@ -7,8 +8,10 @@ function mostrarmodalpagar(mensualidad){
     var la_factura = "<input type='checkbox' name='factura"+mensualidad["mensualidad_id"]+"' id='factura"+mensualidad["mensualidad_id"]+"' onclick='facturar("+mensualidad["mensualidad_id"]+")' />";
     $("#lafactura").html(la_factura);
     $("#mensualidad_id").val(mensualidad["mensualidad_id"]);
+    
     var eldescuento = "<input type='number' onkeyup='descontar("+mensualidad["mensualidad_id"]+")' name='mensualidad_descuento' value='"+Number(mensualidad["mensualidad_descuento"])+"' min='0' step='any' class='form-control' id='mensualidad_descuento"+mensualidad["mensualidad_id"]+"' />";
     $("#eldescuento").html(eldescuento);
+    
     var lamulta = "<input type='text' name='mensualidad_multa' value='"+Number(mensualidad["mensualidad_multa"]).toFixed(2)+"' class='form-control' id='mensualidad_multa"+mensualidad["mensualidad_id"]+"' readonly/>";
     $("#lamulta").html(lamulta);
     var elmontocancelado = "<input type='number' step='any' onkeyup='calcular("+mensualidad["mensualidad_id"]+")' name='mensualidad_montocancelado' value='"+Number(Number(mensualidad["mensualidad_montoparcial"])+Number(mensualidad["mensualidad_multa"]) - Number(mensualidad["mensualidad_descuento"])).toFixed(2)+"' class='form-control' id='mensualidad_montocancelado"+mensualidad["mensualidad_id"]+"' min='0'/>";
@@ -41,6 +44,7 @@ function mostrarmodalpagar(mensualidad){
 }
 
 function facturar(mensualidad){
+    
     var factu = document.getElementById('factura'+mensualidad).checked;
     if (factu==true){
        document.getElementById('clinit').style.display = 'block';
@@ -53,6 +57,7 @@ function facturar(mensualidad){
         document.getElementById("mensualidad_nombre").required = false;
         //$("#mensualidad_ci").removeAttr('required');
     }
+    
 }
 
 function descontar(mensualidad_id){

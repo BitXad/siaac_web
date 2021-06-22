@@ -307,6 +307,7 @@ class Mensualidad extends CI_Controller{
             $mensualidad_numero = $this->input->post('mensualidad_numero');
             $total = $this->input->post('mensualidad_montototal');
             $descontar = $this->input->post('mensualidad_descuento');
+            $detalle_descuento = $this->input->post('detalle_descuento');
             $params = array(
                 'usuario_id' => $usuario_id,
                 'estado_id' => 9,
@@ -342,7 +343,7 @@ class Mensualidad extends CI_Controller{
                 $factura_fecha         = "date(now())";
                 $factura_hora          = "time(now())";
                 //$factura_subtotal      = $total;
-                $factura_subtotal      = $this->input->post('mensualidad_montocancelado');
+                $factura_subtotal      = $this->input->post('mensualidad_montocancelado') + $descontar;
                 $factura_nit           = $this->input->post('mensualidad_ci');
                 $factura_razonsocial   = $this->input->post('mensualidad_nombre');
                 $factura_ice           = 0;
@@ -391,7 +392,7 @@ class Mensualidad extends CI_Controller{
             
             $producto_id = 0;
             $cantidad = 1;
-            $detallefact_codigo = "-";
+            $detallefact_codigo = "MENS002";
             $detallefact_cantidad = $cantidad;
             $detallefact_descripcion = $this->input->post('factura_detalle'.$mensualidad_id);
             $unidad = "";
@@ -399,7 +400,7 @@ class Mensualidad extends CI_Controller{
             $precio = ($this->input->post('mensualidad_montocancelado'));
             $detallefact_precio = $precio;
             $detallefact_subtotal =  $precio;
-            $detallefact_descuento = 0;
+            $detallefact_descuento = $descontar;
             //$detallefact_total = $factura_subtotal;
             $detallefact_total = $this->input->post('mensualidad_montocancelado');
             $detallefact_preferencia =  "";
@@ -433,8 +434,61 @@ class Mensualidad extends CI_Controller{
             '".$detallefact_preferencia."',
             '".$detallefact_caracteristicas."')";
 
+                
             $this->Mensualidad_model->ejecutar($sql);           
-       //     }
+
+            if ($descontar>0){
+
+                $producto_id = 0;
+                $cantidad = 0;
+                $detallefact_codigo = "DESC001";
+                $detallefact_cantidad = $cantidad;
+                $detallefact_descripcion = $this->input->post('factura_detalle'.$mensualidad_id);
+                $unidad = "";
+
+                $precio = ($this->input->post('mensualidad_montocancelado'));
+                $detallefact_precio = $descontar * -1;
+                $detallefact_subtotal =  $descontar * -1;
+                $detallefact_descuento = 0;
+                //$detallefact_total = $factura_subtotal;
+                $detallefact_total = $descontar * -1;
+                $detallefact_preferencia =  "";
+                $detallefact_caracteristicas = "";
+                $detallefact_descripcion = $detalle_descuento;
+
+                $sql =  "insert into detalle_factura(
+                producto_id,
+                factura_id,
+                detallefact_codigo,
+                detallefact_unidad,
+                detallefact_cantidad,            
+                detallefact_descripcion,
+                detallefact_precio,
+                detallefact_subtotal,
+                detallefact_descuento,
+                detallefact_total,                
+                detallefact_preferencia,
+                detallefact_caracteristicas)
+
+                value(
+                ".$producto_id.",
+                ".$factura_id.",
+                '".$detallefact_codigo."',
+                '".$unidad."',
+                ".$detallefact_cantidad.",            
+                '".$detallefact_descripcion."',
+                ".$detallefact_precio.",
+                ".$detallefact_subtotal.",
+                ".$detallefact_descuento.",
+                ".$detallefact_total.",                
+                '".$detallefact_preferencia."',
+                '".$detallefact_caracteristicas."')";
+
+
+                $this->Mensualidad_model->ejecutar($sql);           
+                
+            }
+                
         }
 
             if($mensualidad_saldo>0){ 
