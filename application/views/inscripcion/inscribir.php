@@ -494,7 +494,7 @@ $session_data = $this->session->userdata('logged_in'); ?>
                         </td>
                         <td></td>
                         <td style="padding: 0">                                        
-                                <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" size="5"  style="font-size: 15px; font-weight: bolder; text-align:right;" name="descuento" value="0.00" id="descuento" onchange="calcular()" onclick="this.select();" />
+                            <input type="text" class="btn btn-sm btn-tumblr btn-foursquarexs" size="5"  style="font-size: 15px; font-weight: bolder; text-align:right;" name="descuento" value="0.00" id="descuento" onkeyup="calcular()" onclick="this.select();" />
                         </td>
                     </tr>
                     <tr>

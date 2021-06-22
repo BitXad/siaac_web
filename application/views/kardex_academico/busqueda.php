@@ -30,9 +30,9 @@
             <label for="nose" class="control-label">Filtro por</label>
             <div class="form-group">
                 <select class="form-control" name="opcion" id="opcion">
-                    <option value="2">Nombre</option>
-                    <option value="3">Apellidos</option>
-                    <option value="0">Codigo</option>
+                    <option value="2">NOMBRE</option>
+                    <option value="3" selected="true">APELLIDO(S)</option>
+                    <option value="0">CÓDIGO</option>
                     <option value="1">C.I.</option>
                 </select>
             </div>

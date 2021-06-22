@@ -640,8 +640,9 @@ function obtener_planacademico(carrera_id){
                             
                                 if (i==0)
                                 { 
-                                    seleccionado = "selected='true'";
-                                    seleccionar_carrera();
+                                    seleccionado = "";
+                                    //seleccionado = "selected='true'";
+                                    //seleccionar_carrera();
                                     
                                 }
                             
@@ -689,7 +690,7 @@ function obtener_planacademico(carrera_id){
         document.getElementById('nuevo_plan').style.display = 'none';
     }
     
-    calcular();
+  //  calcular();
      
 }
 /* modifica una inscripcion */
