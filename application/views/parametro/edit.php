@@ -30,6 +30,7 @@
                         <select  name="parametro_tipoimpresora"  class="form-control" id="parametro_tipoimpresora" >
                             <option value="FACTURADORA">FACTURADORA</option>
                             <option value="NORMAL" <?php if($parametro['parametro_tipoimpresora']=='NORMAL'){ ?> selected <?php } ?> >NORMAL</option>
+                            <option value="MEDIO OFICIO CON COPIA" <?php if($parametro['parametro_tipoimpresora']=='MEDIO OFICIO CON COPIA'){ ?> selected <?php } ?> >MEDIO OFICIO CON COPIA</option>
                         </select>
                     </div>
                 </div>

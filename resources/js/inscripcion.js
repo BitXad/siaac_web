@@ -454,7 +454,8 @@ function registrar_inscripcion(){
                 //$("#boton_imprimir").click();
                 location.href = base_url+"inscripcion/inscribir/0";
                 if(kardexacad_id[1] > 0){
-                    window.open( base_url+"factura/factura_carta_id/"+kardexacad_id[1], "_blank");
+                    window.open( base_url+"factura/imprimir_factura_id/"+kardexacad_id[1], "_blank");
+                    //window.open( base_url+"factura/factura_carta_id/"+kardexacad_id[1], "_blank");
                 }else{
                     window.open( base_url+"inscripcion/ultima_inscripcion", "_blank");
                 }

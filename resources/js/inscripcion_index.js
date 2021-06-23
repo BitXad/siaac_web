@@ -119,10 +119,10 @@ function tabla_inscripcion(filtro){
                         html += "<a class='btn btn-danger btn-xs' data-toggle='modal' data-target='#myModal"+registros[i]["inscripcion_id"]+"' title='Anular Inscripción'><span class='fa fa-ban'></span></a>";
                         if(registros[i]["factura_id"] >0){
                             //if(parametro["parametro_tipoimpresora"] == "FACTURADORA"){
-                            if(parametro == "FACTURADORA"){
+                            /*if(parametro == "FACTURADORA"){
                                 var tipo_fact = "factura_boucher_id";
-                            }else { tipo_fact = "factura_carta_id";}
-                            html += "<a href='"+base_url+"factura/"+tipo_fact+"/"+registros[i]["factura_id"]+"' target='_blank' class='btn btn-warning btn-xs' title='Ver/anular factura'><span class='fa fa-list-alt'></span></a>";
+                            }else { tipo_fact = "factura_carta_id";}*/
+                            html += "<a href='"+base_url+"factura/imprimir_factura_id/"+registros[i]["factura_id"]+"' target='_blank' class='btn btn-warning btn-xs' title='Ver/anular factura'><span class='fa fa-list-alt'></span></a>";
                         }
                     }
                     html += "<!------------------------ INICIO modal para confirmar eliminación ------------------->";

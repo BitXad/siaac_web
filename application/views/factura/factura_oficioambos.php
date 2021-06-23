@@ -207,7 +207,7 @@ padding: 5px;
                                     $total_final += $d['detallefact_total']; 
                                     ?>
                        <tr style="font-size: 8pt;">
-                            <td align="center" style="padding-left: 0; padding-right: 0; padding-top: 3px; padding-bottom: 0"><?php echo $d['detallefact_cantidad']; ?></td>
+                            <td align="center" style="padding-left: 0; padding-right: 0; padding-top: 3px; padding-bottom: 0"><?php if($d['detallefact_cantidad'] >0){ echo $d['detallefact_cantidad']; } ?></td>
                             <td style="line-height: 1.1; padding-left: 0; padding-right: 0; padding-top: 3px; padding-bottom: 0;"><font style="size:5px; font-family: arial narrow;" style="padding: 0;"> <?php echo $d['detallefact_descripcion']; ?></td>
                             <!--<td align="right" style="padding: 0;"><?php echo number_format($d['detallefact_precio']+$d['detallefact_descuento'],2,'.',','); ?></td>-->
                             <td align="right" style="padding-left: 3px; padding-right: 0; padding-top: 3px; padding-bottom: 0"><?php echo number_format($d['detallefact_precio'],2,'.',','); ?></td>
@@ -404,7 +404,7 @@ padding: 5px;
                                     $total_final += $d['detallefact_total']; 
                                     ?>
                        <tr style="font-size: 8pt;">
-                            <td align="center" style="padding-left: 0; padding-right: 0; padding-top: 3px; padding-bottom: 0"><?php echo $d['detallefact_cantidad']; ?></td>
+                            <td align="center" style="padding-left: 0; padding-right: 0; padding-top: 3px; padding-bottom: 0"><?php if($d['detallefact_cantidad'] >0){ echo $d['detallefact_cantidad']; } ?></td>
                             <td style="line-height: 1.1; padding-left: 0; padding-right: 0; padding-top: 3px; padding-bottom: 0;"><font style="size:5px; font-family: arial narrow;" style="padding: 0;"> <?php echo $d['detallefact_descripcion']; ?></td>
                             <!--<td align="right" style="padding: 0;"><?php echo number_format($d['detallefact_precio']+$d['detallefact_descuento'],2,'.',','); ?></td>-->
                             <td align="right" style="padding-left: 3px; padding-right: 0; padding-top: 3px; padding-bottom: 0"><?php echo number_format($d['detallefact_precio'],2,'.',','); ?></td>

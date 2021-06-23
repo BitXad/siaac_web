@@ -987,10 +987,13 @@ class Factura extends CI_Controller{
 
             if (sizeof($parametros)>0){
                 
-                if ($parametros[0]['parametro_tipoimpresora']=="FACTURADORA")
+                if ($parametros[0]['parametro_tipoimpresora']=="FACTURADORA"){
                     $this->factura_boucher_id($factura_id);
-                else
+                }else if($parametros[0]['parametro_tipoimpresora']=="NORMAL"){
                     $this->factura_carta_id($factura_id);
+                }else{
+                    $this->factura_oficioambos_id($factura_id);
+                }
             }
 
         //**************** fin contenido ***************
