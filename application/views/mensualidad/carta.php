@@ -35,7 +35,7 @@
 ?>
 
 <?php //$fecha = date();
-    $fecha_d_m_a =  date('d/m/Y H:t:s')
+    $fecha_d_m_a =  date('d/m/Y H:i:s')
 ?> 
 <!--<div class="container">-->
     
