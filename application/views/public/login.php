@@ -39,24 +39,65 @@
 }
 </style>
 <body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo" style="font-family: Arial; line-height: 10px">
-        <fa class="fa fa-mortar-board"></fa>    <b>esencial </b>            
+            <?php if($diaslic < 0){ ?>
+        <div class="info-box bg-red">
+            <span class="info-box-icon"><i class="ion-alert-circled"></i></span>
+            <div class="info-box-content" style="margin-left: 0px">
+                <span class="info-box-text"><font size="4"><b>LA LICENCIA ESTA EXPIRADA </b></font></span>
+                <span class="info-box-number"></span>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 100%"></div>
+                </div>
+                <span class="progress-description">
+                    No podra ingresar al Sistema.  Consulte con el Proveedor
+                </span>
+            </div><!-- /.info-box-content -->
+        </div>
+        <?php } else if($diaslic == 5000){ ?>
+        <?php }  else { ?>
+        <div class="info-box bg-red">
+            <span class="info-box-icon"><i class="ion-alert-circled"></i></span>
+            <div class="info-box-content" style="margin-left: 0px">
+                <span class="info-box-text"><font size="4">LA LICENCIA VENCERA EN: <font size="5"><b><?php echo $diaslic; ?></b></font> DIAS</font></span>
+                <span class="info-box-number"></span>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 100%"></div>
+                </div>
+                <span class="progress-description">
+                    No podra ingresar al Sistema.
+                </span>
+            </div><!-- /.info-box-content -->
+        </div>  
+<?php } ?>
+    <div class="login-box">
+        <div class="login-logo" style="font-family: Arial; line-height: 10px">
+            <fa class="fa fa-mortar-board"></fa>    <b>esencial </b>            
 
-        <h5>
-            <?php
-                if (isset($institucion)){
-                    echo $institucion["institucion_nombre"];}
-            ?>        
-        </h5> 
-    
-    </div>
+            <h5>
+                <?php
+                    if (isset($institucion)){
+                        echo $institucion["institucion_nombre"];}
+                ?>        
+            </h5> 
+
+        </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
+
+  
+        
+        
+        
         <p class="login-box-msg"></p>
         
         <h2><?php  if(isset($msg)){ echo  $msg; }  ?> </h2>
-
+<?php if($diaslic < 0){ ?>
+                <br><div class="info-box bg-red"><br>
+            <center><span class="info-box-text"><font size="4"><b>LA LICENCIA ESTA EXPIRADA </b></font></span></center><br>
+            <center><span class="progress-description">
+                    No podra ingresar al Sistema.  Consulte con el Proveedor
+                  </span></center><br></div>
+             <?php }else { ?>
         <?php echo form_open('verificar'); ?>
 <!--    //Radio Buttons antiguos
         <div class="form-group">
@@ -135,8 +176,8 @@
         <?php echo form_close(); ?>
 
         <!-- /.social-auth-links -->
-        <!--<a href="<?php echo site_url() ?>forgotpassword">Olvide mi contraseña</a><br>-->
-
+        <!--<a href="<?php //echo site_url() ?>forgotpassword">Olvide mi contraseña</a><br>-->
+<?php } ?>
 
     </div>
     <!-- /.login-box-body -->

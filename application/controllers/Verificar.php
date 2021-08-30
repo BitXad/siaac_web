@@ -73,9 +73,15 @@ class Verificar extends CI_Controller
 
                 $this->session->set_userdata('logged_in', $sess_array);
                 $session_data = $this->session->userdata('logged_in');
+                $dosif="SELECT DATEDIFF(dosificacion_fechalimite, CURDATE()) as dias FROM dosificacion WHERE dosificacion_id = 1";
+                $dosificacion = $this->db->query($dosif)->row_array();
 
                 if ($session_data['tipousuario_id'] == 1) {// admin page
-                    redirect('admin/dashb');
+                    if ($dosificacion['dias']<=10 && $dosificacion['dias']!=null) {
+                        redirect('alerta/dosificacion'); 
+                    }else{
+                        redirect('admin/dashb');
+                    }
                 }elseif ($session_data['tipousuario_id'] == 2 || $session_data['tipousuario_id'] == 7) {// docente page
                     redirect('docente/dashboard');
                 }elseif ($session_data['tipousuario_id'] == 3) {// administrativo page
@@ -87,7 +93,7 @@ class Verificar extends CI_Controller
                     redirect('estudiante/menu_estudiante/19');
                 }
 
-            } else {
+            }else {
                 $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">USUARIO invalido' . $result . '</div>');
                 redirect('login');
             }

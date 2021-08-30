@@ -17,7 +17,17 @@ Class Login extends CI_Controller
         $data['gestiones'] = $this->Gestion_model->get_gestiones();
         $data['institucion'] = $this->Gestion_model->get_institucion();
         
-        $this->load->view('public/login',$data);
+        $licencia="SELECT DATEDIFF(licencia_fechalimite, CURDATE()) as dias FROM licencia WHERE licencia_id = 1";
+        $lice = $this->db->query($licencia)->row_array();
+        
+        if ($lice['dias']<=10) {
+            $data['diaslic'] = $lice['dias'];
+            $this->load->view('public/login',$data);
+    	} else{
+            $data['diaslic'] = 5000;
+            $this->load->view('public/login',$data);	
+    	}
+        //$this->load->view('public/login',$data);
     }
     public function mensajeacceso(){
         redirect('login/mensajeacceso');
