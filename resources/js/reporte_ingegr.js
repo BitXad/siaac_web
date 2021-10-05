@@ -68,11 +68,14 @@ function fechabusquedaingegr(fecha_desde, fecha_hasta, usuario){
               
                             
                 $("#resingegr").val("- 0 -");
-               //var registros =  JSON.parse(resul);
-               var resultado =  JSON.parse(resul);
+                //var registros =  JSON.parse(resul);
+                var resultado =  JSON.parse(resul);
                 var registros = resultado.ventas;
                 var detalles = resultado.detalles;
-           
+                const myventa   = JSON.stringify(registros);
+                const mydetalle = JSON.stringify(detalles);
+                $("#resventas").val(myventa);
+                $("#resdetalles").val(myventa);
                if (registros != null){
                    
                     var fecha1 = fecha_desde;
@@ -358,4 +361,117 @@ function porformapago(fecha_desde, fecha_hasta, usuario, formapago, nombre1, nom
         
     });   
 
+}
+
+function generarexcel_movdiario(){
+    var resventas = document.getElementById('resventas').value;
+    var respuesta = document.getElementById('resdetalles').value;
+    if(resventas == "" || resventas == null){
+        alert("Primero debe realizar una búsqueda");
+    }else{
+        /*var nombre_moneda = document.getElementById('nombre_moneda').value;
+        var lamoneda_id = document.getElementById('lamoneda_id').value;
+        var lamoneda = JSON.parse(document.getElementById('lamoneda').value);*/
+        var registros =  JSON.parse(resventas);
+        var showLabel = true;
+        //var reportitle = moment(Date.now()).format("DD/MM/YYYY H_m_s");
+        var tam = registros.length;
+        //var otramoneda_nombre = "";
+        //var total_otram = Number(0);
+        html = "";
+                //if (opcion==1){
+                  /* **************INICIO Generar Excel JavaScript************** */
+                    var CSV = 'sep=,' + '\r\n\n';
+                    //This condition will generate the Label/Header
+                    if (showLabel) {
+                        var row = "";
+
+                        //This loop will extract the label from 1st index of on array
+                        
+
+                            //Now convert each value to string and comma-seprated
+                            row += 'Nro.' + ',';
+                            row += 'FECHA' + ',';
+                            row += 'REC.'+ ',';
+                            row += 'FACT.'+ ',';
+                            row += 'DETALLE'+ ',';
+                            row += 'INGRESO'+ ',';
+                            row += 'EGRESO'+ ',';
+                            row += 'BANCA'+ ',';
+                            
+                        row = row.slice(0, -1);
+
+                        //append Label row with line break
+                        CSV += row + '\r\n';
+                    }
+                    
+                    //1st loop is to extract each row
+                    for (var i = 0; i < tam; i++) {
+                        var row = "";
+                        //2nd loop will extract each column and convert it in string comma-seprated
+                        //var utilidad = Number(Number(registros[i]["detalleven_total"])-(Number(registros[i]["detalleven_costo"])*Number(registros[i]["detalleven_cantidad"])));
+                        //utilidades += Number(utilidad);
+                            row += (i+1)+',';
+                            row += moment(registros[i]['']).format("DD/MM/YYYY")+',';
+                            row += '"' +registros[i]["cliente_nombre"]+ '",';
+                            row += '"' +numberFormat(Number(registros[i]["totalventas"]).toFixed(2))+ '",';
+                            if(lamoneda_id == 1){
+                                total_otram = Number(registros[i]["totalventas"])/Number(registros[i]["tipo_cambio"])
+                                //total_otramoneda += total_otram;
+                            }else{
+                                total_otram = Number(registros[i]["totalventas"])*Number(registros[i]["tipo_cambio"])
+                                //total_otramoneda += total_otram;
+                            }
+                            row += '"' +numberFormat(Number(total_otram).toFixed(2))+ '",';
+                            if(tipousuario_id == 1){
+                                row += '"' +numberFormat(Number(Number(registros[i]["totalcosto"])).toFixed(2))+ '",';
+                                row += '"' +numberFormat(Number(Number(registros[i].totalventas)-Number(registros[i].totalcosto)).toFixed(2))+ '",';
+                        }
+                            
+                        row.slice(0, row.length - 1);
+
+                        //add a line break after each row
+                        CSV += row + '\r\n';
+                    }
+                    
+                    if (CSV == '') {
+                        alert("Invalid data");
+                        return;
+                    }
+                    
+                    //Generate a file name
+                    var fileName = "Ventacategoria_";
+                    //this will remove the blank-spaces from the title and replace it with an underscore
+                    fileName += reportitle.replace(/ /g,"_");   
+
+                    //Initialize file format you want csv or xls
+                    var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+
+                    // Now the little tricky part.
+                    // you can use either>> window.open(uri);
+                    // but this will not work in some browsers
+                    // or you will not get the correct file extension    
+
+                    //this trick will generate a temp <a /> tag
+                    var link = document.createElement("a");    
+                    link.href = uri;
+
+                    //set the visibility hidden so it will not effect on your web-layout
+                    link.style = "visibility:hidden";
+                    link.download = fileName + ".csv";
+
+                    //this part will append the anchor tag and remove it after automatic click
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    /* **************F I N  Generar Excel JavaScript************** */
+                   
+                   
+                   
+                   
+                   //document.getElementById('loader').style.display = 'none';
+            //}
+         //document.getElementById('loader').style.display = 'none'; //ocultar el bloque del loader
+        //}  
+        }
 }

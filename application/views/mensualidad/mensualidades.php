@@ -221,7 +221,7 @@ function cerrar() {
                       <?php echo $m['mensualidad_ci']; ?></td>
                       -->
                       <td style="<?php echo $color." text-align: center; font-size: 12px;"; ?>"><b><?php echo $m['mensualidad_numrec']; ?></b> </td>
-                      <td style="<?php echo $color; ?>"><?php echo substr($m['mensualidad_glosa'],0,8).".."; ?></td>
+                      <td style="<?php echo $color; ?>" title="<?php echo $m['mensualidad_glosa']; ?>"><?php echo substr($m['mensualidad_glosa'],0,8).".."; ?></td>
                       <td style="<?php echo $color; ?>"><?php echo $m['estado_descripcion']; ?></td>
                       <td style="<?php echo $color; ?>" class="no-print"> 
                           <?php 

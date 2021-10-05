@@ -101,6 +101,7 @@ class Mensualidad extends CI_Controller{
         if($this->acceso(49)){
             $data['mensualidad'] = $this->Mensualidad_model->boucher_mensualidad($mensualidad_id);
             $data['institucion'] = $this->Institucion_model->get_institucion(1);
+            $data['parametro'] = $this->Parametro_model->get_parametros();
             $data['_view'] = 'mensualidad/boucher';
             $this->load->view('layouts/main',$data);
         }

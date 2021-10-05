@@ -56,8 +56,8 @@
         </td>
         <td width="400" style="line-height: 14px; ">
             <center>
-                <font size="3" face="Arial"><b>COMPROBANTE</b></font><br>
-                <font size="2" face="Arial"><b>DE PAGO</b></font><br>
+                <font size="3" face="Arial"><b>COMPROBANTE DE PAGO</b></font><br>
+                <!--<font size="3" face="Arial"><b>DE PAGO</b></font><br>-->
                 <font size="3" face="Arial"><b>Nº: 00<?php echo $mensualidad[0]['mensualidad_numrec']; ?></b></font><br>
                 <font size="1" face="Arial"><b><?php echo $fecha_d_m_a; ?></b></font>
                 
@@ -129,7 +129,11 @@
     </tr>
 
     <?php } ?>
-   
+    <tr>
+        <td style="width: 2cm;"></td>
+        <td <?php echo $padding; ?>><b>GLOSA:</b><?php echo $mensualidad[0]['mensualidad_glosa']; ?></td>
+        <td <?php echo $padding; ?>></td>
+    </tr>
     <tr>
         <td style="padding: 0;"></td>
         <td colspan="2" style="padding: 0;">______________________________________________________________________________</td>

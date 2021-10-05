@@ -133,6 +133,7 @@ function seleccionar_carrera(){
                     
                     if (Number(matricula)>0){
                         document.getElementById("pagar_matricula").selectedIndex = 1;
+                        calcular();
                     }else{
                         document.getElementById("pagar_matricula").selectedIndex = 0;
                     }
@@ -666,7 +667,9 @@ function obtener_planacademico(carrera_id){
                         $("#nivel_id").empty();
                         $("#nivel_id").html("<option value='0'>- NIVEL -</option>");
                         $("#tabla_materia").html("");
-                        $('#pagar_matricula').find('option:first').attr('selected', 'selected').parent('select');
+                        document.getElementById("pagar_matricula").selectedIndex = 0;
+                        calcular();
+                        //$('#pagar_matricula').find('option:first').attr('selected', 'selected').parent('select');
                         document.getElementById('loader').style.display = 'none';
                         
                        

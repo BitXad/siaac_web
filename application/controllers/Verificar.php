@@ -77,8 +77,12 @@ class Verificar extends CI_Controller
                 $dosificacion = $this->db->query($dosif)->row_array();
 
                 if ($session_data['tipousuario_id'] == 1) {// admin page
-                    if ($dosificacion['dias']<=10 && $dosificacion['dias']!=null) {
-                        redirect('alerta/dosificacion'); 
+                    if(isset($dosificacion)){
+                        if ($dosificacion['dias']<=10 && $dosificacion['dias']!=null) {
+                            redirect('alerta/dosificacion'); 
+                        }else{
+                            redirect('admin/dashb');
+                        }
                     }else{
                         redirect('admin/dashb');
                     }

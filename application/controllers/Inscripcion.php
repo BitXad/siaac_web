@@ -805,8 +805,8 @@ class Inscripcion extends CI_Controller{
             $aux_estudiante_ci = $thisestudiante['estudiante_ci'];
             $aux_glosa = "Se pago al momento de inscribirse";
             $aux_kardexeco_fecha = $kardexeco_fecha;
-            $aux_mensualidad_numrec = $esta_gestion['gestion_numingreso'];
             for($i = 1; $i <= $repeticiones; $i++){
+                $aux_mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
                 $parampm = array(
                     'estado_id' => $estadomen_id,
                     'mensualidad_montocancelado' => $aux_kardexeco_matriculapagada,
