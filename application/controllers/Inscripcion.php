@@ -404,9 +404,6 @@ class Inscripcion extends CI_Controller{
     }
         
     function registrar_inscripcion(){
-        
-        //$session_data = $this->session->userdata('logged_in');
-        
         //*******************************************************
         //Obtener datos de los parametros de inscripción
         //*******************************************************
@@ -554,10 +551,10 @@ class Inscripcion extends CI_Controller{
         $cuota_fechalimite_mat = $kardexeco_fechainicio; // inicio de los pagos
 
         $aux_cont = 0;
-        $estado_id = 9; // estado PENDIENTE
+        $estado_id = 9; // estado CANCELADO
         if($pagar_matricula == 1){
             $aux_cont = 1;
-            $estado_id = 9; // estado PENDIENTE
+            $estado_id = 9; // estado CANCELADO
         }else{
             if($pagar_matricula == 2){
                 $aux_cont = 1;
@@ -565,7 +562,7 @@ class Inscripcion extends CI_Controller{
             }else{
                 if($pagar_matricula == 3){
                     $aux_cont = 0;
-                    $estado_id = 9; // estado PENDIENTE
+                    $estado_id = 9; // estado CANCELADO
                 }
             }
         }
@@ -792,6 +789,7 @@ class Inscripcion extends CI_Controller{
         // $estadomen_id = 9; //cancelado
         if($pagar_matricula == 3 || $pagar_matricula == 1){
             
+            $esta_gestion = $this->Gestion_model->get_gestion($gestion_id);
             $this->load->model('Estudiante_model');
             $thisestudiante = $this->Estudiante_model->get_estudiante($estudiante_id);
             
@@ -806,7 +804,12 @@ class Inscripcion extends CI_Controller{
             $aux_glosa = "Se pago al momento de inscribirse";
             $aux_kardexeco_fecha = $kardexeco_fecha;
             for($i = 1; $i <= $repeticiones; $i++){
-                $aux_mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
+                if($i == 1){
+                    $aux_mensualidad_numrec = $esta_gestion['gestion_numingreso']+$i;
+                }
+                if($i == 2){
+                    $aux_mensualidad_numrec = "";
+                }
                 $parampm = array(
                     'estado_id' => $estadomen_id,
                     'mensualidad_montocancelado' => $aux_kardexeco_matriculapagada,
@@ -823,10 +826,12 @@ class Inscripcion extends CI_Controller{
                 );
                 $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
                 
-                $paramg = array(
-                'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1+$i,
-                );
-                $this->Gestion_model->update_gestion($gestion_id, $paramg);
+                if($i == 1){
+                    $paramg = array(
+                        'gestion_numingreso' => $esta_gestion['gestion_numingreso']+$i,
+                    );
+                    $this->Gestion_model->update_gestion($gestion_id, $paramg);
+                }
                 $cont++;
                 $estadomen_id = 8;
                 $aux_mensualidad_montoparcial = $aux_mensualidad_saldo;
@@ -865,10 +870,10 @@ class Inscripcion extends CI_Controller{
                     $cont = 1;  //pagar matricula
                 }
             }
-            
+            $esta_gestion = $this->Gestion_model->get_gestion($gestion_id);
                 for($i = 1; $i <= $pagar_mensualidad; $i++){
 
-                    $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
+                    $mensualidad_numrec = $esta_gestion['gestion_numingreso']+$i;
                     $parampm = array(
                         'estado_id' => $estadomen_id,
                         'mensualidad_montocancelado' => $this->input->post('inscripcion_mensualidad') - $kardexeco_descuento,
@@ -884,7 +889,7 @@ class Inscripcion extends CI_Controller{
                     $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
 
                     $paramg = array(
-                    'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1+$i,
+                        'gestion_numingreso' => $esta_gestion['gestion_numingreso']+$i,
                     );
                     $this->Gestion_model->update_gestion($gestion_id, $paramg);
                     $cont++;
@@ -909,7 +914,8 @@ class Inscripcion extends CI_Controller{
                 $aux_nombre= $thisestudiante['estudiante_nombre']." ".$thisestudiante['estudiante_apellidos'];
                 $aux_estudiante_ci= $thisestudiante['estudiante_ci'];
                 $aux_glosa= "Se pago al momento de inscribirse";
-                $aux_mensualidad_numrec= $esta_gestion['gestion_numingreso'];
+                $esta_gestion = $this->Gestion_model->get_gestion($gestion_id);
+                
     
                 if($pagar_matricula == 3){
                     $cont = 2;
@@ -922,6 +928,12 @@ class Inscripcion extends CI_Controller{
                 }
                 
                 for($i = 1; $i <= ($pagar_mensualidad*-1)+1; $i++){
+                    if($i == 1){
+                        $aux_mensualidad_numrec = $esta_gestion['gestion_numingreso']+$i;
+                    }
+                    if($i == 2){
+                        $aux_mensualidad_numrec = "";
+                    }
                     // $mensualidad_numrec = $esta_gestion['gestion_numingreso']+1+$i;
                     $parampm = array(
                         'estado_id' => $estadomen_id,
@@ -940,11 +952,13 @@ class Inscripcion extends CI_Controller{
                     );
                     
                     $this->Mensualidad_model->update_mensualidad($thismensualidad[$cont]['mensualidad_id'], $parampm);
+                    if($i ==  1){
+                        $paramg = array(
+                            'gestion_numingreso' => $esta_gestion['gestion_numingreso']+$i,
+                        );
+                        $this->Gestion_model->update_gestion($gestion_id, $paramg);
+                    }
                     
-                    $paramg = array(
-                    'gestion_numingreso' => $esta_gestion['gestion_numingreso']+1+$i,
-                    );
-                    $this->Gestion_model->update_gestion($gestion_id, $paramg);
                     $cont++;
                     $aux_kardexeco_mensualidad = $aux_mensualidad_saldo;
                     $aux_mensualidad_saldo = 0;
@@ -953,7 +967,7 @@ class Inscripcion extends CI_Controller{
                     $aux_glosa = "";
                     $aux_estudiante_ci = "";
                     $aux_nombre = "";
-                    $aux_mensualidad_numrec = "";
+                    //$aux_mensualidad_numrec = "";
                     $estadomen_id = 8;
                     // $kardexeco_mensualidad_pagada = $this->input->post('inscripcion_mensualidad');
                 }

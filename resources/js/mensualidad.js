@@ -21,7 +21,7 @@ function mostrarmodalpagar(mensualidad){
     $("#kardexeco_id").val(mensualidad["kardexeco_id"]);
     var lamensualidadsaldo = "<input type='text' step='any' name='mensualidad_saldo' value='0.00' class='form-control' id='mensualidad_saldo"+mensualidad["mensualidad_id"]+"' readonly />";
     $("#lamensualidadsaldo").html(lamensualidadsaldo);
-    $("#mensualidad_numero").val(mensualidad["mensualidad_numero"]);
+    $("#mensualidad_numero1").val(mensualidad["mensualidad_numero"]);
     $("#mensualidad_fechalimite").val(mensualidad["mensualidad_fechalimite"]);
     $("#mensualidad_fecha").val(moment($.now()).format("YYYY-MM-DD"));
     $("#mensualidad_hora").val(moment($.now()).format("HH:mm:ss"));

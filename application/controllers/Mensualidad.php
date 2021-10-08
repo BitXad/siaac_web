@@ -305,7 +305,7 @@ class Mensualidad extends CI_Controller{
             $fechalimite  = $this->input->post('mensualidad_fechalimite');
             $mensualidad_fechalimite = "'".$fechalimite."'";
             $mensualidad_montoparcial = $this->input->post('mensualidad_saldo');
-            $mensualidad_numero = $this->input->post('mensualidad_numero');
+            $mensualidad_numero = $this->input->post('mensualidad_numero1');
             $total = $this->input->post('mensualidad_montototal');
             $descontar = $this->input->post('mensualidad_descuento');
             $detalle_descuento = $this->input->post('detalle_descuento');

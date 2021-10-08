@@ -61,7 +61,12 @@ function buscarestudiante(dato){
                         html += "<td>"+cont+"</td>";
 //                        html += "<td><b>"+registros[i]["estudiante_nombre"]+"</b></td>";
                         html += "<td><b style='font-size:14px;'>"+registros[i]["estudiante_apellidos"]+"</b><br>"+registros[i]["estudiante_nombre"]+"</td>";
-                        html += "<td align='center'>"+registros[i]["estudiante_ci"]+"  "+registros[i]["estudiante_extci"]+"</td>";
+                        html += "<td><center>";
+                        html += registros[i]["estudiante_ci"]+"  "+registros[i]["estudiante_extci"];
+                        html += "</center>";
+                        html += "<b>Nit:</b>"+registros[i]["estudiante_nit"];
+                        html += "<br><b>Razon:</b>"+registros[i]["estudiante_razon"];
+                        html += "</td>";
                         html += "<td align='center'>"+registros[i]["estudiante_codigo"]+"</td>";
                         html += "<td><b>"+registros[i]["carrera_nombre"]+"</b><br>"+registros[i]["nivel_descripcion"]+"</td>";
                         html += "<td class='text-center'><b>"+registros[i]["gestion_semestre"]+"/"+registros[i]["gestion_descripcion"]+"</b></td>";

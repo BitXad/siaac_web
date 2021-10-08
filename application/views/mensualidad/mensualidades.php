@@ -44,17 +44,20 @@ function cerrar() {
 
                     <?php $estilo = "style='font-family: Arial; font-size: 8pt;' "; ?>    
                     
-                    <div class="col-md-5" <?php echo $estilo; ?>>
+                    <div class="col-md-4" <?php echo $estilo; ?>>
                         <b>Estudiante:</b> <?php echo $kardex_economico[0]['estudiante_nombre']." ". $kardex_economico[0]['estudiante_apellidos']; ?>
                         <br><b>Carrera:</b> <?php echo $kardex_economico[0]['carrera_nombre']; ?>
                         <br><b>Plan Acad.:</b> <?php echo $kardex_economico[0]['planacad_nombre']; ?>
                         <br><b>Semestre:</b> <?php echo $kardex_economico[0]['nivel_descripcion']; ?>
                     </div>
-                    
-                    <div class="col-md-5" <?php echo $estilo; ?>>
+                    <div class="col-md-3" <?php echo $estilo; ?>>
                         <b>karde Nº:</b> <?php echo "00".$kardex_economico[0]['kardexeco_id']; ?>
                         <br><b>Matricula:</b> <?php echo number_format($kardex_economico[0]['kardexeco_matricula'], 2, ".", ","); ?>
                         <br><b>No. Mensualidades:</b> <?php echo $kardex_economico[0]['kardexeco_nummens']; ?>
+                    </div>
+                    <div class="col-md-3" <?php echo $estilo; ?>>
+                        <b>Nit:</b> <?php echo $kardex_economico[0]['estudiante_nit']; ?>
+                        <br><b>Razon:</b> <?php echo $kardex_economico[0]['estudiante_razon']; ?>
                     </div>
                     
                 </div>
@@ -428,7 +431,7 @@ Deudas por Ventas
                     <div class="form-group">
                         <span id="lamensualidadsaldo"></span>
                         <!--<input type="number" step="any" name="mensualidad_saldo" value="0.00" class="form-control" id="mensualidad_saldo<?php //echo $m['mensualidad_id']; ?>" />-->
-                        <input type="hidden" name="mensualidad_numero" value="<?php //echo $m['mensualidad_numero']; ?>" class="form-control" id="mensualidad_numero" />
+                        <input type="hidden" name="mensualidad_numero1" value="<?php //echo $m['mensualidad_numero']; ?>" class="form-control" id="mensualidad_numero1" />
                         <input type="hidden" name="mensualidad_fechalimite" value="<?php //echo $m['mensualidad_fechalimite']; ?>" class="form-control" id="mensualidad_fechalimite" />
                         <input type="hidden" name="mensualidad_fecha" value="<?php //echo date('Y-m-d'); ?>" class="form-control" id="mensualidad_fecha" />
                         <input type="hidden" name="mensualidad_hora" value="<?php //echo date('H:i:s'); ?>" class="form-control" id="mensualidad_hora" />

@@ -35,31 +35,37 @@ function cerrar() {
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-              <div class="cuerpo">
-                    <div class="columna_derecha">
-                        
-                    <b>No. MESES: <?php echo $kardex_economico[0]['kardexeco_nummens']; ?></b><br>
-                    <b>MATRICULA: <?php echo number_format($kardex_economico[0]['kardexeco_matricula'], 2, ".", ","); ?></b><br>
-                    <b>MENSUALIDAD: <?php echo number_format($kardex_economico[0]['kardexeco_mensualidad'], 2, ".", ","); ?></b>
-                 
+                
+                <div class="col-md-12">
+                  <?php $estilo = "style='font-family: Arial; font-size: 8pt;' "; ?>    
+                    
+                    <div class="col-md-4" <?php echo $estilo; ?>>
+                        <b>Fecha Inscripción:</b> <?php echo date('d/m/Y', strtotime($kardex_economico[0]['inscripcion_fecha']))." ". $kardex_economico[0]['inscripcion_hora'];; ?>
+                        <br><b>Estudiante:</b> <?php echo $kardex_economico[0]['estudiante_nombre']." ". $kardex_economico[0]['estudiante_apellidos']; ?>
+                        <br><b>Cod./C.I.:</b> <?php echo $kardex_economico[0]['estudiante_ci']; ?>
+                        <br><b>Carrera:</b> <?php echo $kardex_economico[0]['carrera_nombre']; ?>
                     </div>
-                    <div class="columna_izquierda" style="width:40%;">
-                        
-                        <b>FECHA INSCRIPCION: <?php echo date('d/m/Y', strtotime($kardex_economico[0]['inscripcion_fecha']))." ". $kardex_economico[0]['inscripcion_hora'];; ?></b><br>
-                        <b>COD./CI: <?php echo $kardex_economico[0]['estudiante_ci']; ?></b><br>
-                        <b>ESTUDIANTE: <?php echo $kardex_economico[0]['estudiante_apellidos']." ". $kardex_economico[0]['estudiante_nombre']; ?></b>
-                     </div>
-                    <div class="columna_central">
-                       
+                    <div class="col-md-3" <?php echo $estilo; ?>>
+                        <b>Plan Acad.:</b> <?php echo $kardex_economico[0]['planacad_nombre']; ?>
+                        <br><b>Semestre:</b> <?php echo $kardex_economico[0]['nivel_descripcion']; ?>
+                        <br><b>karde Nº:</b> <?php echo "00".$kardex_economico[0]['kardexeco_id']; ?>
+                        <br><b>Matricula:</b> <?php echo number_format($kardex_economico[0]['kardexeco_matricula'], 2, ".", ","); ?>
                     </div>
-        </div>
+                    <div class="col-md-4" <?php echo $estilo; ?>>
+                        <b>Mensualidad:</b> <?php echo number_format($kardex_economico[0]['kardexeco_mensualidad'], 2, ".", ","); ?>
+                        <br><b>No. Mensualidades:</b> <?php echo $kardex_economico[0]['kardexeco_nummens']; ?>
+                        <br><b>Nit:</b> <?php echo $kardex_economico[0]['estudiante_nit']; ?>
+                        <br><b>Razon:</b> <?php echo $kardex_economico[0]['estudiante_razon']; ?>
+                    </div>
+                </div>
     
             <div class="box-body table-responsive">
                 <table class="table-striped table-condensed" id="mitabla">
                     <tr>
 						
-						<th>CTA.</th>                        
-						<th>COD.<BR>MENS.</th>                        
+                        <th>CTA.</th>                        
+                        <th>COD.<BR>MENS.</th>
+                        <th>REC.</th>
                         <th>MENS.</th>
                         <th>DESC.</th>
                         <th>LIMITE</th>
@@ -67,7 +73,8 @@ function cerrar() {
                         <th>EFECT.</th>
                         <th>SALDO</th>
                         <th>FECHA<br>PAGO</th>
-						<th>PAGADO POR</th>
+                        <th>GLOSA</th>
+                        <th>PAGADO POR</th>
 						
 					
                     </tr>
@@ -79,22 +86,23 @@ function cerrar() {
                         $cancelados = $subcancelados + $cancelados; ?>
                     <tr>
 						
-						<td><?php echo $m['mensualidad_numero']; ?></td>
-						<td ><?php echo $m['mensualidad_id']; ?></td>
-						<td style="text-align: right;"><?php echo number_format($m['mensualidad_montoparcial'], 2, ".", ","); ?></td>
-						<td style="text-align: right;"><?php echo number_format($m['mensualidad_descuento'], 2, ".", ","); ?></td>
-						<td style="text-align: center;"><?php echo date('d/m/Y', strtotime($m['mensualidad_fechalimite'])); ?></td>
-						<td style="text-align: right;"><?php echo number_format($m['mensualidad_montototal'], 2, ".", ","); ?></td>
+                        <td><?php echo $m['mensualidad_numero']; ?></td>
+                        <td ><?php echo $m['mensualidad_id']; ?></td>
+                        <td ><?php echo $m['mensualidad_numrec']; ?></td>
+                        <td style="text-align: right;"><?php echo number_format($m['mensualidad_montoparcial'], 2, ".", ","); ?></td>
+                        <td style="text-align: right;"><?php echo number_format($m['mensualidad_descuento'], 2, ".", ","); ?></td>
+                        <td style="text-align: center;"><?php echo date('d/m/Y', strtotime($m['mensualidad_fechalimite'])); ?></td>
+                        <td style="text-align: right;"><?php echo number_format($m['mensualidad_montototal'], 2, ".", ","); ?></td>
                         <td style="text-align: right;"><?php echo number_format($m['mensualidad_montocancelado'], 2, ".", ","); ?></td>
-						<td style="text-align: right;"><?php echo number_format($m['mensualidad_saldo'], 2, ".", ","); ?></td>
-						<td style="text-align: center;"><?php if ($m['mensualidad_fechapago']=='') { echo ("NO PAGADO");
-                         
-                        } else{ echo $fecha_format = date('d/m/Y', strtotime($m['mensualidad_fechapago'])); } ?> <?php echo $m['mensualidad_horapago']; ?></td>
-					
-						<td><?php echo $m['mensualidad_nombre']; ?>
-						<?php echo $m['mensualidad_ci']; ?></td>
-						
-						
+                        <td style="text-align: right;"><?php echo number_format($m['mensualidad_saldo'], 2, ".", ","); ?></td>
+                        <td style="text-align: center;"><?php if ($m['mensualidad_fechapago']=='') { echo ("NO PAGADO");
+                        }else{ echo $fecha_format = date('d/m/Y', strtotime($m['mensualidad_fechapago'])); } ?> <?php echo $m['mensualidad_horapago']; ?>
+                        </td>
+                        <td><?php echo $m['mensualidad_glosa']; ?>
+                        </td>
+                        <td><?php echo $m['mensualidad_nombre']; ?>
+                            <?php echo $m['mensualidad_ci']; ?>
+                        </td>		
                     </tr>
                     <?php } ?>
                      <tr>
