@@ -373,9 +373,11 @@ function generarexcel_movdiario(){
         var lamoneda_id = document.getElementById('lamoneda_id').value;
         var lamoneda = JSON.parse(document.getElementById('lamoneda').value);*/
         var registros =  JSON.parse(resventas);
+        var detalles =  JSON.parse(respuesta);
         var showLabel = true;
-        //var reportitle = moment(Date.now()).format("DD/MM/YYYY H_m_s");
+        var reportitle = moment(Date.now()).format("DD/MM/YYYY H_m_s");
         var tam = registros.length;
+        var det = detalles.length;
         //var otramoneda_nombre = "";
         //var total_otram = Number(0);
         html = "";
@@ -404,30 +406,80 @@ function generarexcel_movdiario(){
                         //append Label row with line break
                         CSV += row + '\r\n';
                     }
-                    
+                    var tituloingreso =1;
+                    var tituloegreso  =1;
+                    var titulobanca   =1;
                     //1st loop is to extract each row
                     for (var i = 0; i < tam; i++) {
                         var row = "";
-                        //2nd loop will extract each column and convert it in string comma-seprated
-                        //var utilidad = Number(Number(registros[i]["detalleven_total"])-(Number(registros[i]["detalleven_costo"])*Number(registros[i]["detalleven_cantidad"])));
-                        //utilidades += Number(utilidad);
-                            row += (i+1)+',';
-                            row += moment(registros[i]['']).format("DD/MM/YYYY")+',';
-                            row += '"' +registros[i]["cliente_nombre"]+ '",';
-                            row += '"' +numberFormat(Number(registros[i]["totalventas"]).toFixed(2))+ '",';
-                            if(lamoneda_id == 1){
-                                total_otram = Number(registros[i]["totalventas"])/Number(registros[i]["tipo_cambio"])
-                                //total_otramoneda += total_otram;
-                            }else{
-                                total_otram = Number(registros[i]["totalventas"])*Number(registros[i]["tipo_cambio"])
-                                //total_otramoneda += total_otram;
+                        
+                        if(registros[i]['tipo'] == 3){ //Egresos
+                            if(tituloegreso == 1){
+                                row += '"Egresos",';
+                                row = row.slice(0, - 1);
+                                row += '\r\n';
+                                tituloegreso = 0;
                             }
-                            row += '"' +numberFormat(Number(total_otram).toFixed(2))+ '",';
-                            if(tipousuario_id == 1){
-                                row += '"' +numberFormat(Number(Number(registros[i]["totalcosto"])).toFixed(2))+ '",';
-                                row += '"' +numberFormat(Number(Number(registros[i].totalventas)-Number(registros[i].totalcosto)).toFixed(2))+ '",';
+                            row += (i+1)+',';
+                            row += moment(registros[i]['fecha']).format("DD/MM/YYYY")+',';
+                            row += '"' +registros[i]["recibo"]+ '",';
+                            row += '"' +registros[i]["esfactura"]+ '",';
+                            row += '"' +registros[i]["detalle"]+ '",';
+                            row += '"'+'",';
+                            row += '"' +numberFormat(Number(registros[i]["egreso"]).toFixed(2))+ '",';
+                            row += '"'+'",';
+                        }else if(registros[i]['tipo'] == 2){ // banca
+                            if(titulobanca == 1){
+                                row += '"Banca",';
+                                row = row.slice(0, - 1);
+                                row += '\r\n';
+                                titulobanca = 0;
+                            }
+                            row += (i+1)+',';
+                            row += moment(registros[i]['fecha']).format("DD/MM/YYYY")+',';
+                            row += '"' +registros[i]["recibo"]+ '",';
+                            if(registros[i]["estado_id"] == 1){
+                                row += '"' +registros[i]["esfactura"]+ '",';
+                            }else{
+                                row += '"-",';
+                            }
+                            row += '"' +registros[i]["detalle"];
+                            for(var j = 0; j < det; j++){
+                                if(detalles[j]['venta_id'] == registros[i]["laventa_id"]){
+                                    row += ','+detalles[j]['producto_nombre']+' '+detalles[j]['detalleven_total'];
+                                }
+                            }
+                            row += '",';
+                            row += '"'+'",';
+                            row += '"'+'",';
+                            row += '"' +numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+ '",';
+                        }else if(registros[i]["tipo"] == 1){ //Ingresos
+                            if(tituloingreso == 1){
+                                row += '"INGRESOS",';
+                                //row = row.slice(0, - 1);
+                                row += '\r\n';
+                                tituloingreso = 0;
+                            }
+                            row += (i+1)+',';
+                            row += moment(registros[i]['fecha']).format("DD/MM/YYYY")+',';
+                            row += '"' +registros[i]["recibo"]+ '",';
+                            if(registros[i]["estado_id"] == 1){
+                                row += '"' +registros[i]["esfactura"]+ '",';
+                            }else{
+                                row += '"-",';
+                            }
+                            row += '"' +registros[i]["detalle"];
+                            for(var j = 0; j < det; j++){
+                                if(detalles[j]['venta_id'] == registros[i]["laventa_id"]){
+                                    row += ','+detalles[j]['producto_nombre']+' '+detalles[j]['detalleven_total'];
+                                }
+                            }
+                            row += '",';
+                            row += '"' +numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+ '",';
+                            row += '"'+'",';
+                            row += '"'+'",';
                         }
-                            
+                        
                         row.slice(0, row.length - 1);
 
                         //add a line break after each row
@@ -440,7 +492,7 @@ function generarexcel_movdiario(){
                     }
                     
                     //Generate a file name
-                    var fileName = "Ventacategoria_";
+                    var fileName = "Reporte_";
                     //this will remove the blank-spaces from the title and replace it with an underscore
                     fileName += reportitle.replace(/ /g,"_");   
 
