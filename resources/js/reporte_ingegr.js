@@ -380,6 +380,9 @@ function generarexcel_movdiario(){
         var det = detalles.length;
         //var otramoneda_nombre = "";
         //var total_otram = Number(0);
+        var totalingreso = 0;
+        var totalegreso = 0;
+        var totalbanca = 0;
         html = "";
                 //if (opcion==1){
                   /* **************INICIO Generar Excel JavaScript************** */
@@ -414,6 +417,7 @@ function generarexcel_movdiario(){
                         var row = "";
                         
                         if(registros[i]['tipo'] == 3){ //Egresos
+                            totalegreso   += parseFloat(registros[i]['egreso']);
                             if(tituloegreso == 1){
                                 row += '"Egresos",';
                                 row = row.slice(0, - 1);
@@ -429,6 +433,7 @@ function generarexcel_movdiario(){
                             row += '"' +numberFormat(Number(registros[i]["egreso"]).toFixed(2))+ '",';
                             row += '"'+'",';
                         }else if(registros[i]['tipo'] == 2){ // banca
+                            totalbanca  += parseFloat(registros[i]['ingreso']);
                             if(titulobanca == 1){
                                 row += '"Banca",';
                                 row = row.slice(0, - 1);
@@ -454,6 +459,7 @@ function generarexcel_movdiario(){
                             row += '"'+'",';
                             row += '"' +numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+ '",';
                         }else if(registros[i]["tipo"] == 1){ //Ingresos
+                            totalingreso  += parseFloat(registros[i]['ingreso']);
                             if(tituloingreso == 1){
                                 row += '"INGRESOS",';
                                 //row = row.slice(0, - 1);
@@ -485,7 +491,46 @@ function generarexcel_movdiario(){
                         //add a line break after each row
                         CSV += row + '\r\n';
                     }
-                    
+                    row += '\r\n';
+                    row += '\r\n';
+                    row += '"",';
+                    row += '"",';
+                    row += '"",';
+                    row += '"TOTAL(INGRESOS)",';
+                    row += '"",';
+                    row += '"'+numberFormat(Number(totalingreso).toFixed(2))+'",';
+                    row += '"",';
+                    row += '"",';
+                    row += '\r\n';
+                    row += '"",';
+                    row += '"",';
+                    row += '"",';
+                    row += '"TOTAL(EGRESOS)",';
+                    row += '"",';
+                    row += '"",';
+                    row += '"'+numberFormat(Number(totalegreso).toFixed(2))+'",';
+                    row += '"",';
+                    row += '\r\n';
+                    row += '"",';
+                    row += '"",';
+                    row += '"",';
+                    row += '"TOTAL(BANCA)",';
+                    row += '"",';
+                    row += '"",';
+                    row += '"",';
+                    row += '"'+numberFormat(Number(totalbanca).toFixed(2))+'",';
+                    row += '\r\n';
+                    row += '\r\n';
+                    row += '"",';
+                    row += '"",';
+                    row += '"",';
+                    row += '"SALD OEFECTIVO EN CAJA",';
+                    row += '"",';
+                    row += '"",';
+                    row += '"'+numberFormat(Number((totalingreso)-totalegreso).toFixed(2))+'",';
+                    row += '"",';
+                    row += '\r\n';
+                    CSV += row + '\r\n';
                     if (CSV == '') {
                         alert("Invalid data");
                         return;
