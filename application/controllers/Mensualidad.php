@@ -48,6 +48,8 @@ class Mensualidad extends CI_Controller{
     {
         if($this->acceso(34)){
             $mens_pendientes = $this->Mensualidad_model->get_pendientes($kardexeco_id);
+            $parametro_id = 1;
+            $esteparametro = $this->Parametro_model->get_parametro($parametro_id);
             if (isset($mens_pendientes)) {
                 foreach ($mens_pendientes as $mens) {
                 $hoy = new DateTime('NOW');
@@ -55,8 +57,6 @@ class Mensualidad extends CI_Controller{
                 
                 
                     if ($hoy>$fechalimite) {
-                        $parametro_id = 1;
-                        $esteparametro = $this->Parametro_model->get_parametro($parametro_id);
                         $diff = $hoy->diff($fechalimite);
                         $dias =  $diff->days;
                         $multa = $dias*$esteparametro['parametro_multadia'];  //esto hay que parametrizar
@@ -65,7 +65,7 @@ class Mensualidad extends CI_Controller{
                     }
                 }
             }
-
+            $data["parametro_formaimagen"] = $esteparametro["parametro_formaimagen"];
             $data['mensualidad'] = $this->Mensualidad_model->kardex_mensualidad($kardexeco_id);
             $data['kardex_economico'] = $this->Kardex_economico_model->get_datos_kardex($kardexeco_id);
             $data['dosificacion'] = $this->Dosificacion_model->get_dosificacion_activa();

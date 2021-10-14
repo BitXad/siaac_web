@@ -26,22 +26,24 @@ function cerrar() {
         <div class="box">
                 <h3 class="box-title" style="font-family: Arial;"><center><b>KARDEX ECONOMICO</b></center> </h3>
             <div class="box-header">
-                
                 <div class="col-md-12 ">
-<!--                    
-                    <div class="panel col-md-2" style="padding:0;"> 
+                    <div class="panel col-md-1" style="padding:0; margin: 0px"> 
                         <center>
                             <?php
                             if($kardex_economico[0]["estudiante_id"] >0){
-                                $direcimagen = base_url("resources/images/estudiantes/").$kardex_economico[0]["estudiante_foto"];
+                                if($kardex_economico[0]["estudiante_foto"] != "" && $kardex_economico[0]["estudiante_foto"] != null){
+                                    $lafoto = $kardex_economico[0]["estudiante_foto"];
+                                }else{
+                                    $lafoto = "default.jpg";
+                                }
+                                $direcimagen = base_url("resources/images/estudiantes/").$lafoto;
                             }else{
                                 $direcimagen ="";
                             }
                             ?>
-                        <img src="<?php echo $direcimagen; ?>" width="70" height="70" class="img-bordered img-circle">                                
+                        <img src="<?php echo $direcimagen; ?>" width="70" height="70" class="img-bordered img-<?php echo $parametro_formaimagen; ?>">                                
                         </center>
-                    </div>-->
-
+                    </div>
                     <?php $estilo = "style='font-family: Arial; font-size: 8pt;' "; ?>    
                     
                     <div class="col-md-4" <?php echo $estilo; ?>>
