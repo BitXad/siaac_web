@@ -491,7 +491,7 @@ function generarexcel_movdiario(){
                         //add a line break after each row
                         CSV += row + '\r\n';
                     }
-                    row += '\r\n';
+                    row = '\r\n';
                     row += '\r\n';
                     row += '"",';
                     row += '"",';
