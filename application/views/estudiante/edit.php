@@ -108,7 +108,7 @@
 					<div class="col-md-6">
 						<label for="estudiante_extci" class="control-label">Extension</label>
 						<div class="form-group">
-							<select name="estudiante_extci" class="form-control"  value="<?php echo $this->input->post('estudiante_extci'); ?>" id="estudiante_extci" required>
+							<select name="estudiante_extci" class="form-control"  value="<?php echo $this->input->post('estudiante_extci'); ?>" id="estudiante_extci">
 							  <option value="">- EXTENSION -</option>
 							  <option value="CB" <?php if($estudiante['estudiante_extci']=='CB'){ ?> selected <?php } ?>>CB</option>
 							  <option value="LP" <?php if($estudiante['estudiante_extci']=='LP'){ ?> selected <?php } ?>>LP</option>

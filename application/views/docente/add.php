@@ -104,7 +104,7 @@
 					<div class="col-md-2">
 						<label for="docente_extci" class="control-label">Extension</label>
 						<div class="form-group">
-							<select name="docente_extci" class="form-control"  value="<?php echo $this->input->post('docente_extci'); ?>" id="docente_extci" required>
+							<select name="docente_extci" class="form-control"  value="<?php echo $this->input->post('docente_extci'); ?>" id="docente_extci" >
 							  <option value="">- EXTENSION -</option>
 							  <option value="CB">CB</option>
 							  <option value="LP">LP</option>

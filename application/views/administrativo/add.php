@@ -97,7 +97,7 @@
 					<div class="col-md-2">
 						<label for="administrativo_extci" class="control-label">Extension</label>
 						<div class="form-group">
-								<select name="administrativo_extci" class="form-control"  value="<?php echo $this->input->post('administrativo_extci'); ?>" id="administrativo_extci" required>
+								<select name="administrativo_extci" class="form-control"  value="<?php echo $this->input->post('administrativo_extci'); ?>" id="administrativo_extci" >
 							  <option value="">- EXTENSION -</option>
 							  <option value="CB">CB</option>
 							  <option value="LP">LP</option>
