@@ -69,8 +69,8 @@ function busquedainscripcion(fecha_desde, fecha_hasta, usuario, filtro){
                     html = "";
                     for (var i = 0; i < n ; i++){
                       totalmatricula   += parseFloat(registros[i]['kardexeco_matriculapagada']);
-                      totalmensualidad += parseFloat(registros[i]['kardexeco_mensualidadpagada']);
-                      montototal       += Number(Number(registros[i]["kardexeco_matriculapagada"])+Number(registros[i]["kardexeco_mensualidadpagada"]));
+                      totalmensualidad += parseFloat(registros[i]['kardexeco_mensualidadpagada'])*parseFloat(registros[i]['kardexeco_mensualidad']);
+                      montototal       += Number(Number(registros[i]["kardexeco_matriculapagada"])+Number(registros[i]["kardexeco_mensualidadpagada"]*registros[i]["kardexeco_mensualidad"]));
                      
                         html += "<tr>";
                       
@@ -82,8 +82,8 @@ function busquedainscripcion(fecha_desde, fecha_hasta, usuario, filtro){
                         html += "<td style='padding-top: 0px; padding-bottom: 0px'>00"+registros[i]["kardexeco_id"]+"</td>";
                         html += "<td style='padding-top: 0px; padding-bottom: 0px'>"+moment(registros[i]["inscripcion_fecha"]).format("DD/MM/YYYY")+"</td>";
                         html += "<td style='padding-top: 0px; padding-bottom: 0px' class='text-right'>"+numberFormat(Number(registros[i]["kardexeco_matriculapagada"]).toFixed(2))+"</td>";
-                        html += "<td style='padding-top: 0px; padding-bottom: 0px' class='text-right'>"+numberFormat(Number(registros[i]["kardexeco_mensualidadpagada"]).toFixed(2))+"</td>";
-                        html += "<td style='padding-top: 0px; padding-bottom: 0px' class='text-right'>"+numberFormat(Number(Number(registros[i]["kardexeco_matriculapagada"])+Number(registros[i]["kardexeco_mensualidadpagada"])).toFixed(2))+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px' class='text-right'>"+numberFormat(Number(registros[i]["kardexeco_mensualidadpagada"]*registros[i]["kardexeco_mensualidad"]).toFixed(2))+"</td>";
+                        html += "<td style='padding-top: 0px; padding-bottom: 0px' class='text-right'>"+numberFormat(Number(Number(registros[i]["kardexeco_matriculapagada"])+Number(registros[i]["kardexeco_mensualidadpagada"]*registros[i]["kardexeco_mensualidad"])).toFixed(2))+"</td>";
                         
                         //html += "<td id='alinearder'>"+numberFormat(Number(registros[i]["ingreso"]).toFixed(2))+"</td>";
                          html += "</tr>";
